@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'redux';
 
 
-export default function filtros (props){
+export default function Filtros (props){
   return(
     <div>
         <label>Seleccione una marca</label>
@@ -14,3 +14,4 @@ export default function filtros (props){
     </div>
   )
 }
+

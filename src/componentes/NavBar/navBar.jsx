@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-export default function navBar (props) {
+export default function NavBar (props) {
     return(
         <div>
         <h1>RunnersParadise</h1>
