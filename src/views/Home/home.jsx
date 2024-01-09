@@ -1,17 +1,19 @@
 import React from "react";
+import Cards from "../../componentes/Cards/Cards";
+import NavBar from "../../componentes/NavBar/navBar";
 
 const Home = () => {
   // Contenido del componente Detail
 
   return (
     <div>
-      {/* Contenido del componente Detail */}
+      <NavBar />
+      <Cards />
     </div>
   );
 };
 
-export default Home; 
-
+export default Home;
 
 //dsadsadsadsadsadsadsadsdsadad
 

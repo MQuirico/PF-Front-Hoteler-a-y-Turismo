@@ -1,9 +1,9 @@
 import React from "react";
 import Card from "../Card/card";
-import image3 from "/images/image3.jpg";
 import image4 from "/images/image4.jpg";
 import image5 from "/images/image5.png";
 import image1 from "/images/image1.jpg";
+import image2 from "/images/image2.jpg";
 
 const Cards = () => {
   let zapatillas = [
@@ -12,7 +12,7 @@ const Cards = () => {
       modelo: "Zapatilla A",
       talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
       colores: ["Negro", "Blanco", "Rojo"],
-      imagen: image3,
+      imagen: image2,
       marca: "Nike",
       genero: "Hombre",
       precio: "200",
@@ -50,12 +50,11 @@ const Cards = () => {
   ];
 
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center align-items-center">
       <div className="row">
         {zapatillas.map((zapatilla) => (
-          <div className="col-md-3 mb-3 ml-8 mr-8">
+          <div key={zapatilla.id} className="col-md-3 mb-3 ml-8 mr-8 ">
             <Card
-              key={zapatilla.id}
               id={zapatilla.id}
               image={zapatilla.imagen}
               model={zapatilla.modelo}
