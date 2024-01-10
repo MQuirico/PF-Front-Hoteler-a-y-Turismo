@@ -6,25 +6,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function NavBar(props) {
   return (
-<<<<<<< HEAD
-    <div>
-      <Link to='/'>
-      <h1>RunnersParadise</h1>
-      </Link>
-
-      <Link to='/home'>
-      <h3>Home</h3>
-      </Link>
-
-      <Link to=''>
-      <h3>¿Quiénes somos?</h3>
-      </Link>
-
-      <Link to='/register'>
-      <h3>Registrarse/Iniciar sesión</h3>
-      </Link>
-    </div>
-=======
     <nav className="navbar navbar-expand-lg bg-primary data-bs-theme=dark">
       <div className="container-fluid">
         <h1
@@ -92,6 +73,5 @@ export default function NavBar(props) {
         </div>
       </div>
     </nav>
->>>>>>> 2dbd04de19dad277276c2977b36ac9d49a1e417e
   );
 }

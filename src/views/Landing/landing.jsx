@@ -1,11 +1,17 @@
 import React from "react";
+import {Link} from "react-router-dom";
+
+
 
 const Landing = () => {
-  // Contenido del componente Detail
 
   return (
     <div>
-      {/* Contenido del componente Detail */}
+      <h1>RUNNERS PARADISE</h1>
+      <h3>Compre con nosotros</h3>
+      <Link to='/home'>
+      <button>Ingresar</button>
+      </Link>
     </div>
   );
 };
