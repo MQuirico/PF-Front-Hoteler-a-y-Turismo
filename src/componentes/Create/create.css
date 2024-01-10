@@ -7,33 +7,32 @@
 
 .form-and-preview-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-container {
-  max-width: 400px;
-  width: 50%;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 20px;
-  border: 1px solid rgba(21, 21, 22, 0.8);
-  border-radius: 5px;
-  margin-left: 100px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
+.form-container,
 .preview-container {
   max-width: 400px;
+  width: 50%;
+  box-sizing: border-box;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(19, 18, 18, 0.2);
-  border-left: 10px;
+  border: 1px solid rgba(21, 21, 22, 0.8);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.preview-container {
+  border-left: 0; /* Eliminamos el borde izquierdo para que solo esté en el formulario */
 }
 
 .form-label {
   margin-top: 10px;
   font-weight: bold;
   color: rgb(20, 18, 18);
-  border-radius : 10px;
+  border-radius: 10px;
 }
 
 .form-input {
@@ -59,8 +58,6 @@
   margin-top: 10px;
 }
 
-
-
 .submit-button {
   background-color: dodgerblue;
   color: white;
@@ -77,16 +74,16 @@
 }
 
 .image-preview {
-  width: 365px;
+  width: auto;
   height: 200px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(123, 118, 136, 0.8);
-  border-radius: 0px;
-  margin-top: 16px;
+  border-radius: 10px;
   color: rgb(21, 18, 18);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: -10px;
+  margin-bottom: 25px;
   margin-top: 30px;
 }
 
@@ -97,54 +94,90 @@
 }
 
 .tipos {
-  border: 3px solid rgba(23, 20, 20, 0.065);
-  border-radius: 5px;
+  border: 1px solid rgba(23, 20, 20, 0.501);
+  text-align: center;
+  border-radius: 10px;
   max-width: 400px;
-  max-height: 200px;
-  margin-top: -5px;
-  margin-bottom: -10px;
+  max-height: 210px;
+  margin-top: 32px;
+  margin-bottom: 30 px;
   color: rgb(7, 6, 6);
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: -2px;
+  margin-right: -2px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-
-.preview-container {
-  box-sizing: border-box;
-  border: 2px solid rgb(181, 181, 181);
-  border-radius: 5px;
-  position: relative;
-  border-left: 100px;
-}
-
 
 .titulo {
-  border: 3px solid rgba(255, 255, 255, 0.544);
+  border: 3px solid rgba(0, 123, 255, 0.544);
+  border-radius: 5px;
   background-color: rgba(0, 123, 255, 0.531);
   color: rgb(14, 13, 13);
+  text-align: center;
   border-left: 20px;
   border-top: 10px;
   border-right: 20px;
-  border-bottom: 10px;
+  border-bottom: 5px;
 }
 
 .nombre {
-  width: 370px;
+  background-color: rgba(0, 123, 255, 0.531);
+  min-width: 335px; /* Ancho mínimo deseado */
+  width: 100%; /* Permite crecer automáticamente */
   height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.605);
+  text-align: center;
+  border: 1px solid rgba(0, 123, 255, 0.531);
   border-radius: 5px;
   overflow: hidden;
-  position: relative;
+  position: center; /* Esto puede no ser necesario, comprueba si deseas centrarlo */
   color: rgb(15, 14, 14);
-  margin-top: 5px;
+  margin-top: -10px;
   margin-bottom: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .nombre h3 {
-  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 1px;
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
+.selected-sizes-container {
+  display: flex;
+  justify-content: center;
+}
+
+.selected-size {
+  background-color: rgba(0, 122, 204, 0.2);
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  margin-right: 2px;
+  margin-bottom: 8px;
+  margin-top: -8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.size-separator {
+  width: 5px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  margin-top: -15px;
+  margin-left: 45px;
+}
+
+.submit-button {
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.precio-preview {
+  margin-top: 20px;
+  color: green;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}

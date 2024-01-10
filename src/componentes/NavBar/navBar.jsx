@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./navBar.css";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaShopify } from "react-icons/fa";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -38,49 +37,29 @@ export default function NavBar(props) {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a
-                  className="nav-link active text-white"
-                  aria-current="page"
-                  href="#"
-                >
+                <Link to="/" className="nav-link active text-white" aria-current="page">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white" href="#">
+                <Link to="/about" className="nav-link text-white">
                   ¿Quiénes somos?
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <Link to="/create" className="nav-link text-white" href="#">
+                <Link to="/create" className="nav-link text-white">
                   Create
                 </Link>
               </li>
               <li className="nav-item dropdown">
-                <a
-                  className="nav-link text-white dropdown-toogle"
-                  href="#"
+                <Link
+                  className="nav-link text-white dropdown-toggle"
+                  to="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Regístrate
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="#">
-                        Inicia Sesión
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"></a>
-                    </li>
-                  </ul>
                   <IoPersonSharp
-                    className=""
                     style={{
                       fontSize: "24px",
                       marginLeft: "10px",
@@ -88,14 +67,25 @@ export default function NavBar(props) {
                     }}
                   />
                   <FaShopify
-                    className=""
                     style={{
                       fontSize: "24px",
                       marginLeft: "1rem",
                       marginRight: "3rem",
                     }}
                   />
-                </a>
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link to="/register" className="dropdown-item">
+                      Regístrate
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login" className="dropdown-item">
+                      Inicia Sesión
+                    </Link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>

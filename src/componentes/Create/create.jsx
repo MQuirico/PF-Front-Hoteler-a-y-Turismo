@@ -11,11 +11,11 @@ const ProductForm = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [input, setInput] = useState({
-    model: "",
+    name: "",
     brand: "",
-    size: "",
+    size: [],
     image: "",
-    color: "",
+    color: [],
     price: "",
   });
   const [imageUrl, setImageUrl] = useState(""); // Agregado estado para imageUrl
@@ -56,7 +56,7 @@ const ProductForm = () => {
         setMessage("Producto creado exitosamente.");
 
         setInput({
-          model: "",
+          name: "",
           brand: "",
           size: "",
           image: "",
@@ -75,20 +75,45 @@ const ProductForm = () => {
     }
   };
 
-  const availableBrands = ["nike", "adidas", "newbalance"]; // Hardcodeo de las marcas
+  const availableBrands = ["nike", "adidas", "newbalance"];
   const brandColors = {
     nike: ["green", "white", "black"],
     adidas: ["blue", "white", "grey"],
     newbalance: ["black", "white", "red"],
   };
-
+  
+  const colorOptions = [
+    { value: "all", label: "Todos" },
+    ...brandColors[input.brand]?.map((color) => ({
+      value: color,
+      label: color,
+    })) || []
+  ]
+  
   const handleBrandChange = (event) => {
     const selectedBrand = event.target.value;
-    setInput((prevInput) => ({ ...prevInput, brand: selectedBrand }));
+    setInput((prevInput) => ({
+      ...prevInput,
+      brand: selectedBrand,
+      color: [], // Restablecer los colores al cambiar la marca
+    }));
+  };
+  
+  const handleColorChange = (selectedOptions) => {
+    const selectedColors = selectedOptions.map((option) => option.value);
+    setInput((prevInput) => ({
+      ...prevInput,
+      color: selectedColors.includes("all")
+        ? brandColors[prevInput.brand] || []
+        : selectedColors.filter((color) =>
+            brandColors[prevInput.brand]?.includes(color)
+          ),
+    }));
   };
 
 
   const sizeOptions = [
+    { value: "all", label: "Todos" },
     { value: "7", label: "7" },
     { value: "7.5", label: "7.5" },
     { value: "8", label: "8" },
@@ -103,8 +128,29 @@ const ProductForm = () => {
   ];
 
   const handleSizeChange = (selectedOptions) => {
-    const selectedSizes = selectedOptions.map((option) => option.value);
-    setInput((prevInput) => ({ ...prevInput, size: selectedSizes }));
+    // Verificar si la opción "all" está seleccionada
+    const isAllSelected = selectedOptions.some((option) => option.value === "all");
+  
+    // Si "all" está seleccionada, establecer todos los tamaños
+    // de lo contrario, usar map para obtener solo los valores seleccionados
+    const selectedSizes = isAllSelected
+      ? sizeOptions.filter((option) => option.value !== "all").map((option) => option.value)
+      : selectedOptions.map((option) => option.value);
+  
+    setInput((prevInput) => ({
+      ...prevInput,
+      size: selectedSizes,
+    }));
+  };
+
+
+  const colorStyles = {
+    green: { backgroundColor: 'green', color: 'white' },
+    white: { backgroundColor: 'white', color: 'black' },
+    black: { backgroundColor: 'black', color: 'white' },
+    blue: { backgroundColor: 'blue', color: 'white' },
+    grey: { backgroundColor: 'grey', color: 'white' },
+    red: { backgroundColor: 'red', color: 'white' },
   };
 
   return (
@@ -120,128 +166,155 @@ const ProductForm = () => {
             onChange={(e) => handleChange(e)}
             className="form-input"
           />
-          <p className="error-message">{errors.model}</p>
+          <p className="error-message">{errors.name}</p>
+
+          <label className="form-label">Precio en USD$</label>
+          <input
+          type="number"
+          value={input.price}
+          name="price"
+          placeholder="Precio..."
+          onChange={(e) => {
+          // Validar y convertir a número
+          const value = parseFloat(e.target.value) || 0;
+          handleChange({ target: { name: "price", value } });
+        }}
+          min="1"
+          step="any" // Permite números decimales
+          className="form-input"/>
+
+          <p className="error-message">{errors.price}</p>
+          
+          <label className="form-label">Imagen</label>
+            <input
+              type="text"
+              value={input.image}
+              name="image"
+              placeholder="URL de la imagen..."
+              onChange={(e) => handleChange(e)}
+              className="form-input"
+            />
+
+
+            <p className="error-message">{errors.image}</p>
   
           <label className="form-label">Marca</label>
           <select
-            value={input.brand}
-            name="brand"
-            onChange={(e) => {
-              handleBrandChange(e);
-              handleChange(e);
-            }}
-            className="form-input"
+          value={input.brand}
+          name="brand"
+          onChange={(e) => {
+          handleBrandChange(e);
+          handleChange(e);
+          }}
+          className="form-input"
           >
-            <option value="" disabled>
-              Selecciona una marca
-            </option>
+          <option value="" disabled>Selecciona una marca</option>
             {availableBrands.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
+            <option key={brand} value={brand}>{brand}
+            </option>
+              ))} 
+            </select>
           <p className="error-message">{errors.brand}</p>
   
-          <label className="form-label">Tamaños</label>
+          <label className="form-label">Talles</label>
           <Select
-            isMulti
-            options={sizeOptions}
-            value={sizeOptions.filter((option) => input.size.includes(option.value))}
-            onChange={handleSizeChange}
-          />
+          value={input.size.map((size) => ({ value: size, label: size }))}
+           name="size"
+           onChange={(selectedOption) => handleSizeChange(selectedOption)}
+           isMulti
+           options={sizeOptions}
+            />
           <p className="error-message">{errors.size}</p>
 
 
-       <label className="form-label">Imagen</label>
-         <input
-           type="text"
-           value={input.image}
-           name="image"
-           placeholder="URL de la imagen..."
-           onChange={(e) => handleChange(e)}
-           className="form-input"
-         />
-         <p className="error-message">{errors.image}</p>
-
        <label className="form-label">Colores</label>
-         <select
-           value={input.color}
-           name="color"
-           onChange={(e) => handleChange(e)}
-           className="form-input"
-         >
-           <option value="" disabled>
-             Selecciona un color
-           </option>
-           {brandColors[input.brand] &&
-             brandColors[input.brand].map((color) => (
-               <option key={color} value={color}>
-                 {color}
-               </option>
-             ))}
-         </select>
-         <p className="error-message">{errors.color}</p>
+          <Select
+          value={input.color.map((color) => ({ value: color, label: color }))}
+          name="color"
+          onChange={handleColorChange}
+          isMulti
+          options={colorOptions}/>
 
-       <label className="form-label">Precio en USD$</label>
-         <input
-           type="text"
-           value={input.price}
-           name="price"
-           placeholder="Precio..."
-           onChange={(e) => handleChange(e)}
-           className="form-input"
-         />
-         <p className="error-message">{errors.price}</p>
+          <p className="error-message">{errors.color}</p>
+
+
+
   
+          <div className="button-container">
           <button type="submit" className="submit-button">
             Crear Producto
           </button>
+          <Link to="/home">
+            <button className="submit-button">Volver a Home</button>
+          </Link>
+        </div>
+      
+    
   
+
+
           {message && (
-            <div
-              className={
-                message.includes("éxito") ? "success-message" : "error-message"
-              }
-            >
-              {message}
+            <div className={ message.includes("éxito") ? "success-message" : "error-message"}>
+            {message}
             </div>
-          )}
-  
-          <div>
-            <Link to="/home">
-              <button className="submit-button">Volver a Home</button>
-            </Link>
-          </div>
+            )}
+
         </form>
   
         <div className="preview-container">
           <div className="nombre">
             <h3>{input.model ? input.model : "Nombre..."}</h3>
           </div>
+
+          
+          <h4 className="precio-preview"> {input.price ? `USD $${input.price}` : "Precio..."}</h4>
+          <p className="feactures-container"></p>
+
           <div className="image-preview">
             {imageUrl && (
               <img src={imageUrl} alt="Preview" className="preview-image" />
             )}
           </div>
-          <p className="feactures-container">
-            
-          </p>
+          <p className="feactures-container"></p>
+
           <div className="tipos">
-            <p className="titulo">Colores disponibles:</p>
-            <p>{brandColors[input.brand]?.join(", ")}</p>
-          </div>
-          <div className="tipos">
-            <p className="titulo"> Talles seleccionados</p>
-          {["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12"].map((size) => (
-            <span
-              key={size}
-              className={`size-item ${input.size.includes(size) ? 'selected' : ''}`}
-              onClick={() => handleSizeClick(size)}
-            >
-              {size}
+            <p className="titulo">Marca seleccionada</p>
+            <div className="selected-sizes-container">
+            <span className="selected-size">
+            {input.brand ? input.brand : "Marca"}
             </span>
-          ))}
+            </div>
+            </div>
+
+            <div className="tipos">
+            <p className="titulo">Colores seleccionados</p>
+            <div className="selected-sizes-container">
+
+            {input.color.map((selectedColor, index) => (
+            <span
+            key={selectedColor}
+            className="selected-size"
+            style={colorStyles[selectedColor]}>
+            {selectedColor}
+            {index < input.color.length - 1 && (
+            <span className="size-separator"></span>
+        )}
+      </span>
+    ))}
+  </div>
+
+  </div>
+          <div className="tipos">
+          <p className="titulo">Talles seleccionados</p>
+          <div className="selected-sizes-container">
+            {input.size.map((selectedSize, index) => (
+            <span key={selectedSize} className="selected-size">
+            {selectedSize}
+            {index < input.size.length - 1 && <span className="size-separator"></span>}
+            </span>
+    ))}
+  </div>
+
         </div>
         </div>
       </div>
@@ -250,3 +323,4 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
+
