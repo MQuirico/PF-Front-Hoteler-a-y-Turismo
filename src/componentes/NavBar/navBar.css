@@ -1,0 +1,13 @@
+
+.logo{
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+}
+  @font-face {
+    font-family: 'MiFuente';
+    src: url('../assets/fonts/Zantiqa4F.ttf') format('truetype');
+
+  }
+  
+  
