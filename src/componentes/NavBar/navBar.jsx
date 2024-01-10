@@ -12,9 +12,13 @@ export default function NavBar(props) {
       <h3>Home</h3>
       </Link>
 
-      <Link to=''></Link>
+      <Link to=''>
       <h3>¿Quiénes somos?</h3>
+      </Link>
+
+      <Link to='/register'>
       <h3>Registrarse/Iniciar sesión</h3>
+      </Link>
     </div>
   );
 }

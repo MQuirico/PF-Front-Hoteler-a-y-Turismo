@@ -5,6 +5,7 @@ import Detail from "./views/Detail/Detail";
 import Create from "./componentes/Create/Create";
 import Landing from "./views/Landing/landing";
 import LogIn from "./componentes/LogIn Form/LogIn";
+import Registro from "./componentes/Register/Register";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import "bootstrap/dist/css/bootstrap.css";
@@ -20,7 +21,7 @@ function App() {
             <Route exact path="/home/:id" component={Detail} />
             <Route exact path="/create" component={Create} />
             <Route exact path="/login" component={LogIn} />
-
+            <Route exact path='/register' component={Registro} />
           </Switch>
         </div>
       </Router>

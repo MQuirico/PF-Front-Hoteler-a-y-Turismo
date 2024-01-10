@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import NavBar from '../NavBar/navBar'
+import {Link} from 'react-router-dom'
 
 export default function LogIn (props) {
     const [userName, setUserName] = useState('')
@@ -39,6 +40,7 @@ export default function LogIn (props) {
             <input type='password' value={password} onChange={handChangePass} placeholder='Y aquí su contraseña...'></input>
             <button type="submit" disabled={!esVálido}>Iniciar Sesión</button>
         </form>
+        <p>¿No estás registrado aún?</p><Link to='/register'><p>Regístrate aquí</p></Link>
         </>
     )
 }
