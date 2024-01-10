@@ -6,7 +6,7 @@ import Create from "./componentes/Create/Create";
 import Landing from "./views/Landing/landing";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
