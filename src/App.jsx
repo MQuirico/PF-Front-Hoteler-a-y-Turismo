@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./views/Home/Home";
-import Detail from "./views/Detail/Detail";
-import Create from "./componentes/Create/Create";
+import Home from "./views/Home/home";
+import Detail from "./views/Detail/detail";
+import Create from "./componentes/Create/create";
 import Landing from "./views/Landing/landing";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";

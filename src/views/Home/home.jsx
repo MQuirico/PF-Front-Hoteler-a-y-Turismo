@@ -1,5 +1,5 @@
 import React from "react";
-import Cards from "../../componentes/Cards/Cards";
+import Cards from "../../componentes/Cards/cards";
 import NavBar from "../../componentes/NavBar/navBar";
 
 const Home = () => {
