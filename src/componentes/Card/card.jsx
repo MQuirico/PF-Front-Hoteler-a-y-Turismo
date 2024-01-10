@@ -13,9 +13,7 @@ const Card = ({ id, model, size, image, color, brand, gender, price }) => {
         </h5>
         <h5 className="card-text ">
           {price}${" "}
-          <a href="#" className="btn btn-primary">
-            + Info
-          </a>
+
         </h5>
       </div>
     </div>

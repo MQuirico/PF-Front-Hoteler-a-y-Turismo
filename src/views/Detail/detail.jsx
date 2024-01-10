@@ -48,7 +48,47 @@ const Detail = () => {
       id: 4,
       modelo: "Zapatilla D",
       talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+      colores: ["Naranja", "Blanco", "Negro"],
+      imagen: image1,
+      marca: "Nike",
+      genero: "Mujer",
+      precio: "300",
+    },
+    {
+      id: 5,
+      modelo: "Zapatilla A",
+      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+      colores: ["Negro", "Blanco", "Rojo"],
+      imagen: image2,
+      marca: "Nike",
+      genero: "Hombre",
+      precio: "200",
+    },
+    {
+      id: 6,
+      modelo: "Zapatilla B",
+      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+      colores: ["Azul", "Blanco", "Gris"],
+      imagen: image4,
+      marca: "Adidas",
+      genero: "Mujer",
+      precio: "250",
+    },
+    {
+      id: 7,
+      modelo: "Zapatilla C",
+      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
       colores: ["Verde", "Blanco", "Negro"],
+      imagen: image5,
+      marca: "Puma",
+      genero: "Unisex",
+      precio: "230",
+    },
+    {
+      id: 8,
+      modelo: "Zapatilla D",
+      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+      colores: ["Naranja", "Blanco", "Negro"],
       imagen: image1,
       marca: "Nike",
       genero: "Mujer",
@@ -69,15 +109,15 @@ const Detail = () => {
     Verde: { backgroundColor: 'green', color: 'white' },
     Gris: { backgroundColor: 'grey', color: 'white' },
     Rojo: { backgroundColor: 'red', color: 'white' },
+    Naranja: { backgroundColor: 'orange', color: 'white' },
   };
 
-  const [selectedColors, setSelectedColors] = useState(zapatilla.colores);
+  const [selectedColors, setSelectedColors] = useState(zapatilla.colores || []);
 
   // Actualizar el fondo del span cuando cambie el color seleccionado
   useEffect(() => {
-    setSelectedColors(zapatilla.colores);
+    setSelectedColors(zapatilla.colores || []);
   }, [zapatilla.colores]);
-
 
 
 
@@ -115,21 +155,21 @@ const Detail = () => {
         <div className="tipos1">
           <p className="titulo">Colores</p>
           <div className="selected-sizes-container">
-            {selectedColors.map((selectedColor, index) => (
-              <span
-                key={index}
-                className="selected-size"
-                style={{
-                  backgroundColor: colorStyles[selectedColor].backgroundColor,
-                  
-                }}
-              >
-                {selectedColor}
-                {index < selectedColors.length - 1 && (
-                  <span className="size-separator"></span>
-                )}
-              </span>
-            ))}
+          {selectedColors.map((selectedColor, index) => (
+  <span
+    key={index}
+    className="selected-size"
+    style={{
+      backgroundColor: colorStyles[selectedColor]?.backgroundColor || 'black',
+      color: colorStyles[selectedColor]?.color || 'white', // Ajuste aquí
+    }}
+  >
+    {selectedColor}
+    {index < selectedColors.length - 1 && (
+      <span className="size-separator"></span>
+    )}
+  </span>
+))}
           
         
 </div>
