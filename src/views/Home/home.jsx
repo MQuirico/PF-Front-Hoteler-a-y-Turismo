@@ -1,6 +1,5 @@
 import React from "react";
 import Cards from "../../componentes/Cards/cards";
-import NavBar from "../../componentes/NavBar/navBar";
 import SearchBar from "../../componentes/SearchBar/SearchBar";
 
 const Home = () => {
@@ -8,7 +7,6 @@ const Home = () => {
 
   return (
     <div>
-      <NavBar />
       <SearchBar />
       <Cards />
     </div>

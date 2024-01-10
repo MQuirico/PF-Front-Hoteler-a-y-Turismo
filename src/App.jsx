@@ -9,12 +9,21 @@ import Abaut from "./componentes/Abaut/abaut";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import "bootstrap/dist/css/bootstrap.min.css";
+import NavBar from "./componentes/NavBar/navBar";
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <div className="App">
+          <Route
+            render={(props) => {
+              if (props.location.pathname !== "/") {
+                return <NavBar />;
+              }
+              return null;
+            }}
+          />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/home" component={Home} />
