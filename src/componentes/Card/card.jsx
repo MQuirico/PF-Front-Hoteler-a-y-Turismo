@@ -21,3 +21,6 @@ const Card = ({ id, model, size, image, color, brand, gender, price }) => {
 };
 
 export default Card;
+
+
+//ss
