@@ -5,6 +5,7 @@ import Detail from "./views/Detail/detail";
 import Create from "./componentes/Create/create";
 import Landing from "./views/Landing/landing";
 import LogIn from "./componentes/LogIn Form/LogIn";
+import Abaut from "./componentes/Abaut/abaut";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,10 +18,10 @@ function App() {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/home/:id" component={Detail} />
+            <Route exact path="/detail/:id" component={Detail} />
             <Route exact path="/create" component={Create} />
             <Route exact path="/login" component={LogIn} />
-
+            <Route exact path="/abaut" component={Abaut} />
           </Switch>
         </div>
       </Router>

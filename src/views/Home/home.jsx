@@ -7,7 +7,9 @@ const Home = () => {
 
   return (
     <div>
-      <NavBar />
+      <div>
+    <NavBar />
+      </div>
       <Cards />
     </div>
   );
@@ -15,7 +17,4 @@ const Home = () => {
 
 export default Home;
 
-//dsadsadsadsadsadsadsadsdsadad
 
-//holaasdasdasdasdsadada
-//sdad
