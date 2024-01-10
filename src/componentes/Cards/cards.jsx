@@ -1,10 +1,10 @@
 import React from "react";
-import Card from "../Card/Card";
-import "./cards.css";
+import Card from "../Card/card";
 import image4 from "/images/image4.jpg";
 import image5 from "/images/image5.png";
 import image1 from "/images/image1.jpg";
 import image2 from "/images/image2.jpg";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Cards = () => {
   let zapatillas = [
@@ -94,17 +94,19 @@ const Cards = () => {
     <div className="container d-flex justify-content-center align-items-center bg-">
       <div className="row">
         {zapatillas.map((zapatilla) => (
-          <div key={zapatilla.id} className="col-md-3 mb-3 ml-8 mr-8 ">
-            <Card
-              id={zapatilla.id}
-              image={zapatilla.imagen}
-              model={zapatilla.modelo}
-              color={zapatilla.colores[0]}
-              brand={zapatilla.marca}
-              gender={zapatilla.genero}
-              size={zapatilla.talla[0]}
-              price={zapatilla.precio}
-            />
+          <div key={zapatilla.id} className="col-md-3 mb-3 ml-8 mr-8">
+            <Link to={`/detail/${zapatilla.id}`} className="card-link">
+              <Card
+                id={zapatilla.id}
+                image={zapatilla.imagen}
+                model={zapatilla.modelo}
+                color={zapatilla.colores[0]}
+                brand={zapatilla.marca}
+                gender={zapatilla.genero}
+                size={zapatilla.talla[0]}
+                price={zapatilla.precio}
+              />
+            </Link>
           </div>
         ))}
       </div>
