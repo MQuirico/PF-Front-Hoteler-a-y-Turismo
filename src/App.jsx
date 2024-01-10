@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./views/Home/Home";
-import Detail from "./views/Detail/Detail";
-import Create from "./componentes/Create/Create";
+import Home from "./views/Home/home";
+import Detail from "./views/Detail/detail";
+import Create from "./componentes/Create/create";
 import Landing from "./views/Landing/landing";
+import LogIn from "./componentes/LogIn Form/LogIn";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,6 +19,8 @@ function App() {
             <Route exact path="/home" component={Home} />
             <Route exact path="/home/:id" component={Detail} />
             <Route exact path="/create" component={Create} />
+            <Route exact path="/login" component={LogIn} />
+
           </Switch>
         </div>
       </Router>
