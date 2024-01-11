@@ -1,17 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./views/Home/home";
-import Detail from "./views/Detail/detail";
-import Create from "./componentes/Create/create";
-import Landing from "./views/Landing/landing";
-import LogIn from "./componentes/LogIn Form/LogIn";
-import Abaut from "./componentes/Abaut/abaut";
-import { Provider } from "react-redux";
-import store from "./redux/store/store";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 import NavBar from "./componentes/NavBar/navBar";
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <Provider store={store}>
       <Router>
@@ -38,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
