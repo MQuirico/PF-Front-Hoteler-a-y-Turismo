@@ -8,6 +8,7 @@ import Detail from "./views/Detail/detail";
 import Create from "./componentes/Create/create";
 import LogIn from "./componentes/LogInForm/LogIn";
 import About from "./componentes/About/about";
+import Registro from "./componentes/Register/Register";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/create" component={Create} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/about" component={About} />
+          <Route exact path="/register" component={Registro} />
         </Switch>
       </div>
     </Router>
