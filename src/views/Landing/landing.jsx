@@ -15,5 +15,5 @@ const Landing = () => {
     </div>
   );
 };
-//UN CAMBIO SIMPLE EN CUALQUIER LADO
+//UN CAMBIO SIMPLE EN CUALQUIER LADO HECHO
 export default Landing; 
