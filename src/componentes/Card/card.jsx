@@ -11,16 +11,12 @@ const Card = ({ id, model, size, image, color, brand, gender, price }) => {
         <h5 className="card-text">
           Talla: {size} {gender}
         </h5>
-        <h5 className="card-text ">
-          {price}${" "}
-
-        </h5>
+        <h5 className="card-text ">{price} $ </h5>
       </div>
     </div>
   );
 };
 
 export default Card;
-
 
 //ss

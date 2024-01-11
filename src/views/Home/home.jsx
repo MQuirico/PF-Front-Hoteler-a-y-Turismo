@@ -1,6 +1,6 @@
 import React from "react";
 import Cards from "../../componentes/Cards/cards";
-import SearchBar from "../../componentes/SearchBar/SearchBar";
+import SearchBar from "../../componentes/SearchBar/searchBar";
 
 const Home = () => {
   // Contenido del componente Detail

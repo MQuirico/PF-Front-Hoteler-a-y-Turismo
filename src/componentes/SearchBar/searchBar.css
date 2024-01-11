@@ -20,7 +20,10 @@
     align-items: center;
     
 }
-
+.search-icon{
+    margin-left: 9.5rem;
+    font-size: 1.5rem;
+}
 .search-input{
     border: none;
     color: none;
