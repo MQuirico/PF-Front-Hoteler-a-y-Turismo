@@ -1,0 +1,1 @@
+export const GET_ALL_SNEAKERS = "GET_ALL_SNEAKERS";

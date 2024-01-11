@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { ImSearch } from "react-icons/im";
 import "./searchBar.css";
 
 const SearchBar = () => {
+  const [search, setSearch] = useState("");
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+  console.log(search);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div className="main-container">
       <a href="#">Mujer</a>
@@ -10,14 +18,17 @@ const SearchBar = () => {
       <a href="#">Unisex</a>
 
       <div className="search-bar-container">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Busca aquí..."
-        />
-        <span className="search-icon">
-          <ImSearch />
-        </span>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            onChange={handleChange}
+            className="search-input"
+            placeholder="Busca aquí..."
+          />
+          <span className="search-icon">
+            <ImSearch />
+          </span>
+        </form>
       </div>
     </div>
   );

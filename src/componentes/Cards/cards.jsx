@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../Card/card";
 import image4 from "/images/image4.jpg";
 import image5 from "/images/image5.png";
 import image1 from "/images/image1.jpg";
 import image2 from "/images/image2.jpg";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getSneakers } from "../../redux/actions/getAllSneakers";
 
 const Cards = () => {
   let zapatillas = [
@@ -89,6 +91,12 @@ const Cards = () => {
       precio: "300",
     },
   ];
+  // Comentado hasta que obtenga la ruta para la petición.
+  // const dispatch = useDispatch();
+  // const sneakers = useSelector((state) => state.sneakers);
+  // useEffect(() => {
+  //   dispatch(getSneakers());
+  // }, [dispatch]);
 
   return (
     <div className="container d-flex justify-content-center align-items-center bg-">
