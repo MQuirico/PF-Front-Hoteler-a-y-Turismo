@@ -1,0 +1,55 @@
+.land-container{
+    background-image: url("https://cdn.discordapp.com/attachments/1185007464626786437/1195326307651829770/land.png?ex=65b3955f&is=65a1205f&hm=b0c1bb0d7adf39650402cd256314b2a928289d0917bf7c79f08ed90df8fd143b&");
+    width: 100%;
+    height: 100vh;
+    position: relative; 
+
+
+}
+.land-title  {
+    font-family: "Zantiqa4F";
+    font-weight: bold;
+    font-size: 5rem;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -70%);
+}
+.land-sub{
+
+    font-size: 4rem;
+    width: 50%;
+    text-align: center;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, 80%);
+    color: white;
+    font-weight: normal;
+}
+.land-button{
+    font-size: 3rem;
+    width: 50%;
+    text-align: right;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    width:10%;
+    transform: translate(-50%, 190%);
+    border: none;
+    padding: 10px; 
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease
+}
+.land-button:hover {
+    background-color: #c8cfd7; /* Change to a darker shade on hover */
+}
+.land-img{
+    height: 100vh;
+    width: 50%;
+}

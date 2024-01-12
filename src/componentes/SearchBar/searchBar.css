@@ -4,21 +4,16 @@
     gap: 2rem;
     justify-content: center;
     align-items: center;
-    
+    margin-top: 2rem;
+    margin-bottom: -4rem;
 
 }
-.search-bar-container{
+.sec-cont{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 1rem 0 1rem 0;
-    padding: 0 0.5rem;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    width: 20%;
-    height: 3rem;
-    align-items: center;
-    
+    gap: 2rem;
+    font-size: 1.5rem;
+    margin-top: 1rem;
 }
 .search-icon{
     margin-left: 9.5rem;
@@ -32,6 +27,6 @@
 .search-input:focus {
     border: none;
     outline: none;
-   
+
 
   }

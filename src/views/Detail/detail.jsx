@@ -2,105 +2,58 @@ import React from "react";
 import "./detail.css"
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, } from "react-router-dom";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import image4 from "/images/image4.jpg";
-import image5 from "/images/image5.png";
-import image1 from "/images/image1.jpg";
-import image2 from "/images/image2.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductDetail } from "../../redux/actions/actions";
+import { clearProductDetail } from "../../redux/actions/actions";
+import BasicRating from "../../componentes/Reviews/Hacer_Review"
+
 
 const Detail = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  
+  const zapatilla = useSelector((state) => state.product.detail);
+  const [selectedColors, setSelectedColors] = useState(zapatilla && zapatilla.colors ? zapatilla.colors : []);
 
-  // Mock data similar a la que tienes en Cards
-  const zapatillas = [
-    {
-      id: 1,
-      modelo: "Zapatilla A",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Negro", "Blanco", "Rojo"],
-      imagen: image2,
-      marca: "Nike",
-      genero: "Hombre",
-      precio: "200",
-    },
-    {
-      id: 2,
-      modelo: "Zapatilla B",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Azul", "Blanco", "Gris"],
-      imagen: image4,
-      marca: "Adidas",
-      genero: "Mujer",
-      precio: "250",
-    },
-    {
-      id: 3,
-      modelo: "Zapatilla C",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Verde", "Blanco", "Negro"],
-      imagen: image5,
-      marca: "Puma",
-      genero: "Unisex",
-      precio: "230",
-    },
-    {
-      id: 4,
-      modelo: "Zapatilla D",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Naranja", "Blanco", "Negro"],
-      imagen: image1,
-      marca: "Nike",
-      genero: "Mujer",
-      precio: "300",
-    },
-    {
-      id: 5,
-      modelo: "Zapatilla A",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Negro", "Blanco", "Rojo"],
-      imagen: image2,
-      marca: "Nike",
-      genero: "Hombre",
-      precio: "200",
-    },
-    {
-      id: 6,
-      modelo: "Zapatilla B",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Azul", "Blanco", "Gris"],
-      imagen: image4,
-      marca: "Adidas",
-      genero: "Mujer",
-      precio: "250",
-    },
-    {
-      id: 7,
-      modelo: "Zapatilla C",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Verde", "Blanco", "Negro"],
-      imagen: image5,
-      marca: "Puma",
-      genero: "Unisex",
-      precio: "230",
-    },
-    {
-      id: 8,
-      modelo: "Zapatilla D",
-      talla: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-      colores: ["Naranja", "Blanco", "Negro"],
-      imagen: image1,
-      marca: "Nike",
-      genero: "Mujer",
-      precio: "300",
-    },
-  ];
+  useEffect(() => {
+   if (zapatilla && zapatilla.colors) {
+    
+      setSelectedColors(zapatilla.colors);
+     
+   }
+  }, [zapatilla && zapatilla.colors]);
+   
 
-  const zapatilla = zapatillas.find((z) => z.id === parseInt(id));
+  //para limpiar el estado
+  useEffect(() => {
+    return () => {
+      dispatch(clearProductDetail());
+    };
+   }, [dispatch]);
+ 
+  
+  useEffect(() => {
+    console.log("Detalle del producto en useEffect:", zapatilla);
+    if (!zapatilla) {
+      // Solo hacer la solicitud si zapatilla es nulo
+      dispatch(fetchProductDetail(id));
+    } else {
+      // Si zapatilla está definido, imprimir sus propiedades
+      Object.keys(zapatilla).forEach((key) => {
+        console.log(`${key}: ${zapatilla[key]}`);
+      });
+    }
+  }, [dispatch, id, zapatilla]);
 
   if (!zapatilla) {
     return <div>Loading...</div>;
   }
+
+  if (!zapatilla || !zapatilla.name) {
+    return <div>Datos no disponibles</div>;
+}
 
   const colorStyles = {
     Negro: { backgroundColor: 'black', color: 'white' },
@@ -112,33 +65,29 @@ const Detail = () => {
     Naranja: { backgroundColor: 'orange', color: 'white' },
   };
 
-  const [selectedColors, setSelectedColors] = useState(zapatilla.colores || []);
-
   // Actualizar el fondo del span cuando cambie el color seleccionado
-  useEffect(() => {
-    setSelectedColors(zapatilla.colores || []);
-  }, [zapatilla.colores]);
 
 
 
   return (
+    <>
     <div className="product-detail-container">
       <div className="product-detail">
-        <h2 className="nombre">{zapatilla.modelo}</h2>
+        <h2 className="nombre">{zapatilla && zapatilla.name}</h2>
         
         <div className="precio-preview">
-        <h5>Precio:  USD${zapatilla.precio}</h5>
+        <h5>Precio:  USD${zapatilla.price}</h5>
         </div>
 
         <div className="image-preview">
-        <img src={zapatilla.imagen} alt={zapatilla.modelo} />
+        <img src={zapatilla && zapatilla.image[0]} alt={zapatilla.name} />
         </div>
         
         <div className="tipos1">
         <p className="titulo"> Marca:</p>
         <div className="selected-sizes-container">
             <span className="selected-size">
-        {zapatilla.marca}
+        {zapatilla && zapatilla.brand}
         </span>
         </div>
         </div>
@@ -147,7 +96,7 @@ const Detail = () => {
         <p className="titulo"> Genero:</p>
         <div className="selected-sizes-container">
             <span className="selected-size">
-        {zapatilla.genero}
+        {zapatilla && zapatilla.gender}
         </span>
         </div>
         </div>
@@ -161,7 +110,7 @@ const Detail = () => {
     className="selected-size"
     style={{
       backgroundColor: colorStyles[selectedColor]?.backgroundColor || 'black',
-      color: colorStyles[selectedColor]?.color || 'white', // Ajuste aquí
+      color: colorStyles[selectedColor]?.colors || 'white', // Ajuste aquí
     }}
   >
     {selectedColor}
@@ -179,11 +128,10 @@ const Detail = () => {
         <p className="titulo"> Talles:</p>
         <div className="selected-sizes-container">
             <span className="selected-size">
-        {zapatilla.talla.join(", ")}
+        {zapatilla && zapatilla.size.join(", ")}
         </span>
         </div>
         </div>
-
         
       <div className="button">
       <Link to="/home">
@@ -195,6 +143,11 @@ const Detail = () => {
       </div>
         </div>
     </div>
+      <div className="rev">
+
+<BasicRating></BasicRating>
+      </div>
+    </>
   );
 };
 
