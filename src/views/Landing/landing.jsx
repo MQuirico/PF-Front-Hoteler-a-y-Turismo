@@ -1,19 +1,18 @@
 import React from "react";
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import "./landing.css";
 
 
 const Landing = () => {
-
   return (
-    <div>
-      <h1>RUNNERS PARADISE</h1>
-      <h3>Compre con nosotros</h3>
-      <Link to='/home'>
-      <button>Ingresar</button>
+    <div className="land-container">
+      
+      <h1 className="land-title">RUNNERS PARADISE</h1>
+      <h3 className="land-sub">Compre con nosotros</h3>
+      <Link to="/home">
+        <button className="land-button">Ingresar</button>
       </Link>
     </div>
   );
 };
-//UN CAMBIO SIMPLE EN CUALQUIER LADO HECHO
-export default Landing; 
+export default Landing;

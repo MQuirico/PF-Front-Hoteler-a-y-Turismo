@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { postProduct } from "../../redux/actions/actions";
 import validation from "../Validaciones/validaciones";
 import "./create.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import { postCreateProduct, clearCreateProductState } from "../../redux/actions/actions"
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+
+
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+
   const [input, setInput] = useState({
     name: "",
     brand: "",
     size: [],
     image: "",
-    color: [],
+    colors: [],
     price: "",
   });
-  const [imageUrl, setImageUrl] = useState(""); // Agregado estado para imageUrl
+  const [imageUrl, setImageUrl] = useState(""); // estado para imageUrl
+  const { product: { createdProduct = null, loading, error } } = useSelector((state) => state || {});
+
+
+  // useEffect para limpiar el estado una vez que se crea el producto
+  useEffect(() => {
+    return () => {
+      dispatch(clearCreateProductState());
+    };
+  }, [dispatch]);
+
 
   const handleValidation = () => {
     const newErrors = validation(input);
@@ -26,54 +41,54 @@ const ProductForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+
   const handleChange = (event) => {
-    const { name, options } = event.target;
+    const { name, value } = event.target;
   
-    // Manejar múltiples selecciones si el campo es 'size'
     if (name === 'size') {
-      const selectedSizes = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => option.value);
-  
-      setInput((prevInput) => ({ ...prevInput, [name]: selectedSizes }));
+      // Manejar cambios en el input de tallas si es necesario
+    } else if (name === 'image') {
+      // Cambiar el manejo del input de imagen a una cadena
+      setInput((prevInput) => ({ ...prevInput, [name]: value }));
+      setImageUrl(value); // Actualizar la URL de la imagen directamente
     } else {
-      setInput((prevInput) => ({ ...prevInput, [name]: event.target.value }));
-    }
-  
-    // Actualizar imageUrl si el campo es 'image'
-    if (name === 'image') {
-      setImageUrl(event.target.value);
+      setInput((prevInput) => ({ ...prevInput, [name]: value }));
     }
   };
+  
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (handleValidation()) {
       try {
-        dispatch(postProduct(input));
+        // Asegúrate de que el campo 'image' sea un array
+        const updatedInput = { ...input, image: [input.image] };
+  
+        console.log('Input object:', updatedInput);
+  
+        await dispatch(postCreateProduct(updatedInput));
         setMessage("Producto creado exitosamente.");
-
+  
+        // Restablece el estado
         setInput({
           name: "",
           brand: "",
-          size: "",
-          image: "",
-          color: "",
+          size: [],
+          image: [],
+          colors: [],
           price: "",
         });
-        setImageUrl(""); // Reiniciar imageUrl
+        setImageUrl("");
       } catch (error) {
-        console.error("Error al crear el producto:", error);
-        setMessage(
-          "Error al crear el producto. Por favor, inténtalo de nuevo."
-        );
+        // Maneja los errores
       }
     } else {
       setMessage("Por favor, completa el formulario correctamente.");
     }
   };
+
 
   const availableBrands = ["nike", "adidas", "newbalance"];
   const brandColors = {
@@ -84,33 +99,29 @@ const ProductForm = () => {
   
   const colorOptions = [
     { value: "all", label: "Todos" },
-    ...brandColors[input.brand]?.map((color) => ({
+    ...(brandColors[input.brand] || []).map((color) => ({
       value: color,
       label: color,
-    })) || []
-  ]
+    }))
+  ];
   
   const handleBrandChange = (event) => {
     const selectedBrand = event.target.value;
     setInput((prevInput) => ({
       ...prevInput,
       brand: selectedBrand,
-      color: [], // Restablecer los colores al cambiar la marca
+      color: [],
     }));
   };
   
-  const handleColorChange = (selectedOptions) => {
+  const handleColorInputChange = (selectedOptions) => {
+    // Manejar cambios en el input de colores
     const selectedColors = selectedOptions.map((option) => option.value);
     setInput((prevInput) => ({
       ...prevInput,
-      color: selectedColors.includes("all")
-        ? brandColors[prevInput.brand] || []
-        : selectedColors.filter((color) =>
-            brandColors[prevInput.brand]?.includes(color)
-          ),
+      colors: selectedColors,
     }));
   };
-
 
   const sizeOptions = [
     { value: "all", label: "Todos" },
@@ -128,21 +139,17 @@ const ProductForm = () => {
   ];
 
   const handleSizeChange = (selectedOptions) => {
-    // Verificar si la opción "all" está seleccionada
-    const isAllSelected = selectedOptions.some((option) => option.value === "all");
-  
-    // Si "all" está seleccionada, establecer todos los tamaños
-    // de lo contrario, usar map para obtener solo los valores seleccionados
-    const selectedSizes = isAllSelected
-      ? sizeOptions.filter((option) => option.value !== "all").map((option) => option.value)
-      : selectedOptions.map((option) => option.value);
-  
-    setInput((prevInput) => ({
-      ...prevInput,
-      size: selectedSizes,
-    }));
+    const selectedSizes = selectedOptions.map((option) => option.value);
+    setInput((prevInput) => ({ ...prevInput, size: selectedSizes }));
   };
 
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   const colorStyles = {
     green: { backgroundColor: 'green', color: 'white' },
@@ -153,6 +160,9 @@ const ProductForm = () => {
     red: { backgroundColor: 'red', color: 'white' },
   };
 
+
+
+
   return (
     <div className="container">
       <div className="form-and-preview-container">
@@ -160,8 +170,8 @@ const ProductForm = () => {
           <label className="form-label">Modelo</label>
           <input
             type="text"
-            value={input.model}
-            name="model"
+            value={input.name}
+            name="name"
             placeholder="Modelo..."
             onChange={(e) => handleChange(e)}
             className="form-input"
@@ -228,14 +238,15 @@ const ProductForm = () => {
 
 
        <label className="form-label">Colores</label>
-          <Select
-          value={input.color.map((color) => ({ value: color, label: color }))}
-          name="color"
-          onChange={handleColorChange}
-          isMulti
-          options={colorOptions}/>
+       <Select
+    value={input.colors.map((color) => ({ value: color, label: color }))}
+    name="colors"
+    onChange={handleColorInputChange}
+    isMulti
+    options={colorOptions}
+  />
 
-          <p className="error-message">{errors.color}</p>
+          <p className="error-message">{errors.colors}</p>
 
 
 
@@ -263,7 +274,7 @@ const ProductForm = () => {
   
         <div className="preview-container">
           <div className="nombre">
-            <h3>{input.model ? input.model : "Nombre..."}</h3>
+            <h3>{input.name ? input.name : "Nombre..."}</h3>
           </div>
 
           
@@ -290,13 +301,13 @@ const ProductForm = () => {
             <p className="titulo">Colores seleccionados</p>
             <div className="selected-sizes-container">
 
-            {input.color.map((selectedColor, index) => (
+            {input.colors.map((selectedColor, index) => (
             <span
             key={selectedColor}
             className="selected-size"
             style={colorStyles[selectedColor]}>
             {selectedColor}
-            {index < input.color.length - 1 && (
+            {index < input.colors.length - 1 && (
             <span className="size-separator"></span>
         )}
       </span>
