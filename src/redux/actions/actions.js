@@ -10,7 +10,7 @@ export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 export const CREATE_PRODUCT_FAILURE = "CREATE_PRODUCT_FAILURE";
 export const CLEAR_CREATE_PRODUCT_STATE = "CLEAR_CREATE_PRODUCT_STATE";
 import axios from "axios";
-import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS } from "../action-types";
+import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS,GET_ALL_FILTER } from "../action-types";
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -45,18 +45,22 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = () => {
+export const getSneakers = (page , pageSize) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/products?page=1&pageSize=4"
-      );
+      const url = `http://localhost:3000/products/?page=${page}&pageSize=${pageSize}`;
+      console.log(url);
+      const response = await axios.get(url);
       const sneakers = response.data;
       console.log("La respuesta es:", sneakers);
 
       dispatch({
         type: GET_ALL_SNEAKERS,
-        payload: sneakers,
+        payload: {
+          sneakers: sneakers.paginatedResponse,
+          currentPage: sneakers.currentPage,
+          totalSneaker: sneakers.totalSneaker,
+        },
       });
     } catch (error) {
       console.error("Error al traer las zapatillas:", error);
@@ -130,3 +134,28 @@ export const searchBar = (searchTerm) => {
     }
   };
 };
+
+export const filterProducts= ( brand,page,pageSize )=>{
+  return async function (dispatch) {
+    try {
+      const url = `http://localhost:3000/products/?page=${page}&pageSize=${pageSize}&brand=${brand}`
+      console.log('URL:', url);
+
+      const response = await axios.get(url);
+      const sneakers = response.data;
+      console.log("La respuesta es:", sneakers);
+
+      dispatch({
+        type: GET_ALL_FILTER,
+        payload: {
+          sneakers: sneakers.paginatedResponse,
+          currentPage: sneakers.currentPage,
+          totalSneaker: sneakers.totalSneaker,
+        },
+      });
+    } catch (error) {
+      console.error("Error al traer las zapatillas:", error);
+    }
+  };
+   
+}
