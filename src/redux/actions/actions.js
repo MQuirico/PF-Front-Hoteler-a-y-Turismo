@@ -9,8 +9,22 @@ export const CREATE_PRODUCT_REQUEST = "CREATE_PRODUCT_REQUEST";
 export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 export const CREATE_PRODUCT_FAILURE = "CREATE_PRODUCT_FAILURE";
 export const CLEAR_CREATE_PRODUCT_STATE = "CLEAR_CREATE_PRODUCT_STATE";
+export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
+export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
+export const CREATE_USER_FAILURE = "CREATE_USER_FAILURE";
 import axios from "axios";
 import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS } from "../action-types";
+
+export const registerUser = (datauser) => async (dispatch) => {
+  dispatch({ type: 'CREATE_USER_REQUEST' });
+  try {
+    const response = await axios.post('http://localhost:3000/users/create', datauser);
+    dispatch({ type: 'CREATE_USER_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({ type: 'CREATE_USER_FAILURE', payload: error.message });
+  }
+}
+
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
