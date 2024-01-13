@@ -1,105 +1,140 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import styles from "./Register.module.css";
+import { registerUser } from "../../redux/actions/actions";
 
-export default function Registro(props) {
-  const [name, setName] = useState("");
-  const [surName, setSurName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [esVálido, setEsVálido] = useState("");
-
-  const userRegex = "^[^s@]+@[^s@]+.[^s@]+$";
-  //formato email
-
-  const passwordRegex =
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$";
-  //debe contener al menos una mayúscula, una minúscula, un caracter especial, y un numero
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-  const handleSnChange = (e) => {
-    setSurName(e.target.value);
-  };
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+const Register = () => {
+  const dispatch = useDispatch();
+  const initialFormData = {
+    name: "",
+    surName: "",
+    email: "",
+    password: "",
   };
 
-  const validarBotonSubmit = () => {
-    if (
-      userRegex.test(email) &&
-      passwordRegex.test(password) &&
-      typeof name === "string" &&
-      typeof surName === "string"
-    ) {
-      setEsVálido(true);
-    } else {
-      setEsVálido(false);
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value.trim() === "") {
+        newErrors[key] = "This field is required";
+      }
+    });
+
+    const nameRegex = /^[A-Z][a-z]{0,9}( [A-Z][a-z]{0,9})?$/;
+    if (!nameRegex.test(formData.name)) {
+      newErrors.name =
+        "The name should only contain letters and have a maximum of 10 characters.";
     }
+
+    const surNameRegex = /^[A-ZÑñ][a-zñ]{0,9}( [A-ZÑñ][a-zñ]{0,9})?$/;
+    if (formData.surName && !surNameRegex.test(formData.surName)) {
+      newErrors.surName =
+        "The last name should only contain letters and have a maximum of 10 characters.";
+    }
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[@.])[a-zA-Z0-9@.]{6,12}$/;
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "The password must contain 6 to 12 characters, including at least one uppercase letter and a special character (e.g., Password@).";
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "The email address is not valid or is empty.";
+    }
+
+    setErrors(newErrors);
+    setIsFormValid(Object.keys(newErrors).length === 0);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (datauser) => {
+    dispatch(registerUser(datauser));
+    alert("Successful registration");
+    setFormData(initialFormData);
+    setErrors({});
+    setIsFormValid(false);
   };
 
   return (
-    <>
-      <div>
-        <div className="row justify-content-center">
-          <div className="col-md-4 ml-5 border mt-5 p-5">
-            <h2 className="text-center mb-4">
-              Complete los datos solicitados para registrarse:
-            </h2>
-            <form>
-              <div className="mb-3">
-                <label className="form-label">Nombre:</label>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  value={name}
-                  onChange={handleNameChange}
-                  placeholder="Ingrese aquí su nombre de pila..."
-                  style={{ height: "50px" }}
-                ></input>
-                <label className="form-label">Apellido:</label>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  value={surName}
-                  onChange={handleSnChange}
-                  placeholder="Ingrese aquí su apellido..."
-                  style={{ height: "50px" }}
-                ></input>
-                <label className="form-label">Email:</label>
-                <input
-                  type="text"
-                  value={email}
-                  className="form-control form-control-lg"
-                  onChange={handleEmailChange}
-                  placeholder="Ingrese aquí su email..."
-                  style={{ height: "50px" }}
-                ></input>
-                <label className="form-label">Password:</label>
-                <input
-                  type="password"
-                  value={password}
-                  className="form-control form-control-lg"
-                  onChange={handlePasswordChange}
-                  placeholder="Ingrese aquí su contraseña..."
-                  style={{ height: "50px" }}
-                ></input>
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100 mt-3"
-                  disabled={!esVálido}
-                >
-                  Registrarme
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
+    <div className={styles.container}>
+      <form className={styles.form}>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter Your Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        {errors.name && <span className={styles.error}>{errors.name}</span>}
 
-//CAMBIO
+        <label htmlFor="surName">surName:</label>
+        <input
+          type="text"
+          id="surName"
+          name="surName"
+          placeholder="Enter Your Last Name"
+          value={formData.surName}
+          onChange={handleChange}
+        />
+        {errors.surName && (
+          <span className={styles.error}>{errors.surName}</span>
+        )}
+
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter Your Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        {errors.email && <span className={styles.error}>{errors.email}</span>}
+
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter a Password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        {errors.password && (
+          <span className={styles.error}>{errors.password}</span>
+        )}
+
+        <button
+          type="button"
+          onClick={() => handleSubmit(formData)}
+          className={`${styles.button} ${
+            !isFormValid ? styles.buttonDisabled : ""
+          }`}
+          disabled={!isFormValid}
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Register;
