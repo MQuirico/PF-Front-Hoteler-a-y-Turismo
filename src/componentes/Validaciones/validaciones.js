@@ -1,15 +1,15 @@
 const validation = (input, existingNames) => {
   let errors = {};
 
-  let noEmpty = /\S+/;
-  let validateName = /^[a-zA-ZñÑ\s]*$/;  // Permitir espacios en blanco en el nombre
-  let validateNum = /^\d+$/;
-  let validateUrl = /^(ftp|http|https):\/\/[^\s/$.?#].[^\s]*$/;
+  const noEmpty = /\S+/;
+  const validateName = /^[a-zA-ZñÑ\s]*$/;
+  const validateNum = /^\d+$/;
+  const validateUrl = /^(ftp|http|https):\/\/[^\s/$.?#].[^\s]*$/;
 
-  if (Array.isArray(existingNames) && existingNames.some((name) => name.toLowerCase() === input.name.toLowerCase())) {
-    errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
-  } else if (!noEmpty.test(input.name) || !validateName.test(input.name) || input.name.trim().length < 3) {
+  if (!noEmpty.test(input.name) || !validateName.test(input.name) || input.name.trim().length < 3) {
     errors.name = "Nombre necesario. Mayor de 3 letras y único";
+  } else if (Array.isArray(existingNames) && existingNames.some((name) => name.toLowerCase() === input.name.toLowerCase())) {
+    errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
   }
 
   if (!validateUrl.test(input.image)) {
@@ -23,4 +23,4 @@ const validation = (input, existingNames) => {
   return errors;
 };
 
-export default validation;
+export default validation

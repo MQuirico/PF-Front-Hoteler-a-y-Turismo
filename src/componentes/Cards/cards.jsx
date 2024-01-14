@@ -13,7 +13,7 @@ const Cards = () => {
   }, [dispatch]);
 
   if (!sneakers) {
-    return <p>Cargando...</p>;
+    return console.log({sneakers},"not Found");
   }
 
   return (
@@ -25,16 +25,17 @@ const Cards = () => {
               to={`/detail/${zapatilla.id}`}
               className="card-link text-decoration-none"
             >
-<Card
- id={zapatilla.id}
- image={zapatilla.image && zapatilla.image.length > 0 ? zapatilla.image[0] : 'defaultImagePath'}
- model={zapatilla.name}
- color={zapatilla.colors[0] || "DefaultColor"}
- brand={zapatilla.brand}
- gender=""
- size={zapatilla.size[0] || "DefaultSize"}
- price={zapatilla.price}
+            <Card
+              id={zapatilla.id}
+              image={zapatilla.image && zapatilla.image.length > 0 ? zapatilla.image[0] : 'defaultImagePath'}
+              model={zapatilla.name}
+              color={zapatilla.colors[0] || "DefaultColor"}
+              brand={zapatilla.brand}
+              gender=""
+              size={zapatilla.size[0] || "DefaultSize"}
+              price={zapatilla.price}
 />
+            
             </Link>
           </div>
         ))}
