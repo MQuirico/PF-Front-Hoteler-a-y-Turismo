@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { getSneakers } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/card";
 
-const Cards = () => {
+const Cards = ({sneakers}) => {
   const dispatch = useDispatch();
-  const sneakers = useSelector((state) => state.sneakers);
-
   useEffect(() => {
     dispatch(getSneakers());
-  }, [dispatch]);
-
+}, [dispatch]);
   if (!sneakers) {
     return <p>Cargando...</p>;
   }
@@ -19,21 +16,21 @@ const Cards = () => {
   return (
     <div className="container d-flex justify-content-center align-items-center">
       <div className="row ">
-        {sneakers.map((zapatilla) => (
-          <div key={zapatilla.id} className="col-md-3 mb-3 ml-8 mr-8">
+        {sneakers.map(({id,image,name,colors,brand,size,price}) => (
+          <div key={id} className="col-md-3 mb-3 ml-8 mr-8">
             <Link
-              to={`/detail/${zapatilla.id}`}
+              to={`/detail/${id}`}
               className="card-link text-decoration-none"
             >
+
 <Card
- id={zapatilla.id}
- image={zapatilla.image && zapatilla.image.length > 0 ? zapatilla.image[0] : 'defaultImagePath'}
- model={zapatilla.name}
- color={zapatilla.colors[0] || "DefaultColor"}
- brand={zapatilla.brand}
- gender=""
- size={zapatilla.size[0] || "DefaultSize"}
- price={zapatilla.price}
+ id={id}
+ image={image && image.length > 0 ? image[0] : 'defaultImagePath'}
+ model={name}
+ color={colors[0] || "DefaultColor"}
+ brand={brand}
+ size={size[0] || "DefaultSize"}
+ price={price}
 />
             </Link>
           </div>

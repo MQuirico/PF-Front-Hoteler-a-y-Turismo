@@ -10,7 +10,7 @@ export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 export const CREATE_PRODUCT_FAILURE = "CREATE_PRODUCT_FAILURE";
 export const CLEAR_CREATE_PRODUCT_STATE = "CLEAR_CREATE_PRODUCT_STATE";
 import axios from "axios";
-import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS,GET_ALL_FILTER } from "../action-types";
+import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE } from "../action-types";
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -45,10 +45,14 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = (page , pageSize) => {
+export const getSneakers = ( page, pageSize="3", brand) => {
   return async function (dispatch) {
     try {
-      const url = `http://localhost:3000/products/?page=${page}&pageSize=${pageSize}`;
+      let url = `http://localhost:3000/products?page=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
+
+      if (brand) {
+        url += `&brand=${encodeURIComponent(brand)}`;
+      }
       console.log(url);
       const response = await axios.get(url);
       const sneakers = response.data;
@@ -58,7 +62,7 @@ export const getSneakers = (page , pageSize) => {
         type: GET_ALL_SNEAKERS,
         payload: {
           sneakers: sneakers.paginatedResponse,
-          currentPage: sneakers.currentPage,
+          currentPage: sneakers.setCurrentPage,
           totalSneaker: sneakers.totalSneaker,
         },
       });
@@ -158,4 +162,19 @@ export const filterProducts= ( brand,page,pageSize )=>{
     }
   };
    
+}
+
+
+export const resetCurrentPage = (page) => {
+  return {
+      type:RESET_CURRENTPAGE,
+      payload:page
+  }
+}
+
+export const brandValue = (value) => {
+  return {
+      type:BRAND_VALUE,
+      payload:value
+  }
 }

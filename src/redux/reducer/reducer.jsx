@@ -12,7 +12,7 @@ import {
   
   
 } from "../actions/actions";
-import { GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,GET_ALL_FILTER } from "../action-types/index";
+import { GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE } from "../action-types/index";
 
 const initialState = {
   loading: false,
@@ -28,7 +28,8 @@ const initialState = {
   allCopySneakers:[],
   filterProducts:[],
   currentPage:[],
-  totalSneakers:[]
+  totalSneakers:[],
+  brandValue : []
 };
 
 const stateSearchBar = {
@@ -153,6 +154,18 @@ case CLEAR_CREATE_PRODUCT_STATE:
     currentPage: action.payload.currentPage,
     totalSneaker: action.payload.totalSneaker,
   };
+
+  case RESET_CURRENTPAGE:
+            return {
+                ...state,
+                currentPage:action.payload
+            }
+
+            case BRAND_VALUE:
+            return {
+                ...state,
+                brandValue:action.payload
+            }
               
                   default:
                   return state;

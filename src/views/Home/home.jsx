@@ -11,30 +11,25 @@ const Home = () => {
   const dispatch = useDispatch();
   const sneakers = useSelector((state) => state?.sneakers);
   const totalSneaker = useSelector((state) => state?.totalSneaker);
-  const filter = useSelector((state)=>state?.filterProducts)
   const page = useSelector((state) => state?.currentPage);
-  const pageSize = 4;
+  const brand = useSelector((state) => state?.brandValue);
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const pageSize = 3;
 
   const setCurrentPage = (page) => {
     {
-      dispatch(getSneakers(page));
+      dispatch(getSneakers(page,pageSize,brand));
     }
-
-    // Aquí deberías dispatch una acción para actualizar currentPage en el store
-    // Ejemplo: dispatch(setCurrentPageAction(page));
   };
 
-  useEffect(() => {
-    dispatch(getSneakers(page, pageSize));
-  }, [dispatch, page, pageSize]);
-
+  
 
   return (
     <div>
-      <Filter totalSneaker={totalSneaker} page={page} pageSize={pageSize} setCurrentPage={setCurrentPage} ></Filter>
+      <Filter totalSneaker={totalSneaker} page={page} pageSize={pageSize} setCurrentPage={setCurrentPage}  ></Filter>
       <SearchBar />
       <Paginado totalSneaker={totalSneaker} page={page} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
-      <Cards  sneakers={filter ? filter : sneakers} />
+      <Cards  sneakers={sneakers} />
       {sneakers.length === 0 && <p>No se encontraron países o actividades. ¡Intenta con diferentes filtros!</p>}
     </div>
   );
@@ -42,7 +37,3 @@ const Home = () => {
 
 export default Home;
 
-//dsadsadsadsadsadsadsadsdsadad
-
-//holaasdasdasdasdsadada
-//sdad
