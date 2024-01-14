@@ -6,3 +6,6 @@ export const GET_SEARCH_NOTFOUND = 'GET_SEARCH_NOTFOUND';
 export const GET_ALL_FILTER = ' GET_ALL_FILTER';
 export const RESET_CURRENTPAGE = "RESET_CURRENTPAGE"
 export const BRAND_VALUE = "BRAND_VALUE"
+export const COLOR_VALUE = "COLOR_VALUE"
+export const ORDER_PRICE = " ORDER_PRICE"
+export const SIZE_VALUE = "SIZE_VALUE"

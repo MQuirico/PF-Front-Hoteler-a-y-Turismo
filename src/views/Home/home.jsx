@@ -13,12 +13,15 @@ const Home = () => {
   const totalSneaker = useSelector((state) => state?.totalSneaker);
   const page = useSelector((state) => state?.currentPage);
   const brand = useSelector((state) => state?.brandValue);
+  const color = useSelector((state)=> state?.colorValue);
+  const size = useSelector((state)=> state?.sizeValue);
+  const price = useSelector((state)=> state?.orderPrice);
   const [selectedBrand, setSelectedBrand] = useState('');
   const pageSize = 3;
 
   const setCurrentPage = (page) => {
     {
-      dispatch(getSneakers(page,pageSize,brand));
+      dispatch(getSneakers(page,pageSize,brand,color,size,price));
     }
   };
 

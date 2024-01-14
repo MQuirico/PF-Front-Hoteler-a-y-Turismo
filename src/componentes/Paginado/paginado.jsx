@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {  useSelector,useDispatch } from "react-redux";
 import {getSneakers,filterProducts} from "../../redux/actions/actions"
-const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage,brand }) => {
+const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage,brand,color }) => {
     const sneakers = useSelector((state)=> state?.sneakers)
     const dispatch = useDispatch();
     console.log("Page in paginado:", page);

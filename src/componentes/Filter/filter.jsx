@@ -1,20 +1,43 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from 'react'
-import { filterProducts, getSneakers,resetCurrentPage,brandValue} from "../../redux/actions/actions";
+import { filterProducts, getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import { useEffect } from "react";
 import Select from "../Select/select.jsx";
 
 function Filter({page,pageSize}) {
     console.log("Page in Filter:", page);
-  const allSneakers = useSelector((state) => state?.allCopySneakers);
+    const brand = useSelector((state) => state?.brandValue);
+  const color = useSelector((state)=> state?.colorValue);
+  const size = useSelector((state)=> state?.sizeValue);
+  const price = useSelector((state)=> state?.orderPrice);
+    /* 
+  const allSneakers = useSelector((state) => state.allCopySneakers);
   const brands =[ ...new Set(allSneakers.map((sneaker) => sneaker.brand))];
+  console.log(brands)
+  */
   const dispatch = useDispatch();
-  const [selectedBrand, setSelectedBrand] = useState('');
 
-    const handleFilter = (value) => {
-        setSelectedBrand(value);
-        dispatch(getSneakers( page=1, pageSize,value));
+    const handleFilterBrand = (value) => {
+        dispatch(getSneakers( page=1, pageSize,value,color,size,price));
         dispatch(brandValue(value))
+        dispatch(resetCurrentPage(1));
+      };
+
+      const handleFilterColor = (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,value,size,price));
+        dispatch(colorValue(value))
+        dispatch(resetCurrentPage(1));
+      };
+
+      const handleFilterSize = (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,color,value,price));
+        dispatch(sizeValue(value))
+        dispatch(resetCurrentPage(1));
+      };
+
+      const handleOrderPrice= (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,color,size,value));
+        dispatch(orderPrice(value))
         dispatch(resetCurrentPage(1));
       };
 
@@ -24,13 +47,48 @@ function Filter({page,pageSize}) {
         name="FilterBrand"
         options={[
           { value: '', label: 'Select Brand' },
-          ...brands.map((brand) => ({
-            key: brand,
-            value: brand,
-            label: brand,
-          }))
+          { value: 'adidas', label: 'adidas' },
+          { value: 'nike', label: 'nike' },
+          { value: 'newbalance', label: 'newbalance' },  
         ]}
-        onChange={(e) => handleFilter(e.target.value)}
+        onChange={(e) => handleFilterBrand(e.target.value)}
+      />
+
+<Select
+        name="FilterColor"
+        options={[
+          { value: '', label: 'Select color' },
+          { value: 'black', label: 'black' },
+          { value: 'red', label: 'red' },
+          { value: 'blue', label: 'blue' },
+          {value:"orange",label:"orange"},
+          {value:"white",label:"white"}    
+        ]}
+        onChange={(e) => handleFilterColor(e.target.value)}
+      />
+
+<Select
+        name="FilterSize"
+        options={[
+          { value: '', label: 'Select Brand' },
+          { value: '6', label: '6' },
+          { value: '7', label: '7' },
+          { value: '8', label: '8' },
+          { value: '9', label: '9' },
+          { value: '10', label: '10' },
+          { value: '11', label: '11' },  
+        ]}
+        onChange={(e) => handleFilterSize(e.target.value)}
+      />
+
+<Select
+        name="orderPrice"
+        options={[
+          { value: '', label: 'order price' },
+          { value: 'min', label: 'min' },
+          { value: 'max', label: 'max' }   
+        ]}
+        onChange={(e) => handleOrderPrice(e.target.value)}
       />
     </div>
   );

@@ -10,7 +10,7 @@ export const CREATE_PRODUCT_SUCCESS = "CREATE_PRODUCT_SUCCESS";
 export const CREATE_PRODUCT_FAILURE = "CREATE_PRODUCT_FAILURE";
 export const CLEAR_CREATE_PRODUCT_STATE = "CLEAR_CREATE_PRODUCT_STATE";
 import axios from "axios";
-import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE } from "../action-types";
+import { GET_ALL_SNEAKERS,GET_SEARCH_REQUEST, GET_SEARCH_NOTFOUND, GET_SEARCH_SUCCESS,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,SIZE_VALUE,ORDER_PRICE } from "../action-types";
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -45,14 +45,36 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = ( page, pageSize="3", brand) => {
+export const getSneakers = ( page, pageSize="3", brand,colors,size,price) => {
   return async function (dispatch) {
-    try {
-      let url = `http://localhost:3000/products?page=${encodeURIComponent(page)}&pageSize=${encodeURIComponent(pageSize)}`;
+     try {
+      const queryParams = {
+        page: encodeURIComponent(page),
+        pageSize: encodeURIComponent(pageSize),
+      };
 
       if (brand) {
-        url += `&brand=${encodeURIComponent(brand)}`;
+        queryParams.brand = encodeURIComponent(brand);
       }
+
+      if (colors) {
+        queryParams.colors = encodeURIComponent(colors);
+      }
+
+      if(size){
+        queryParams.size = encodeURIComponent(size);
+      }
+
+      if (price) {
+        queryParams.price = encodeURIComponent(price);
+      }
+
+      const queryString = Object.entries(queryParams)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+
+      const url = `http://localhost:3000/products?${queryString}`;
+
       console.log(url);
       const response = await axios.get(url);
       const sneakers = response.data;
@@ -177,4 +199,25 @@ export const brandValue = (value) => {
       type:BRAND_VALUE,
       payload:value
   }
+}
+
+export const colorValue = (value) => {
+  return {
+      type:COLOR_VALUE,
+      payload:value
+  }
+}
+
+  export const sizeValue = (value) => {
+    return {
+        type:SIZE_VALUE,
+        payload:value
+    }
+}
+
+  export const orderPrice = (value) => {
+    return {
+        type:ORDER_PRICE,
+        payload:value
+    }
 }

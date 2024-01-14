@@ -12,7 +12,7 @@ import {
   
   
 } from "../actions/actions";
-import { GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE } from "../action-types/index";
+import { GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,GET_ALL_FILTER,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE } from "../action-types/index";
 
 const initialState = {
   loading: false,
@@ -26,10 +26,12 @@ const initialState = {
   
   sneakers: [],
   allCopySneakers:[],
-  filterProducts:[],
   currentPage:[],
   totalSneakers:[],
-  brandValue : []
+  brandValue : [],
+  colorValue :[],
+  sizeValue:[],
+  orderPrice:[]
 };
 
 const stateSearchBar = {
@@ -146,14 +148,6 @@ case CLEAR_CREATE_PRODUCT_STATE:
       data: null,
       error: action.payload
     };
-    case GET_ALL_FILTER:
-  return {
-    ...state,
-    sneakers: action.payload.sneakers || [...state.sneakers],
-    filterProducts: action.payload.sneakers || [...state.sneakers],
-    currentPage: action.payload.currentPage,
-    totalSneaker: action.payload.totalSneaker,
-  };
 
   case RESET_CURRENTPAGE:
             return {
@@ -165,6 +159,24 @@ case CLEAR_CREATE_PRODUCT_STATE:
             return {
                 ...state,
                 brandValue:action.payload
+            }
+
+            case COLOR_VALUE:
+            return {
+                ...state,
+                colorValue:action.payload
+            }
+
+            case SIZE_VALUE:
+            return {
+                ...state,
+                sizeValue:action.payload
+            }
+
+            case ORDER_PRICE:
+            return {
+                ...state,
+                orderPrice:action.payload
             }
               
                   default:
