@@ -1,13 +1,9 @@
-import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaShopify } from "react-icons/fa";
-import { filterProducts, getSneakers} from "../../redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function NavBar(props) {
-  const dispatch = useDispatch();
  
   return (
     <>

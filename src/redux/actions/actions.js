@@ -123,7 +123,7 @@ export const postCreateProduct = (productData) => async (dispatch) => {
   } catch (error) {
     // Si la solicitud falla
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
-  };
+  }
 }
 
   export const getSearchRequest = () => ({

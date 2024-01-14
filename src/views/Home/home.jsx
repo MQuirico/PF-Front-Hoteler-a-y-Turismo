@@ -1,7 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {getSneakers,filterProducts} from "../../redux/actions/actions"
+import {getSneakers} from "../../redux/actions/actions"
 import Cards from "../../componentes/Cards/cards";
 import SearchBar from "../../componentes/SearchBar/searchBar";
 import Paginado from '../../componentes/Paginado/paginado';
@@ -16,7 +15,6 @@ const Home = () => {
   const color = useSelector((state)=> state?.colorValue);
   const size = useSelector((state)=> state?.sizeValue);
   const price = useSelector((state)=> state?.orderPrice);
-  const [selectedBrand, setSelectedBrand] = useState('');
   const pageSize = 3;
 
   const setCurrentPage = (page) => {

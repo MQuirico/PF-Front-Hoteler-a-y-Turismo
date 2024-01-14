@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from 'react'
-import { filterProducts, getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
-import { useEffect } from "react";
+import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
 
 function Filter({page,pageSize}) {
