@@ -1,6 +1,5 @@
 import {
   GET_ALL_SNEAKERS,
-  GET_SEARCH_REQUEST,
   GET_SEARCH_SUCCESS,
   GET_SEARCH_NOTFOUND,
   POST_PRODUCT_REQUEST,
@@ -12,7 +11,7 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
-  CLEAR_CREATE_PRODUCT_STATE
+  CLEAR_CREATE_PRODUCT_STATE,
 } from "../action-types/action-types";
 
 const initialState = {
@@ -24,14 +23,9 @@ const initialState = {
     error: null,
   },
   error: null,
-  sneakers: []
+  sneakers: [],
+  searchData: null, 
 };
-
-const stateSearchBar = {
-  data: null,
-  loading: false,
-  error: null,
-}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -64,26 +58,26 @@ const productReducer = (state = initialState, action) => {
         sneakers: action.payload,
       };
 
-    case FETCH_PRODUCT_DETAIL_SUCCESS:
-      console.log("Detalle del producto:", action.payload);
-      return {
+      case FETCH_PRODUCT_DETAIL_SUCCESS:
+        console.log("Detalle del producto:", action.payload);
+        return {
           ...state,
           product: {
-              ...state.product,
-              detail: action.payload,
+            ...state.product,
+            detail: action.payload,
           },
           error: null,
-      };
-
-    case FETCH_PRODUCT_DETAIL_FAILURE:
-      return {
-        ...state,
-        product: {
-          ...state.product,
-          detail: null,
-        },
-        error: action.payload,
-      };
+        };
+  
+      case FETCH_PRODUCT_DETAIL_FAILURE:
+        return {
+          ...state,
+          product: {
+            ...state.product,
+            detail: null,
+          },
+          error: action.payload,
+        };
 
     case CLEAR_PRODUCT_DETAIL:
       return {
@@ -124,21 +118,22 @@ const productReducer = (state = initialState, action) => {
       return initialState;
 
 
-    case GET_SEARCH_SUCCESS:
-      return{
-        ...state,
-        loading: false,
-        data: action.payload,
-        error: null,
+      case GET_SEARCH_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          data: action.payload,
+          error: null,
+          sneakers: action.payload,
       };
-
-    case GET_SEARCH_NOTFOUND:
-      return{
-        ...state,
-        loading: false,
-        data: null,
-        error: action.payload
-      };
+  
+      case GET_SEARCH_NOTFOUND:
+        return {
+          ...state,
+          loading: false,
+          searchData: [],
+          error: action.payload,
+        };
   
     default:
       return state;

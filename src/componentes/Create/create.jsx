@@ -60,18 +60,15 @@ const ProductForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    if (handleValidation()) {
+
+    const newErrors = validation(input);
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
       try {
-        // Asegúrate de que el campo 'image' sea un array
         const updatedInput = { ...input, image: [input.image] };
-  
-        console.log('Input object:', updatedInput);
-  
         await dispatch(postCreateProduct(updatedInput));
         setMessage("Producto creado exitosamente.");
-  
-        // Restablece el estado
         setInput({
           name: "",
           brand: "",
@@ -82,7 +79,7 @@ const ProductForm = () => {
         });
         setImageUrl("");
       } catch (error) {
-        // Maneja los errores
+        setMessage("Error al crear el producto");
       }
     } else {
       setMessage("Por favor, completa el formulario correctamente.");
@@ -115,7 +112,7 @@ const ProductForm = () => {
   };
   
   const handleColorInputChange = (selectedOptions) => {
-    // Manejar cambios en el input de colores
+    // Maneja cambios en el input de colores
     const selectedColors = selectedOptions.map((option) => option.value);
     setInput((prevInput) => ({
       ...prevInput,

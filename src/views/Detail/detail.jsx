@@ -7,7 +7,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetail } from "../../redux/actions/actions";
 import { clearProductDetail } from "../../redux/actions/actions";
-import BasicRating from "../../componentes/Reviews/Hacer_Review"
+
 
 
 const Detail = () => {
@@ -101,24 +101,37 @@ const Detail = () => {
         </div>
         </div>
 
+
+
         <div className="tipos1">
-          <p className="titulo">Colores</p>
-          <div className="selected-sizes-container">
-          {selectedColors.map((selectedColor, index) => (
-  <span
-    key={index}
-    className="selected-size"
-    style={{
-      backgroundColor: colorStyles[selectedColor]?.backgroundColor || 'black',
-      color: colorStyles[selectedColor]?.colors || 'white', // Ajuste aquí
-    }}
-  >
-    {selectedColor}
-    {index < selectedColors.length - 1 && (
-      <span className="size-separator"></span>
-    )}
-  </span>
-))}
+  <p className="titulo">Colores</p>
+  <div className="selected-sizes-container">
+    
+    {selectedColors.map((selectedColor, index) => {
+      const colorKey = selectedColor.toLowerCase(); 
+      console.log(`Color: ${selectedColor}, Key: ${colorKey}`);
+      console.log(`Styles: `, colorStyles[colorKey]);
+
+      return (
+        <span
+          key={index}
+          className="selected-size"
+          style={{
+            backgroundColor: colorStyles[colorKey]?.backgroundColor || 'black',
+            color: colorStyles[colorKey]?.color || 'white',
+          }}
+        >
+          {selectedColor}
+          {index < selectedColors.length - 1 && (
+            <span className="size-separator"></span>
+          )}
+        </span>
+      );
+    })}
+
+  
+  
+  
           
         
 </div>
@@ -143,10 +156,8 @@ const Detail = () => {
       </div>
         </div>
     </div>
-      <div className="rev">
-
-<BasicRating></BasicRating>
-      </div>
+      
+    
     </>
   );
 };

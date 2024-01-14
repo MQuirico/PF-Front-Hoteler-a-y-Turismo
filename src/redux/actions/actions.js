@@ -10,11 +10,10 @@ import {
   CREATE_PRODUCT_FAILURE,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_REQUEST,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE,
   CLEAR_PRODUCT_DETAIL,
-  CLEAR_CREATE_PRODUCT_STATE
+  CLEAR_CREATE_PRODUCT_STATE,
+  FETCH_PRODUCT_DETAIL_SUCCESS,
+  FETCH_PRODUCT_DETAIL_FAILURE,
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -60,6 +59,7 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
     dispatch({ type: FETCH_PRODUCT_DETAIL_FAILURE });
   }
 };
+
 
 export const getSneakers = () => {
   return async function (dispatch) {
@@ -112,19 +112,19 @@ export const postCreateProduct = (productData) => async (dispatch) => {
   };
 }
 
-  export const getSearchRequest = () => ({
-    type: GET_SEARCH_REQUEST,
-})
+export const getSearchRequest = () => ({
+  type: GET_SEARCH_SUCCESS, // Cambiado de GET_SEARCH_REQUEST a GET_SEARCH_SUCCESS
+});
 
 export const getSearchSuccess = (data) => ({
-    type: GET_SEARCH_SUCCESS,
-    payload: data
-})
+  type: GET_SEARCH_SUCCESS,
+  payload: data,
+});
 
 export const getSearchNotFound = (error) => ({
-    type: GET_SEARCH_NOTFOUND,
-    payload: error
-})
+  type: GET_SEARCH_NOTFOUND,
+  payload: error,
+});
 
 export const searchBar = (searchTerm) => {
   return async (dispatch) => {
@@ -133,11 +133,14 @@ export const searchBar = (searchTerm) => {
 
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
 
-
-
       if (response.data && response.data.length > 0) {
-        
         dispatch(getSearchSuccess(response.data));
+
+        // Actualiza la lista de sneakers con los resultados de la búsqueda
+        dispatch({
+          type: GET_ALL_SNEAKERS,
+          payload: response.data,
+        });
       } else {
         dispatch(getSearchNotFound('No hay resultados que concuerden con tu búsqueda'));
       }
