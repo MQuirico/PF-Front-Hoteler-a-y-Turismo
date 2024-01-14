@@ -10,7 +10,7 @@ const Cards = ({sneakers}) => {
     dispatch(getSneakers());
 }, [dispatch]);
   if (!sneakers) {
-    return <p>Cargando...</p>;
+    return console.log({sneakers},"not Found");
   }
 
   return (
@@ -32,6 +32,7 @@ const Cards = ({sneakers}) => {
  size={size[0] || "DefaultSize"}
  price={price}
 />
+            
             </Link>
           </div>
         ))}

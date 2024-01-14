@@ -1,0 +1,50 @@
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.error {
+  color: red;
+  margin-top: 4px;
+}
+
+button {
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.buttonDisabled {
+  background-color: #ddd;  /* Puedes ajustar este color para que se vea desactivado */
+  cursor: not-allowed;
+  color: #aaa;  /* Puedes ajustar este color para que se vea desactivado */
+}
+
