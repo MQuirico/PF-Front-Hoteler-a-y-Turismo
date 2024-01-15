@@ -1,10 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaShopify } from "react-icons/fa";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export default function NavBar(props) {
+ 
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-primary data-bs-theme=dark">

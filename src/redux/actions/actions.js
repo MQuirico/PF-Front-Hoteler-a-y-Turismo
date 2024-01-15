@@ -4,6 +4,9 @@ import {
   GET_SEARCH_REQUEST,
   GET_SEARCH_NOTFOUND,
   GET_SEARCH_SUCCESS,
+  RESET_CURRENTPAGE,
+  BRAND_VALUE,COLOR_VALUE,
+  SIZE_VALUE,ORDER_PRICE,
   POST_PRODUCT_FAILURE,
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_REQUEST,
@@ -14,6 +17,9 @@ import {
   CLEAR_CREATE_PRODUCT_STATE,
   FETCH_PRODUCT_DETAIL_SUCCESS,
   FETCH_PRODUCT_DETAIL_FAILURE,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -61,18 +67,48 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
 };
 
 
-export const getSneakers = () => {
+export const getSneakers = ( page, pageSize="3", brand,colors,size,price) => {
   return async function (dispatch) {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/products?page=1&pageSize=4"
-      );
+     try {
+      const queryParams = {
+        page: encodeURIComponent(page),
+        pageSize: encodeURIComponent(pageSize),
+      };
+
+      if (brand) {
+        queryParams.brand = encodeURIComponent(brand);
+      }
+
+      if (colors) {
+        queryParams.colors = encodeURIComponent(colors);
+      }
+
+      if(size){
+        queryParams.size = encodeURIComponent(size);
+      }
+
+      if (price) {
+        queryParams.price = encodeURIComponent(price);
+      }
+
+      const queryString = Object.entries(queryParams)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+
+      const url = `http://localhost:3000/products?${queryString}`;
+
+      console.log(url);
+      const response = await axios.get(url);
       const sneakers = response.data;
       console.log("La respuesta es:", sneakers);
 
       dispatch({
         type: GET_ALL_SNEAKERS,
-        payload: sneakers,
+        payload: {
+          sneakers: sneakers.paginatedResponse,
+          currentPage: sneakers.setCurrentPage,
+          totalSneaker: sneakers.totalSneaker,
+        },
       });
     } catch (error) {
       console.error("Error al traer las zapatillas:", error);
@@ -109,7 +145,7 @@ export const postCreateProduct = (productData) => async (dispatch) => {
   } catch (error) {
     // Si la solicitud falla
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
-  };
+  }
 }
 
 export const getSearchRequest = () => ({
@@ -149,3 +185,37 @@ export const searchBar = (searchTerm) => {
     }
   };
 };
+export const resetCurrentPage = (page) => {
+  return {
+      type:RESET_CURRENTPAGE,
+      payload:page
+  }
+}
+
+export const brandValue = (value) => {
+  return {
+      type:BRAND_VALUE,
+      payload:value
+  }
+}
+
+export const colorValue = (value) => {
+  return {
+      type:COLOR_VALUE,
+      payload:value
+  }
+}
+
+  export const sizeValue = (value) => {
+    return {
+        type:SIZE_VALUE,
+        payload:value
+    }
+}
+
+  export const orderPrice = (value) => {
+    return {
+        type:ORDER_PRICE,
+        payload:value
+    }
+}
