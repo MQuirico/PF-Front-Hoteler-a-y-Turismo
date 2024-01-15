@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    position: relative;
+    left: 40px;
+}
+
+.containerForm {
+    width: 300px;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.containerForm input{
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: solid 1px black;
+}
+
+.containerForm button{
+    width: 30px;
+    height: 30px;
+    background-color: #0D6EFD;
+}
+
+.buttonImg{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    left: -25px;
+}

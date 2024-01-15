@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    top: 8px;
+    position: relative;
+}
+
+
+.container select{
+    background-color: white;
+    position: relative;
+    left: 20px;
+    height: 30px;
+    border-radius: 10px;
+    border: solid 1px black;
+    width: 90px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.containerContent{
+    width: 100%;
+    top: 40px;
+    position: relative;
+}

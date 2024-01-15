@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
+import SearchBar from "../SearchBar/searchBar.jsx";
+import style from "./Filter.module.css"
 
 function Filter({page,pageSize}) {
     console.log("Page in Filter:", page);
@@ -40,11 +42,13 @@ function Filter({page,pageSize}) {
       };
 
   return (
-    <div>
+    <div className={style.containerContent}>
+      <div className={style.container}>
+      <SearchBar/>
        <Select
         name="FilterBrand"
         options={[
-          { value: '', label: 'Select Brand' },
+          { value: '', label: 'Brand' },
           { value: 'adidas', label: 'adidas' },
           { value: 'nike', label: 'nike' },
           { value: 'newbalance', label: 'newbalance' },  
@@ -55,7 +59,7 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterColor"
         options={[
-          { value: '', label: 'Select color' },
+          { value: '', label: 'Color' },
           { value: 'black', label: 'black' },
           { value: 'red', label: 'red' },
           { value: 'blue', label: 'blue' },
@@ -68,7 +72,7 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterSize"
         options={[
-          { value: '', label: 'Select Brand' },
+          { value: '', label: 'Size' },
           { value: '6', label: '6' },
           { value: '7', label: '7' },
           { value: '8', label: '8' },
@@ -82,12 +86,13 @@ function Filter({page,pageSize}) {
 <Select
         name="orderPrice"
         options={[
-          { value: '', label: 'order price' },
+          { value: '', label: 'Price' },
           { value: 'min', label: 'min' },
           { value: 'max', label: 'max' }   
         ]}
         onChange={(e) => handleOrderPrice(e.target.value)}
       />
+      </div>
     </div>
   );
 }

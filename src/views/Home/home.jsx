@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getSneakers } from "../../redux/actions/actions";
-import Cards from "../../componentes/Cards/cards";
-import SearchBar from "../../componentes/SearchBar/searchBar";
-import Paginado from '../../componentes/Paginado/paginado';
+import Cards from "../../componentes/Cards/Cards";
+import Paginado from '../../componentes/Paginado/Paginado';
+import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 
 const Home = () => {
@@ -15,19 +15,24 @@ const Home = () => {
   const size = useSelector((state) => state?.sizeValue);
   const price = useSelector((state) => state?.orderPrice);
   const searchState = useSelector((state) => state?.data); //  estado para los resultados de la búsqueda
-  const pageSize = 3;
+  const pageSize = 4;
 
   const setCurrentPage = (page) => {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.filterComponent}>
       <Filter totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></Filter>
-      <SearchBar />
+      </div>
+      <div className={styles.cardsComponent}>
+      <Cards sneakers={searchState || sneakers} />
+      {(sneakers && sneakers.length === 0) && <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
+      </div>
+      <div className={styles.paginatedComponent}>
       <Paginado totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
-      <Cards sneakers={searchState || sneakers} /> {/* Utiliza los resultados de la búsqueda si existen */}
-      {(sneakers && sneakers.length === 0) && <p>No se encontraron países o actividades. ¡Intenta con diferentes filtros!</p>}
+    </div>
     </div>
   );
 };

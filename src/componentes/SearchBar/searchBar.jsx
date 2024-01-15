@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getSneakers, resetCurrentPage, searchBar } from '../../redux/actions/actions';
+import style from "./SearchBar.module.css"
 
 const SearchBar = ({ onSearch }) => {
   const dispatch = useDispatch();
@@ -51,10 +52,12 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={search} onChange={handleChange} />
-        <button type="submit">Search</button>
-      </form>
+      <div className={style.container}>
+        <form onSubmit={handleSubmit} className={style.containerForm}>
+          <input type="text" value={search} onChange={handleChange} placeholder="Search"/>
+            <img type="submit" src="src\assets\searchbar-loupe.png" alt="" className={style.buttonImg} />
+        </form>
+      </div>
     </div>
   );
 };

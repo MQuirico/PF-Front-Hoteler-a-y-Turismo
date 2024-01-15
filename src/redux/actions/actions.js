@@ -67,7 +67,7 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
 };
 
 
-export const getSneakers = ( page, pageSize="3", brand,colors,size,price) => {
+export const getSneakers = ( page, pageSize="8", brand, colors, size, price) => {
   return async function (dispatch) {
      try {
       const queryParams = {
@@ -97,7 +97,6 @@ export const getSneakers = ( page, pageSize="3", brand,colors,size,price) => {
 
       const url = `http://localhost:3000/products?${queryString}`;
 
-      console.log(url);
       const response = await axios.get(url);
       const sneakers = response.data;
       console.log("La respuesta es:", sneakers);

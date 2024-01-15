@@ -1,3 +1,4 @@
+import style from "../Paginado/Paginado.module.css"
 
 const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage }) => {
     console.log("Page in paginado:", page);
@@ -14,18 +15,19 @@ const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage }) => {
       }
     };
     
-  
     return (
-      <div>
-        <button onClick={prevHandler} disabled={page <= 1}>
-            Prev
-        </button>
-        <span style={{ color: 'black' }}>
-          Página: {page} de {Math.ceil(totalSneaker / pageSize)}
-        </span>
-        <button onClick={nextHandler} disabled={page >= Math.ceil(totalSneaker / pageSize)}>
-            Next    
-        </button>
+      <div className={style.container}>
+        <div>
+          <button onClick={prevHandler} disabled={page <= 1} className={style.buttons}>
+              Prev
+          </button>
+          <span style={{ color: 'white' }}>
+            Page {page} of {Math.ceil(totalSneaker / pageSize)}
+          </span>
+          <button onClick={nextHandler} className={style.buttons} disabled={page >= Math.ceil(totalSneaker / pageSize)}>
+              Next    
+          </button>
+        </div>
       </div>
     );
   };
