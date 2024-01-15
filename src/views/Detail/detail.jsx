@@ -8,7 +8,7 @@ import { clearProductDetail } from "../../redux/actions/actions";
 const Detail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const zapatilla = useSelector((state) => state.product.detail);
+  const zapatilla = useSelector((state) => state?.product?.detail);
   const selectedColors = zapatilla && zapatilla.colors ? zapatilla.colors : [];
 
   useEffect(() => {
