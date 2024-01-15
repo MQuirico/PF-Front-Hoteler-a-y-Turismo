@@ -1,0 +1,18 @@
+.buttons{
+    padding: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: black;
+    display: inline-block;
+    margin: 6px;
+}
+
+.buttons:hover{
+    background-color: gray;
+}
+
+.container{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}

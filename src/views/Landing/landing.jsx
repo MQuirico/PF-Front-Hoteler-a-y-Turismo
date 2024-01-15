@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Link } from "react-router-dom";
 import "./landing.css";
-import logo from '../../assets/Runners Paradise.jpg'
+import logo from '../../assets/Runners Paradise.png'
 import StandardImageList from './display img/imgList';
+import Slide from '../../componentes/Slide/slide';
 
 const Landing = () => {
   const galleryStyle = {
@@ -11,12 +12,15 @@ const Landing = () => {
     left: '0',
     height: '100vh',
   };
+
+  
   return (
     <div className="land-container">
       
       <img src={logo} className="logo" alt="Runners Paradise" />
       <h3 className="land-sub">Compre con nosotros</h3>
       <StandardImageList style={galleryStyle} />
+      <Slide />
       <div className='text'>
         <p className='intro'>¡Bienvenido a Runners Paradise, el destino definitivo para los apasionados del<br />
         deporte y el confort! En Runners Paradise, no solo ofrecemos calzados deportivos <br />

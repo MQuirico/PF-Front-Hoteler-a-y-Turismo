@@ -7,6 +7,7 @@ import Select from "react-select";
 import { postCreateProduct, clearCreateProductState } from "../../redux/actions/actions"
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import styled from "@emotion/styled";
 
 
 
@@ -24,7 +25,7 @@ const ProductForm = () => {
     price: "",
   });
   const [imageUrl, setImageUrl] = useState(""); // estado para imageUrl
-  const { product: { createdProduct = null, loading, error } } = useSelector((state) => state || {});
+  const { createdProduct = null, loading, error } = useSelector((state) => state.product || {});
 
 
   // useEffect para limpiar el estado una vez que se crea el producto
@@ -58,33 +59,37 @@ const ProductForm = () => {
   
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    const newErrors = validation(input);
-    setErrors(newErrors);
+  
 
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        const updatedInput = { ...input, image: [input.image] };
-        await dispatch(postCreateProduct(updatedInput));
-        setMessage("Producto creado exitosamente.");
-        setInput({
-          name: "",
-          brand: "",
-          size: [],
-          image: [],
-          colors: [],
-          price: "",
-        });
-        setImageUrl("");
-      } catch (error) {
-        setMessage("Error al crear el producto");
-      }
-    } else {
-      setMessage("Por favor, completa el formulario correctamente.");
+  const newErrors = validation(input);
+  setErrors(newErrors);
+
+  console.log("Objeto input:", input); // Agrega esta línea
+
+  if (Object.keys(newErrors).length === 0) {
+    try {
+      const updatedInput = { ...input, image: [input.image] };
+      await dispatch(postCreateProduct(updatedInput));
+      setMessage("Producto creado exitosamente.");
+      setInput({
+        name: "",
+        brand: "",
+        size: [],
+        image: [],
+        colors: [],
+        price: "",
+      });
+      setImageUrl("");
+    } catch (error) {
+      setMessage("Error al crear el producto");
     }
-  };
+  } else {
+    setMessage("Por favor, completa el formulario correctamente.");
+  }
+};
 
 
   const availableBrands = ["nike", "adidas", "newbalance"];
@@ -111,14 +116,7 @@ const ProductForm = () => {
     }));
   };
   
-  const handleColorInputChange = (selectedOptions) => {
-    // Maneja cambios en el input de colores
-    const selectedColors = selectedOptions.map((option) => option.value);
-    setInput((prevInput) => ({
-      ...prevInput,
-      colors: selectedColors,
-    }));
-  };
+ 
 
   const sizeOptions = [
     { value: "all", label: "Todos" },
@@ -135,18 +133,55 @@ const ProductForm = () => {
     { value: "12", label: "12" },
   ];
 
-  const handleSizeChange = (selectedOptions) => {
-    const selectedSizes = selectedOptions.map((option) => option.value);
-    setInput((prevInput) => ({ ...prevInput, size: selectedSizes }));
+  const handleAllSizes = () => {
+    const allSizes = sizeOptions.map((option) => option.value);
+
+    if (input.size.includes("all")) {
+      // Si "Todos" ya está seleccionado, quitarlo
+      const newSizes = input.size.filter((size) => size !== "all");
+      setInput((prevInput) => ({ ...prevInput, size: newSizes }));
+    } else {
+      setInput((prevInput) => ({ ...prevInput, size: allSizes.filter((size) => size !== "all") }));
+    }
   };
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
+  const handleSizeChange = (selectedOptions) => {
+   
+    const isAllSelected = selectedOptions.some((option) => option.value === "all");
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+   
+    if (isAllSelected) {
+      handleAllSizes();
+    } else {
+      const selectedSizes = selectedOptions.map((option) => option.value);
+      setInput((prevInput) => ({ ...prevInput, size: selectedSizes }));
+    }
+  };
+
+
+  const handleAllColors = () => {
+    const allColors = colorOptions.map((option) => option.value);
+
+    if (input.colors.includes("all")) {
+     
+      const newColors = input.colors.filter((color) => color !== "all");
+      setInput((prevInput) => ({ ...prevInput, colors: newColors }));
+    } else {
+      
+      setInput((prevInput) => ({ ...prevInput, colors: allColors.filter((color) => color !== "all") }));
+    }
+  };
+
+  const handleColorInputChange = (selectedOptions) => {
+    const selectedColors = selectedOptions.map((option) => option.value);
+
+    if (selectedColors.includes("all")) {
+      handleAllColors();
+    } else {
+      setInput((prevInput) => ({ ...prevInput, colors: selectedColors }));
+    }
+  };
+
 
   const colorStyles = {
     green: { backgroundColor: 'green', color: 'white' },
@@ -156,11 +191,13 @@ const ProductForm = () => {
     grey: { backgroundColor: 'grey', color: 'white' },
     red: { backgroundColor: 'red', color: 'white' },
   };
-
-
-
-
+  
+  
+  
+  
   return (
+    <div className="fondo2">
+
     <div className="container">
       <div className="form-and-preview-container">
         <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
@@ -197,10 +234,10 @@ const ProductForm = () => {
               type="text"
               value={input.image}
               name="image"
-              placeholder="URL de la imagen..."
+              placeholder ="URL de la imagen..."
               onChange={(e) => handleChange(e)}
               className="form-input"
-            />
+              />
 
 
             <p className="error-message">{errors.image}</p>
@@ -212,10 +249,10 @@ const ProductForm = () => {
           onChange={(e) => {
           handleBrandChange(e);
           handleChange(e);
-          }}
+        }}
           className="form-input"
           >
-          <option value="" disabled>Selecciona una marca</option>
+          <option value="" disabled><p className="colormarca"> Selecciona una marca</p></option>
             {availableBrands.map((brand) => (
             <option key={brand} value={brand}>{brand}
             </option>
@@ -224,27 +261,25 @@ const ProductForm = () => {
           <p className="error-message">{errors.brand}</p>
   
           <label className="form-label">Talles</label>
+      <Select
+        value={input.size.map((size) => ({ value: size, label: size }))}
+        name="size"
+        onChange={(selectedOption) => handleSizeChange(selectedOption)}
+        isMulti
+        options={sizeOptions}
+        />
+      <p className="error-message">{errors.size}</p>
+
+
+      <label className="form-label">Colores</label>
           <Select
-          value={input.size.map((size) => ({ value: size, label: size }))}
-           name="size"
-           onChange={(selectedOption) => handleSizeChange(selectedOption)}
-           isMulti
-           options={sizeOptions}
+            value={input.colors.map((color) => ({ value: color, label: color }))}
+            name="colors"
+            onChange={handleColorInputChange}
+            isMulti
+            options={colorOptions}
             />
-          <p className="error-message">{errors.size}</p>
-
-
-       <label className="form-label">Colores</label>
-       <Select
-    value={input.colors.map((color) => ({ value: color, label: color }))}
-    name="colors"
-    onChange={handleColorInputChange}
-    isMulti
-    options={colorOptions}
-  />
-
           <p className="error-message">{errors.colors}</p>
-
 
 
   
@@ -306,7 +341,7 @@ const ProductForm = () => {
             {selectedColor}
             {index < input.colors.length - 1 && (
             <span className="size-separator"></span>
-        )}
+            )}
       </span>
     ))}
   </div>
@@ -326,6 +361,7 @@ const ProductForm = () => {
         </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

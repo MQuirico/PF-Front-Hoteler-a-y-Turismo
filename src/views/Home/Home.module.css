@@ -1,0 +1,27 @@
+.container{
+  background-image: url(../../assets/backgroundhome.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.cardsComponent{
+  position: relative;
+  margin-left: 14px;
+}
+
+.searchBarComponent{
+  position: relative;
+}
+
+.paginatedComponent{
+  position: relative;
+  background-color: #0d6dfda2;
+  width: 100%;
+}
+
+.filterComponent{
+  z-index: 10;
+  position: relative;
+  margin-left: 23px;
+}

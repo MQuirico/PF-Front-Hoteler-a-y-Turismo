@@ -1,3 +1,17 @@
+.fondo2 {
+  background-image: url("https://i.blogs.es/a83cac/maxfly/1366_2000.jpeg");
+  background-size: cover;
+  background-position: center center;
+  
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
 .container {
   display: flex;
   justify-content: center;
@@ -15,6 +29,7 @@
 .form-container,
 .preview-container {
   max-width: 400px;
+  background-color: rgba(142, 160, 184, 0.8);
   width: 50%;
   box-sizing: border-box;
   padding: 20px;
@@ -25,13 +40,13 @@
 }
 
 .preview-container {
-  border-left: 0; /* Eliminamos el borde izquierdo para que solo esté en el formulario */
+  border-left: 10px; 
 }
 
 .form-label {
   margin-top: 10px;
   font-weight: bold;
-  color: rgb(20, 18, 18);
+  color: rgb(255, 255, 255);
   border-radius: 10px;
 }
 
@@ -180,4 +195,31 @@
   color: green;
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
+}
+
+
+.form-input::placeholder {
+  color: #f3e9e9; 
+}
+
+.colormarca [disabled] {
+  color: #999; /* Puedes cambiar este color según tu preferencia */
+}
+
+.cuadrante,
+.agradecimientos,
+.about {
+  width: 50%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .cuadrante,
+  .agradecimientos,
+  .about {
+    width: 100%;
+    margin-right: 0;
+  }
 }

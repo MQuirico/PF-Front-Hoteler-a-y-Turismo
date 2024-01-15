@@ -1,0 +1,90 @@
+.container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.container:hover{
+  transition: 0.5s;
+  scale: 102%;
+}
+
+.cardContent{
+  width: 300px;
+  height: 400px;
+  outline: solid 1px black;
+  margin: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 6px 10px black;
+
+}
+
+.cardContent:hover{
+  outline: 1px solid #0D6EFD;
+  box-shadow: 0px 6px 10px #0D6EFD;
+}
+
+.cardContent img{
+  border-radius: 8px 8px 0px 0px;
+  height: 300px;
+  width: 300px;
+  justify-self: center;
+  object-fit: cover;
+}
+
+img{
+  justify-self: center;
+  object-fit: cover;
+}
+
+.brand h3{
+  display: flex;
+  align-items: center;
+  background-color: #0D6EFD;
+  color: white;
+  justify-content: center;
+  height: 50px;
+  font-size: 18px;
+  margin: 0 auto;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.details h4{
+  font-size: 18px;
+  margin-left: 14px;
+  position: relative;
+  top: 12px;
+  font-size: 20px;
+  color: green;
+  font-weight: 700;
+}
+
+.details button{
+  position: relative;
+  margin: 0px;
+  width: 35px;
+  top: 12.5px;
+  left: 6px;
+  height: 25px;
+  background-color: black;
+}
+
+.details button:hover{
+background-color: gray;
+}
+
+.details button h5{
+  font-size:12px;
+  margin: 0 auto;
+  position: relative;
+  top: -6px;
+  left: -6px;
+}

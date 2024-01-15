@@ -1,41 +1,37 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { getSneakers } from "../../redux/actions/actions";
-import Card from "../Card/card";
+import { useDispatch } from "react-redux";
+import Card from "../Card/Card";
+import style from "./Cards.module.css"
 
-const Cards = () => {
+
+const Cards = ({sneakers}) => {
   const dispatch = useDispatch();
-  const sneakers = useSelector((state) => state.sneakers);
-
   useEffect(() => {
     dispatch(getSneakers());
-  }, [dispatch]);
-
-  if (!sneakers) {
-    return console.log({sneakers},"not Found");
-  }
+}, [dispatch]);
+if (!sneakers || sneakers.length === 0) {
+  return <p>No se encontraron sneakers.</p>;
+}
 
   return (
-    <div className="container d-flex justify-content-center align-items-center">
-      <div className="row ">
-        {sneakers.map((zapatilla) => (
-          <div key={zapatilla.id} className="col-md-3 mb-3 ml-8 mr-8">
-            <Link
-              to={`/detail/${zapatilla.id}`}
-              className="card-link text-decoration-none"
-            >
+    <div className={style.container}>
+      <div className={style.cardContent}>
+        {sneakers.map(({id,image,name,colors,brand,size,price}) => (
+          <div key={id}>
+            <Link 
+              to={`/detail/${id}`}
+              style={{textDecoration:'none'}} >
             <Card
-              id={zapatilla.id}
-              image={zapatilla.image && zapatilla.image.length > 0 ? zapatilla.image[0] : 'defaultImagePath'}
-              model={zapatilla.name}
-              color={zapatilla.colors[0] || "DefaultColor"}
-              brand={zapatilla.brand}
-              gender=""
-              size={zapatilla.size[0] || "DefaultSize"}
-              price={zapatilla.price}
-/>
-            
+            id={id}
+            image={image && image.length > 0 ? image[0] : 'defaultImagePath'}
+            model={name}
+            color={colors[0] || "DefaultColor"}
+            brand={brand}
+            size={size[0] || "DefaultSize"}
+            price={price}
+             />
             </Link>
           </div>
         ))}
