@@ -206,6 +206,7 @@
   color: #999; /* Puedes cambiar este color según tu preferencia */
 }
 
+
 .cuadrante,
 .agradecimientos,
 .about {
@@ -215,6 +216,7 @@
   box-sizing: border-box;
 }
 
+/* Consultas de medios para ajustar el diseño en dispositivos más pequeños */
 @media (max-width: 768px) {
   .cuadrante,
   .agradecimientos,
