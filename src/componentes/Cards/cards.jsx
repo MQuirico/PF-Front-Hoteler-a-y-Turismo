@@ -9,9 +9,9 @@ const Cards = ({sneakers}) => {
   useEffect(() => {
     dispatch(getSneakers());
 }, [dispatch]);
-  if (!sneakers) {
-    return console.log({sneakers},"not Found");
-  }
+if (!sneakers || sneakers.length === 0) {
+  return <p>No se encontraron sneakers.</p>;
+}
 
   return (
     <div className="container d-flex justify-content-center align-items-center">

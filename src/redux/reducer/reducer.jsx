@@ -65,15 +65,16 @@ const productReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case GET_ALL_SNEAKERS:
-      return {
-        ...state,
-        sneakers: action.payload.sneakers,
-        allCopySneakers:action.payload.sneakers,
-        currentPage: action.payload.currentPage,
-        totalSneaker: action.payload.totalSneaker,
+      case GET_ALL_SNEAKERS:
+        return {
+          ...state,
+          sneakers: action.payload.sneakers,
+          allCopySneakers: action.payload.sneakers,
+          currentPage: action.payload.currentPage,
+          totalSneaker: action.payload.totalSneaker,
+        };
 
-      };
+
       case FETCH_PRODUCT_DETAIL_SUCCESS:
         console.log("Detalle del producto:", action.payload);
         return {
@@ -114,10 +115,7 @@ const productReducer = (state = initialState, action) => {
     return {
       ...state,
       loading: false,
-      product: {
-        ...state.product,
-        createdProduct: action.payload,
-      },
+      createdProduct: action.payload,
       error: null,
     };
 
@@ -134,11 +132,12 @@ case CLEAR_CREATE_PRODUCT_STATE:
 
 
   case GET_SEARCH_SUCCESS:
-    return{
+    return {
       ...state,
       loading: false,
-      data: action.payload,
-      error: null,
+      sneakers: action.payload, 
+      totalSneaker: action.payload.length, 
+      currentPage: 1, 
     };
 
   case GET_SEARCH_NOTFOUND:

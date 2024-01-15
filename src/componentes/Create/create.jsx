@@ -24,7 +24,7 @@ const ProductForm = () => {
     price: "",
   });
   const [imageUrl, setImageUrl] = useState(""); // estado para imageUrl
-  const { product: { createdProduct = null, loading, error } } = useSelector((state) => state || {});
+  const { createdProduct = null, loading, error } = useSelector((state) => state.product || {});
 
 
   // useEffect para limpiar el estado una vez que se crea el producto
@@ -60,10 +60,12 @@ const ProductForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     const newErrors = validation(input);
     setErrors(newErrors);
-
+  
+    console.log("Objeto input:", input); // Agrega esta línea
+  
     if (Object.keys(newErrors).length === 0) {
       try {
         const updatedInput = { ...input, image: [input.image] };
@@ -158,7 +160,10 @@ const ProductForm = () => {
   };
 
 
-
+  const selectAllSizes = (selected) => {
+    const allSizes = sizeOptions.map((option) => option.value);
+    setInput((prevInput) => ({ ...prevInput, size: selected ? allSizes : [] }));
+  };
 
   return (
     <div className="container">
@@ -206,31 +211,27 @@ const ProductForm = () => {
             <p className="error-message">{errors.image}</p>
   
           <label className="form-label">Marca</label>
-          <select
-          value={input.brand}
-          name="brand"
-          onChange={(e) => {
-          handleBrandChange(e);
-          handleChange(e);
-          }}
-          className="form-input"
-          >
-          <option value="" disabled>Selecciona una marca</option>
-            {availableBrands.map((brand) => (
-            <option key={brand} value={brand}>{brand}
-            </option>
-              ))} 
-            </select>
-          <p className="error-message">{errors.brand}</p>
-  
-          <label className="form-label">Talles</label>
           <Select
-          value={input.size.map((size) => ({ value: size, label: size }))}
-           name="size"
-           onChange={(selectedOption) => handleSizeChange(selectedOption)}
-           isMulti
-           options={sizeOptions}
-            />
+            value={input.size.map((size) => ({ value: size, label: size }))}
+            name="size"
+            onChange={(selectedOption) => handleSizeChange(selectedOption)}
+            isMulti
+            options={[
+              { value: 'all', label: 'Todos' },
+              ...sizeOptions.filter((option) => option.value !== 'all'), // Excluir 'Todos' de las opciones
+            ]}
+            // Agregar la opción de seleccionar todos los tamaños
+            components={{
+              Option: (props) => (
+                <div
+                  {...props.innerProps}
+                  onClick={() => selectAllSizes(props.data.value === 'all')}
+                >
+                  {props.label}
+                </div>
+              ),
+            }}
+          />
           <p className="error-message">{errors.size}</p>
 
 

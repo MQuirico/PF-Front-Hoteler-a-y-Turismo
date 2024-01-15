@@ -171,12 +171,6 @@ export const searchBar = (searchTerm) => {
 
       if (response.data && response.data.length > 0) {
         dispatch(getSearchSuccess(response.data));
-
-        // Actualiza la lista de sneakers con los resultados de la búsqueda
-        dispatch({
-          type: GET_ALL_SNEAKERS,
-          payload: response.data,
-        });
       } else {
         dispatch(getSearchNotFound('No hay resultados que concuerden con tu búsqueda'));
       }
@@ -185,6 +179,8 @@ export const searchBar = (searchTerm) => {
     }
   };
 };
+
+
 export const resetCurrentPage = (page) => {
   return {
       type:RESET_CURRENTPAGE,
