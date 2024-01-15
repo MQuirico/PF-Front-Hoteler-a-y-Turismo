@@ -1,0 +1,214 @@
+.fondo {
+    background-image: url("https://static.vecteezy.com/system/resources/previews/005/930/467/non_2x/running-shoes-sneakers-for-running-and-doing-sports-on-track-treadmill-background-in-home-free-photo.JPG");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .about {
+    background-color: rgba(128, 132, 197, 0.5);
+    color: #333;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    max-width: 1500px;
+    max-height: 700px; 
+    margin-top: -50px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  
+  .title {
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  .title1 {
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  
+  .text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  
+  .cuadrante1{
+    background-color: rgba(208, 209, 238, 0.7);
+    width: calc(50% - 20px); 
+    height: 650px;
+    border: 1px solid rgba(178, 174, 174, 0.984);
+    border-radius: 5px;
+    margin-right: 20px; 
+    padding: 20px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    margin-top: -10px;
+    transition: transform 0.3s;
+}
+  
+  .cuadrante2 {
+    background-color: rgba(208, 209, 238, 0.7);
+    width: calc(50% - 20px); 
+    height: 650px;
+    border: 1px solid rgba(178, 174, 174, 0.984);
+    border-radius: 5px;
+    margin-right: 20px; 
+    padding: 20px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    margin-top: -10px;
+    transition: transform 0.3s;
+  }
+  .cuadrante3{
+    background-color: rgba(208, 209, 238, 0.7);
+    width: calc(50% - 20px); 
+    height: 650px;
+    border: 1px solid rgba(178, 174, 174, 0.984);
+    border-radius: 5px;
+    margin-right: 20px; 
+    padding: 20px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    margin-top: -10px;
+    transition: transform 0.3s;
+  }
+  .cuadrante4 {
+    background-color: rgba(208, 209, 238, 0.7);
+    width: calc(50% - 20px);
+    height: 650px;
+    border: 1px solid rgba(178, 174, 174, 0.984);
+    border-radius: 5px;
+    margin-right: 20px;
+    padding: 20px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    margin-top: -10px;
+    transition: transform 0.3s;
+  }
+
+.agradecimientos {
+    border: 1px solid gray;
+    background-color: rgba(208, 209, 238, 0.7);
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
+    height: 400px;
+    width: 900px;
+    transition: transform 0.3s;
+}
+  
+  .cuadrante1:hover,
+  .cuadrante2:hover,
+  .cuadrante3:hover,
+  .cuadrante4:hover,
+  .agradecimientos:hover {
+    transform: scale(1.05);
+  }
+  
+  .top-section,
+  .bottom-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  /* Ajustes para dispositivos más pequeños */
+  @media (max-width: 768px) {
+    .cuadrante1 {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+ 
+@media (max-width: 768px) {
+    .cuadrante2 {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cuadrante3 {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cuadrante4 {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .agradecimientos {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about {
+      width: 100%;
+      margin-right: 0; /* Elimina el espacio entre cuadrantes en dispositivos más pequeños */
+      margin-bottom: 20px;
+    }
+}
+
+.back {
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Estilos específicos para los iconos de marca de Font Awesome */
+  .fab {
+    font-weight: 400;
+    margin-left: 10px;
+    font-size: 50px;
+    margin-top: -70px;
+}
+  
+  .fa-instagram:before {
+    content: '\f16d'; /* Código Unicode para el ícono de Instagram */
+  }
+  
+  .fa-facebook:before {
+    content: '\f09a'; /* Código Unicode para el ícono de Facebook */
+  }
+  
+  .fa-github:before {
+    content: '\f09b'; /* Código Unicode para el ícono de GitHub */
+  }
+
+  .equipo{
+    margin-top: 25px;
+  }
+
+  .back1 {
+    margin-top: 20px;
+  }
