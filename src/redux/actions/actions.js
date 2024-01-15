@@ -1,12 +1,15 @@
 import axios from "axios";
 import {
   GET_ALL_SNEAKERS,
+  GET_SNEAKERS_FAILURE,
   GET_SEARCH_REQUEST,
   GET_SEARCH_NOTFOUND,
   GET_SEARCH_SUCCESS,
   RESET_CURRENTPAGE,
-  BRAND_VALUE,COLOR_VALUE,
-  SIZE_VALUE,ORDER_PRICE,
+  BRAND_VALUE,
+  COLOR_VALUE,
+  SIZE_VALUE,
+  ORDER_PRICE,
   POST_PRODUCT_FAILURE,
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_REQUEST,
@@ -32,14 +35,13 @@ export const registerUser = (datauser) => async (dispatch) => {
   }
 }
 
-
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
 });
 
 export const clearProductDetail = () => ({
   type: CLEAR_PRODUCT_DETAIL,
- });
+});
 
 export const postProductSuccess = (product) => ({
   type: POST_PRODUCT_SUCCESS,
@@ -50,7 +52,6 @@ export const postProductFailure = (error) => ({
   type: POST_PRODUCT_FAILURE,
   payload: error,
 });
-
 
 export const fetchProductDetail = (idKey) => async (dispatch) => {
   try {
@@ -66,10 +67,9 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-
-export const getSneakers = ( page, pageSize="8", brand, colors, size, price) => {
+export const getSneakers = (page, pageSize = "8", brand, colors, size, price) => {
   return async function (dispatch) {
-     try {
+    try {
       const queryParams = {
         page: encodeURIComponent(page),
         pageSize: encodeURIComponent(pageSize),
@@ -83,7 +83,7 @@ export const getSneakers = ( page, pageSize="8", brand, colors, size, price) => 
         queryParams.colors = encodeURIComponent(colors);
       }
 
-      if(size){
+      if (size) {
         queryParams.size = encodeURIComponent(size);
       }
 
@@ -99,7 +99,6 @@ export const getSneakers = ( page, pageSize="8", brand, colors, size, price) => 
 
       const response = await axios.get(url);
       const sneakers = response.data;
-      console.log("La respuesta es:", sneakers);
 
       dispatch({
         type: GET_ALL_SNEAKERS,
@@ -148,7 +147,7 @@ export const postCreateProduct = (productData) => async (dispatch) => {
 }
 
 export const getSearchRequest = () => ({
-  type: GET_SEARCH_SUCCESS, // Cambiado de GET_SEARCH_REQUEST a GET_SEARCH_SUCCESS
+  type: GET_SEARCH_REQUEST,
 });
 
 export const getSearchSuccess = (data) => ({
@@ -179,38 +178,46 @@ export const searchBar = (searchTerm) => {
   };
 };
 
-
 export const resetCurrentPage = (page) => {
   return {
-      type:RESET_CURRENTPAGE,
-      payload:page
+    type: RESET_CURRENTPAGE,
+    payload: page
   }
 }
 
 export const brandValue = (value) => {
   return {
-      type:BRAND_VALUE,
-      payload:value
+    type: BRAND_VALUE,
+    payload: value
   }
 }
 
 export const colorValue = (value) => {
   return {
-      type:COLOR_VALUE,
-      payload:value
+    type: COLOR_VALUE,
+    payload: value
   }
 }
 
-  export const sizeValue = (value) => {
-    return {
-        type:SIZE_VALUE,
-        payload:value
-    }
+export const sizeValue = (value) => {
+  return {
+    type: SIZE_VALUE,
+    payload: value
+  }
 }
 
-  export const orderPrice = (value) => {
-    return {
-        type:ORDER_PRICE,
-        payload:value
-    }
+export const orderPrice = (value) => {
+  return {
+    type: ORDER_PRICE,
+    payload: value
+  }
 }
+
+export const setCurrentPage = (page) => ({
+  type: 'SET_CURRENT_PAGE',
+  payload: page,
+});
+
+export const resetSearch = () => ({
+  type: 'RESET_SEARCH',
+});

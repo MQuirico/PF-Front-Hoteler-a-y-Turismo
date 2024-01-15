@@ -33,6 +33,9 @@ const Detail = () => {
     return <div>Datos no disponibles</div>;
   }
 
+  // Verifica el tipo de id
+  const isHexadecimalId = /^[0-9a-fA-F]{24}$/.test(id);
+
   const colorStyles = {
     Negro: { backgroundColor: "black", color: "white" },
     Blanco: { backgroundColor: "white", color: "black" },
@@ -44,6 +47,8 @@ const Detail = () => {
   };
 
   return (
+    <div className="imagen">
+
     <>
       <div className="product-detail-container">
         <div className="product-detail">
@@ -116,6 +121,7 @@ const Detail = () => {
         </div>
       </div>
     </>
+    </div>
   );
 };
 

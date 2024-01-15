@@ -131,14 +131,11 @@ case CLEAR_CREATE_PRODUCT_STATE:
   return{ initialState};
 
 
-  case GET_SEARCH_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-      sneakers: action.payload, 
-      totalSneaker: action.payload.length, 
-      currentPage: 1, 
-    };
+case GET_SEARCH_SUCCESS:
+  return {
+    ...state,
+    data: action.payload,
+  };
 
   case GET_SEARCH_NOTFOUND:
     return{
@@ -177,6 +174,13 @@ case CLEAR_CREATE_PRODUCT_STATE:
                 ...state,
                 orderPrice:action.payload
             }
+
+            case 'RESET_SEARCH':
+              return {
+                ...state,
+                sneakers: state.allCopySneakers,
+                currentPage: 1,
+              };
               
                   default:
                   return state;
