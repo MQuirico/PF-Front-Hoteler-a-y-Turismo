@@ -96,7 +96,7 @@ export const getSneakers = (page, pageSize ="4", brand, colors, size, price) => 
         .join("&");
 
       const url = `http://localhost:3000/products?${queryString}`;
-
+      console.log(url)
       const response = await axios.get(url);
       const sneakers = response.data;
 

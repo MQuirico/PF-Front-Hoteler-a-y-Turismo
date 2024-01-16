@@ -31,7 +31,7 @@ const initialState = {
   brandValue : [],
   colorValue :[],
   sizeValue:[],
-  orderPrice:[]
+  orderPrice:[],
 };
 
 const stateSearchBar = {

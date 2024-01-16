@@ -6,11 +6,9 @@ import Card from "../Card/Card";
 import style from "./Cards.module.css"
 
 
-const Cards = ({sneakers}) => {
+const Cards = ({sneakers,page}) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getSneakers());
-}, [dispatch]);
+  
 if (!sneakers || sneakers.length === 0) {
   return <p>No se encontraron sneakers.</p>;
 }
