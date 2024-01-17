@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {useEffect} from "react";
+import GoogleLogin from "react-google-login";
+import {gapi} from "gapi-script";
+
 import style from "./Login.module.css"
 
 export default function LogIn(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [esVálido, setEsVálido] = useState("");
+
+  const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com"
 
   const userRegex = "^[^s@]+@[^s@]+.[^s@]+$";
   const passwordRegex =
@@ -25,6 +31,23 @@ export default function LogIn(props) {
       setEsVálido(false);
     }
   };
+
+  useEffect(() =>{
+    const start = () => {
+      gapi.auth2.init({
+        clientId: clientID,
+      })
+    }
+    gapi.load("client:auth2", start)
+  }, [])
+
+  const onSuccess = (response) => {
+    console.log(response)
+  }
+
+  const onFailure = () => {
+    console.log("Algo salió mal")
+  }
 
   return (
     <>
@@ -69,8 +92,18 @@ export default function LogIn(props) {
                 <u>Regístrate aquí</u>
               </p>
             </Link>
+          <div className="google" style={{"margin-left": "9pc"}}>
+          <GoogleLogin 
+          clientId={clientID}
+          onSuccess={onSuccess}
+          onfailure={onFailure}
+          cookiePolicy={"single_host_policy"}
+          redirectUri={window.location.origin + 'http://localhost:5173/home'}
+        />
+        </div>
           </div>
         </div>
+        
       </div>
     </>
   );

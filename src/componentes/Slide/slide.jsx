@@ -1,25 +1,34 @@
 import React from 'react';
 import { Carousel } from 'antd';
+import one from "../../assets/visa.jpg";
+import two from "../../assets/Naranja.jpg";
+import three from "../../assets/Enero.jpg";
+import four from "../../assets/Tarjeta.jpg";
+
+
 const contentStyle = {
-  height: '150px',
+  height: '200px',
+  width: '500px',
   color: '#fff',
   lineHeight: '160px',
   textAlign: 'center',
   background: '#364d79',
 };
+
+
 const Slide = () => (
-  <Carousel autoplay style={{width: '30%', height: '80%', 'margin-top': '450px', 'margin-left': '505px'}}>
+  <Carousel autoplay style={{width: '30%', height: '100%', 'margin-top': '420px', 'margin-left': '505px'}}>
     <div>
-      <h3 style={contentStyle}>1</h3>
+      <img src={one} style={contentStyle}></img>
     </div>
     <div>
-      <h3 style={contentStyle}>2</h3>
+     <img src={two} style={contentStyle}></img>
     </div>
     <div>
-      <h3 style={contentStyle}>3</h3>
+    <img src={three} style={contentStyle}></img>
     </div>
     <div>
-      <h3 style={contentStyle}>4</h3>
+    <img src={four} style={contentStyle}></img>
     </div>
   </Carousel>
 );

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { getSneakers } from "../../redux/actions/actions";
-import Cards from "../../componentes/Cards/Cards";
+import Cards from "../../componentes/Cards/cards";
 import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';

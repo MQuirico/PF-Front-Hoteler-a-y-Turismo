@@ -11,9 +11,8 @@ import style from "./Detail.module.css"
 const Detail = ( brand ) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  
-  const zapatilla = useSelector((state) => state.product.detail);
-  const [selectedColors, setSelectedColors] = useState(zapatilla && zapatilla.colors ? zapatilla.colors : []);
+  const zapatilla = useSelector((state) => state?.product?.detail);
+  const selectedColors = zapatilla && zapatilla.colors ? zapatilla.colors : [];
 
   useEffect(() => {
    if (zapatilla && zapatilla.colors) {
@@ -48,15 +47,9 @@ const Detail = ( brand ) => {
   
 
   useEffect(() => {
-    console.log("Detalle del producto en useEffect:", zapatilla);
+    // Cargar los detalles del producto al montar el componente
     if (!zapatilla) {
-      // Solo hacer la solicitud si zapatilla es nulo
       dispatch(fetchProductDetail(id));
-    } else {
-      // Si zapatilla está definido, imprimir sus propiedades
-      Object.keys(zapatilla).forEach((key) => {
-        console.log(`${key}: ${zapatilla[key]}`);
-      });
     }
   }, [dispatch, id, zapatilla]);
 
@@ -64,23 +57,22 @@ const Detail = ( brand ) => {
     return <div>Loading...</div>;
   }
 
-  if (!zapatilla || !zapatilla.name) {
+  if (!zapatilla.name) {
     return <div>Datos no disponibles</div>;
-}
+  }
+
+  // Verifica el tipo de id
+  const isHexadecimalId = /^[0-9a-fA-F]{24}$/.test(id);
 
   const colorStyles = {
-    Negro: { backgroundColor: 'black', color: 'white' },
-    Blanco: { backgroundColor: 'white', color: 'black' },
-    Azul: { backgroundColor: 'blue', color: 'white' },
-    Verde: { backgroundColor: 'green', color: 'white' },
-    Gris: { backgroundColor: 'grey', color: 'white' },
-    Rojo: { backgroundColor: 'red', color: 'white' },
-    Naranja: { backgroundColor: 'orange', color: 'white' },
+    Negro: { backgroundColor: "black", color: "white" },
+    Blanco: { backgroundColor: "white", color: "black" },
+    Azul: { backgroundColor: "blue", color: "white" },
+    Verde: { backgroundColor: "green", color: "white" },
+    Gris: { backgroundColor: "grey", color: "white" },
+    Rojo: { backgroundColor: "red", color: "white" },
+    Naranja: { backgroundColor: "orange", color: "white" },
   };
-
-  // Actualizar el fondo del span cuando cambie el color seleccionado
-
-
 
   return (
     <div className={style.container}>
