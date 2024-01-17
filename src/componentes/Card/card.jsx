@@ -5,7 +5,6 @@ import style from "../Card/Card.module.css"; // Asegúrate de tener un archivo C
 const Card = ({ id, model, size, image, color, brand, price }) => {
   let logoUrl;
 
-  // Configura la URL del logo según la marca
   switch (brand) {
     case "NIKE":
       logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/761696.svg?token=eyJhbGciOiJoczI1NiIsImtpZCI6ImRlZmF1bHQifQ__.eyJpc3MiOiJkM3N4c2htbmNzMTB0ZS5jbG91ZGZyb250Lm5ldCIsImV4cCI6MTcwNTcyNTA3OSwicSI6bnVsbCwiaWF0IjoxNzA1NDY1ODc5fQ__.08bf3f226aa8bf7c7b8e2048315c96f30e1f6b565f88fe4b7f3af9cf32bb12c5";

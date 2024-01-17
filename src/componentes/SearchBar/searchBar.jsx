@@ -55,7 +55,7 @@ const SearchBar = () => {
           onChange={handleChange}
           placeholder="Search"
         />
-
+            <img type="submit" src="src\assets\searchbar-loupe.png" alt="" className={style.buttonImg} />
       </form>
     </div>
   );
