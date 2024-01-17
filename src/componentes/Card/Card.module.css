@@ -2,49 +2,54 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  margin: 0 auto;
 }
 
 .container:hover{
-  transition: 0.5s;
-  scale: 102%;
+  scale: 104%;
 }
 
 .cardContent{
-  width: 300px;
-  height: 400px;
-  outline: solid 1px black;
+  width: 280px;
+  height: 404px;
   margin: 30px;
-  border-radius: 8px;
-  box-shadow: 0px 6px 10px black;
-
+  box-shadow: 0px 2px 4px black;
 }
 
 .cardContent:hover{
   outline: 1px solid #0D6EFD;
-  box-shadow: 0px 6px 10px #0D6EFD;
+  box-shadow: 0px 2px 10px #0D6EFD;
+  transition: 0.3s;
+}
+
+.cardContent h3{
+  background-color: white;
+  margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
+  height: 26px;
 }
 
 .cardContent img{
-  border-radius: 8px 8px 0px 0px;
+  width: 280px;
   height: 300px;
-  width: 300px;
   justify-self: center;
   object-fit: cover;
 }
 
-img{
-  justify-self: center;
-  object-fit: cover;
+.cardContent img:hover{
+  border-radius: 4px;
+  transition: 0.2s;
 }
 
 .brand h3{
   display: flex;
   align-items: center;
-  background-color: #0D6EFD;
-  color: white;
+  color: black;
   justify-content: center;
-  height: 50px;
-  font-size: 18px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 500;
   margin: 0 auto;
 }
 
@@ -53,8 +58,7 @@ img{
   justify-content: center;
   background-color: white;
   width: 100%;
-  height: 50px;
-  border-radius: 0px 0px 6px 6px;
+  height: 49px;
 }
 
 .details h4{
@@ -63,8 +67,9 @@ img{
   position: relative;
   top: 12px;
   font-size: 20px;
-  color: green;
   font-weight: 700;
+  height: 26px;
+  color: green;
 }
 
 .details button{
@@ -74,11 +79,11 @@ img{
   top: 12.5px;
   left: 6px;
   height: 25px;
-  background-color: black;
+  background-color: gray;
 }
 
 .details button:hover{
-background-color: gray;
+  background-color: black;
 }
 
 .details button h5{
@@ -87,4 +92,14 @@ background-color: gray;
   position: relative;
   top: -6px;
   left: -6px;
+}
+
+.logoContainer img{
+  justify-self: center;
+  object-fit: cover;
+  width: 54px;
+  height: 30px;
+  position: relative;
+  top: -370px;
+  left: 220px;
 }

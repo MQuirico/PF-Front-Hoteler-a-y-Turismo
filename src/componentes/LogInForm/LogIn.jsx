@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import GoogleLogin from "react-google-login";
 import {gapi} from "gapi-script";
 
+import style from "./Login.module.css"
 
 export default function LogIn(props) {
   const [userName, setUserName] = useState("");
@@ -55,8 +56,8 @@ export default function LogIn(props) {
           <div className="col-md-4 ml-5 border mt-5 p-5">
             <h2 className="text-center mb-4">Inicie sesión</h2>
             <form className="">
-              <div className="mb-3">
-                <label className="form-label">Email:</label>
+              <div className={style.labelsContainer}>
+                <label>Email:</label>
                 <input
                   type="text"
                   className="form-control form-control-lg"
@@ -66,8 +67,8 @@ export default function LogIn(props) {
                   style={{ height: "50px" }}
                 ></input>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Contraseña:</label>
+              <div>
+                <label>Contraseña:</label>
                 <input
                   type="password"
                   className="form-control form-control-lg"

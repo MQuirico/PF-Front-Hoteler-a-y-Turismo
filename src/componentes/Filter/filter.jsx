@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
-import SearchBar from "../SearchBar/searchBar.jsx";
 import style from "./Filter.module.css"
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 
 function Filter({page,pageSize}) {
     console.log("Page in Filter:", page);
@@ -44,14 +45,14 @@ function Filter({page,pageSize}) {
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-      <SearchBar/>
+        <h3>FILTER BY:</h3>
        <Select
         name="FilterBrand"
         options={[
           { value: '', label: 'Brand' },
-          { value: 'adidas', label: 'adidas' },
-          { value: 'nike', label: 'nike' },
-          { value: 'newbalance', label: 'newbalance' },  
+          { value: 'ADIDAS', label: 'Adidas' },
+          { value: 'NIKE', label: 'Nike' },
+          { value: 'NEW BALANCE', label: 'New Balance' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />
@@ -93,6 +94,11 @@ function Filter({page,pageSize}) {
         onChange={(e) => handleOrderPrice(e.target.value)}
       />
       </div>
+      <div className={style.createContainer}>
+        <Link to="/create" className={style.linkContainer}>
+          <button className="submit">Create a product</button>
+        </Link>
+        </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ const Home = () => {
   const size = useSelector((state) => state?.sizeValue);
   const price = useSelector((state) => state?.orderPrice);
   const searchState = useSelector((state) => state?.data); //  estado para los resultados de la búsqueda
-  const pageSize = 4;
+  const pageSize = 8;
 
   const setCurrentPage = (page) => {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));
@@ -24,11 +24,11 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filterComponent}>
-      <Filter totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></Filter>
+      <Filter totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
       </div>
       <div className={styles.cardsComponent}>
       <Cards sneakers={searchState || sneakers} />
-      {(sneakers && sneakers.length === 0) && <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
+      {(sneakers && sneakers.length === 0) &&  <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
       </div>
       <div className={styles.paginatedComponent}>
       <Paginado totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />

@@ -14,7 +14,7 @@ export default function StandardImageList({style}) {
             src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
             alt={item.title}
             loading="lazy"
-            style={{ style }}
+            style={{style}}
           />
         </ImageListItem>
       ))}

@@ -13,7 +13,6 @@ const Landing = () => {
     height: '100vh',
   };
 
-  
   return (
     <div className="land-container">
       

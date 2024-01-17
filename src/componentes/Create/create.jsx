@@ -87,11 +87,12 @@ const ProductForm = () => {
     }
   };
 
-  const availableBrands = ["nike", "adidas", "newbalance"];
+
+  const availableBrands = ["Nike", "Adidas", "NewBalance"];
   const brandColors = {
-    nike: ["green", "white", "black"],
-    adidas: ["blue", "white", "grey"],
-    newbalance: ["black", "white", "red"],
+    Nike: ["green", "white", "black"],
+    Adidas: ["blue", "white", "grey"],
+    NewBalance: ["black", "white", "red"],
   };
 
   const colorOptions = [
@@ -271,34 +272,27 @@ const ProductForm = () => {
               isMulti
               options={colorOptions}
             />
-            <p className="error-message">{errors.colors}</p>
+          <p className="error-message">{errors.colors}</p>
 
-            <div className="button-container">
-              <button type="submit" className="submit-button">
-                Crear Producto
-              </button>
-              <Link to="/home">
-                <button className="submit-button">Volver a Home</button>
-              </Link>
+          <div className="button-container">
+          <button type="submit" className="submit-button">
+            Crear
+          </button>
+        </div>
+          <div className="successMessage">
+          {message && (
+            <div className={ message.includes("éxito") ? "success-message" : "error-message"}>
+            {message}
             </div>
-
-            {message && (
-              <div
-                className={
-                  message.includes("Ã©xito")
-                    ? "success-message"
-                    : "error-message"
-                }
-              >
-                {message}
-              </div>
             )}
-          </form>
-
-          <div className="preview-container">
-            <div className="nombre">
-              <h3>{input.name ? input.name : "Nombre..."}</h3>
             </div>
+
+        </form>
+  
+        <div className="preview-container">
+          <div className="nombre">
+            <h3>{input.name ? input.name : "Nombre..."}</h3>
+          </div>
 
             <h4 className="precio-preview">
               {" "}

@@ -5,11 +5,14 @@ import { FaShopify } from "react-icons/fa";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import logo from "../../assets/Runners Paradise.png"
 import style from "./navBar.module.css"
+import SearchBar from "../SearchBar/searchBar.jsx";
+
 
 export default function NavBar(props) {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-primary data-bs-theme=dark">
+    <div className={style.navContainer}>
+      <nav className="navbar navbar-expand-lg bg-primary">
         <div className="container-fluid">
                        
           <Link
@@ -19,7 +22,9 @@ export default function NavBar(props) {
           >
           <img className={style.logoRunners} src={logo}></img>
           </Link>
-          
+          <div className={style.searchBarContainer}>
+          <SearchBar/>
+          </div>
           <div>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav">
@@ -81,6 +86,7 @@ export default function NavBar(props) {
           </div>
         </div>
       </nav>
+      </div>
     </>
   );
 }
