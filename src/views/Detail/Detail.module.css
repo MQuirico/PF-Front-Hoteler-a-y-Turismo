@@ -17,15 +17,16 @@
 .detailContent h2{
   width: 400px;
   color: #0D6EFD;
-  font-size: 26px;
-  font-weight: 300;
+  font-size: 20px;
+  font-weight: 400;
   margin-left: 30px;
 }
 
 .detailContent h4{
-  font-size: 20px;
   margin-top: 20px;
+  font-weight: 300;
   margin-left: 30px;
+  font-size: 20px;
 }
 
 .imagePreview img{
@@ -51,6 +52,7 @@
   display: flex;
   text-justify: center;
   font-size: 16px;
+  font-weight: 100;
   margin-left: 30px;
 }
 
@@ -64,9 +66,23 @@
   background-color: rgba(128, 128, 128, 0.14);
   top: 8px;
   position: relative;
-  font-weight: 400;
+  font-weight: 100;
 }
 
 .price{
+  margin: 0 auto;
+  position: relative;
+  top: -40px;
+  font-weight: 100;
   color: green;
+}
+.price h4{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 100;
+  font-size: 24px;
+}
+
+.nameContainer h4{
+  font-size: 30px;
+  font-weight: 500;
 }

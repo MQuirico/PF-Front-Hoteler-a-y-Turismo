@@ -11,8 +11,8 @@ import style from "./Detail.module.css"
 const Detail = ( brand ) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [selectedColors, setSelectedColors] = useState([])
   const zapatilla = useSelector((state) => state?.product?.detail);
-  const selectedColors = zapatilla && zapatilla.colors ? zapatilla.colors : [];
 
   useEffect(() => {
    if (zapatilla && zapatilla.colors) {
@@ -85,7 +85,9 @@ const Detail = ( brand ) => {
             <h2>
         {zapatilla && zapatilla.brand}
         </h2>
+        <div className={style.nameContainer}>
        <h4>{zapatilla && zapatilla.name}</h4>
+       </div>
        <div className={style.logoContainer}>
         {logoUrl && <img src={logoUrl} alt={`${brand} Logo`} />}
         </div>
@@ -93,14 +95,6 @@ const Detail = ( brand ) => {
         <div className={style.price}>
         <h4>${zapatilla.price} USD</h4>
           </div>
-          <br/>
-        <h4>Gender:</h4>
-        <div>
-            <h4>
-        {zapatilla && zapatilla.gender}
-        </h4>
-        </div>
-        <br />
         <h4>Colors:</h4>
         <div className={style.containerColors}>
     {selectedColors.map((selectedColor, index) => {
@@ -128,6 +122,12 @@ const Detail = ( brand ) => {
         </span>
         </div>
         <br />
+          <h4>Gender:</h4>
+          <div>
+              <h4>
+          {zapatilla && zapatilla.gender}
+          </h4>
+          </div>
       <div>
       </div>
         </div>

@@ -23,6 +23,9 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.paginatedContainer}>
+      <Paginado totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
+      </div>
       <div className={styles.filterComponent}>
       <Filter totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
       </div>
@@ -31,7 +34,6 @@ const Home = () => {
       {(sneakers && sneakers.length === 0) &&  <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
       </div>
       <div className={styles.paginatedComponent}>
-      <Paginado totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
     </div>
     </div>
   );

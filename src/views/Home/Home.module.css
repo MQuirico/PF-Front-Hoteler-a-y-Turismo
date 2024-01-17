@@ -37,3 +37,11 @@
   position: relative;
   top: 20px;
 }
+
+
+.paginatedContainer{
+  display: flex;
+  position: absolute;
+  justify-content: end;
+  left:1360px;
+}
