@@ -92,11 +92,11 @@ const handleSubmit = async (event) => {
 };
 
 
-  const availableBrands = ["nike", "adidas", "newbalance"];
+  const availableBrands = ["Nike", "Adidas", "NewBalance"];
   const brandColors = {
-    nike: ["green", "white", "black"],
-    adidas: ["blue", "white", "grey"],
-    newbalance: ["black", "white", "red"],
+    Nike: ["green", "white", "black"],
+    Adidas: ["blue", "white", "grey"],
+    NewBalance: ["black", "white", "red"],
   };
   
   const colorOptions = [
@@ -281,26 +281,18 @@ const handleSubmit = async (event) => {
             />
           <p className="error-message">{errors.colors}</p>
 
-
-  
           <div className="button-container">
           <button type="submit" className="submit-button">
-            Crear Producto
+            Crear
           </button>
-          <Link to="/home">
-            <button className="submit-button">Volver a Home</button>
-          </Link>
         </div>
-      
-    
-  
-
-
+          <div className="successMessage">
           {message && (
             <div className={ message.includes("éxito") ? "success-message" : "error-message"}>
             {message}
             </div>
             )}
+            </div>
 
         </form>
   

@@ -1,5 +1,4 @@
 .container{
-  background-image: url(../../assets/backgroundhome.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -7,7 +6,9 @@
 
 .cardsComponent{
   position: relative;
-  margin-left: 14px;
+  margin-left: 140px;
+  top:-160px;
+  z-index: 20;
 }
 
 .searchBarComponent{
@@ -15,13 +16,24 @@
 }
 
 .paginatedComponent{
-  position: relative;
+  position: absolute;
   background-color: #0d6dfda2;
   width: 100%;
+  top: 1050px;
+  display: block;
 }
 
 .filterComponent{
   z-index: 10;
   position: relative;
-  margin-left: 23px;
+}
+
+.createContainer button{
+  width: 114px;
+  height: 40px;
+  font-weight: 400;
+  background-color: black;
+  font-size: 12px;
+  position: relative;
+  top: 20px;
 }
