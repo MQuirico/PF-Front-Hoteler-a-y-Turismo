@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
-import SearchBar from "../SearchBar/searchBar.jsx";
 import style from "./Filter.module.css"
 
 function Filter({page,pageSize}) {
@@ -44,7 +43,6 @@ function Filter({page,pageSize}) {
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-      <SearchBar/>
        <Select
         name="FilterBrand"
         options={[

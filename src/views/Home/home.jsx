@@ -5,6 +5,7 @@ import Cards from "../../componentes/Cards/cards";
 import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
+import SearchBar from '../../componentes/SearchBar/searchBar';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -30,14 +31,15 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filterComponent}>
+      <SearchBar totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></SearchBar>
       <Filter totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></Filter>
       </div>
       <div className={styles.cardsComponent}>
-      <Cards sneakers={searchState ||  sneakers  } />
+      <Cards sneakers={ sneakers  } />
       {(sneakers && sneakers.length === 0) && <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
       </div>
       <div className={styles.paginatedComponent}>
-      <Paginado totalSneaker={ searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
+      <Paginado totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
     </div>
     </div>
   );

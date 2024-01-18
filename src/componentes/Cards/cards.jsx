@@ -6,7 +6,7 @@ import Card from "../Card/Card";
 import style from "./Cards.module.css"
 
 
-const Cards = ({sneakers,page}) => {
+const Cards = ({sneakers}) => {
   const dispatch = useDispatch();
   
 if (!sneakers || sneakers.length === 0) {

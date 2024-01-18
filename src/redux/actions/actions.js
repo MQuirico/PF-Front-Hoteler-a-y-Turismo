@@ -152,7 +152,10 @@ export const getSearchRequest = () => ({
 
 export const getSearchSuccess = (data) => ({
   type: GET_SEARCH_SUCCESS,
-  payload: data,
+  payload:{
+    sneakers:data.productsFound,
+    totalSneaker:data.totalSneakers
+  },
 });
 
 export const getSearchNotFound = (error) => ({
@@ -166,13 +169,13 @@ export const searchBar = (searchTerm) => {
       dispatch(getSearchRequest());
 
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-
-      if (response.data && response.data.length > 0) {
+      
+      console.log(response.data)
+      if ( response.data ) {
+        console.log(response.data)
         dispatch(getSearchSuccess(response.data));
-      } else {
-        dispatch(getSearchNotFound('No hay resultados que concuerden con tu búsqueda'));
-      }
-    } catch (error) {
+       
+    }} catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
     }
   };

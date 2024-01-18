@@ -12,6 +12,7 @@ const Card = ({ id, model, size, image, color, brand, price }) => {
         />
         <div className={style.brand}>
         <h3>{model}</h3>
+        
         <div className={style.details}>
           <h4>
             ${price} USD

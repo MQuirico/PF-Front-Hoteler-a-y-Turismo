@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSneakers, searchBar, resetSearch } from '../../redux/actions/actions';
 import style from "./SearchBar.module.css";
 
-const SearchBar = () => {
+const SearchBar = ({page}) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
   const fetchData = async (term) => {
     try {
-      const sneakers = term ? await dispatch(searchBar(term)) : await dispatch(getSneakers(1));
+      const sneakers = term ? await dispatch(searchBar(term)) : await dispatch(getSneakers(page=1));
       if (sneakers && sneakers.paginatedResponse) {
         dispatch({
           type: 'GET_ALL_SNEAKERS',
@@ -23,14 +23,14 @@ const SearchBar = () => {
     } catch (error) {
       console.error("Error al buscar las zapatillas:", error);
     }
-  };
+  }
 
   const handleChange = (event) => {
     const searchTerm = event.target.value;
     setSearch(searchTerm);
 
     // Llamar a fetchData solo si el término de búsqueda está vacío
-    if (!searchTerm) {
+    if (searchTerm) {
       fetchData();
     }
   };
@@ -60,5 +60,6 @@ const SearchBar = () => {
     </div>
   );
 };
+
 
 export default SearchBar;

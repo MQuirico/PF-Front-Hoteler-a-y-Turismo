@@ -134,7 +134,9 @@ case CLEAR_CREATE_PRODUCT_STATE:
 case GET_SEARCH_SUCCESS:
   return {
     ...state,
-    data: action.payload,
+    data: action.payload.sneakers,
+    sneakers:action.payload.sneakers,
+    totalSneaker:action.payload.totalSneaker
   };
 
   case GET_SEARCH_NOTFOUND:
