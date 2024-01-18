@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   GET_ALL_SNEAKERS,
-  GET_SNEAKERS_FAILURE,
+  GET_ALLL_SNEAKERS,
   GET_SEARCH_REQUEST,
   GET_SEARCH_NOTFOUND,
   GET_SEARCH_SUCCESS,
@@ -20,9 +20,8 @@ import {
   CLEAR_CREATE_PRODUCT_STATE,
   FETCH_PRODUCT_DETAIL_SUCCESS,
   FETCH_PRODUCT_DETAIL_FAILURE,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE
+  SET_SELECTED_SNEAKER,
+  SET_SELECTED_SNEAKER_INDEX
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -33,7 +32,7 @@ export const registerUser = (datauser) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
   }
-}
+};
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -67,52 +66,70 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = (page, pageSize ="8", brand, colors, size, price) => {
+export const getSneakers = (page, pageSize ="6", brand, colors, size, price) => {
   return async function (dispatch) {
     try {
       const queryParams = {
         page: encodeURIComponent(page),
         pageSize: encodeURIComponent(pageSize),
       };
-
+ 
       if (brand) {
         queryParams.brand = encodeURIComponent(brand);
       }
-
+ 
       if (colors) {
         queryParams.colors = encodeURIComponent(colors);
       }
-
+ 
       if (size) {
         queryParams.size = encodeURIComponent(size);
       }
-
+ 
       if (price) {
         queryParams.price = encodeURIComponent(price);
       }
-
+ 
       const queryString = Object.entries(queryParams)
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
-
+ 
       const url = `http://localhost:3000/products?${queryString}`;
-
+ 
       const response = await axios.get(url);
-      const sneakers = response.data;
-
+      const sneakersData = response.data;
+ 
       dispatch({
         type: GET_ALL_SNEAKERS,
         payload: {
-          sneakers: sneakers.paginatedResponse,
-          currentPage: sneakers.setCurrentPage,
-          totalSneaker: sneakers.totalSneaker,
+          sneakers: sneakersData.paginatedResponse,
+          currentPage: sneakersData.setCurrentPage,
+          totalSneaker: sneakersData.totalSneaker,
         },
       });
     } catch (error) {
       console.error("Error al traer las zapatillas:", error);
     }
   };
+ };
+
+ export const getAlllSneakers = () => {
+  return async function (dispatch) {
+    try {
+      const url = `http://localhost:3000/products/?page=1&pageSize=10`; // Asumiendo que tienes un endpoint que devuelve todas las zapatillas
+      const response = await axios.get(url);
+      const sneakersData = response.data;
+
+      dispatch({
+        type: GET_ALLL_SNEAKERS,
+        payload: sneakersData,
+      });
+    } catch (error) {
+      console.error("Error al traer las zapatillas:", error);
+    }
+  };
 };
+
 
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
@@ -144,7 +161,7 @@ export const postCreateProduct = (productData) => async (dispatch) => {
     // Si la solicitud falla
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
   }
-}
+};
 
 export const getSearchRequest = () => ({
   type: GET_SEARCH_REQUEST,
@@ -178,40 +195,30 @@ export const searchBar = (searchTerm) => {
   };
 };
 
-export const resetCurrentPage = (page) => {
-  return {
-    type: RESET_CURRENTPAGE,
-    payload: page
-  }
-}
+export const resetCurrentPage = (page) => ({
+  type: RESET_CURRENTPAGE,
+  payload: page,
+});
 
-export const brandValue = (value) => {
-  return {
-    type: BRAND_VALUE,
-    payload: value
-  }
-}
+export const brandValue = (value) => ({
+  type: BRAND_VALUE,
+  payload: value,
+});
 
-export const colorValue = (value) => {
-  return {
-    type: COLOR_VALUE,
-    payload: value
-  }
-}
+export const colorValue = (value) => ({
+  type: COLOR_VALUE,
+  payload: value,
+});
 
-export const sizeValue = (value) => {
-  return {
-    type: SIZE_VALUE,
-    payload: value
-  }
-}
+export const sizeValue = (value) => ({
+  type: SIZE_VALUE,
+  payload: value,
+});
 
-export const orderPrice = (value) => {
-  return {
-    type: ORDER_PRICE,
-    payload: value
-  }
-}
+export const orderPrice = (value) => ({
+  type: ORDER_PRICE,
+  payload: value,
+});
 
 export const setCurrentPage = (page) => ({
   type: 'SET_CURRENT_PAGE',
@@ -221,3 +228,24 @@ export const setCurrentPage = (page) => ({
 export const resetSearch = () => ({
   type: 'RESET_SEARCH',
 });
+
+export const setSneakers = (sneakers) => ({
+  type: 'SET_SNEAKERS',
+  payload: sneakers,
+});
+
+export const setSelectedSneaker = (sneaker) => ({
+  type: SET_SELECTED_SNEAKER,
+  payload: sneaker,
+});
+
+export const updateSelectedSneaker = (sneaker) => ({
+  type: 'UPDATE_SELECTED_SNEAKER',
+  payload: sneaker,
+ });
+
+ export const setSelectedSneakerIndex = (index) => ({
+  type: SET_SELECTED_SNEAKER_INDEX,
+  payload: index,
+ });
+
