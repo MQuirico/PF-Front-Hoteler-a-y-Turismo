@@ -21,7 +21,8 @@ import {
   FETCH_PRODUCT_DETAIL_SUCCESS,
   FETCH_PRODUCT_DETAIL_FAILURE,
   SET_SELECTED_SNEAKER,
-  SET_SELECTED_SNEAKER_INDEX
+  SET_SELECTED_SNEAKER_INDEX,
+  SAVE_USER_DATA_SESSION,
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -248,4 +249,38 @@ export const updateSelectedSneaker = (sneaker) => ({
   type: SET_SELECTED_SNEAKER_INDEX,
   payload: index,
  });
+
+ export const saveUserDataSession = (userData) => ({
+  type: SAVE_USER_DATA_SESSION,
+  payload: userData,
+ });
+
+ const loginAction = (user) => {
+  return {
+    type: 'LOGIN',
+    payload: user
+  };
+ };
+ 
+ // Acción para cerrar sesión
+ const logoutAction = () => {
+  return {
+    type: 'LOGOUT'
+  };
+ };
+ 
+ // Reducer para manejar el estado de la sesión
+ const sessionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return {
+        ...state,
+        user: action.payload
+      };
+    case 'LOGOUT':
+      return {};
+    default:
+      return state;
+  }
+ };
 
