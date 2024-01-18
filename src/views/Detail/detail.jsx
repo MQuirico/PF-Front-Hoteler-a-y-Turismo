@@ -1,34 +1,86 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams, } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetail } from "../../redux/actions/actions";
-import { clearProductDetail } from "../../redux/actions/actions";
-import style from "./Detail.module.css"
+import { fetchProductDetail, clearProductDetail, getSneakers } from "../../redux/actions/actions";
+import style from "./Detail.module.css";
+import BottomBar from "./bottomBar";
 
-
-const Detail = ( brand ) => {
+const Detail = ({ brand }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [selectedColors, setSelectedColors] = useState([])
+  const [selectedColors, setSelectedColors] = useState([]);
   const zapatilla = useSelector((state) => state?.product?.detail);
+  const allSneakers = useSelector((state) => state.sneakers);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
-   if (zapatilla && zapatilla.colors) {
-    
+    if (id) {
+      dispatch(fetchProductDetail(id));
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (zapatilla && zapatilla.image && zapatilla.image.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+        );
+      }, 1500);
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [zapatilla]);
+
+  useEffect(() => {
+    // Reiniciamos el índice de la imagen al cambiar la tarjeta
+    setSelectedImageIndex(0);
+
+    if (zapatilla && zapatilla.image && zapatilla.image.length > 1) {
+      const intervalId = setInterval(() => {
+        setSelectedImageIndex((prevIndex) =>
+          prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+        );
+      }, 1500);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [zapatilla]);
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : zapatilla.image.length - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+
+
+
+  useEffect(() => {
+    if (zapatilla && zapatilla.colors) {
       setSelectedColors(zapatilla.colors);
-     
-   }
+    }
   }, [zapatilla && zapatilla.colors]);
-   
+
   let logoUrl;
   switch (brand) {
     case "NIKE":
-      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/761696.svg?token=eyJhbGciOiJoczI1NiIsImtpZCI6ImRlZmF1bHQifQ__.eyJpc3MiOiJkM3N4c2htbmNzMTB0ZS5jbG91ZGZyb250Lm5ldCIsImV4cCI6MTcwNTcyNTA3OSwicSI6bnVsbCwiaWF0IjoxNzA1NDY1ODc5fQ__.08bf3f226aa8bf7c7b8e2048315c96f30e1f6b565f88fe4b7f3af9cf32bb12c5";
+      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/761696.svg?token=...";
       break;
     case "ADIDAS":
-      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/7581614.svg?token=eyJhbGciOiJoczI1NiIsImtpZCI6ImRlZmF1bHQifQ__.eyJpc3MiOiJkM3N4c2htbmNzMTB0ZS5jbG91ZGZyb250Lm5ldCIsImV4cCI6MTcwNTcyNTc2NiwicSI6bnVsbCwiaWF0IjoxNzA1NDY2NTY2fQ__.d77a53351cd89f5328123bec559ccfd67b3c778629d10bf40891b514f166c3d7";
+      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/7581614.svg?token=...";
       break;
     case "NEW BALANCE":
       logoUrl = "https://logos-world.net/wp-content/uploads/2020/09/New-Balance-Emblem.png";
@@ -37,17 +89,17 @@ const Detail = ( brand ) => {
       logoUrl = null;
   }
 
-  //para limpiar el estado
   useEffect(() => {
     return () => {
       dispatch(clearProductDetail());
     };
-   }, [dispatch]);
- 
-  
+  }, [dispatch]);
 
   useEffect(() => {
-    // Cargar los detalles del producto al montar el componente
+    dispatch(getSneakers());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!zapatilla) {
       dispatch(fetchProductDetail(id));
     }
@@ -61,77 +113,55 @@ const Detail = ( brand ) => {
     return <div>Datos no disponibles</div>;
   }
 
-  // Verifica el tipo de id
-  const isHexadecimalId = /^[0-9a-fA-F]{24}$/.test(id);
 
-  const colorStyles = {
-    Negro: { backgroundColor: "black", color: "white" },
-    Blanco: { backgroundColor: "white", color: "black" },
-    Azul: { backgroundColor: "blue", color: "white" },
-    Verde: { backgroundColor: "green", color: "white" },
-    Gris: { backgroundColor: "grey", color: "white" },
-    Rojo: { backgroundColor: "red", color: "white" },
-    Naranja: { backgroundColor: "orange", color: "white" },
-  };
 
   return (
     <div className={style.container}>
-        <div className={style.detailContainer}>
+      <div className={style.detailContainer}>
         <div className={style.imagePreview}>
-        <img src={zapatilla && zapatilla.image[0]} alt={zapatilla.name} />
+        <img src={zapatilla && zapatilla.image[selectedImageIndex]} alt={zapatilla.name} />
         </div>
         <div className={style.detailContent}>
           <br />
-            <h2>
-        {zapatilla && zapatilla.brand}
-        </h2>
-        <div className={style.nameContainer}>
-       <h4>{zapatilla && zapatilla.name}</h4>
-       </div>
-       <div className={style.logoContainer}>
-        {logoUrl && <img src={logoUrl} alt={`${brand} Logo`} />}
-        </div>
-        <br />
-        <div className={style.price}>
-        <h4>${zapatilla.price} USD</h4>
+          <h2>{zapatilla && zapatilla.brand}</h2>
+          <div className={style.nameContainer}>
+            <h4>{zapatilla && zapatilla.name}</h4>
           </div>
-        <h4>Colors:</h4>
-        <div className={style.containerColors}>
-    {selectedColors.map((selectedColor, index) => {
-      const colorKey = selectedColor.toLowerCase(); 
-      console.log(`Color: ${selectedColor}, Key: ${colorKey}`);
-      console.log(`Styles: `, colorStyles[colorKey]);
+          <div className={style.logoContainer}>
+            {logoUrl && <img src={logoUrl} alt={`${brand} Logo`} />}
+          </div>
+          <br />
+          <div className={style.price}>
+            <h4>${zapatilla.price} USD</h4>
+          </div>
+          <h4>Colors:</h4>
+          <div className={style.containerColors}>
+        {selectedColors.map((selectedColor, index) => (
+          <span key={index}>
+            {selectedColor}
+            {index < selectedColors.length - 1 && <span>&nbsp;</span>}
+          </span>
+        ))}
       
-      return (
-        <span
-        key={index}
-        >
-          {selectedColor}
-          {index < selectedColors.length - 1 && (
-            <span></span>
-            )}
-        </span>
-
-      );
-    })}
-    </div>
-        <h4>Sizes:</h4>
-        <div className={style.sizesContainer}>
-            <span>
-        {zapatilla && zapatilla.size.join(", ")}
-        </span>
-        </div>
-        <br />
+          </div>
+          <h4>Sizes:</h4>
+          <div className={style.sizesContainer}>
+            <span>{zapatilla && zapatilla.size.join(", ")}</span>
+          </div>
+          <br />
           <h4>Gender:</h4>
           <div>
-              <h4>
-          {zapatilla && zapatilla.gender}
-          </h4>
+            <h4>{zapatilla && zapatilla.gender}</h4>
           </div>
-      <div>
-      </div>
+          <div></div>
+          <div></div>
         </div>
-    </div>
+      </div>
+      <BottomBar
+          allSneakers={allSneakers}
+          onClickPrev={handlePrevImage}
+          onClickNext={handleNextImage}
+        />
     </div>
   );
 };

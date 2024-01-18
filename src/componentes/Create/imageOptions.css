@@ -1,0 +1,46 @@
+.image-option-remove-button {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  .image-option-remove-button:hover {
+   background-color: red;
+    transform: scale(1.2);
+  }
+  
+  
+  .image-option-add-button {
+    background-color: rgb(0, 58, 128);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .image-option-add-button:hover {
+    background-color: rgb(0, 58, 128); 
+  }
+  
+  
+  .image-option-container {
+    margin-bottom: 10px; 
+  }
+  
+ 
+  .image-option-container select,
+  .image-option-container input[type="text"],
+  .image-option-container input[type="file"] {
+    margin-right: 10px; 
+  }

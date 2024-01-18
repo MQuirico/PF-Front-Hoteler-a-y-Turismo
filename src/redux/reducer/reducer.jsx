@@ -8,6 +8,11 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
+  GET_ALL_SNEAKERS_SUCCESS,
+  GET_ALLL_SNEAKERS,
+  UPDATE_SELECTED_SNEAKER,
+  SET_SELECTED_SNEAKER_INDEX,
+  SAVE_USER_DATA_SESSION,
   GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
   
   
@@ -31,7 +36,12 @@ const initialState = {
   brandValue : [],
   colorValue :[],
   sizeValue:[],
-  orderPrice:[]
+  orderPrice:[],
+  selectedSneakerIndex:0,
+    userDataSession: {
+    isLoggedIn: false,
+    userData: null,
+  }
 };
 
 const stateSearchBar = {
@@ -74,6 +84,11 @@ const productReducer = (state = initialState, action) => {
           totalSneaker: action.payload.totalSneaker,
         };
 
+        case GET_ALLL_SNEAKERS:
+  return {
+    ...state,
+    sneakers: action.payload, // Actualiza solo la lista de zapatillas
+  };
 
       case FETCH_PRODUCT_DETAIL_SUCCESS:
         console.log("Detalle del producto:", action.payload);
@@ -127,8 +142,17 @@ case CREATE_PRODUCT_FAILURE:
     error: action.payload,
   };
 
-case CLEAR_CREATE_PRODUCT_STATE:
-  return{ initialState};
+  case CLEAR_CREATE_PRODUCT_STATE:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        detail: null,
+        createdProduct: null,
+        loading: false,
+        error: null,
+      },
+    };
 
 
 case GET_SEARCH_SUCCESS:
@@ -181,6 +205,33 @@ case GET_SEARCH_SUCCESS:
                 sneakers: state.allCopySneakers,
                 currentPage: 1,
               };
+
+              case GET_ALL_SNEAKERS_SUCCESS:
+ return {
+   ...state,
+   allSneakers: action.payload,
+ };
+
+ case UPDATE_SELECTED_SNEAKER:
+  return {
+    ...state,
+    selectedSneaker: action.payload,
+  };
+  case SET_SELECTED_SNEAKER_INDEX:
+ return {
+   ...state,
+   selectedSneakerIndex: action.payload,
+ };
+
+ case SAVE_USER_DATA_SESSION:
+  return {
+   ...state,
+   userDataSession: {
+     ...state.userDataSession,
+     isLoggedIn: true,
+     userData: action.payload,
+   },
+  };
               
                   default:
                   return state;
