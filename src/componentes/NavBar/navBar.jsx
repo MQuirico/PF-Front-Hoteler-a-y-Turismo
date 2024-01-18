@@ -1,31 +1,36 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaShopify } from "react-icons/fa";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import logo from "../../assets/Runners Paradise.png"
+import style from "./navBar.module.css"
+import SearchBar from "../SearchBar/searchBar.jsx";
+
 
 export default function NavBar(props) {
- 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-primary data-bs-theme=dark">
+    <div className={style.navContainer}>
+      <nav className="navbar navbar-expand-lg bg-primary">
         <div className="container-fluid">
-          <h1
-            className="logo text-white"
-            style={{ fontFamily: "Zantiqa4F", marginLeft: "5rem" }}
-          >                  
+                       
           <Link
-          to="/home"
-          className="nav-link active text-white"
-          aria-current="page"
-        >
-            RunnersParadise
-        </Link>
-          </h1>
+            to="/home"
+            className="nav-link active text-white"
+            aria-current="page"
+          >
+          <img className={style.logoRunners} src={logo}></img>
+          </Link>
+          <div className={style.searchBarContainer}>
+          <SearchBar/>
+          </div>
           <div>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav">
                 <li className="nav-item">
                 </li>
+
                 <li className="nav-item">
                   <Link to="/about" className="nav-link text-white">
                     ¿Quiénes somos?
@@ -81,6 +86,7 @@ export default function NavBar(props) {
           </div>
         </div>
       </nav>
+      </div>
     </>
   );
 }

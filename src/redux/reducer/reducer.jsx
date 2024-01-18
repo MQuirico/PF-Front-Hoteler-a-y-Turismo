@@ -8,6 +8,10 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
+  GET_ALL_SNEAKERS_SUCCESS,
+  GET_ALLL_SNEAKERS,
+  UPDATE_SELECTED_SNEAKER,
+  SET_SELECTED_SNEAKER_INDEX,
   GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
   
   
@@ -31,7 +35,8 @@ const initialState = {
   brandValue : [],
   colorValue :[],
   sizeValue:[],
-  orderPrice:[]
+  orderPrice:[],
+  selectedSneakerIndex:0
 };
 
 const stateSearchBar = {
@@ -74,6 +79,11 @@ const productReducer = (state = initialState, action) => {
           totalSneaker: action.payload.totalSneaker,
         };
 
+        case GET_ALLL_SNEAKERS:
+  return {
+    ...state,
+    sneakers: action.payload, // Actualiza solo la lista de zapatillas
+  };
 
       case FETCH_PRODUCT_DETAIL_SUCCESS:
         console.log("Detalle del producto:", action.payload);
@@ -131,14 +141,11 @@ case CLEAR_CREATE_PRODUCT_STATE:
   return{ initialState};
 
 
-  case GET_SEARCH_SUCCESS:
-    return {
-      ...state,
-      loading: false,
-      sneakers: action.payload, 
-      totalSneaker: action.payload.length, 
-      currentPage: 1, 
-    };
+case GET_SEARCH_SUCCESS:
+  return {
+    ...state,
+    data: action.payload,
+  };
 
   case GET_SEARCH_NOTFOUND:
     return{
@@ -177,6 +184,30 @@ case CLEAR_CREATE_PRODUCT_STATE:
                 ...state,
                 orderPrice:action.payload
             }
+
+            case 'RESET_SEARCH':
+              return {
+                ...state,
+                sneakers: state.allCopySneakers,
+                currentPage: 1,
+              };
+
+              case GET_ALL_SNEAKERS_SUCCESS:
+ return {
+   ...state,
+   allSneakers: action.payload,
+ };
+
+ case UPDATE_SELECTED_SNEAKER:
+  return {
+    ...state,
+    selectedSneaker: action.payload,
+  };
+  case SET_SELECTED_SNEAKER_INDEX:
+ return {
+   ...state,
+   selectedSneakerIndex: action.payload,
+ };
               
                   default:
                   return state;

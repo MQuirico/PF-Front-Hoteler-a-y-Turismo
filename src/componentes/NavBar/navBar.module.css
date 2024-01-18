@@ -1,0 +1,19 @@
+.img{
+    height: 15%;
+}
+
+.logoRunners{
+    margin: 0 auto;
+    width: 140px;
+    height: 50px;
+}
+
+.navContainer{
+    background-color: black;
+}
+
+.searchBarContainer{
+    position: relative;
+    left: -300px;
+    top: 10px;
+}

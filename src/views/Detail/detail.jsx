@@ -1,49 +1,107 @@
-import React from "react";
-import "./detail.css"
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams, } from "react-router-dom";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductDetail } from "../../redux/actions/actions";
-import { clearProductDetail } from "../../redux/actions/actions";
+import { fetchProductDetail, clearProductDetail, getSneakers } from "../../redux/actions/actions";
+import style from "./Detail.module.css";
+import BottomBar from "./bottomBar";
 
-
-
-const Detail = () => {
+const Detail = ({ brand }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  
-  const zapatilla = useSelector((state) => state.product.detail);
-  const [selectedColors, setSelectedColors] = useState(zapatilla && zapatilla.colors ? zapatilla.colors : []);
+  const [selectedColors, setSelectedColors] = useState([]);
+  const zapatilla = useSelector((state) => state?.product?.detail);
+  const allSneakers = useSelector((state) => state.sneakers);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
-   if (zapatilla && zapatilla.colors) {
-    
-      setSelectedColors(zapatilla.colors);
-     
-   }
-  }, [zapatilla && zapatilla.colors]);
-   
+    if (id) {
+      dispatch(fetchProductDetail(id));
+    }
+  }, [id, dispatch]);
 
-  //para limpiar el estado
+  useEffect(() => {
+    if (zapatilla && zapatilla.image && zapatilla.image.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+        );
+      }, 1500);
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [zapatilla]);
+
+  useEffect(() => {
+    // Reiniciamos el índice de la imagen al cambiar la tarjeta
+    setSelectedImageIndex(0);
+
+    if (zapatilla && zapatilla.image && zapatilla.image.length > 1) {
+      const intervalId = setInterval(() => {
+        setSelectedImageIndex((prevIndex) =>
+          prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+        );
+      }, 1500);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [zapatilla]);
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : zapatilla.image.length - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex < zapatilla.image.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+
+
+
+  useEffect(() => {
+    if (zapatilla && zapatilla.colors) {
+      setSelectedColors(zapatilla.colors);
+    }
+  }, [zapatilla && zapatilla.colors]);
+
+  let logoUrl;
+  switch (brand) {
+    case "NIKE":
+      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/761696.svg?token=...";
+      break;
+    case "ADIDAS":
+      logoUrl = "https://d3sxshmncs10te.cloudfront.net/icon/free/svg/7581614.svg?token=...";
+      break;
+    case "NEW BALANCE":
+      logoUrl = "https://logos-world.net/wp-content/uploads/2020/09/New-Balance-Emblem.png";
+      break;
+    default:
+      logoUrl = null;
+  }
+
   useEffect(() => {
     return () => {
       dispatch(clearProductDetail());
     };
-   }, [dispatch]);
- 
-  
+  }, [dispatch]);
+
   useEffect(() => {
-    console.log("Detalle del producto en useEffect:", zapatilla);
+    dispatch(getSneakers());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!zapatilla) {
-      // Solo hacer la solicitud si zapatilla es nulo
       dispatch(fetchProductDetail(id));
-    } else {
-      // Si zapatilla está definido, imprimir sus propiedades
-      Object.keys(zapatilla).forEach((key) => {
-        console.log(`${key}: ${zapatilla[key]}`);
-      });
     }
   }, [dispatch, id, zapatilla]);
 
@@ -51,114 +109,60 @@ const Detail = () => {
     return <div>Loading...</div>;
   }
 
-  if (!zapatilla || !zapatilla.name) {
+  if (!zapatilla.name) {
     return <div>Datos no disponibles</div>;
-}
-
-  const colorStyles = {
-    Negro: { backgroundColor: 'black', color: 'white' },
-    Blanco: { backgroundColor: 'white', color: 'black' },
-    Azul: { backgroundColor: 'blue', color: 'white' },
-    Verde: { backgroundColor: 'green', color: 'white' },
-    Gris: { backgroundColor: 'grey', color: 'white' },
-    Rojo: { backgroundColor: 'red', color: 'white' },
-    Naranja: { backgroundColor: 'orange', color: 'white' },
-  };
-
-  // Actualizar el fondo del span cuando cambie el color seleccionado
+  }
 
 
 
   return (
-    <>
-    <div className="product-detail-container">
-      <div className="product-detail">
-        <h2 className="nombre">{zapatilla && zapatilla.name}</h2>
-        
-        <div className="precio-preview">
-        <h5>Precio:  USD${zapatilla.price}</h5>
+    <div className={style.container}>
+      <div className={style.detailContainer}>
+        <div className={style.imagePreview}>
+        <img src={zapatilla && zapatilla.image[selectedImageIndex]} alt={zapatilla.name} />
         </div>
-
-        <div className="image-preview">
-        <img src={zapatilla && zapatilla.image[0]} alt={zapatilla.name} />
-        </div>
-        
-        <div className="tipos1">
-        <p className="titulo"> Marca:</p>
-        <div className="selected-sizes-container">
-            <span className="selected-size">
-        {zapatilla && zapatilla.brand}
-        </span>
-        </div>
-        </div>
-
-        <div className="tipos1">
-        <p className="titulo"> Genero:</p>
-        <div className="selected-sizes-container">
-            <span className="selected-size">
-        {zapatilla && zapatilla.gender}
-        </span>
-        </div>
-        </div>
-
-
-
-        <div className="tipos1">
-  <p className="titulo">Colores</p>
-  <div className="selected-sizes-container">
-    
-    {selectedColors.map((selectedColor, index) => {
-      const colorKey = selectedColor.toLowerCase(); 
-      console.log(`Color: ${selectedColor}, Key: ${colorKey}`);
-      console.log(`Styles: `, colorStyles[colorKey]);
-
-      return (
-        <span
-          key={index}
-          className="selected-size"
-          style={{
-            backgroundColor: colorStyles[colorKey]?.backgroundColor || 'black',
-            color: colorStyles[colorKey]?.color || 'white',
-          }}
-        >
-          {selectedColor}
-          {index < selectedColors.length - 1 && (
-            <span className="size-separator"></span>
-          )}
-        </span>
-      );
-    })}
-
-  
-  
-  
-          
-        
-</div>
-</div>
-
-<div className="tipos">
-        <p className="titulo"> Talles:</p>
-        <div className="selected-sizes-container">
-            <span className="selected-size">
-        {zapatilla && zapatilla.size.join(", ")}
-        </span>
-        </div>
-        </div>
-        
-      <div className="button">
-      <Link to="/home">
-          <button className="submit">Home</button>
-        </Link>
-        <Link to="/create">
-          <button className="submit">Crear</button>
-        </Link>
-      </div>
-        </div>
-    </div>
+        <div className={style.detailContent}>
+          <br />
+          <h2>{zapatilla && zapatilla.brand}</h2>
+          <div className={style.nameContainer}>
+            <h4>{zapatilla && zapatilla.name}</h4>
+          </div>
+          <div className={style.logoContainer}>
+            {logoUrl && <img src={logoUrl} alt={`${brand} Logo`} />}
+          </div>
+          <br />
+          <div className={style.price}>
+            <h4>${zapatilla.price} USD</h4>
+          </div>
+          <h4>Colors:</h4>
+          <div className={style.containerColors}>
+        {selectedColors.map((selectedColor, index) => (
+          <span key={index}>
+            {selectedColor}
+            {index < selectedColors.length - 1 && <span>&nbsp;</span>}
+          </span>
+        ))}
       
-    
-    </>
+          </div>
+          <h4>Sizes:</h4>
+          <div className={style.sizesContainer}>
+            <span>{zapatilla && zapatilla.size.join(", ")}</span>
+          </div>
+          <br />
+          <h4>Gender:</h4>
+          <div>
+            <h4>{zapatilla && zapatilla.gender}</h4>
+          </div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <BottomBar
+          allSneakers={allSneakers}
+          onClickPrev={handlePrevImage}
+          onClickNext={handleNextImage}
+        />
+    </div>
   );
 };
 

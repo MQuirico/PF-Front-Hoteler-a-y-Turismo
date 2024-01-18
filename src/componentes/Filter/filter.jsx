@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
+import style from "./Filter.module.css"
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 
 function Filter({page,pageSize}) {
     console.log("Page in Filter:", page);
@@ -40,14 +43,16 @@ function Filter({page,pageSize}) {
       };
 
   return (
-    <div>
+    <div className={style.containerContent}>
+      <div className={style.container}>
+        <h3>FILTER BY:</h3>
        <Select
         name="FilterBrand"
         options={[
-          { value: '', label: 'Select Brand' },
-          { value: 'adidas', label: 'adidas' },
-          { value: 'nike', label: 'nike' },
-          { value: 'newbalance', label: 'newbalance' },  
+          { value: '', label: 'Brand' },
+          { value: 'ADIDAS', label: 'Adidas' },
+          { value: 'NIKE', label: 'Nike' },
+          { value: 'NEW BALANCE', label: 'New Balance' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />
@@ -55,7 +60,7 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterColor"
         options={[
-          { value: '', label: 'Select color' },
+          { value: '', label: 'Color' },
           { value: 'black', label: 'black' },
           { value: 'red', label: 'red' },
           { value: 'blue', label: 'blue' },
@@ -68,7 +73,7 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterSize"
         options={[
-          { value: '', label: 'Select Brand' },
+          { value: '', label: 'Size' },
           { value: '6', label: '6' },
           { value: '7', label: '7' },
           { value: '8', label: '8' },
@@ -82,12 +87,18 @@ function Filter({page,pageSize}) {
 <Select
         name="orderPrice"
         options={[
-          { value: '', label: 'order price' },
+          { value: '', label: 'Price' },
           { value: 'min', label: 'min' },
           { value: 'max', label: 'max' }   
         ]}
         onChange={(e) => handleOrderPrice(e.target.value)}
       />
+      </div>
+      <div className={style.createContainer}>
+        <Link to="/create" className={style.linkContainer}>
+          <button className="submit">Create a product</button>
+        </Link>
+        </div>
     </div>
   );
 }

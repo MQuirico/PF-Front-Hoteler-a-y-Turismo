@@ -1,0 +1,47 @@
+.container{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.cardsComponent{
+  position: relative;
+  margin-left: 140px;
+  top:-160px;
+  z-index: 20;
+}
+
+.searchBarComponent{
+  position: relative;
+}
+
+.paginatedComponent{
+  position: absolute;
+  background-color: #0d6dfda2;
+  width: 100%;
+  top: 1050px;
+  display: block;
+}
+
+.filterComponent{
+  z-index: 10;
+  position: relative;
+}
+
+.createContainer button{
+  width: 114px;
+  height: 40px;
+  font-weight: 400;
+  background-color: black;
+  font-size: 12px;
+  position: relative;
+  top: 20px;
+}
+
+
+.paginatedContainer{
+  display: flex;
+  position: absolute;
+  justify-content: end;
+  left:1360px;
+}
