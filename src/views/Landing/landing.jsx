@@ -15,25 +15,22 @@ const Landing = () => {
 
   return (
     <div className="land-container">
-      
+      <div>
       <img src={logo} className="logo" alt="Runners Paradise" />
-      <h3 className="land-sub">Compre con nosotros</h3>
-      <StandardImageList style={galleryStyle} />
-      <Slide />
       <div className='text'>
-        <p className='intro'>¡Bienvenido a Runners Paradise, el destino definitivo para los apasionados del<br />
-        deporte y el confort! En Runners Paradise, no solo ofrecemos calzados deportivos <br />
-        de las mejores marcas, sino que también proporcionamos una experiencia única para <br />
-        aquellos que buscan el equilibrio perfecto entre rendimiento y estilo. Navega por <br />
-        nuestra amplia selección de zapatillas diseñadas para potenciar tu carrera y elevar <br />
-        tu estilo de vida activo. En cada par, encontrarás la fusión perfecta de tecnología <br />
-        avanzada, comodidad insuperable y diseño vanguardista. Descubre la diferencia en<br />
-        Runners Paradise, donde la pasión por el deporte se encuentra con la moda atlética.<br />
-        ¡Prepárate para elevar tus límites y correr hacia la excelencia en cada paso!</p>
+        <p className='intro'>
+          ¡Bienvenido a <b>Runners Paradise</b>, el destino definitivo para los apasionados del deporte y el confort! En Runners Paradise, no solo ofrecemos <b>calzados deportivos de las mejores marcas</b>, sino que también proporcionamos una experiencia única para aquellos que buscan el equilibrio perfecto entre <b>rendimiento y estilo.</b> Navega por nuestra amplia selección de zapatillas diseñadas para potenciar tu carrera y elevar tu estilo de vida activo. En cada par, encontrarás la fusión perfecta de <b>tecnología avanzada, comodidad insuperable y diseño vanguardista.</b> Descubre la diferencia en Runners Paradise, donde la pasión por el deporte se encuentra con la moda atlética. ¡Prepárate para elevar tus límites y correr hacia la excelencia en cada paso!</p>
+      </div>
+    <div className="slideContainer"> 
+      <Slide />
+      </div>
+      <div className="imagesList">
+      <StandardImageList style={galleryStyle} />
       </div>
       <Link to="/home">
-        <button className="land-button">Ingresar</button>
+        <button className="land-button">Compre con nosotros</button>
       </Link>
+      </div>
     </div>
   );
 };

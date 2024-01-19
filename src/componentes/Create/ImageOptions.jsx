@@ -83,16 +83,20 @@ const ImageOptions = ({ imageOptions, setImageOptions, imageUrls, setImageUrls, 
       <option value="url">URL</option>
       <option value="file">Archivo</option>
     </select>
+    <div className='buttons'>
+    <button type="button" onClick={() => handleRemoveImageOption(index)} className="image-option-remove-button">X</button>
     {option.type === 'url' && (
       <input type="text" value={option.value} onChange={(event) => handleValueChange(index, event)} />
-    )}
+      )}
+    <div className="inputs">
     {option.type === 'file' && (
       <input type="file" onChange={(event) => handleFileChange(index, event)} />
-    )}
-    <button type="button" onClick={() => handleRemoveImageOption(index)} className="image-option-remove-button">X</button>
+      )}
+      </div>
+    </div>
   </div>
 ))}
-<button type="button" onClick={handleAddImageOption} className="image-option-add-button">add a new image</button>
+<button type="button" onClick={handleAddImageOption} className="image-option-add-button">Add new image</button>
   </>
  );
 };

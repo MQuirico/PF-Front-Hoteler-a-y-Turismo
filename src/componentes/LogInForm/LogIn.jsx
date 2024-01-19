@@ -5,6 +5,7 @@ import GoogleLogin from "react-google-login";
 import {gapi} from "gapi-script";
 import {useDispatch} from 'react-redux';
 import { saveUserDataSession } from "../../redux/actions/actions";
+import style from "./Login.module.css"
 
 export default function LogIn(props) {
   const [userName, setUserName] = useState("");
@@ -63,51 +64,49 @@ export default function LogIn(props) {
             <h2 className="text-center mb-4">Inicie sesión</h2>
             <form className="">
               <div className="mb-3">
-                <label className="form-label">Email:</label>
+                <label className="form-label" style={{color:'black'}}>Email:</label>
                 <input
                   type="text"
                   className="form-control form-control-lg"
                   value={userName}
                   onChange={handleChange}
-                  placeholder="Escriba aquí su nombre de usuario"
-                  style={{ height: "50px" }}
+                  placeholder="Escriba aquí su email"
+                  style={{ height: "50px", fontSize:'16px' }}
                 ></input>
               </div>
               <div className="mb-3">
-                <label className="form-label">Contraseña:</label>
+                <label className="form-label" style={{color:'black'}}>Contraseña:</label>
                 <input
                   type="password"
                   className="form-control form-control-lg"
                   value={password}
                   onChange={handChangePass}
                   placeholder="Y aquí su contraseña..."
-                  style={{ height: "50px" }}
+                  style={{ height: "50px",fontSize:'16px' }}
                 ></input>
               </div>
               <button
                 type="submit"
                 className="btn btn-primary w-100"
-                disabled={!esVálido}
               >
-                Iniciar Sesión
+                Log In
               </button>
             </form>
+          <div className={style.google} style={{"margin": "20px"}}>
+          <GoogleLogin 
+            clientId={clientID}
+            onSuccess={onSuccess}
+            onfailure={onFailure}
+            cookiePolicy={"single_host_policy"}
+            redirectUri={'http://localhost:5173/home'}
+        />
+        </div>
             <p className="text-center mt-3">¿No estás registrado aún?</p>
             <Link to="/register">
               <p className="text-center">
                 <u>Regístrate aquí</u>
               </p>
             </Link>
-          <div className="google" style={{"marginLeft": "9px"}}>
-          <GoogleLogin 
-          clientId={clientID}
-          onSuccess={onSuccess}
-          onfailure={onFailure}
-          cookiePolicy={"single_host_policy"}
-          redirectUri={'http://localhost:5173/home'}
-        />
-        
-        </div>
           </div>
         </div>
         
