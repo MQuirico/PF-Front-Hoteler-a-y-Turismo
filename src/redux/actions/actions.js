@@ -96,7 +96,7 @@ export const getSneakers = (page, pageSize ="6", brand, colors, size, price) => 
         .join("&");
  
       const url = `http://localhost:3000/products?${queryString}`;
- 
+      console.log(url)
       const response = await axios.get(url);
       const sneakersData = response.data;
  
@@ -170,7 +170,10 @@ export const getSearchRequest = () => ({
 
 export const getSearchSuccess = (data) => ({
   type: GET_SEARCH_SUCCESS,
-  payload: data,
+  payload:{
+    sneakers:data.productsFound,
+    totalSneaker:data.totalSneakers
+  },
 });
 
 export const getSearchNotFound = (error) => ({
@@ -180,15 +183,13 @@ export const getSearchNotFound = (error) => ({
 
 export const searchBar = (searchTerm) => {
   return async (dispatch) => {
+    dispatch(getSearchRequest());
     try {
-      dispatch(getSearchRequest());
-
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-
-      if (response.data && response.data.length > 0) {
+      if (response.data && response.data.productsFound.length > 0) {
         dispatch(getSearchSuccess(response.data));
       } else {
-        dispatch(getSearchNotFound('No hay resultados que concuerden con tu búsqueda'));
+        dispatch(getSearchNotFound('No se encontraron resultados'));
       }
     } catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
@@ -262,25 +263,18 @@ export const updateSelectedSneaker = (sneaker) => ({
   };
  };
  
- // Acción para cerrar sesión
- const logoutAction = () => {
-  return {
-    type: 'LOGOUT'
+ export const searchProducts = (searchTerm) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
+      if (response.data && response.data.productsFound.length > 0) {
+        dispatch(getSearchSuccess(response.data));
+      } else {
+        dispatch(getSearchNotFound('No se encontraron resultados'));
+      }
+    } catch (error) {
+      dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
+    }
   };
- };
- 
- // Reducer para manejar el estado de la sesión
- const sessionReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.payload
-      };
-    case 'LOGOUT':
-      return {};
-    default:
-      return state;
-  }
  };
 

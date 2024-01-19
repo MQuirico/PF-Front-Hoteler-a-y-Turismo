@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect} from 'react'
 import { getSneakers } from "../../redux/actions/actions";
 import Cards from "../../componentes/Cards/cards";
 import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 import Alert from '../../componentes/Alert/Alert'; // Importa el componente de Alert
-import { useEffect } from 'react';
+
 
 const Home = () => {
   const dispatch = useDispatch();

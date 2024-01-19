@@ -9,7 +9,7 @@ import Create from "./componentes/Create/create";
 import LogIn from "./componentes/LogInForm/LogIn";
 import About from "./componentes/About/about";
 import Registro from "./componentes/Register/Register";
-import ProtectedRoute from './GeneralLogin';
+//import ProtectedRoute from './GeneralLogin';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
   <Switch>
  <Route exact path="/" component={Landing} />
  <Route exact path="/home" component={Home} />
- <ProtectedRoute exact path="/create" component={Create} />
+ <Route exact path="/create" component={Create} />
  <Route exact path="/login" component={LogIn} />
  <Route exact path="/about" component={About} />
  <Route exact path="/register" component={Registro} />

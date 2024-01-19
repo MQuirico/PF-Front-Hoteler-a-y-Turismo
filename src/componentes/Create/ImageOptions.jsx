@@ -4,7 +4,7 @@ import "./imageOptions.css"
 
 const ImageOptions = ({ imageOptions, setImageOptions, imageUrls, setImageUrls, imageFiles, setImageFiles }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+    const [showFileInput, setShowFileInput] = useState(false);
 
 
    
@@ -48,10 +48,9 @@ const ImageOptions = ({ imageOptions, setImageOptions, imageUrls, setImageUrls, 
       };
 
       const handleAddImageOption = () => {
-        setImageOptions([...imageOptions, { id: uuidv4(), type: '', value: '', file: null }]);
-        setImageUrls([...imageUrls, ""]);
-        setImageFiles([...imageUrls, null]);
-    };
+        const newImageOption = { id: uuidv4(), type: 'file', value: '', file: null };
+        setImageOptions([...imageOptions, newImageOption]);
+      };
  
     const handleRemoveImageOption = (index) => {
         const newImageOptions = [...imageOptions];
@@ -77,26 +76,14 @@ const ImageOptions = ({ imageOptions, setImageOptions, imageUrls, setImageUrls, 
   <>
 
 {imageOptions.map((option, index) => (
-  <div key={option.id} className="image-option-container">
-    <select value={option.type} onChange={(event) => handleTypeChange(index, event)}>
-      <option value="">Selecciona una opción</option>
-      <option value="url">URL</option>
-      <option value="file">Archivo</option>
-    </select>
-    <div className='buttons'>
-    <button type="button" onClick={() => handleRemoveImageOption(index)} className="image-option-remove-button">X</button>
-    {option.type === 'url' && (
-      <input type="text" value={option.value} onChange={(event) => handleValueChange(index, event)} />
-      )}
-    <div className="inputs">
-    {option.type === 'file' && (
-      <input type="file" onChange={(event) => handleFileChange(index, event)} />
-      )}
-      </div>
-    </div>
-  </div>
+ <div key={option.id} className="image-option-container">
+   {option.type === 'file' && (
+     <input type="file" onChange={(event) => handleFileChange(index, event)} />
+   )}
+<button type="button" onClick={() => handleRemoveImageOption(index)} className="image-option-remove-button">X</button>
+ </div>
 ))}
-<button type="button" onClick={handleAddImageOption} className="image-option-add-button">Add new image</button>
+<button type="button" onClick={handleAddImageOption} className="image-option-add-button">Agregar nueva imagen</button>
   </>
  );
 };

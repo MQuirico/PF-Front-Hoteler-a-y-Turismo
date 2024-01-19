@@ -13,6 +13,9 @@ import {
   UPDATE_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
+  SEARCH_SUCCESS,
+  SEARCH_REQUEST,
+  SEARCH_FAILURE,
   GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
   
   
@@ -28,6 +31,10 @@ const initialState = {
     error: null,
   },
   error: null,
+  searchResults: [],
+  loading: false,
+  error: null,
+ 
   
   sneakers: [],
   allCopySneakers:[],
@@ -37,11 +44,6 @@ const initialState = {
   colorValue :[],
   sizeValue:[],
   orderPrice:[],
-  selectedSneakerIndex:0,
-    userDataSession: {
-    isLoggedIn: false,
-    userData: null,
-  }
 };
 
 const stateSearchBar = {
@@ -155,11 +157,14 @@ case CREATE_PRODUCT_FAILURE:
     };
 
 
-case GET_SEARCH_SUCCESS:
-  return {
-    ...state,
-    data: action.payload,
-  };
+    case GET_SEARCH_SUCCESS:
+      return {
+        ...state,
+        sneakers: action.payload.sneakers,
+        totalSneaker: action.payload.totalSneaker,
+        loading: false,
+        error: null,
+      };
 
   case GET_SEARCH_NOTFOUND:
     return{
@@ -232,6 +237,29 @@ case GET_SEARCH_SUCCESS:
      userData: action.payload,
    },
   };
+
+  case SEARCH_REQUEST:
+ return {
+   ...state,
+   loading: true,
+   error: null,
+ };
+
+case SEARCH_SUCCESS:
+ return {
+   ...state,
+   loading: false,
+   searchResults: action.payload,
+   error: null,
+ };
+
+case SEARCH_FAILURE:
+ return {
+   ...state,
+   loading: false,
+   searchResults: [],
+   error: action.payload,
+ };
               
                   default:
                   return state;
