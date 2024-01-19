@@ -21,6 +21,7 @@ const BottomBar = ({ allSneakers, onClickPrev, onClickNext }) => {
     };
   
     return (
+      <div className="container">
       <div className="bottom-bar-container">
         {Array.isArray(allSneakers) &&
           allSneakers.slice(0, 10).map((sneaker) => (
@@ -31,13 +32,12 @@ const BottomBar = ({ allSneakers, onClickPrev, onClickNext }) => {
             >
               {sneaker.image && sneaker.image.length > 0 ? (
                 <img src={sneaker.image[0]} alt={sneaker.name} />
-              ) : (
-                <div>No hay imagen disponible</div>
-              )}
+                ) : (
+                  <div>No hay imagen disponible</div>
+                  )}
             </div>
           ))}
-      
-     
+          </div>
       </div>
     );
   };

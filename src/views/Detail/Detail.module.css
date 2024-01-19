@@ -5,10 +5,16 @@
   width: 1030px;
   margin: 0 auto;
   top: 20px;
+  left: 50px;
   box-shadow: 0px 2px 4px black;
   position: relative;
 }
 
+.sneakersListContainer{
+  position: absolute;
+  top: -206px;
+  left: 90px;
+}
 
 .detailContainer{
   display:flex;
@@ -33,6 +39,8 @@
   width: 600px;
   height: 600px;
   display: flex;
+  object-fit: cover;
+  
 }
 
 .containerColors{
@@ -77,8 +85,7 @@
   color: green;
 }
 .price h4{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 24px;
 }
 

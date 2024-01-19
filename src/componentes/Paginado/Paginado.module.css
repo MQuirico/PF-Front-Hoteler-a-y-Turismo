@@ -31,3 +31,11 @@
     background: none;
     scale: 120%;
 }
+
+
+@media (max-width: 768px) {
+    .container{
+        position: absolute;
+        left: -1000px;
+    }
+}
