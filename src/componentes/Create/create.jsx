@@ -306,10 +306,10 @@ const ProductForm = () => {
           <p className="feactures-container"></p>
 
           <div className="image-preview">
-            {imageUrl && (
-              <img src={imageUrl} alt="Preview" className="preview-image" />
-            )}
-          </div>
+ {input.image && (
+   <img src={URL.createObjectURL(input.image)} alt="Preview" className="preview-image" />
+ )}
+</div>
           <p className="feactures-container"></p>
 
           <div className="tipos">
