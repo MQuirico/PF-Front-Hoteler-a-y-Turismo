@@ -5,7 +5,7 @@ import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 import Alert from '../../componentes/Alert/Alert'; // Importa el componente de Alert
-
+import { useEffect } from 'react';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,11 @@ const Home = () => {
   const setCurrentPage = (page) => {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));
   };
+
+  useEffect(() => {
+    dispatch(getSneakers(1, pageSize, brand, color, size, price));
+   }, []);
+
 
   return (
     <div className={styles.container}>

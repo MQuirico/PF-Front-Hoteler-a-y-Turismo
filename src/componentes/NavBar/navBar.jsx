@@ -6,8 +6,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import logo from "../../assets/Runners Paradise.png";
 import style from "./navBar.module.css";
 import SearchBar from "../SearchBar/searchBar.jsx";
+import {useSelector} from "react-redux"
 
 export default function NavBar(props) {
+  const user = useSelector(state => state.userDataSession)
+ 
+  if (!user || !user.userData){
   return (
     <>
       <div className={style.navContainer}>
@@ -66,8 +70,90 @@ export default function NavBar(props) {
             </div>
           </div>
         </nav>
-      </div>
     </>
-  );
+  );  
+  } else if (user.userData){
+    return (
+      <>
+        <nav className="navbar navbar-expand-lg bg-primary data-bs-theme=dark">
+          <div className="container-fluid">
+                         
+            <Link
+              to="/home"
+              className="nav-link active text-white"
+              aria-current="page"
+            >
+            <img className={style.logoRunners} src={logo}></img>
+            </Link>
+            <div>
+  {user && user.userData && user.userData.imageUrl && (
+    <img src={user.userData.imageUrl} style={{ borderRadius: "50%", height: '20%', width: '20%' }}></img>
+  )}
+  <h4> Bienvenido, {user && user.userData ? user.userData.name : 'Invitado'}.</h4>
+</div>
+            <div>
+              <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                  </li>
+  
+                  <li className="nav-item">
+                    <Link to="/about" className="nav-link text-white">
+                      ¿Quiénes somos?
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/create" className="nav-link text-white">
+                      Create
+                    </Link>
+                  </li>
+                  <Link to="#" className="nav-link text-white">
+                    <FaShopify
+                      style={{
+                        fontSize: "24px",
+                        marginLeft: "1rem",
+                      }}
+                    />
+                  </Link>
+                  <li
+                    className="nav-item dropdown"
+                    style={{ marginRight: "5rem" }}
+                  >
+                    <Link
+                      className="nav-link text-white dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <IoPersonSharp
+                        style={{
+                          fontSize: "24px",
+                          marginLeft: "10px",
+                          marginRight: "0.5rem",
+                        }}
+                      />
+                    </Link>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <Link to="/register" className="dropdown-item">
+                          Regístrate
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/login" className="dropdown-item">
+                          Inicia Sesión
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </>
+    ); 
+  }
+  
 }
-

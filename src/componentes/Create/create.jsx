@@ -11,11 +11,22 @@ import {
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import ImageOptions from './ImageOptions';
+import { v4 as uuidv4 } from 'uuid';
+import ImageGallery from 'react-image-gallery';
+
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const [imageOptions, setImageOptions] = useState([{ id: uuidv4(), type: '', value: '', file: null }]);
+  const [imageUrls, setImageUrls] = useState([]);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+
+
 
   const [input, setInput] = useState({
     name: "",
@@ -178,6 +189,29 @@ const ProductForm = () => {
     }
   };
 
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : imageUrls.length - 1));
+  };
+  
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex < imageUrls.length - 1 ? prevIndex + 1 : 0));
+  };
+
+ 
+  const images = [
+    {
+      original: 'http://lorempixel.com/1000/600/nature/1/',
+      thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+    },
+    {
+      original: 'http://lorempixel.com/1000/600/nature/2/',
+      thumbnail: 'http://lorempixel.com/250/150/nature/2/',
+    },
+    
+   ];
+   
+   const MyComponent = () => <ImageGallery items={images} />;
+
   const colorStyles = {
     green: { backgroundColor: "green", color: "white" },
     white: { backgroundColor: "white", color: "black" },
@@ -191,6 +225,7 @@ const ProductForm = () => {
     <div className="fondo2">
       <div className="container">
         <div className="form-and-preview-container">
+       
           <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
             <label className="form-label">Modelo</label>
             <input
@@ -220,14 +255,14 @@ const ProductForm = () => {
             <p className="error-message">{errors.price}</p>
 
             <label className="form-label">Imagen</label>
-            <input
-              type="text"
-              value={input.image}
-              name="image"
-              placeholder="URL de la imagen..."
-              onChange={(e) => handleChange(e)}
-              className="form-input"
-            />
+            <ImageOptions 
+              imageOptions={imageOptions} 
+              setImageOptions={setImageOptions} 
+              imageUrls={imageUrls} 
+              setImageUrls={setImageUrls} 
+              imageFiles={imageFiles} 
+              setImageFiles={setImageFiles} 
+              />
             <p className="error-message">{errors.image}</p>
 
             <label className="form-label">Marca</label>
@@ -288,7 +323,8 @@ const ProductForm = () => {
             </div>
 
         </form>
-  
+        
+
         <div className="preview-container">
           <div className="nombre">
             <h3>{input.name ? input.name : "Nombre..."}</h3>
@@ -300,11 +336,16 @@ const ProductForm = () => {
             </h4>
             <p className="feactures-container"></p>
 
-            <div className="image-preview">
-              {imageUrl && (
-                <img src={imageUrl} alt="Preview" className="preview-image" />
-              )}
-            </div>
+            <div className="image-preview-container">
+            
+            {imageUrls.length > 0 && (
+            <div className="image-container">
+            {imageUrls.length > 1 && <button className="nav-button left" onClick={goToPreviousImage}>&lt;</button>}
+            <img src={imageUrls[currentImageIndex]} alt="Preview" className="preview-image" />
+            {imageUrls.length > 1 && <button className="nav-button right" onClick={goToNextImage}>&gt;</button>}
+              </div>
+                    )}
+              </div>
             <p className="feactures-container"></p>
 
             <div className="tipos">
