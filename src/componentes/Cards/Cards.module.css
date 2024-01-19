@@ -9,3 +9,7 @@
     flex-direction: row;
     display: flex;
 }
+
+.linkContainer{
+    margin: 0 auto;
+}

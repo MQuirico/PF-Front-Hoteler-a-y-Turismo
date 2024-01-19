@@ -22,7 +22,9 @@ const Card = ({ id, model, size, image, color, brand, price }) => {
   return (
     <div className={style.container}>
       <div className={style.cardContent}>
+        <div className={style.cardTitle}>
         <h3 style={{fontWeight:'500'}}>{brand}</h3>
+        </div>
         <img
           src={image}
           alt="Zapatilla"
