@@ -6,6 +6,7 @@ import style from "./SearchBar.module.css";
 const SearchBar = ({page}) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const totalSneaker = useSelector((state) => state?.totalSneaker);
 
   const fetchData = async (term) => {
     try {
@@ -16,9 +17,10 @@ const SearchBar = ({page}) => {
           payload: {
             sneakers: sneakers.paginatedResponse,
             currentPage: sneakers.setCurrentPage,
-            totalSneaker: sneakers.totalSneaker,
+            totalSneakers :sneakers.totalSneakers
           },
-        });
+        }
+        );console.log(sneakers)
       }
     } catch (error) {
       console.error("Error al buscar las zapatillas:", error);

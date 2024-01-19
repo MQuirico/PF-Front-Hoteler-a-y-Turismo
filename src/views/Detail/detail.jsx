@@ -59,7 +59,7 @@ const Detail = () => {
           </div>
 
           <div className="image-preview">
-            <img src={zapatilla.image[0]} alt={zapatilla.name} />
+            <img src={zapatilla.image.secure_url || zapatilla.image[0]} alt={zapatilla.name} />
           </div>
 
           <div className="tipos1">

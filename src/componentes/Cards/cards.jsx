@@ -23,7 +23,7 @@ if (!sneakers || sneakers.length === 0) {
               style={{textDecoration:'none'}} >
             <Card
             id={id}
-            image={image && image.length > 0 ? image[0] : 'defaultImagePath'}
+            image={image.secure_url || image[0] }
             model={name}
             color={colors[0] || "DefaultColor"}
             brand={brand}
