@@ -337,6 +337,7 @@ const ProductForm = () => {
       </span>
     ))}
   </div>
+  {/* ultimos cambios*/}
 
   </div>
           <div className="tipos">
