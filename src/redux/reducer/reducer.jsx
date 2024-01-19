@@ -23,27 +23,26 @@ import {
 
 
 const initialState = {
-  loading: false,
-  product: {
-    detail: null,
-    createdProduct: null,
-    loading: false,
-    error: null,
-  },
-  error: null,
-  searchResults: [],
-  loading: false,
-  error: null,
- 
-  
-  sneakers: [],
-  allCopySneakers:[],
-  currentPage:[],
-  totalSneakers:[],
-  brandValue : [],
-  colorValue :[],
-  sizeValue:[],
-  orderPrice:[],
+ loading: false,
+ product: {
+   detail: null,
+   createdProduct: null,
+   loading: false,
+   error: null,
+ },
+ error: null,
+ searchResults: [],
+ sneakers: [],
+ allCopySneakers:[],
+ currentPage:[],
+ totalSneakers:[],
+ brandValue : [],
+ colorValue :[],
+ sizeValue:[],
+ orderPrice:[],
+ searchLoading: false,
+ searchError: null,
+ searchData: null,
 };
 
 const stateSearchBar = {

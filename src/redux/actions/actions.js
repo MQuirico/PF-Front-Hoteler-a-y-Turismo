@@ -183,15 +183,17 @@ export const getSearchNotFound = (error) => ({
 
 export const searchBar = (searchTerm) => {
   return async (dispatch) => {
-    dispatch(getSearchRequest());
     try {
+      dispatch(getSearchRequest());
+
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-      if (response.data && response.data.productsFound.length > 0) {
+      
+      console.log(response.data)
+      if ( response.data ) {
+        console.log(response.data)
         dispatch(getSearchSuccess(response.data));
-      } else {
-        dispatch(getSearchNotFound('No se encontraron resultados'));
-      }
-    } catch (error) {
+       
+    }} catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
     }
   };
@@ -263,18 +265,25 @@ export const updateSelectedSneaker = (sneaker) => ({
   };
  };
  
- export const searchProducts = (searchTerm) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-      if (response.data && response.data.productsFound.length > 0) {
-        dispatch(getSearchSuccess(response.data));
-      } else {
-        dispatch(getSearchNotFound('No se encontraron resultados'));
-      }
-    } catch (error) {
-      dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
-    }
+ // Acción para cerrar sesión
+ const logoutAction = () => {
+  return {
+    type: 'LOGOUT'
   };
+ };
+ 
+ // Reducer para manejar el estado de la sesión
+ const sessionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return {
+        ...state,
+        user: action.payload
+      };
+    case 'LOGOUT':
+      return {};
+    default:
+      return state;
+  }
  };
 

@@ -22,6 +22,11 @@
     width: 240px;
     transition: 0.4s ease-in-out;
 }
+
+.containerForm input:focus{
+    width: 240px;
+}
+
 .containerForm input:focus{
     width: 240px;
 }
@@ -44,4 +49,33 @@ transition: 1;
     height: 20px;
     top: 4.5px;
     left: -25px;
+}
+
+@media (max-width: 768px) {
+    .container{
+        display: flex;
+        position: relative;
+        left: 340px;
+    }
+    
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container{
+        display: flex;
+        position: relative;
+        left: 200px;
+    }
+    
+}
+
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .container{
+        display: flex;
+        position: relative;
+        left: 300px;
+    }
+    
 }

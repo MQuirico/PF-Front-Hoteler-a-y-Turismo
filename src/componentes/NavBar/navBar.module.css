@@ -20,15 +20,15 @@
 
 .userContent{
     position: relative;
-    left: 200px;
     display: flex;
 }
 
 .userContent h4{
     font-weight: 300;
     position: relative;
-    top: 10px;
-    margin-left: 10px;
+    top: 12px;
+    margin-left: 4px;
+    margin-right: 2px;
     height: 30px;
     font-size: 16px;
 }
@@ -42,4 +42,11 @@
     position: relative;
     top: 10px;
     left: -110px;
+}
+
+@media (max-width: 768px) {
+    .navBarContent{
+        width: 10vh;
+        position: relative;
+    }
 }

@@ -104,19 +104,26 @@ const Detail = ({ brand }) => {
       dispatch(fetchProductDetail(id));
     }
   }, [dispatch, id, zapatilla]);
-
+  
   if (!zapatilla) {
     return <div>Loading...</div>;
   }
-
+  
   if (!zapatilla.name) {
     return <div>Datos no disponibles</div>;
   }
-
-
-
+  
+  
+  
   return (
     <div className={style.container}>
+      <div className={style.sneakersListContainer}>
+      <BottomBar
+          allSneakers={allSneakers}
+          onClickPrev={handlePrevImage}
+          onClickNext={handleNextImage}
+        />
+        </div>
       <div className={style.detailContainer}>
         <div className={style.imagePreview}>
         <img src={zapatilla && zapatilla.image[selectedImageIndex]} alt={zapatilla.name} />
@@ -157,11 +164,6 @@ const Detail = ({ brand }) => {
           <div></div>
         </div>
       </div>
-      <BottomBar
-          allSneakers={allSneakers}
-          onClickPrev={handlePrevImage}
-          onClickNext={handleNextImage}
-        />
     </div>
   );
 };

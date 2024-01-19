@@ -65,3 +65,41 @@
     top: 240px;
     left: 18px;
 }
+
+
+
+@media (max-width: 768px) {
+    .container{
+        width: 14%;
+    }
+    .containerContent {
+        width: 100vh;
+    }   
+
+    .container select{
+        width: 10vh;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container select{
+        width: 20vh;
+    }
+
+    .containerContent {
+        width: 270vh;
+    }   
+}
+
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+
+    .container select{
+        width: 20vh;
+    }
+
+    .containerContent {
+        width: 280vh;
+    }   
+}
