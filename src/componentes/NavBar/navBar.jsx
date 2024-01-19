@@ -23,15 +23,14 @@ export default function NavBar(props) {
             <div className={style.searchBarContainer}>
               <SearchBar />
             </div>
-            <div>
+            <div className={style.navBarContent}>
               <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                  <li className="nav-item"></li>
-                  <li className="nav-item">
-                    <Link to="/about" className="nav-link text-black"> ¿Quiénes somos? </Link>
-                  </li>
                   <li className="nav-item">
                     <Link to="/create" className="nav-link text-black"> Create </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/about" className="nav-link text-black"> ¿Quiénes somos? </Link>
                   </li>
                   <Link to="#" className="nav-link text-black">
                     <FaShopify style={{ fontSize: "24px", marginLeft: "1rem" }} />
@@ -85,24 +84,23 @@ export default function NavBar(props) {
             <div className={style.searchBarContent}>
               <SearchBar />
             </div>
-            <div className={style.userContent}>
-              <h4> Bienvenido, {user && user.userData ? user.userData.name : 'Invitado'}.</h4>
-            </div>
             <div className={style.searchBarContainer}>
             </div>
             <div>
               <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                  <li className="nav-item"></li>
-                  <li className="nav-item">
-                    <Link to="/about" className="nav-link text-black"> ¿Quiénes somos? </Link>
+                <li className="nav-item">
+                    <Link to="/create" className="nav-link text-black" style={{position:'relative', top:'1px', marginRight:'8px'}}> Create </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/create" className="nav-link text-black"> Create </Link>
+                    <Link to="/about" className="nav-link text-black" style={{position:'relative', top:'1px', marginRight:'10px'}}> ¿Quiénes somos? </Link>
                   </li>
                   <Link to="#" className="nav-link text-black">
-                    <FaShopify style={{ fontSize: "24px", marginLeft: "1rem" }} />
+                    <FaShopify style={{ fontSize: "24px", marginrig: "1rem", zIndex:'800'}} />
                   </Link>
+                  <div className={style.userContent}>
+                    <h4>{user && user.userData ? user.userData.name : 'Invitado'}</h4>
+                  </div>
                   <li className="nav-item dropdown" style={{ marginRight: "5rem" }}>
                     <div className={style.userImage}>
                     <Link

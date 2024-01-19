@@ -287,15 +287,19 @@ const ProductForm = () => {
             <p className="error-message">{errors.brand}</p>
 
             <label className="form-label">Talles</label>
+            <div style={{fontSize:'12px'}}>
+
             <Select
               value={input.size.map((size) => ({ value: size, label: size }))}
               name="size"
               onChange={(selectedOption) => handleSizeChange(selectedOption)}
               isMulti
               options={sizeOptions}
-            />
+              />
+              </div>
             <p className="error-message">{errors.size}</p>
 
+            <div style={{fontSize:'12px'}}>
             <label className="form-label">Colores</label>
             <Select
               value={input.colors.map((color) => ({
@@ -307,9 +311,9 @@ const ProductForm = () => {
               isMulti
               options={colorOptions}
             />
+          </div>
           <p className="error-message">{errors.colors}</p>
-
-          <div className="button-container">
+          <div className="button-container" style={{marginTop:'-20px'}}>
           <button type="submit" className="submit-button">
             Crear
           </button>
