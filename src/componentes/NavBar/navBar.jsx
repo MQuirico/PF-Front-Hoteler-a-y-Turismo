@@ -61,7 +61,6 @@ export default function NavBar(props) {
                       </li>
                     </ul>
                   </li>
-<hr style={{border:'solid 2px black'}} />
                 </ul>
               </div>
             </div>
@@ -71,3 +70,4 @@ export default function NavBar(props) {
     </>
   );
 }
+

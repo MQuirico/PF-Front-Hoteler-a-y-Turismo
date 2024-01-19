@@ -15,6 +15,7 @@ if (!sneakers || sneakers.length === 0) {
   return <p>{message}</p>;
 }
 
+
   return (
     <div className={style.container}>
       <div className={style.cardContent}>

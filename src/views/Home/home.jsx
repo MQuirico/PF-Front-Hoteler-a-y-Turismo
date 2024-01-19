@@ -19,7 +19,6 @@ const Home = () => {
   const searchState = useSelector((state) => state?.data); //  estado para los resultados de la búsqueda
   const pageSize = 8;
 
-
   const setCurrentPage = (page) => {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));
   };

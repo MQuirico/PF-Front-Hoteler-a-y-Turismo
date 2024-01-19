@@ -42,6 +42,7 @@ function Filter({page,pageSize}) {
         dispatch(resetCurrentPage(1));
       };
 
+      
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
