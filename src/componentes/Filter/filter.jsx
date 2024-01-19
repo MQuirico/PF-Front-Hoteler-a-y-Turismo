@@ -11,36 +11,36 @@ function Filter({page,pageSize}) {
   const color = useSelector((state)=> state?.colorValue);
   const size = useSelector((state)=> state?.sizeValue);
   const price = useSelector((state)=> state?.orderPrice);
-    /* 
+     
   const allSneakers = useSelector((state) => state.allCopySneakers);
   const brands =[ ...new Set(allSneakers.map((sneaker) => sneaker.brand))];
   console.log(brands)
-  */
+  
   const dispatch = useDispatch();
 
-    const handleFilterBrand = (value) => {
-        dispatch(getSneakers( page=1, pageSize,value,color,size,price));
-        dispatch(brandValue(value))
-        dispatch(resetCurrentPage(1));
-      };
-
-      const handleFilterColor = (value) => {
-        dispatch(getSneakers( page=1, pageSize,brand,value,size,price));
-        dispatch(colorValue(value))
-        dispatch(resetCurrentPage(1));
-      };
-
-      const handleFilterSize = (value) => {
-        dispatch(getSneakers( page=1, pageSize,brand,color,value,price));
-        dispatch(sizeValue(value))
-        dispatch(resetCurrentPage(1));
-      };
-
-      const handleOrderPrice= (value) => {
-        dispatch(getSneakers( page=1, pageSize,brand,color,size,value));
-        dispatch(orderPrice(value))
-        dispatch(resetCurrentPage(1));
-      };
+  const handleFilterBrand = (value) => {
+    dispatch(getSneakers({ page: 1, pageSize, brand: value, color, size, price }));
+    dispatch(brandValue(value));
+    dispatch(resetCurrentPage(1));
+   };
+   
+   const handleFilterColor = (value) => {
+    dispatch(getSneakers({ page: 1, pageSize, brand, color: value, size, price }));
+    dispatch(colorValue(value));
+    dispatch(resetCurrentPage(1));
+   };
+   
+   const handleFilterSize = (value) => {
+    dispatch(getSneakers({ page: 1, pageSize, brand, color, size: value, price }));
+    dispatch(sizeValue(value));
+    dispatch(resetCurrentPage(1));
+   };
+   
+   const handleOrderPrice = (value) => {
+    dispatch(getSneakers({ page: 1, pageSize, brand, color, size, price: value }));
+    dispatch(orderPrice(value));
+    dispatch(resetCurrentPage(1));
+   };
 
       
   return (
@@ -50,9 +50,9 @@ function Filter({page,pageSize}) {
         name="FilterBrand"
         options={[
           { value: '', label: 'Brand' },
-          { value: 'ADIDAS', label: 'Adidas' },
-          { value: 'NIKE', label: 'Nike' },
-          { value: 'NEW BALANCE', label: 'New Balance' },  
+          { value: 'adidas', label: 'Adidas' },
+          { value: 'nike', label: 'Nike' },
+          { value: 'newbalance', label: 'New Balance' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />
