@@ -1,32 +1,6 @@
-.buttons{
-    padding: 4px;
-    font-size: 24px;
-    font-weight: 500;
-    display: inline-block;
-    margin: 6px;
-    color: black;
-    background:none;
-}
-
-.buttons button{
-    z-index: 200;
-    cursor: pointer;
-}
-
-.buttons:hover{
-    background: none;
-    scale: 120%;
-}
-
 .container{
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    position: relative;
-    top:10px;
-    left: 20px;
-    z-index: 200;
-    cursor: pointer;
+    z-index: 300;
+    height: 40px;
 }
 
 .container span{
@@ -34,4 +8,26 @@
     font-size: 12px;
     position: relative;
     top: -4px;
+}
+
+.buttons{
+    font-size: 24px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0 auto;
+    color: black;
+    background:none;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.buttons button{
+    cursor: pointer;
+}
+
+
+.buttons:hover{
+    background: none;
+    scale: 120%;
 }

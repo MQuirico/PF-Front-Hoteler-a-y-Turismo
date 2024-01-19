@@ -21,7 +21,8 @@ import {
   FETCH_PRODUCT_DETAIL_SUCCESS,
   FETCH_PRODUCT_DETAIL_FAILURE,
   SET_SELECTED_SNEAKER,
-  SET_SELECTED_SNEAKER_INDEX
+  SET_SELECTED_SNEAKER_INDEX,
+  SAVE_USER_DATA_SESSION,
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -95,7 +96,7 @@ export const getSneakers = (page, pageSize ="6", brand, colors, size, price) => 
         .join("&");
  
       const url = `http://localhost:3000/products?${queryString}`;
- 
+      console.log(url)
       const response = await axios.get(url);
       const sneakersData = response.data;
  
@@ -169,7 +170,10 @@ export const getSearchRequest = () => ({
 
 export const getSearchSuccess = (data) => ({
   type: GET_SEARCH_SUCCESS,
-  payload: data,
+  payload:{
+    sneakers:data.productsFound,
+    totalSneaker:data.totalSneakers
+  },
 });
 
 export const getSearchNotFound = (error) => ({
@@ -179,15 +183,13 @@ export const getSearchNotFound = (error) => ({
 
 export const searchBar = (searchTerm) => {
   return async (dispatch) => {
+    dispatch(getSearchRequest());
     try {
-      dispatch(getSearchRequest());
-
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-
-      if (response.data && response.data.length > 0) {
+      if (response.data && response.data.productsFound.length > 0) {
         dispatch(getSearchSuccess(response.data));
       } else {
-        dispatch(getSearchNotFound('No hay resultados que concuerden con tu búsqueda'));
+        dispatch(getSearchNotFound('No se encontraron resultados'));
       }
     } catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
@@ -248,4 +250,31 @@ export const updateSelectedSneaker = (sneaker) => ({
   type: SET_SELECTED_SNEAKER_INDEX,
   payload: index,
  });
+
+ export const saveUserDataSession = (userData) => ({
+  type: SAVE_USER_DATA_SESSION,
+  payload: userData,
+ });
+
+ const loginAction = (user) => {
+  return {
+    type: 'LOGIN',
+    payload: user
+  };
+ };
+ 
+ export const searchProducts = (searchTerm) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
+      if (response.data && response.data.productsFound.length > 0) {
+        dispatch(getSearchSuccess(response.data));
+      } else {
+        dispatch(getSearchNotFound('No se encontraron resultados'));
+      }
+    } catch (error) {
+      dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
+    }
+  };
+ };
 

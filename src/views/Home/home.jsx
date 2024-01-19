@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect} from 'react'
 import { getSneakers } from "../../redux/actions/actions";
 import Cards from "../../componentes/Cards/cards";
 import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
-import { useEffect } from 'react';
+import Alert from '../../componentes/Alert/Alert'; // Importa el componente de Alert
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -36,8 +38,10 @@ const Home = () => {
       <Filter totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
       </div>
       <div className={styles.cardsComponent}>
-      <Cards sneakers={searchState || sneakers} />
-      {(sneakers && sneakers.length === 0) &&  <p>No se encontraron resultados. ¡Intenta con diferentes filtros!</p>}
+        {(sneakers && sneakers.length === 0) &&  
+          <Alert message="No se encontraron resultados. ¡Intenta con diferentes filtros!" />
+        }
+        {<Cards sneakers={searchState || sneakers} />}
       </div>
       <div className={styles.paginatedComponent}>
     </div>

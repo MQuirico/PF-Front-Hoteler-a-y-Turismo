@@ -24,6 +24,7 @@ const ProductForm = () => {
   const [imageUrls, setImageUrls] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
 
 
 
@@ -31,7 +32,7 @@ const ProductForm = () => {
     name: "",
     brand: "",
     size: [],
-    image: "",
+    image: [],
     colors: [],
     price: "",
   });

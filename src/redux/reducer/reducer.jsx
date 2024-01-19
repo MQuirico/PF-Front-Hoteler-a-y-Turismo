@@ -12,6 +12,10 @@ import {
   GET_ALLL_SNEAKERS,
   UPDATE_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
+  SAVE_USER_DATA_SESSION,
+  SEARCH_SUCCESS,
+  SEARCH_REQUEST,
+  SEARCH_FAILURE,
   GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
   
   
@@ -27,6 +31,10 @@ const initialState = {
     error: null,
   },
   error: null,
+  searchResults: [],
+  loading: false,
+  error: null,
+ 
   
   sneakers: [],
   allCopySneakers:[],
@@ -36,7 +44,6 @@ const initialState = {
   colorValue :[],
   sizeValue:[],
   orderPrice:[],
-  selectedSneakerIndex:0
 };
 
 const stateSearchBar = {
@@ -137,15 +144,27 @@ case CREATE_PRODUCT_FAILURE:
     error: action.payload,
   };
 
-case CLEAR_CREATE_PRODUCT_STATE:
-  return{ initialState};
+  case CLEAR_CREATE_PRODUCT_STATE:
+    return {
+      ...state,
+      product: {
+        ...state.product,
+        detail: null,
+        createdProduct: null,
+        loading: false,
+        error: null,
+      },
+    };
 
 
-case GET_SEARCH_SUCCESS:
-  return {
-    ...state,
-    data: action.payload,
-  };
+    case GET_SEARCH_SUCCESS:
+      return {
+        ...state,
+        sneakers: action.payload.sneakers,
+        totalSneaker: action.payload.totalSneaker,
+        loading: false,
+        error: null,
+      };
 
   case GET_SEARCH_NOTFOUND:
     return{
@@ -207,6 +226,39 @@ case GET_SEARCH_SUCCESS:
  return {
    ...state,
    selectedSneakerIndex: action.payload,
+ };
+
+ case SAVE_USER_DATA_SESSION:
+  return {
+   ...state,
+   userDataSession: {
+     ...state.userDataSession,
+     isLoggedIn: true,
+     userData: action.payload,
+   },
+  };
+
+  case SEARCH_REQUEST:
+ return {
+   ...state,
+   loading: true,
+   error: null,
+ };
+
+case SEARCH_SUCCESS:
+ return {
+   ...state,
+   loading: false,
+   searchResults: action.payload,
+   error: null,
+ };
+
+case SEARCH_FAILURE:
+ return {
+   ...state,
+   loading: false,
+   searchResults: [],
+   error: action.payload,
  };
               
                   default:

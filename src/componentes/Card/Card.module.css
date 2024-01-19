@@ -2,17 +2,19 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  margin: 0 auto;
+  margin: 30px;
+  background-color: white;
+  border-radius: 2px;
 }
 
 .container:hover{
-  scale: 104%;
+  scale: 105%;
+  transition: 0.3s;
 }
 
 .cardContent{
   width: 280px;
-  height: 404px;
-  margin: 30px;
+  height: 408px;
   box-shadow: 0px 2px 4px black;
 }
 
@@ -20,6 +22,12 @@
   outline: 1px solid #0D6EFD;
   box-shadow: 0px 2px 10px #0D6EFD;
   transition: 0.3s;
+}
+
+
+.cardContent .cardTitle h3{
+  background-color: black;
+  color: white;
 }
 
 .cardContent h3{
@@ -32,14 +40,11 @@
 
 .cardContent img{
   width: 280px;
+  margin: 0 auto;
   height: 300px;
   justify-self: center;
   object-fit: cover;
-}
-
-.cardContent img:hover{
-  border-radius: 4px;
-  transition: 0.2s;
+  margin-bottom: 6px;
 }
 
 .brand h3{
@@ -57,19 +62,16 @@
   display: flex;
   justify-content: center;
   background-color: white;
-  width: 100%;
-  height: 49px;
+  position: relative;
+  top: 7px;
 }
 
 .details h4{
-  font-size: 18px;
-  margin-left: 14px;
-  position: relative;
-  top: 12px;
-  font-size: 20px;
   font-weight: 700;
-  height: 26px;
+  font-size: 17px;
   color: green;
+  position: relative;
+  top: 4px;
 }
 
 .details button{
@@ -100,6 +102,7 @@
   width: 54px;
   height: 30px;
   position: relative;
-  top: -370px;
+  top: -350px;
   left: 220px;
+  border: none;
 }

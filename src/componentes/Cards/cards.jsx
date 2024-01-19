@@ -6,26 +6,25 @@ import Card from "../Card/Card";
 import style from "./Cards.module.css"
 
 
-const Cards = ({sneakers}) => {
+const Cards = ({sneakers, message}) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getSneakers());
-}, [dispatch]);
+  
 if (!sneakers || sneakers.length === 0) {
-  return <p>No se encontraron sneakers.</p>;
+  return <p>{message}</p>;
 }
+
 
   return (
     <div className={style.container}>
       <div className={style.cardContent}>
         {sneakers.map(({id,image,name,colors,brand,size,price}) => (
-          <div key={id}>
+          <div key={id} className={style.linkContainer}>
             <Link 
               to={`/detail/${id}`}
               style={{textDecoration:'none'}} >
             <Card
             id={id}
-            image={image && image.length > 0 ? image[0] : 'defaultImagePath'}
+            image={image.secure_url || image[0] }
             model={name}
             color={colors[0] || "DefaultColor"}
             brand={brand}

@@ -17,3 +17,29 @@
     left: -300px;
     top: 10px;
 }
+
+.userContent{
+    position: relative;
+    left: 200px;
+    display: flex;
+}
+
+.userContent h4{
+    font-weight: 300;
+    position: relative;
+    top: 10px;
+    margin-left: 10px;
+    height: 30px;
+    font-size: 16px;
+}
+
+.userImage{
+    height: 30px;
+}
+
+
+.searchBarContent{
+    position: relative;
+    top: 10px;
+    left: -110px;
+}
