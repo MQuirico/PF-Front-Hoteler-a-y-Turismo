@@ -32,7 +32,7 @@ const ProductForm = () => {
     name: "",
     brand: "",
     size: [],
-    image: "",
+    image: [],
     colors: [],
     price: "",
   });
