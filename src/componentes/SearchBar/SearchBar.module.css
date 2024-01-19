@@ -20,7 +20,16 @@
 
 .containerForm input:hover{
     width: 240px;
-    transition: 0.4s;
+    transition: 0.4s ease-in-out;
+}
+.containerForm input:focus{
+    width: 240px;
+}
+
+
+.container  input:active{
+background-color: #0d6dfd80;
+transition: 1;
 }
 
 .containerForm button{

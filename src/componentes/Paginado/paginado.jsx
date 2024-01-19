@@ -17,7 +17,7 @@ const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage }) => {
     
     return (
       <div className={style.container}>
-        <div>
+        <div className={style.buttonsContainer}>
         <button onClick={prevHandler} disabled={page <= 1} className={style.buttons}>
           ⭀
           </button>

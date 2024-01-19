@@ -42,10 +42,13 @@ function Filter({page,pageSize}) {
         dispatch(resetCurrentPage(1));
       };
 
+      
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-        <h3>FILTER BY:</h3>
+        <div className={style.titleContainer}>
+        <h3>FILTERS</h3>
+        </div>
        <Select
         name="FilterBrand"
         options={[
@@ -96,7 +99,7 @@ function Filter({page,pageSize}) {
       </div>
       <div className={style.createContainer}>
         <Link to="/create" className={style.linkContainer}>
-          <button className="submit">Create a product</button>
+          <button className="submit">Create product</button>
         </Link>
         </div>
     </div>
