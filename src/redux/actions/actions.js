@@ -150,19 +150,7 @@ export const clearCreateProductState = () => ({
   type: CLEAR_CREATE_PRODUCT_STATE,
 });
 
-export const postCreateProduct = (productData) => async (dispatch) => {
-  dispatch(createProductRequest());
-  try {
-    // Lógica para enviar la solicitud al backend y crear el producto
-    const response = await axios.post("http://localhost:3000/products/create", productData);
 
-    // Si la solicitud fue exitosa
-    dispatch(createProductSuccess(response.data));
-  } catch (error) {
-    // Si la solicitud falla
-    dispatch(createProductFailure(error.message || "Error al crear el producto"));
-  }
-};
 
 export const getSearchRequest = () => ({
   type: GET_SEARCH_REQUEST,
@@ -183,15 +171,17 @@ export const getSearchNotFound = (error) => ({
 
 export const searchBar = (searchTerm) => {
   return async (dispatch) => {
-    dispatch(getSearchRequest());
     try {
+      dispatch(getSearchRequest());
+
       const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-      if (response.data && response.data.productsFound.length > 0) {
+      
+      console.log(response.data)
+      if ( response.data ) {
+        console.log(response.data)
         dispatch(getSearchSuccess(response.data));
-      } else {
-        dispatch(getSearchNotFound('No se encontraron resultados'));
-      }
-    } catch (error) {
+       
+    }} catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
     }
   };
@@ -263,18 +253,61 @@ export const updateSelectedSneaker = (sneaker) => ({
   };
  };
  
- export const searchProducts = (searchTerm) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
-      if (response.data && response.data.productsFound.length > 0) {
-        dispatch(getSearchSuccess(response.data));
-      } else {
-        dispatch(getSearchNotFound('No se encontraron resultados'));
-      }
-    } catch (error) {
-      dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
-    }
+ // Acción para cerrar sesión
+ const logoutAction = () => {
+  return {
+    type: 'LOGOUT'
   };
  };
+ 
+ // Reducer para manejar el estado de la sesión
+ const sessionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return {
+        ...state,
+        user: action.payload
+      };
+    case 'LOGOUT':
+      return {};
+    default:
+      return state;
+  }
+ };
 
+ export const postCreateProduct = (productData) => async (dispatch) => {
+  dispatch(createProductRequest());
+  try {
+    // Lógica para enviar la solicitud al backend y crear el producto
+    const response = await axios.post("http://localhost:3000/products/create", productData);
+
+    // Si la solicitud fue exitosa
+    dispatch(createProductSuccess(response.data));
+  } catch (error) {
+    // Si la solicitud falla
+    dispatch(createProductFailure(error.message || "Error al crear el producto"));
+  }
+}
+const validation = (input, existingNames) => {
+    let errors = {};
+
+    let noEmpty = /\S+/;
+    let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
+
+    if (Array.isArray(existingNames) && existingNames.some((name) => name.toLowerCase() === input.name.toLowerCase())) {
+     errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
+    } else if (!noEmpty.test(input.name)  ,!validateName.test(input.name) , input.name.trim().length < 3) {
+     errors.name = "Nombre necesario. Mayor de 3 letras y único";
+    }
+
+    if (!(input.image instanceof File)) {
+     errors.image = "Debe ser un archivo válido";
+    }
+
+    if (isNaN(parseFloat(input.price)) , parseFloat(input.price) < 1 , parseFloat(input.price) > 10000) {
+     errors.price = "Ingrese un precio entre 1 y 10000";
+    }
+
+    return errors;
+   }
+   export default validation;
