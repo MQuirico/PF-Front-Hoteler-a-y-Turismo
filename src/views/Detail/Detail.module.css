@@ -40,7 +40,10 @@
   height: 600px;
   display: flex;
   object-fit: cover;
-  
+  user-select: none;
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none;
 }
 
 .containerColors{
@@ -92,4 +95,11 @@
 .nameContainer h4{
   font-size: 30px;
   font-weight: 500;
+}
+
+.imagePreview {
+  user-select: none;
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none;
 }

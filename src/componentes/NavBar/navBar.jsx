@@ -21,12 +21,12 @@ export default function NavBar(props) {
               <img className={style.logoRunners} src={logo} alt="Runners Paradise Logo" />
             </Link>
             <div className={style.searchBarContainer}>
-             
             </div>
             <div className={style.navBarContent}>
               <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                   <li className="nav-item">
+            <Link to="/create" className="nav-link text-black" style={{position:'relative', top:'1px', marginRight:'8px'}}> Create </Link>
                     
                   </li>
                   <li className="nav-item">
@@ -82,7 +82,6 @@ export default function NavBar(props) {
               <img className={style.logoRunners} src={logo} alt="Runners Paradise Logo" />
             </Link>
             <div className={style.searchBarContent}>
-             
             </div>
             <div className={style.searchBarContainer}>
             </div>
@@ -90,6 +89,7 @@ export default function NavBar(props) {
               <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                 <li className="nav-item">
+            <Link to="/create" className="nav-link text-black" style={{position:'relative', top:'1px', marginRight:'8px'}}> Create </Link>
                    
                   </li>
                   <li className="nav-item">

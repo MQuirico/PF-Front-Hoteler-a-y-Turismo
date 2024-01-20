@@ -18,6 +18,9 @@ const ProductForm = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [input, setInput] = useState({
     name: "",
@@ -58,35 +61,40 @@ const ProductForm = () => {
     }
    };
 
-  const handleSubmit = async (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault();
   
     if (handleValidation()) {
       try {
+        console.log("Objeto input que se enviará:", input);
+  
         const formData = new FormData();
         formData.append('name', input.name);
         formData.append('brand', input.brand);
-        // Asegúrate de que 'size' sea un array de strings
-        input.size.forEach((size) => {
+      
+        const sizesArray = Array.isArray(input.size) ? input.size : [input.size];
+        sizesArray.forEach((size) => {
           formData.append('size', size);
         });
+  
         formData.append('price', input.price);
-        // Asegúrate de que 'colors' sea un array de strings
-        input.colors.forEach((color) => {
-          formData.append('colors', color);
+        
+      
+        const colorsArray = Array.isArray(input.colors) ? input.colors : [input.colors];
+        colorsArray.forEach((color) => {
+          formData.append('colors', color); 
         });
-        // Agregar la imagen como un archivo
+  
         if (input.image) {
           formData.append('image', input.image);
         }
   
-        // Agregado para ver los datos enviados
         for (let [key, value] of formData.entries()) {
           console.log(`${key}: ${value}`);
         }
         console.log(input.image)
         const response = await dispatch(
-          postCreateProduct( formData,)
+          postCreateProduct(formData,)
         );
   
         console.log("Respuesta del servidor:", response);
@@ -110,6 +118,8 @@ const ProductForm = () => {
       setMessage("Por favor, completa el formulario correctamente.");
     }
   };
+
+
   const availableBrands = ["nike", "adidas", "newbalance"];
   const brandColors = {
     nike: ["green", "white", "black"],
@@ -172,6 +182,7 @@ const ProductForm = () => {
   };
 
 
+  
  
 
   const colorStyles = {
@@ -249,28 +260,25 @@ const ProductForm = () => {
               ))} 
             </select>
           <p className="error-message">{errors.brand}</p>
-  
           <label className="form-label">Talles</label>
-          <Select
-          value={input.size.map((size) => ({ value: size, label: size }))}
-           name="size"
-           onChange={(selectedOption) => handleSizeChange(selectedOption)}
-           isMulti
-           options={sizeOptions}
-            />
-          <p className="error-message">{errors.size}</p>
+<Select
+  value={input.size.map((size) => ({ value: size, label: size }))}
+  name="size"
+  onChange={(selectedOption) => handleSizeChange(selectedOption)}
+  isMulti
+  options={sizeOptions}
+/>
+{input.size.length < 2 && <p className="error-message">Seleccione 2 o más talles</p>}
 
-
-       <label className="form-label">Colores</label>
-       <Select
-    value={input.colors.map((color) => ({ value: color, label: color }))}
-    name="colors"
-    onChange={handleColorInputChange}
-    isMulti
-    options={colorOptions}
-  />
-
-          <p className="error-message">{errors.colors}</p>
+<label className="form-label">Colores</label>
+<Select
+  value={input.colors.map((color) => ({ value: color, label: color }))}
+  name="colors"
+  onChange={handleColorInputChange}
+  isMulti
+  options={colorOptions}
+/>
+{input.colors.length < 2 && <p className="error-message">Seleccione 2 o más colores</p>}
 
 
 
@@ -337,7 +345,7 @@ const ProductForm = () => {
       </span>
     ))}
   </div>
-  {/* ultimos cambios mas cambiosss*/}
+ 
 
   </div>
           <div className="tipos">
