@@ -23,6 +23,7 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
+  SET_ADMIN
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -290,3 +291,8 @@ const validation = (input, existingNames) => {
     return errors;
    }
    export default validation;
+
+   export const setAdmin = (isAdmin) => ({
+    type: SET_ADMIN,
+    payload: isAdmin,
+   })

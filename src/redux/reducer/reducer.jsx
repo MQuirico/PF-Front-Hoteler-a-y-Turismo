@@ -16,6 +16,7 @@ import {
   SEARCH_SUCCESS,
   SEARCH_REQUEST,
   SEARCH_FAILURE,
+  SET_ADMIN,
   GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
   
   
@@ -43,6 +44,7 @@ const initialState = {
  searchLoading: false,
  searchError: null,
  searchData: null,
+ isAdmin:false,
 };
 
 const stateSearchBar = {
@@ -259,6 +261,12 @@ case SEARCH_FAILURE:
    searchResults: [],
    error: action.payload,
  };
+ case SET_ADMIN:
+ return {
+    ...state,
+    isAdmin: action.payload,
+ };
+
               
                   default:
                   return state;
