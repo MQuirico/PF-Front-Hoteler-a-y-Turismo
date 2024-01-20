@@ -67,7 +67,7 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = (page, pageSize ="6", brand, colors, size, price) => {
+export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) => {
   return async function (dispatch) {
     try {
       const queryParams = {
@@ -253,38 +253,17 @@ export const updateSelectedSneaker = (sneaker) => ({
   };
  };
  
- // Acción para cerrar sesión
- const logoutAction = () => {
-  return {
-    type: 'LOGOUT'
-  };
- };
- 
- // Reducer para manejar el estado de la sesión
- const sessionReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        user: action.payload
-      };
-    case 'LOGOUT':
-      return {};
-    default:
-      return state;
-  }
- };
+
 
  export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
-    // Lógica para enviar la solicitud al backend y crear el producto
+  
     const response = await axios.post("http://localhost:3000/products/create", productData);
 
-    // Si la solicitud fue exitosa
     dispatch(createProductSuccess(response.data));
   } catch (error) {
-    // Si la solicitud falla
+    
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
   }
 }

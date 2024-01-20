@@ -43,7 +43,7 @@ const SearchBar = ({page, pageSize}) => {
        />
        <img type="submit" src="src\assets\searchbar-loupe.png" alt="" className={style.buttonImg} onClick={handleReset} />
      </form>
-     <p>{totalSneaker}</p>
+    
    </div>
  );
 };
