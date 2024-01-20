@@ -82,7 +82,7 @@ export default function NavBar(props) {
               <img className={style.logoRunners} src={logo} alt="Runners Paradise Logo" />
             </Link>
             <div className={style.searchBarContent}>
-              <SearchBar />
+             
             </div>
             <div className={style.searchBarContainer}>
             </div>
