@@ -66,8 +66,6 @@ const Detail = ({ brand }) => {
     );
   };
 
-
-
   useEffect(() => {
     if (zapatilla && zapatilla.colors) {
       setSelectedColors(zapatilla.colors);
@@ -112,22 +110,43 @@ const Detail = ({ brand }) => {
   if (!zapatilla.name) {
     return <div>Datos no disponibles</div>;
   }
+
+  const getImageSource = (image) => {
+    if (Array.isArray(image)) {
+       if (image[selectedImageIndex] && image[selectedImageIndex].secure_url) {
+         return image[selectedImageIndex].secure_url;
+       } else if (image[selectedImageIndex] && image[selectedImageIndex].startsWith("/")) {
+         return require(`../../images${image[selectedImageIndex]}`).default;
+       } else {
+         return image[selectedImageIndex];
+       }
+    } else if (typeof image === 'object') {
+       if (image && image.secure_url) {
+         return image.secure_url;
+       } else if (image && image.startsWith("/")) {
+         return require(`../../images${image}`).default;
+       } else {
+         return image;
+       }
+    } else {
+       return image;
+    }
+   };
   
-  
-  
-  return (
+   return (
     <div className={style.container}>
-      <div className={style.sneakersListContainer}>
-      <BottomBar
-          allSneakers={allSneakers}
-          onClickPrev={handlePrevImage}
-          onClickNext={handleNextImage}
-        />
-        </div>
+       <div className={style.sneakersListContainer}>
+         <BottomBar
+           allSneakers={allSneakers}
+           onClickPrev={handlePrevImage}
+           onClickNext={handleNextImage}
+         />
+       
+      </div>
       <div className={style.detailContainer}>
-        <div className={style.imagePreview}>
-        <img src={zapatilla && zapatilla.image[selectedImageIndex]} alt={zapatilla.name} />
-        </div>
+      <div className={style.imagePreview}>
+        <img src={getImageSource(zapatilla && zapatilla.image)} alt={zapatilla && zapatilla.name} />
+      </div>
         <div className={style.detailContent}>
           <br />
           <h2>{zapatilla && zapatilla.brand}</h2>
@@ -143,13 +162,12 @@ const Detail = ({ brand }) => {
           </div>
           <h4>Colors:</h4>
           <div className={style.containerColors}>
-        {selectedColors.map((selectedColor, index) => (
-          <span key={index}>
-            {selectedColor}
-            {index < selectedColors.length - 1 && <span>&nbsp;</span>}
-          </span>
-        ))}
-      
+            {selectedColors.map((selectedColor, index) => (
+              <span key={index}>
+                {selectedColor}
+                {index < selectedColors.length - 1 && <span>&nbsp;</span>}
+              </span>
+            ))}
           </div>
           <h4>Sizes:</h4>
           <div className={style.sizesContainer}>
