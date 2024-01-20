@@ -6,6 +6,8 @@ import {gapi} from "gapi-script";
 import {useDispatch} from 'react-redux';
 import { saveUserDataSession } from "../../redux/actions/actions";
 import style from "./Login.module.css"
+import { useHistory } from "react-router-dom";
+import { setAdmin } from "../../redux/actions/actions";
 
 export default function LogIn(props) {
   const [userName, setUserName] = useState("");
@@ -27,6 +29,8 @@ export default function LogIn(props) {
     setUserName(e.target.value);
   };
 
+
+
   const validarBotonSubmit = () => {
     if (userRegex.test(userName) && passwordRegex.test(password)) {
       setEsVálido(true);
@@ -44,10 +48,7 @@ export default function LogIn(props) {
     gapi.load("client:auth2", start)
   }, [])
 
-  const onSuccess = (response) => {
-    console.log('Login Success: currentUser:', response.profileObj);
-    dispatch(saveUserDataSession(response.profileObj))
-  };
+ 
 
   
   const onFailure = () => {
@@ -55,6 +56,20 @@ export default function LogIn(props) {
   }
 
 
+ 
+  const history = useHistory();
+  
+  const adminEmails = ["andres@hotmail.com"]; // Reemplaza esto con tus propios correos electrónicos de administrador
+
+  const onSuccess = (response) => {
+   console.log('Login Success: currentUser:', response.profileObj);
+   if (adminEmails.includes(response.profileObj.email)) {
+        dispatch(setAdmin(true));
+   } else {
+        dispatch(saveUserDataSession(response.profileObj));
+        dispatch(setAdmin(false));
+   }
+  };
   
   return (
     <>
