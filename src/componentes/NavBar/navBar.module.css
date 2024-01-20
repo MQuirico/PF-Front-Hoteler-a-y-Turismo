@@ -44,6 +44,8 @@
     left: -110px;
 }
 
+
+
 @media (max-width: 768px) {
     .navBarContent{
         width: 10vh;

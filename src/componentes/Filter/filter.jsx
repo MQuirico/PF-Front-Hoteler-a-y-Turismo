@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
 import style from "./Filter.module.css"
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
 
 function Filter({page,pageSize}) {
     console.log("Page in Filter:", page);
@@ -11,38 +9,37 @@ function Filter({page,pageSize}) {
   const color = useSelector((state)=> state?.colorValue);
   const size = useSelector((state)=> state?.sizeValue);
   const price = useSelector((state)=> state?.orderPrice);
-     
+    /* 
   const allSneakers = useSelector((state) => state.allCopySneakers);
   const brands =[ ...new Set(allSneakers.map((sneaker) => sneaker.brand))];
   console.log(brands)
-  
+  */
   const dispatch = useDispatch();
 
-  const handleFilterBrand = (value) => {
-    dispatch(getSneakers({ page: 1, pageSize, brand: value, color, size, price }));
-    dispatch(brandValue(value));
-    dispatch(resetCurrentPage(1));
-   };
-   
-   const handleFilterColor = (value) => {
-    dispatch(getSneakers({ page: 1, pageSize, brand, color: value, size, price }));
-    dispatch(colorValue(value));
-    dispatch(resetCurrentPage(1));
-   };
-   
-   const handleFilterSize = (value) => {
-    dispatch(getSneakers({ page: 1, pageSize, brand, color, size: value, price }));
-    dispatch(sizeValue(value));
-    dispatch(resetCurrentPage(1));
-   };
-   
-   const handleOrderPrice = (value) => {
-    dispatch(getSneakers({ page: 1, pageSize, brand, color, size, price: value }));
-    dispatch(orderPrice(value));
-    dispatch(resetCurrentPage(1));
-   };
+    const handleFilterBrand = (value) => {
+        dispatch(getSneakers( page=1, pageSize,value,color,size,price));
+        dispatch(brandValue(value))
+        dispatch(resetCurrentPage(1));
+      };
 
-      
+      const handleFilterColor = (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,value,size,price));
+        dispatch(colorValue(value))
+        dispatch(resetCurrentPage(1));
+      };
+
+      const handleFilterSize = (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,color,value,price));
+        dispatch(sizeValue(value))
+        dispatch(resetCurrentPage(1));
+      };
+
+      const handleOrderPrice= (value) => {
+        dispatch(getSneakers( page=1, pageSize,brand,color,size,value));
+        dispatch(orderPrice(value))
+        dispatch(resetCurrentPage(1));
+      };
+
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
@@ -50,9 +47,9 @@ function Filter({page,pageSize}) {
         name="FilterBrand"
         options={[
           { value: '', label: 'Brand' },
-          { value: 'adidas', label: 'Adidas' },
-          { value: 'nike', label: 'Nike' },
-          { value: 'newbalance', label: 'New Balance' },  
+          { value: 'adidas', label: 'adidas' },
+          { value: 'nike', label: 'nike' },
+          { value: 'newbalance', label: 'newbalance' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />
@@ -94,11 +91,6 @@ function Filter({page,pageSize}) {
         onChange={(e) => handleOrderPrice(e.target.value)}
       />
       </div>
-      <div className={style.createContainer}>
-        <Link to="/create" className={style.linkContainer}>
-          <button className="submit">Create product</button>
-        </Link>
-        </div>
     </div>
   );
 }
