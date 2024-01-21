@@ -23,7 +23,8 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
-  
+  SET_ADMIN,
+  // ... (otras importaciones de action-types)
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -75,32 +76,32 @@ export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) 
         page: encodeURIComponent(page),
         pageSize: encodeURIComponent(pageSize),
       };
- 
+
       if (brand) {
         queryParams.brand = encodeURIComponent(brand);
       }
- 
+
       if (colors) {
         queryParams.colors = encodeURIComponent(colors);
       }
- 
+
       if (size) {
         queryParams.size = encodeURIComponent(size);
       }
- 
+
       if (price) {
         queryParams.price = encodeURIComponent(price);
       }
- 
+
       const queryString = Object.entries(queryParams)
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
- 
+
       const url = `http://localhost:3000/products?${queryString}`;
       console.log(url)
       const response = await axios.get(url);
       const sneakersData = response.data;
- 
+
       dispatch({
         type: GET_ALL_SNEAKERS,
         payload: {
@@ -113,9 +114,9 @@ export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) 
       console.error("Error al traer las zapatillas:", error);
     }
   };
- };
+};
 
- export const getAlllSneakers = () => {
+export const getAlllSneakers = () => {
   return async function (dispatch) {
     try {
       const url = `http://localhost:3000/products/?page=1&pageSize=10`; // Asumiendo que tienes un endpoint que devuelve todas las zapatillas
@@ -131,7 +132,6 @@ export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) 
     }
   };
 };
-
 
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
@@ -150,8 +150,6 @@ export const createProductFailure = (error) => ({
 export const clearCreateProductState = () => ({
   type: CLEAR_CREATE_PRODUCT_STATE,
 });
-
-
 
 export const getSearchRequest = () => ({
   type: GET_SEARCH_REQUEST,
@@ -181,8 +179,8 @@ export const searchBar = (searchTerm) => {
       if ( response.data ) {
         console.log(response.data)
         dispatch(getSearchSuccess(response.data));
-       
-    }} catch (error) {
+      }
+    } catch (error) {
       dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
     }
   };
@@ -247,43 +245,46 @@ export const updateSelectedSneaker = (sneaker) => ({
   payload: userData,
  });
 
-
- 
-
-
 export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
-    // Lógica para enviar la solicitud al backend y crear el producto
     const response = await axios.post("http://localhost:3000/products/create", productData);
 
-    // Si la solicitud fue exitosa
     dispatch(createProductSuccess(response.data));
   } catch (error) {
-    // Si la solicitud falla
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
   }
-}
+};
+
 const validation = (input, existingNames) => {
-    let errors = {};
+  let errors = {};
 
-    let noEmpty = /\S+/;
-    let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
+  let noEmpty = /\S+/;
+  let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
 
-    if (Array.isArray(existingNames) && existingNames.some((name) => name.toLowerCase() === input.name.toLowerCase())) {
-     errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
-    } else if (!noEmpty.test(input.name)  ,!validateName.test(input.name) , input.name.trim().length < 3) {
-     errors.name = "Nombre necesario. Mayor de 3 letras y único";
-    }
+  if (Array.isArray(existingNames) && existingNames.some((name) => name.toLowerCase() === input.name.toLowerCase())) {
+    errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
+  } else if (!noEmpty.test(input.name)  ,!validateName.test(input.name) , input.name.trim().length < 3) {
+    errors.name = "Nombre necesario. Mayor de 3 letras y único";
+  }
 
-    if (!(input.image instanceof File)) {
-     errors.image = "Debe ser un archivo válido";
-    }
+  if (!(input.image instanceof File)) {
+    errors.image = "Debe ser un archivo válido";
+  }
 
-    if (isNaN(parseFloat(input.price)) , parseFloat(input.price) < 1 , parseFloat(input.price) > 10000) {
-     errors.price = "Ingrese un precio entre 1 y 10000";
-    }
+  if (isNaN(parseFloat(input.price)) , parseFloat(input.price) < 1 , parseFloat(input.price) > 10000) {
+    errors.price = "Ingrese un precio entre 1 y 10000";
+  }
 
-    return errors;
-   }
-   export default validation;
+  return errors;
+};
+
+export const setAdmin = (isAdmin) => ({
+  type: SET_ADMIN,
+  payload: isAdmin,
+});
+
+const loginAction = (user) => ({
+  type: 'LOGIN',
+  payload: user,
+});
