@@ -11,11 +11,12 @@ import About from "./componentes/About/about";
 import Registro from "./componentes/Register/Register";
 import Perfil from "./componentes/perfilDeUsuario/perfil"
 import Ajustes from "./componentes/Configuracion/configuracion"
-import LogOut from "./componentes/LogOut/logOut"
 import ProtectedRoute from './GeneralLogin';
+import { AuthProvider } from "./componentes/AuthProvider/authProvider";
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <div className="App">
         <Route
@@ -36,10 +37,10 @@ function App() {
  <Route exact path="/detail/:id" component={Detail} />
  <Route exact path="/perfil" component= {Perfil} />
  <Route exact path="/Configuracion" component= {Ajustes} />
- <Route exact path="/logOut" component= {LogOut} />
 </Switch>
       </div>
     </Router>
+    </AuthProvider>
   );
 }
 

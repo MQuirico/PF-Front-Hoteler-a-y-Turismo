@@ -1,43 +1,51 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import {useEffect} from "react";
 import GoogleLogin from "react-google-login";
 import {gapi} from "gapi-script";
-import {useDispatch} from 'react-redux';
-import { saveUserDataSession } from "../../redux/actions/actions";
-import style from "./Login.module.css"
-import { useHistory } from "react-router-dom";
-import { setAdmin } from "../../redux/actions/actions";
+import style from "./Login.module.css";
+import { AuthContext } from "../AuthProvider/authProvider";
 
 export default function LogIn(props) {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [esVálido, setEsVálido] = useState("");
+  const [userData, setUserData] = useState({
+    userName: '',
+    password: ''
+  });
+  const [isValid, setIsValid] = useState(true);
+  const { auth, setAuth } = useContext(AuthContext);
 
-  const dispatch = useDispatch()
-  
-  const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com"
-
-  const userRegex = "^[^s@]+@[^s@]+.[^s@]+$";
-  const passwordRegex =
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$";
-
-  const handChangePass = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleChange = (e) => {
-    setUserName(e.target.value);
-  };
-
-
+  const userRegex = new RegExp ("^[^s@]+@[^s@]+.[^s@]+$");
+  const passwordRegex = new RegExp ("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$");
 
   const validarBotonSubmit = () => {
-    if (userRegex.test(userName) && passwordRegex.test(password)) {
-      setEsVálido(true);
+    if (userRegex.test(userData.userName) && passwordRegex.test(userData.password)) {
+      setIsValid(false);
     } else {
-      setEsVálido(false);
+      setIsValid(true);
     }
   };
+
+
+  const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com"
+
+  
+
+  const handChangePass = (e) => {
+    setUserData({
+      ...userData,
+      password: e.target.value
+    });
+    validarBotonSubmit();
+  };
+
+  const handleChange = (e) => {
+    setUserData({
+      ...userData,
+      userName: e.target.value
+    });
+    validarBotonSubmit();
+  };
+
 
   useEffect(() =>{
     const start = () => {
@@ -47,29 +55,17 @@ export default function LogIn(props) {
     }
     gapi.load("client:auth2", start)
   }, [])
-
- 
-
   
   const onFailure = () => {
     console.log("Algo salió mal")
   }
-
-
  
-  const history = useHistory();
   
-  const adminEmails = ["andres@hotmail.com"]; // Reemplaza esto con tus propios correos electrónicos de administrador
-
   const onSuccess = (response) => {
    console.log('Login Success: currentUser:', response.profileObj);
-   if (adminEmails.includes(response.profileObj.email)) {
-        dispatch(setAdmin(true));
-   } else {
-        dispatch(saveUserDataSession(response.profileObj));
-        dispatch(setAdmin(false));
-   }
+   setAuth({ token: response.profileObj });
   };
+  
   
   return (
     <>
@@ -83,7 +79,7 @@ export default function LogIn(props) {
                 <input
                   type="text"
                   className="form-control form-control-lg"
-                  value={userName}
+                  value={userData.userName}
                   onChange={handleChange}
                   placeholder="Escriba aquí su email"
                   style={{ height: "50px", fontSize:'16px' }}
@@ -94,15 +90,17 @@ export default function LogIn(props) {
                 <input
                   type="password"
                   className="form-control form-control-lg"
-                  value={password}
+                  value={userData.password}
                   onChange={handChangePass}
                   placeholder="Y aquí su contraseña..."
                   style={{ height: "50px",fontSize:'16px' }}
                 ></input>
+                {isValid ? <p>La contraseña debe tener al menos 1 minúscula, 1 mayúscula, 1 dígito y 8 caracteres de longitud como mínimo</p> : <p></p>}
               </div>
               <button
                 type="submit"
                 className="btn btn-primary w-100"
+                disabled={isValid}
               >
                 Log In
               </button>
@@ -129,5 +127,3 @@ export default function LogIn(props) {
     </>
   );
 }
-
-//CAMBIO

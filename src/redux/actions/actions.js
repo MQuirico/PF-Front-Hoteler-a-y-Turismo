@@ -29,7 +29,7 @@ import {
 export const registerUser = (datauser) => async (dispatch) => {
   dispatch({ type: CREATE_USER_REQUEST });
   try {
-    const response = await axios.post('http://localhost:3000/users/create', datauser);
+    const response = await axios.post('http://localhost:3003/users/create', datauser);
     dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
@@ -56,7 +56,7 @@ export const postProductFailure = (error) => ({
 
 export const fetchProductDetail = (idKey) => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:3000/products/detail/${idKey}`);
+    const response = await fetch(`http://localhost:3003/products/detail/${idKey}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -96,7 +96,7 @@ export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) 
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
  
-      const url = `http://localhost:3000/products?${queryString}`;
+      const url = `http://localhost:3003/products?${queryString}`;
       console.log(url)
       const response = await axios.get(url);
       const sneakersData = response.data;
@@ -118,7 +118,7 @@ export const getSneakers = (page, pageSize ="1000", brand, colors, size, price) 
  export const getAlllSneakers = () => {
   return async function (dispatch) {
     try {
-      const url = `http://localhost:3000/products/?page=1&pageSize=10`; // Asumiendo que tienes un endpoint que devuelve todas las zapatillas
+      const url = `http://localhost:3003/products/?page=1&pageSize=10`; // Asumiendo que tienes un endpoint que devuelve todas las zapatillas
       const response = await axios.get(url);
       const sneakersData = response.data;
 
@@ -175,7 +175,7 @@ export const searchBar = (searchTerm) => {
     try {
       dispatch(getSearchRequest());
 
-      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
+      const response = await axios.get(`http://localhost:3003/products/search/${searchTerm}`);
       
       console.log(response.data)
       if ( response.data ) {
@@ -260,7 +260,7 @@ export const updateSelectedSneaker = (sneaker) => ({
   dispatch(createProductRequest());
   try {
   
-    const response = await axios.post("http://localhost:3000/products/create", productData);
+    const response = await axios.post("http://localhost:3003/products/create", productData);
 
     dispatch(createProductSuccess(response.data));
   } catch (error) {
