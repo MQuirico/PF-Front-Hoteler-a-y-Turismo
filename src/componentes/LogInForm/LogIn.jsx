@@ -7,12 +7,12 @@ import {useDispatch} from 'react-redux';
 import { saveUserDataSession } from "../../redux/actions/actions";
 import style from "./Login.module.css"
 import { useHistory } from "react-router-dom";
-import { setAdmin } from "../../redux/actions/actions";
 
 export default function LogIn(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [esVálido, setEsVálido] = useState("");
+  
 
   const dispatch = useDispatch()
   
@@ -29,7 +29,8 @@ export default function LogIn(props) {
     setUserName(e.target.value);
   };
 
-
+  const adminUsername = "admin";
+const adminPassword = "admin";
 
   const validarBotonSubmit = () => {
     if (userRegex.test(userName) && passwordRegex.test(password)) {
@@ -59,15 +60,12 @@ export default function LogIn(props) {
  
   const history = useHistory();
   
-  const adminEmails = ["andres@hotmail.com"]; // Reemplaza esto con tus propios correos electrónicos de administrador
-
   const onSuccess = (response) => {
    console.log('Login Success: currentUser:', response.profileObj);
-   if (adminEmails.includes(response.profileObj.email)) {
-        dispatch(setAdmin(true));
+   if (response.profileObj.email === adminUsername && response.profileObj.password === adminPassword) {
+      history.push("/admin");
    } else {
-        dispatch(saveUserDataSession(response.profileObj));
-        dispatch(setAdmin(false));
+      dispatch(saveUserDataSession(response.profileObj));
    }
   };
   
