@@ -23,7 +23,7 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
-  SET_ADMIN
+  
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -247,24 +247,20 @@ export const updateSelectedSneaker = (sneaker) => ({
   payload: userData,
  });
 
- const loginAction = (user) => {
-  return {
-    type: 'LOGIN',
-    payload: user
-  };
- };
+
  
 
 
- export const postCreateProduct = (productData) => async (dispatch) => {
+export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
-  
+    // Lógica para enviar la solicitud al backend y crear el producto
     const response = await axios.post("http://localhost:3000/products/create", productData);
 
+    // Si la solicitud fue exitosa
     dispatch(createProductSuccess(response.data));
   } catch (error) {
-    
+    // Si la solicitud falla
     dispatch(createProductFailure(error.message || "Error al crear el producto"));
   }
 }
@@ -291,8 +287,3 @@ const validation = (input, existingNames) => {
     return errors;
    }
    export default validation;
-
-   export const setAdmin = (isAdmin) => ({
-    type: SET_ADMIN,
-    payload: isAdmin,
-   })
