@@ -45,10 +45,9 @@ const ProductForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-   
-    if (name === "size" || name === "colors") {
-      const valuesArray = Array.isArray(value) ? value : [value];
-      setInput((prevInput) => ({ ...prevInput, [name]: valuesArray }));
+
+    if (name === "size") {
+      // Manejar cambios en el input de tallas si es necesario
     } else if (name === "image") {
       const imagesArray = value.split(',').map((url) => url.trim()); // Divide el string por comas y elimina espacios en blanco
       setInput((prevInput) => ({ ...prevInput, [name]: imagesArray }));
@@ -56,7 +55,7 @@ const ProductForm = () => {
     } else {
       setInput((prevInput) => ({ ...prevInput, [name]: value }));
     }
-   };
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -145,7 +144,8 @@ const ProductForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setInput((prevInput) => ({ ...prevInput, image: file }));
-   };
+    setImageUrl(URL.createObjectURL(file)); 
+  };
 
 
   const sizeOptions = [
@@ -306,10 +306,10 @@ const ProductForm = () => {
           <p className="feactures-container"></p>
 
           <div className="image-preview">
- {input.image && (
-   <img src={URL.createObjectURL(input.image)} alt="Preview" className="preview-image" />
- )}
-</div>
+            {imageUrl && (
+              <img src={imageUrl} alt="Preview" className="preview-image" />
+            )}
+          </div>
           <p className="feactures-container"></p>
 
           <div className="tipos">
@@ -337,7 +337,6 @@ const ProductForm = () => {
       </span>
     ))}
   </div>
-  {/* ultimos cambios mas cambiosss*/}
 
   </div>
           <div className="tipos">
