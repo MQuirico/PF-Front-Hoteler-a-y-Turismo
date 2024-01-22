@@ -60,12 +60,12 @@ const RedAlert = ({ message }) => (
           </div>
           <Filter totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></Filter>
         </div>
-        <div className={styles.cardsComponent}>
           <div className={styles.paginado}>
 
           <Paginado totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
 
           </div>
+        <div className={styles.cardsComponent}>
           <Cards sneakers={sneakers} />
           <div className={styles.cardsComponent}>
           {(sneakers && sneakers.length === 0) && 
