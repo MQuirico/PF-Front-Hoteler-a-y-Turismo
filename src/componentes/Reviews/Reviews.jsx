@@ -14,7 +14,7 @@ const BasicRating = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const userId = user.userData.googleId || user.userData.id;
+  const userId = user && user.userData ? (user.userData.googleId || user.userData.id) : null;
 
   const idKey = id
   
