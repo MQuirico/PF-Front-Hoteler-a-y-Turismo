@@ -19,13 +19,16 @@ const BasicRating = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Rating:', value);
-    console.log('Review:', review);
-    console.log('UserID:', user.userData.googleId);
-    console.log('ProductID:', idKey);
-    dispatch(postReviews(userId, idKey, value, review));
+    const reviewData = {
+      userId: user.userData.googleId, // Asumiendo que user.userData.googleId es el ID del usuario
+      productId: idKey,
+      rating: value,
+      content: review
+    };
+    console.log('Review data to send:', reviewData);
+    dispatch(postReviews(reviewData.userId, reviewData.productId, reviewData.rating, reviewData.content));
   };
-  
+
   const handleChange = (e) => {
     const userInput = e.target.value;
     const words = userInput.split(' ').filter(word => word !== '');
