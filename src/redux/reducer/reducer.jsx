@@ -27,30 +27,32 @@ import {
   ORDER_PRICE,
   SIZE_VALUE,
   CLEAR_CREATE_PRODUCT_STATE,
+  SET_REVIEWS
 } from "../action-types/action-types";
 
 const initialState = {
-  loading: false,
-  product: {
-    detail: null,
-    createdProduct: null,
-    loading: false,
-    error: null,
-  },
-  error: null,
-  searchResults: [],
-  sneakers: [],
-  allCopySneakers: [],
-  currentPage: [],
-  totalSneakers: [],
-  brandValue: [],
-  colorValue: [],
-  sizeValue: [],
-  orderPrice: [],
-  searchLoading: false,
-  searchError: null,
-  searchData: null,
-  isAdmin: false,
+ loading: false,
+ product: {
+   detail: null,
+   createdProduct: null,
+   loading: false,
+   error: null,
+ },
+ reviews: [],
+ error: null,
+ searchResults: [],
+ sneakers: [],
+ allCopySneakers:[],
+ currentPage:[],
+ totalSneakers:[],
+ brandValue : [],
+ colorValue :[],
+ sizeValue:[],
+ orderPrice:[],
+ searchLoading: false,
+ searchError: null,
+ searchData: null,
+ isAdmin:false,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -246,22 +248,27 @@ const productReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case SEARCH_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        searchResults: [],
-        error: action.payload,
-      };
+case SEARCH_FAILURE:
+ return {
+   ...state,
+   loading: false,
+   searchResults: [],
+   error: action.payload,
+ };
+ case SET_ADMIN:
+ return {
+    ...state,
+    isAdmin: action.payload,
+ };
 
-    case SET_ADMIN:
-      return {
-        ...state,
-        isAdmin: action.payload,
-      };
-
-    default:
-      return state;
+ case SET_REVIEWS:
+  return {
+    ...state,
+    reviews: action.payload,
+  };
+              
+                  default:
+                  return state;
   }
 };
 

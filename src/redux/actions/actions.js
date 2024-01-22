@@ -23,9 +23,8 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE,
+  SET_REVIEWS,
+  
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -260,22 +259,7 @@ export const saveUserDataSession = (userData) => ({
   payload: userData,
 });
 
-
-
-export const postReviews = (userId, idKey, value, review) => async (dispatch) => {
-  try {
-     const response = await axios.post(
-       "http://localhost:3000/reviews/create",
-       { userId, idKey, value, review }
-     );
-     dispatch({ type: "POST_REVIEWS_SUCCESS", payload: response.data });
-  } catch (error) {
-     dispatch({ type: "POST_REVIEWS_FAILURE", payload: error.message });
-  }
- };
-
-
- export const postCreateProduct = (productData) => async (dispatch) => {
+export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
     // Lógica para enviar la solicitud al backend y crear el producto
@@ -326,3 +310,40 @@ const validation = (input, existingNames) => {
   return errors;
 };
 
+
+   export const postReviews = (userId, idKey, rating, content) => {
+    return async (dispatch) => {
+       try {
+         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
+           rating,
+           content
+         });
+   
+         console.log('Review posted successfully:', response.data);
+   
+       } catch (error) {
+         console.error('Error posting review:', error);
+       }
+    };
+   };
+
+
+   export const setReviews = (reviews) => ({
+    type: SET_REVIEWS,
+    payload: reviews || [],
+  });
+  
+  export const fetchReviews = () => async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3000/reviews'); // Update the URL to the correct endpoint
+      const data = response.data;
+      console.log("TODAS LAS REVIEWS:", data)
+      if (Array.isArray(data)) {
+        dispatch(setReviews(data));
+      } else {
+        console.error('Error: The response is not an array of reviews');
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
