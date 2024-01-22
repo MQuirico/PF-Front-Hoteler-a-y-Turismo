@@ -23,8 +23,9 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
-  SET_ADMIN,
-  // ... (otras importaciones de action-types)
+    POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE
+  
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -276,15 +277,25 @@ const validation = (input, existingNames) => {
     errors.price = "Ingrese un precio entre 1 y 10000";
   }
 
-  return errors;
-};
+    return errors;
+   }
+   export default validation;
 
-export const setAdmin = (isAdmin) => ({
-  type: SET_ADMIN,
-  payload: isAdmin,
-});
 
-const loginAction = (user) => ({
-  type: 'LOGIN',
-  payload: user,
-});
+   export const postReviews = (userId, idKey, rating, content) => {
+    return async (dispatch) => {
+       try {
+         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
+           rating,
+           content
+         });
+   
+         console.log('Review posted successfully:', response.data);
+   
+       } catch (error) {
+         console.error('Error posting review:', error);
+       }
+    };
+   };
+
+
