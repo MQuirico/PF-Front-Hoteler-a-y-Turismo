@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getSneakers } from "../../redux/actions/actions";
+import { getSneakers, searchBar } from "../../redux/actions/actions";
 import Cards from "../../componentes/Cards/cards";
 import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
@@ -23,14 +23,22 @@ const Home = () => {
   const price = useSelector((state) => state?.orderPrice);
   const searchState = useSelector((state) => state?.data); //  estado para los resultados de la búsqueda
   const pageSize = 8;
-
+  const currentPageSearch = useSelector((state) => state?.page);
+  
   useEffect(() => {
+    if(searchState && searchState.length > 0){
+      dispatch(searchBar(searchState,currentPageSearch, pageSize,price ));
+    } else {
     dispatch(getSneakers(currentPage, pageSize, brand, color, size, price));
-  }, [dispatch]);
+}}, [dispatch]);
 
   const setCurrentPage = (page) => {
-    dispatch(getSneakers(page, pageSize, brand, color, size, price));
+    if(searchState && searchState.length > 0){
+      dispatch(searchBar( searchState ,page, pageSize,price));
+    } else {
+    dispatch(getSneakers(page, pageSize, brand, color, size, price));}
   };
+
 
   
       
@@ -62,7 +70,7 @@ const RedAlert = ({ message }) => (
         </div>
           <div className={styles.paginado}>
 
-          <Paginado totalSneaker={totalSneaker} page={currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage} />
+          <Paginado totalSneaker={totalSneaker} page={currentPageSearch >= 1 ?currentPageSearch: currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
 
           </div>
         <div className={styles.cardsComponent}>

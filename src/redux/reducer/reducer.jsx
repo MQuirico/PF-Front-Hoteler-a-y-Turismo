@@ -28,6 +28,7 @@ import {
   SET_REVIEWS,
   SIZE_VALUE,
   SET_ADMIN,
+  STATE_DATA_PAGE
 } from "../action-types/action-types";
 
 const initialState = {
@@ -53,7 +54,14 @@ const initialState = {
  searchError: null,
  searchData: null,
  isAdmin:false,
+ dataSearch:[]
 };
+const stateSearchBar = {
+  data: null,
+  page: 0,
+  loading: false,
+  error: null,
+}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -266,6 +274,11 @@ case SEARCH_FAILURE:
     ...state,
     reviews: action.payload,
   };
+  case STATE_DATA_PAGE:
+            return {
+                ...state,
+                dataSearch:action.payload
+            }
               
                   default:
                   return state;

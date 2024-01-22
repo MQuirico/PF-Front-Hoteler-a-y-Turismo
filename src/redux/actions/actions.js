@@ -24,6 +24,8 @@ import {
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
   SET_REVIEWS,
+  STATE_DATA_PAGE,
+  CREATE_USER_REQUEST
   
 } from "../action-types/action-types";
 
