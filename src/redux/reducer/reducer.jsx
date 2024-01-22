@@ -27,6 +27,7 @@ import {
   ORDER_PRICE,
   SIZE_VALUE,
   CLEAR_CREATE_PRODUCT_STATE,
+  SET_REVIEWS
 } from "../action-types/action-types";
 
 
@@ -38,6 +39,7 @@ const initialState = {
    loading: false,
    error: null,
  },
+ reviews: [],
  error: null,
  searchResults: [],
  sneakers: [],
@@ -274,6 +276,11 @@ case SEARCH_FAILURE:
     isAdmin: action.payload,
  };
 
+ case SET_REVIEWS:
+  return {
+    ...state,
+    reviews: action.payload,
+  };
               
                   default:
                   return state;

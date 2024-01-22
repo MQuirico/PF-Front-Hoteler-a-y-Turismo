@@ -23,8 +23,7 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
-    POST_REVIEW_SUCCESS,
-  POST_REVIEW_FAILURE
+  SET_REVIEWS,
   
 } from "../action-types/action-types";
 
@@ -249,10 +248,6 @@ export const updateSelectedSneaker = (sneaker) => ({
   payload: userData,
  });
 
-
- 
-
-
 export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
@@ -308,3 +303,22 @@ const validation = (input, existingNames) => {
    };
 
 
+   export const setReviews = (reviews) => ({
+    type: SET_REVIEWS,
+    payload: reviews || [],
+  });
+  
+  export const fetchReviews = () => async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3000/reviews'); // Update the URL to the correct endpoint
+      const data = response.data;
+      console.log("TODAS LAS REVIEWS:", data)
+      if (Array.isArray(data)) {
+        dispatch(setReviews(data));
+      } else {
+        console.error('Error: The response is not an array of reviews');
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
