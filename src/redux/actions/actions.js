@@ -260,21 +260,69 @@ export const saveUserDataSession = (userData) => ({
   payload: userData,
 });
 
-export const postCreateProduct = (productData) => async (dispatch) => {
+
+
+export const postReviews = (userId, idKey, value, review) => async (dispatch) => {
+  try {
+     const response = await axios.post(
+       "http://localhost:3000/reviews/create",
+       { userId, idKey, value, review }
+     );
+     dispatch({ type: "POST_REVIEWS_SUCCESS", payload: response.data });
+  } catch (error) {
+     dispatch({ type: "POST_REVIEWS_FAILURE", payload: error.message });
+  }
+ };
+
+
+ export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
     // Lógica para enviar la solicitud al backend y crear el producto
-    const response = await axios.post(
-      "http://localhost:3000/products/create",
-      productData
-    );
+    const response = await axios.post("http://localhost:3000/products/create", productData);
 
+    // Si la solicitud fue exitosa
     dispatch(createProductSuccess(response.data));
   } catch (error) {
     // Si la solicitud falla
-    dispatch(
-      createProductFailure(error.message || "Error al crear el producto")
-    );
+    dispatch(createProductFailure(error.message || "Error al crear el producto"));
   }
+}
+
+
+const validation = (input, existingNames) => {
+  let errors = {};
+
+  let noEmpty = /\S+/;
+  let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
+
+  if (
+    Array.isArray(existingNames) &&
+    existingNames.some(
+      (name) => name.toLowerCase() === input.name.toLowerCase()
+    )
+  ) {
+    errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
+  } else if (
+    !noEmpty.test(input.name),
+    !validateName.test(input.name),
+    input.name.trim().length < 3
+  ) {
+    errors.name = "Nombre necesario. Mayor de 3 letras y único";
+  }
+
+  if (!(input.image instanceof File)) {
+    errors.image = "Debe ser un archivo válido";
+  }
+
+  if (
+    isNaN(parseFloat(input.price)),
+    parseFloat(input.price) < 1,
+    parseFloat(input.price) > 10000
+  ) {
+    errors.price = "Ingrese un precio entre 1 y 10000";
+  }
+
+  return errors;
 };
 
