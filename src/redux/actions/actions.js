@@ -23,6 +23,8 @@ import {
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
   SAVE_USER_DATA_SESSION,
+    POST_REVIEW_SUCCESS,
+  POST_REVIEW_FAILURE
   
 } from "../action-types/action-types";
 
@@ -287,3 +289,22 @@ const validation = (input, existingNames) => {
     return errors;
    }
    export default validation;
+
+
+   export const postReviews = (userId, idKey, rating, content) => {
+    return async (dispatch) => {
+       try {
+         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
+           rating,
+           content
+         });
+   
+         console.log('Review posted successfully:', response.data);
+   
+       } catch (error) {
+         console.error('Error posting review:', error);
+       }
+    };
+   };
+
+
