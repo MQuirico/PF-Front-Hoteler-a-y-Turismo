@@ -180,25 +180,6 @@ export const getSearchNotFound = (error) => ({
   payload: error,
 });
 
-export const searchBar = (searchTerm) => {
-  return async (dispatch) => {
-    try {
-      dispatch(getSearchRequest());
-
-      const response = await axios.get(
-        `http://localhost:3000/products/search/${searchTerm}`
-      );
-
-      console.log(response.data);
-      if (response.data) {
-        console.log(response.data);
-        dispatch(getSearchSuccess(response.data));
-      }
-    } catch (error) {
-      dispatch(getSearchNotFound(error.message || "Error en la búsqueda"));
-    }
-  };
-};
 
 export const resetCurrentPage = (page) => ({
   type: RESET_CURRENTPAGE,
@@ -348,4 +329,36 @@ const validation = (input, existingNames) => {
     }
   };
 
-  //sdadasd
+  export const searchBar = (searchTerm,page,pageSize="4",price) => {
+    return async (dispatch) => {
+      try {
+        dispatch(getSearchRequest());
+        const queryParams = {
+          page: encodeURIComponent(page),
+          pageSize: encodeURIComponent(pageSize),
+        };
+        if (price) {
+          queryParams.price = encodeURIComponent(price);
+        }
+        const queryString = Object.entries(queryParams)
+          .map(([key, value]) => `${key}=${value}`)
+          .join("&");
+          const url =`http://localhost:3000/products/search/${searchTerm}?${queryString}`
+          console.log(url)
+        const response = await axios.get(url);
+  
+        console.log(response)
+        if ( response.data ) {
+          console.log(response.data)
+          dispatch(getSearchSuccess(response.data));
+  
+      }} catch (error) {
+        dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
+      }
+    };
+  };
+
+  export const stateSearch = (search) => ({
+    type: STATE_DATA_PAGE,
+    payload: search,
+  });
