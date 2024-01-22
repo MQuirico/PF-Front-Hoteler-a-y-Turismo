@@ -8,7 +8,7 @@ import {
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
-  GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE
+  GET_ALL_SNEAKERS, GET_SEARCH_REQUEST, GET_SEARCH_SUCCESS, GET_SEARCH_NOTFOUND,RESET_CURRENTPAGE,BRAND_VALUE,COLOR_VALUE,ORDER_PRICE,SIZE_VALUE,CLEAR_CREATE_PRODUCT_STATE,STATE_DATA_PAGE
   
   
 } from "../action-types/action-types";
@@ -32,10 +32,12 @@ const initialState = {
   colorValue :[],
   sizeValue:[],
   orderPrice:[],
+  dataSearch:[]
 };
 
 const stateSearchBar = {
   data: null,
+  page: 0,
   loading: false,
   error: null,
 }
@@ -72,6 +74,7 @@ const productReducer = (state = initialState, action) => {
           allCopySneakers: action.payload.sneakers,
           currentPage: action.payload.currentPage,
           totalSneaker: action.payload.totalSneaker,
+          page:0,
         };
 
 
@@ -134,9 +137,11 @@ case CLEAR_CREATE_PRODUCT_STATE:
 case GET_SEARCH_SUCCESS:
   return {
     ...state,
-    data: action.payload.sneakers,
     sneakers:action.payload.sneakers,
-    totalSneaker:action.payload.totalSneaker
+    page: action.payload.currentPage,
+    totalSneaker:action.payload.totalSneaker,
+    brandValue:[],
+    colorValue:[]
   };
 
   case GET_SEARCH_NOTFOUND:
@@ -156,7 +161,8 @@ case GET_SEARCH_SUCCESS:
             case BRAND_VALUE:
             return {
                 ...state,
-                brandValue:action.payload
+                brandValue:action.payload,
+                dataSearch:[]
             }
 
             case COLOR_VALUE:
@@ -175,6 +181,12 @@ case GET_SEARCH_SUCCESS:
             return {
                 ...state,
                 orderPrice:action.payload
+            }
+
+            case STATE_DATA_PAGE:
+            return {
+                ...state,
+                dataSearch:action.payload
             }
 
             case 'RESET_SEARCH':

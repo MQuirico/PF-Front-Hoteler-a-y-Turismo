@@ -1,4 +1,3 @@
-import React from "react";
 import BasicRating from "../Reviews/Hacer_Review";
 import style from "../Card/Card.module.css"; // Asegúrate de tener un archivo Card.css en tu proyecto
 

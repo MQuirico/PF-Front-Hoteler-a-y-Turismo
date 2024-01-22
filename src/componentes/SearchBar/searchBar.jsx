@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSneakers, searchBar, resetSearch } from '../../redux/actions/actions';
+import { getSneakers, searchBar, stateSearch , resetSearch } from '../../redux/actions/actions';
 import style from "./SearchBar.module.css";
+import Paginado from '../Paginado/Paginado';
 
 const SearchBar = ({page}) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const totalSneaker = useSelector((state) => state?.totalSneaker);
-
+  const currentPage = useSelector((state) => state?.currentPage);
+  const currentPageSearch = useSelector((state) => state?.page)
+  const brand = useSelector((state) => state?.brandValue);
+  const color = useSelector((state) => state?.colorValue);
+  const size = useSelector((state) => state?.sizeValue);
+  const price = useSelector((state) => state?.orderPrice);
+  const searchState = useSelector((state) => state?.dataSearch);
+  const pageSize = 4;
   const fetchData = async (term) => {
     try {
-      const sneakers = term ? await dispatch(searchBar(term)) : await dispatch(getSneakers(page=1));
-      if (sneakers && sneakers.paginatedResponse) {
-        dispatch({
-          type: 'GET_ALL_SNEAKERS',
-          payload: {
-            sneakers: sneakers.paginatedResponse,
-            currentPage: sneakers.setCurrentPage,
-            totalSneakers :sneakers.totalSneakers
-          },
-        }
-        );console.log(sneakers)
+      const sneakers = term ? await dispatch(searchBar(term,currentPageSearch,pageSize,price)) : await dispatch(getSneakers(currentPage, pageSize, brand, color, size, price));
+      if (sneakers) {
+        dispatch();console.log(sneakers)
       }
     } catch (error) {
       console.error("Error al buscar las zapatillas:", error);
@@ -29,10 +28,11 @@ const SearchBar = ({page}) => {
 
   const handleChange = (event) => {
     const searchTerm = event.target.value;
+    dispatch(stateSearch(searchTerm))
     setSearch(searchTerm);
 
     // Llamar a fetchData solo si el término de búsqueda está vacío
-    if (searchTerm) {
+    if (!searchTerm) {
       fetchData();
     }
   };
@@ -41,6 +41,8 @@ const SearchBar = ({page}) => {
     // Llamar a fetchData con el término de búsqueda actual
     fetchData(search);
   }, [search, dispatch]);
+
+  
 
   const handleReset = () => {
     // Limpiar el input y llamar a fetchData para obtener todas las sneakers
@@ -53,7 +55,7 @@ const SearchBar = ({page}) => {
       <form className={style.containerForm} onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
-          value={search}
+          value={search || searchState}
           onChange={handleChange}
           placeholder="Search"
         />

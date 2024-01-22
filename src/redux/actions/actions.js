@@ -10,6 +10,7 @@ import {
   COLOR_VALUE,
   SIZE_VALUE,
   ORDER_PRICE,
+  STATE_DATA_PAGE,
   POST_PRODUCT_FAILURE,
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_REQUEST,
@@ -153,7 +154,8 @@ export const getSearchRequest = () => ({
 export const getSearchSuccess = (data) => ({
   type: GET_SEARCH_SUCCESS,
   payload:{
-    sneakers:data.productsFound,
+    sneakers:data.paginatedResponse,
+    currentPage:data.setCurrentPage,
     totalSneaker:data.totalSneakers
   },
 });
@@ -163,14 +165,25 @@ export const getSearchNotFound = (error) => ({
   payload: error,
 });
 
-export const searchBar = (searchTerm) => {
+export const searchBar = (searchTerm,page,pageSize="4",price) => {
   return async (dispatch) => {
     try {
       dispatch(getSearchRequest());
-
-      const response = await axios.get(`http://localhost:3000/products/search/${searchTerm}`);
+      const queryParams = {
+        page: encodeURIComponent(page),
+        pageSize: encodeURIComponent(pageSize),
+      };
+      if (price) {
+        queryParams.price = encodeURIComponent(price);
+      }
+      const queryString = Object.entries(queryParams)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+        const url =`http://localhost:3000/products/search/${searchTerm}?${queryString}`
+        console.log(url)
+      const response = await axios.get(url);
       
-      console.log(response.data)
+      console.log(response)
       if ( response.data ) {
         console.log(response.data)
         dispatch(getSearchSuccess(response.data));
@@ -216,9 +229,9 @@ export const orderPrice = (value) => {
   }
 }
 
-export const setCurrentPage = (page) => ({
-  type: 'SET_CURRENT_PAGE',
-  payload: page,
+export const stateSearch = (search) => ({
+  type: STATE_DATA_PAGE,
+  payload: search,
 });
 
 export const resetSearch = () => ({
