@@ -26,11 +26,19 @@ import {
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE,
 } from "../action-types/action-types";
+
 
 export const registerUser = (datauser) => async (dispatch) => {
   dispatch({ type: CREATE_USER_REQUEST });
   try {
+    const response = await axios.post(
+      "http://localhost:3000/users/create",
+      datauser
+    );
     const response = await axios.post(
       "http://localhost:3000/users/create",
       datauser
@@ -40,6 +48,7 @@ export const registerUser = (datauser) => async (dispatch) => {
     dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
   }
 };
+
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -64,6 +73,9 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
     const response = await fetch(
       `http://localhost:3000/products/detail/${idKey}`
     );
+    const response = await fetch(
+      `http://localhost:3000/products/detail/${idKey}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -75,6 +87,14 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
+export const getSneakers = (
+  page,
+  pageSize = "1000",
+  brand,
+  colors,
+  size,
+  price
+) => {
 export const getSneakers = (
   page,
   pageSize = "1000",
@@ -111,6 +131,7 @@ export const getSneakers = (
         .join("&");
 
       const url = `http://localhost:3000/products?${queryString}`;
+      console.log(url);
       console.log(url);
       const response = await axios.get(url);
       const sneakersData = response.data;
@@ -173,6 +194,9 @@ export const getSearchSuccess = (data) => ({
   payload: {
     sneakers: data.productsFound,
     totalSneaker: data.totalSneakers,
+  payload: {
+    sneakers: data.productsFound,
+    totalSneaker: data.totalSneakers,
   },
 });
 
@@ -193,9 +217,17 @@ export const searchBar = (searchTerm) => {
       console.log(response.data);
       if (response.data) {
         console.log(response.data);
+      const response = await axios.get(
+        `http://localhost:3000/products/search/${searchTerm}`
+      );
+
+      console.log(response.data);
+      if (response.data) {
+        console.log(response.data);
         dispatch(getSearchSuccess(response.data));
       }
     } catch (error) {
+      dispatch(getSearchNotFound(error.message || "Error en la búsqueda"));
       dispatch(getSearchNotFound(error.message || "Error en la búsqueda"));
     }
   };
@@ -228,14 +260,17 @@ export const orderPrice = (value) => ({
 
 export const setCurrentPage = (page) => ({
   type: "SET_CURRENT_PAGE",
+  type: "SET_CURRENT_PAGE",
   payload: page,
 });
 
 export const resetSearch = () => ({
   type: "RESET_SEARCH",
+  type: "RESET_SEARCH",
 });
 
 export const setSneakers = (sneakers) => ({
+  type: "SET_SNEAKERS",
   type: "SET_SNEAKERS",
   payload: sneakers,
 });
@@ -247,14 +282,19 @@ export const setSelectedSneaker = (sneaker) => ({
 
 export const updateSelectedSneaker = (sneaker) => ({
   type: "UPDATE_SELECTED_SNEAKER",
+  type: "UPDATE_SELECTED_SNEAKER",
   payload: sneaker,
 });
+});
 
+export const setSelectedSneakerIndex = (index) => ({
 export const setSelectedSneakerIndex = (index) => ({
   type: SET_SELECTED_SNEAKER_INDEX,
   payload: index,
 });
+});
 
+export const saveUserDataSession = (userData) => ({
 export const saveUserDataSession = (userData) => ({
   type: SAVE_USER_DATA_SESSION,
   payload: userData,
@@ -296,6 +336,12 @@ const validation = (input, existingNames) => {
   let noEmpty = /\S+/;
   let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
 
+  if (
+    Array.isArray(existingNames) &&
+    existingNames.some(
+      (name) => name.toLowerCase() === input.name.toLowerCase()
+    )
+  ) {
   if (
     Array.isArray(existingNames) &&
     existingNames.some(
