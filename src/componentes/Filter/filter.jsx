@@ -78,7 +78,7 @@ function Filter({page,pageSize}) {
         name="FilterSize"
         options={[
           { value: " ", label: `${size && size.length>0 ? size : "selected Size"}`  },
-          { value: ' ', label: "all Size" },
+          { value: '', label: "all Size" },
           { value: '6', label: '6' },
           { value: '7', label: '7' },
           { value: '8', label: '8' },
@@ -92,8 +92,8 @@ function Filter({page,pageSize}) {
 <Select
         name="orderPrice"
         options={[
-          { value: '', label: `${price && price.length>0 ? price : "selected Price"}` },
-          { value: ' ', label: "all price" },
+          { value: " ", label: `${price && price.length>0 ? price : "selected Price"}` },
+          { value: '', label: "all price" },
           { value: 'min', label: 'min' },
           { value: 'max', label: 'max' }   
         ]}

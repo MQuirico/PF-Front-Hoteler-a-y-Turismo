@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSneakers, searchBar, stateSearch , resetSearch } from '../../redux/actions/actions';
+import { getSneakers, searchBar, stateSearch  } from '../../redux/actions/actions';
 import style from "./SearchBar.module.css";
-import Paginado from '../Paginado/Paginado';
 
-const SearchBar = ({page}) => {
+const SearchBar = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const currentPage = useSelector((state) => state?.currentPage);
@@ -42,13 +41,6 @@ const SearchBar = ({page}) => {
     fetchData(search);
   }, [search, dispatch]);
 
-  
-
-  const handleReset = () => {
-    // Limpiar el input y llamar a fetchData para obtener todas las sneakers
-    setSearch("");
-    fetchData();
-  };
 
   return (
     <div className={style.container}>

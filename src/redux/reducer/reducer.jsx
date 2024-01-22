@@ -140,8 +140,6 @@ case GET_SEARCH_SUCCESS:
     sneakers:action.payload.sneakers,
     page: action.payload.currentPage,
     totalSneaker:action.payload.totalSneaker,
-    brandValue:[],
-    colorValue:[]
   };
 
   case GET_SEARCH_NOTFOUND:
