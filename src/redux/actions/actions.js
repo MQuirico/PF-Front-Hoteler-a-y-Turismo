@@ -25,7 +25,9 @@ import {
   SAVE_USER_DATA_SESSION,
   SET_REVIEWS,
   STATE_DATA_PAGE,
-  CREATE_USER_REQUEST
+  CREATE_USER_REQUEST,
+  CREATE_USER_FAILURE,
+  LOGIN_SUCCESS,
   
 } from "../action-types/action-types";
 
@@ -294,22 +296,6 @@ const validation = (input, existingNames) => {
 };
 
 
-   export const postReviews = (userId, idKey, rating, content) => {
-    return async (dispatch) => {
-       try {
-         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
-           rating,
-           content
-         });
-   
-         console.log('Review posted successfully:', response.data);
-   
-       } catch (error) {
-         console.error('Error posting review:', error);
-       }
-    };
-   };
-
 
    export const setReviews = (reviews) => ({
     type: SET_REVIEWS,
@@ -364,3 +350,43 @@ const validation = (input, existingNames) => {
     type: STATE_DATA_PAGE,
     payload: search,
   });
+
+  export const postReviews = (userId, idKey, rating, content) => {
+    return async (dispatch) => {
+      if (!userId) {
+        console.error('No hay userId disponible para enviar la reseña');
+        return;
+      }
+      try {
+        const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
+          rating,
+          content
+        });
+  
+        console.log('Review posted successfully:', response.data);
+  
+      } catch (error) {
+        console.error('Error posting review:', error);
+      }
+    };
+  };
+
+  export const loginUser = (userData) => async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:3000/users/login', userData);
+      const responseData = response.data;  // Cambiado el nombre de la variable
+  
+      // Puedes hacer más cosas aquí si es necesario
+  
+      // Despacha una acción para indicar que el inicio de sesión fue exitoso
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: responseData,
+      });
+  
+      alert('¡Inicio de sesión exitoso!');
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+    }
+  };

@@ -28,7 +28,8 @@ import {
   SET_REVIEWS,
   SIZE_VALUE,
   SET_ADMIN,
-  STATE_DATA_PAGE
+  STATE_DATA_PAGE,
+  LOGIN_SUCCESS
 } from "../action-types/action-types";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
    createdProduct: null,
    loading: false,
    error: null,
+   user: null,
  },
  reviews: [],
  error: null,
@@ -278,7 +280,12 @@ case SEARCH_FAILURE:
             return {
                 ...state,
                 dataSearch:action.payload
-            }
+            };
+            case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+      };
               
                   default:
                   return state;
