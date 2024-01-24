@@ -1,7 +1,6 @@
 import axios from "axios";
 import {
   GET_ALL_SNEAKERS,
-  GET_ALLL_SNEAKERS,
   GET_SEARCH_REQUEST,
   GET_SEARCH_NOTFOUND,
   GET_SEARCH_SUCCESS,
@@ -11,6 +10,7 @@ import {
   SIZE_VALUE,
   ORDER_PRICE,
   POST_PRODUCT_SUCCESS,
+  STATE_DATA_PAGE,
   POST_PRODUCT_FAILURE,
   POST_PRODUCT_REQUEST,
   CREATE_PRODUCT_FAILURE,
@@ -22,9 +22,12 @@ import {
   FETCH_PRODUCT_DETAIL_FAILURE,
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
+  SET_SELECTED_IMAGE_INDEX,
   SET_REVIEWS,
-  STATE_DATA_PAGE,
+
   CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILURE,
   REVIEW_POSTED_FAILURE,
   REVIEW_POSTED_SUCCESS,
   REVIEW_POST_REQUEST
@@ -77,14 +80,7 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = (
-  page,
-  pageSize = "1000",
-  brand,
-  colors,
-  size,
-  price
-) => {
+export const getSneakers = (page, pageSize ="4", brand, colors, size, price) => {
   return async function (dispatch) {
     try {
       const queryParams = {
@@ -131,23 +127,6 @@ export const getSneakers = (
   };
 };
 
-export const getAlllSneakers = () => {
-  return async function (dispatch) {
-    try {
-      const url = `http://localhost:3000/products/?page=1&pageSize=10`; // Asumiendo que tienes un endpoint que devuelve todas las zapatillas
-      const response = await axios.get(url);
-      const sneakersData = response.data;
-
-      dispatch({
-        type: GET_ALLL_SNEAKERS,
-        payload: sneakersData,
-      });
-    } catch (error) {
-      console.error("Error al traer las zapatillas:", error);
-    }
-  };
-};
-
 export const createProductRequest = () => ({
   type: CREATE_PRODUCT_REQUEST,
 });
@@ -166,15 +145,30 @@ export const clearCreateProductState = () => ({
   type: CLEAR_CREATE_PRODUCT_STATE,
 });
 
+export const postCreateProduct = (productData) => async (dispatch) => {
+  dispatch(createProductRequest());
+  try {
+    // Lógica para enviar la solicitud al backend y crear el producto
+    const response = await axios.post("http://localhost:3000/products/create", productData);
+
+    // Si la solicitud fue exitosa
+    dispatch(createProductSuccess(response.data));
+  } catch (error) {
+    // Si la solicitud falla
+    dispatch(createProductFailure(error.message || "Error al crear el producto"));
+  }
+}
+
 export const getSearchRequest = () => ({
   type: GET_SEARCH_REQUEST,
 });
 
 export const getSearchSuccess = (data) => ({
   type: GET_SEARCH_SUCCESS,
-  payload: {
-    sneakers: data.productsFound,
-    totalSneaker: data.totalSneakers,
+  payload:{
+    sneakers:data.paginatedResponse,
+    currentPage:data.setCurrentPage,
+    totalSneaker:data.totalSneakers
   },
 });
 
@@ -182,6 +176,38 @@ export const getSearchNotFound = (error) => ({
   type: GET_SEARCH_NOTFOUND,
   payload: error,
 });
+
+
+
+export const searchBar = (searchTerm,page,pageSize="4",price) => {
+  return async (dispatch) => {
+    try {
+      dispatch(getSearchRequest());
+      const queryParams = {
+        page: encodeURIComponent(page),
+        pageSize: encodeURIComponent(pageSize),
+      };
+      if (price) {
+        queryParams.price = encodeURIComponent(price);
+      }
+      const queryString = Object.entries(queryParams)
+        .map(([key, value]) => `${key}=${value}`)
+        .join("&");
+        const url =`http://localhost:3000/products/search/${searchTerm}?${queryString}`
+        console.log(url)
+      const response = await axios.get(url);
+      
+      console.log(response)
+      if ( response.data ) {
+        console.log(response.data)
+        dispatch(getSearchSuccess(response.data));
+      }
+    } catch (error) {
+      dispatch(getSearchNotFound(error.message || "Error en la búsqueda"));
+    }
+  };
+};
+
 
 
 export const resetCurrentPage = (page) => ({
@@ -209,9 +235,9 @@ export const orderPrice = (value) => ({
   payload: value,
 });
 
-export const setCurrentPage = (page) => ({
-  type: "SET_CURRENT_PAGE",
-  payload: page,
+export const stateSearch = (search) => ({
+  type: STATE_DATA_PAGE,
+  payload: search,
 });
 
 export const resetSearch = () => ({
@@ -238,19 +264,11 @@ export const setSelectedSneakerIndex = (index) => ({
   payload: index,
 });
 
-export const postCreateProduct = (productData) => async (dispatch) => {
-  dispatch(createProductRequest());
-  try {
-    // Lógica para enviar la solicitud al backend y crear el producto
-    const response = await axios.post("http://localhost:3000/products/create", productData);
+export const setSelectedImageIndex = (index) => ({
+  type: SET_SELECTED_IMAGE_INDEX,
+  payload: index,
+});
 
-    // Si la solicitud fue exitosa
-    dispatch(createProductSuccess(response.data));
-  } catch (error) {
-    // Si la solicitud falla
-    dispatch(createProductFailure(error.message || "Error al crear el producto"));
-  }
-}
 
 
 const validation = (input, existingNames) => {
@@ -289,13 +307,16 @@ const validation = (input, existingNames) => {
   return errors;
 };
 
-export const postReviews = (userId, productId, rating, content) => async (dispatch) => {
+export const postReviews = (productId, rating, content, name, profileImage) => async (dispatch) => {
   dispatch({ type: REVIEW_POST_REQUEST });
-  console.log("ESTO RECIBE LA ACTION POSTREVIEW", userId, productId, rating, content)
+  console.log("ESTO RECIBE LA ACTION POSTREVIEW", productId, rating, content, name, profileImage)
   try {
-    const response = await axios.post(`http://localhost:3000/reviews/products/detail/${productId}/${userId}`, {
-      rating,
+    const response = await axios.post(`http://localhost:3000/reviews/products/detail/${productId}`, {
+      profileImage,
+      productId,
       content,
+      rating,
+      name
     });
     console.log("ESTO VIENE DE LA ACTION ", response)
     dispatch({ type: REVIEW_POSTED_SUCCESS, payload: response.data.review });
@@ -323,38 +344,6 @@ export const postReviews = (userId, productId, rating, content) => async (dispat
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
+
   };
 
-  export const searchBar = (searchTerm,page,pageSize="4",price) => {
-    return async (dispatch) => {
-      try {
-        dispatch(getSearchRequest());
-        const queryParams = {
-          page: encodeURIComponent(page),
-          pageSize: encodeURIComponent(pageSize),
-        };
-        if (price) {
-          queryParams.price = encodeURIComponent(price);
-        }
-        const queryString = Object.entries(queryParams)
-          .map(([key, value]) => `${key}=${value}`)
-          .join("&");
-          const url =`http://localhost:3000/products/search/${searchTerm}?${queryString}`
-          console.log(url)
-        const response = await axios.get(url);
-  
-        console.log(response)
-        if ( response.data ) {
-          console.log(response.data)
-          dispatch(getSearchSuccess(response.data));
-  
-      }} catch (error) {
-        dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
-      }
-    };
-  };
-
-  export const stateSearch = (search) => ({
-    type: STATE_DATA_PAGE,
-    payload: search,
-  })

@@ -20,9 +20,8 @@
 
 .paginatedComponent{
   position: absolute;
-  background-color: #0d6dfda2;
   width: 100%;
-  top: 1050px;
+  left: 200px;
   display: block;
 }
 

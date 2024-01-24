@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import style from "./Reviews.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { postReviews } from '../../redux/actions/actions';
+import { postReviews, fetchReviews } from '../../redux/actions/actions';
 import {AuthContext} from "../AuthProvider/authProvider";
 
 const BasicRating = () => {
@@ -19,16 +19,12 @@ const BasicRating = () => {
   const [submitError, setSubmitError] = useState(null);
   
   const idKey = id
-  
-  const user = auth
-
-  const googleId = auth?.token?.googleId;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
-       await dispatch(postReviews(googleId, idKey, value, review));
+       await dispatch(postReviews(idKey, value, review, auth?.token.name, auth?.token.imageUrl));
        setSubmitSuccess('Review posted successfully');
        setReview(''); // Limpiar el formulario
        setValue(null);
@@ -46,6 +42,12 @@ const BasicRating = () => {
     setReview(truncatedText);
   };
   
+
+  useEffect(() => {
+    // Llama a la acción fetchReviews cuando el componente se monta
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
   const allReviews = useSelector(state => state.reviews);
   
   const productReviews = allReviews.filter(review => review.productId === idKey);
@@ -73,7 +75,7 @@ const BasicRating = () => {
               productReviews.map((review) => (
                 <div key={review.id} className={style.userReview}>
                   <div className={style.userDataReview}>
-                  <h5>{review.userName || 'User'}</h5>
+                  <h5>{review.name}</h5>
                   </div>
                     <div className={style.userContentReview}>
                     <Rating className={style.userRating} value={review.rating} readOnly />
@@ -94,7 +96,7 @@ const BasicRating = () => {
     </>
   );
 
-} else if (user){
+} else if (auth){
   return(
     <>
       <div className={style.container}>
@@ -103,8 +105,8 @@ const BasicRating = () => {
             <h4>PRODUCTS REVIEWS</h4>
             <br />
             <div className={style.userContent}>
-              {auth && auth.userData && auth?.token?.imageUrl && (
-                <img src={auth?.token?.imageUrl} style={{ borderRadius: "50%", height: '34px', width: '34px'}} alt="user-avatar" />
+              {auth?.token?.imageUrl && (
+                <img src={auth.token.imageUrl} style={{ borderRadius: "50%", height: '34px', width: '34px'}} alt="user-avatar" />
               )}
             <h4>{auth?.token.name}</h4>
             </div>
@@ -125,7 +127,7 @@ const BasicRating = () => {
               className="form-control"
               style={{ width: '400px' }}
               value={review}
-              cols="800"
+              cols="4"
               onChange={handleChange}
               placeholder="Write your appreciation of the product and your purchasing experience here"
             ></textarea>   
@@ -135,14 +137,17 @@ const BasicRating = () => {
           </Form.Group>
           <div className={style.userReviewsContainer}>
           <div className={style.usersReviewsContent}>
-            <div>
-            <hr style={{ width: '1000px', display: 'flex' }} />
+            <hr style={{ width: '1000px'}} />
             <h4>OTHER REVIEWS</h4>
+
             {productReviews.length > 0 ? (
               productReviews.map((review) => (
                 <div key={review.id} className={style.userReview}>
                   <div className={style.userDataReview}>
-                  <h5>{review.userName || 'User'}</h5>
+                    <div>
+                    <img src={review.profileImage} alt="" />
+                    </div>
+                  <h5>{review.name}</h5>
                   </div>
                     <div className={style.userContentReview}>
                     <Rating className={style.userRating} value={review.rating} readOnly />
@@ -157,7 +162,6 @@ const BasicRating = () => {
             )}
           </div>
           </div>
-        </div>
         </Form>
       </div>
   </>

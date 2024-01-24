@@ -3,7 +3,6 @@ import {
   FETCH_PRODUCT_DETAIL_SUCCESS,
   SET_SELECTED_SNEAKER_INDEX,
   CLEAR_CREATE_PRODUCT_STATE,
-  GET_ALL_SNEAKERS_SUCCESS,
   UPDATE_SELECTED_SNEAKER,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
@@ -12,53 +11,63 @@ import {
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_FAILURE,
   CLEAR_PRODUCT_DETAIL,
+  GET_ALL_SNEAKERS, 
+  GET_SEARCH_REQUEST, 
+  GET_SEARCH_SUCCESS, 
   GET_SEARCH_NOTFOUND,
-  GET_SEARCH_REQUEST,
-  GET_SEARCH_SUCCESS,
   RESET_CURRENTPAGE,
-  GET_ALLL_SNEAKERS,
-  GET_ALL_SNEAKERS,
-  SEARCH_SUCCESS,
-  SEARCH_REQUEST,
-  SEARCH_FAILURE,
   BRAND_VALUE,
   COLOR_VALUE,
   ORDER_PRICE,
   SET_REVIEWS,
   SIZE_VALUE,
+  STATE_DATA_PAGE,
   SET_ADMIN,
+  SET_SELECTED_IMAGE_INDEX,
+  LOGIN_USER,
   REVIEW_POSTED_FAILURE,
   REVIEW_POSTED_SUCCESS,
   REVIEW_POST_REQUEST
 } from "../action-types/action-types";
 
 const initialState = {
- loading: false,
- product: {
-   detail: null,
-   createdProduct: null,
-   loading: false,
-   error: null,
- },
- reviews: [],
- postingReview: false,
+  loading: false,
+  product: {
+    detail: null,
+    createdProduct: null,
+    loading: false,
+    error: null,
+  },
+  error: null,
+  
+  sneakers: [],
+  allCopySneakers:[],
+  currentPage:[],
+  totalSneakers:[],
+  brandValue : [],
+  colorValue :[],
+  sizeValue:[],
+  orderPrice:[],
+  dataSearch:[],
+  reviews: [],
+  postingReview: false,
  postReviewError: null,
  postReviewSuccess: false,
- error: null,
- searchResults: [],
- sneakers: [],
- allCopySneakers:[],
- currentPage:[],
- totalSneakers:[],
- brandValue : [],
- colorValue :[],
- sizeValue:[],
- orderPrice:[],
- searchLoading: false,
- searchError: null,
- searchData: null,
- isAdmin:false,
+  selectedImageIndex:[],
+  login :{},
+
+  searchLoading: false,
+  searchError: null,
+  searchData: null,
+  isAdmin:false,
+
 };
+const stateSearchBar = {
+  data: null,
+  page: 0,
+  loading: false,
+  error: null,
+}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -85,20 +94,17 @@ const productReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case GET_ALL_SNEAKERS:
-      return {
-        ...state,
-        sneakers: action.payload.sneakers,
-        allCopySneakers: action.payload.sneakers,
-        currentPage: action.payload.currentPage,
-        totalSneaker: action.payload.totalSneaker,
-      };
+      case GET_ALL_SNEAKERS:
+        return {
+          ...state,
+          sneakers: action.payload.sneakers,
+          allCopySneakers: action.payload.sneakers,
+          currentPage: action.payload.currentPage,
+          totalSneaker: action.payload.totalSneaker,
+          page:0,
+          selectedImageIndex : []
+        };
 
-    case GET_ALLL_SNEAKERS:
-      return {
-        ...state,
-        sneakers: action.payload, // Actualiza solo la lista de zapatillas
-      };
 
     case FETCH_PRODUCT_DETAIL_SUCCESS:
       console.log("Detalle del producto:", action.payload);
@@ -107,6 +113,7 @@ const productReducer = (state = initialState, action) => {
         product: {
           ...state.product,
           detail: action.payload,
+         
         },
         error: null,
       };
@@ -156,14 +163,13 @@ const productReducer = (state = initialState, action) => {
     case CLEAR_CREATE_PRODUCT_STATE:
       return { ...initialState };
 
-    case GET_SEARCH_SUCCESS:
-      return {
-        ...state,
-        sneakers: action.payload.sneakers,
-        totalSneaker: action.payload.totalSneaker,
-        loading: false,
-        error: null,
-      };
+case GET_SEARCH_SUCCESS:
+  return {
+    ...state,
+    sneakers:action.payload.sneakers,
+    page: action.payload.currentPage,
+    totalSneaker:action.payload.totalSneaker,
+  };
 
     case GET_SEARCH_NOTFOUND:
       return {
@@ -179,11 +185,12 @@ const productReducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
 
-    case BRAND_VALUE:
-      return {
-        ...state,
-        brandValue: action.payload,
-      };
+            case BRAND_VALUE:
+            return {
+                ...state,
+                brandValue:action.payload,
+                dataSearch:[]
+            }
 
     case COLOR_VALUE:
       return {
@@ -197,24 +204,26 @@ const productReducer = (state = initialState, action) => {
         sizeValue: action.payload,
       };
 
-    case ORDER_PRICE:
-      return {
-        ...state,
-        orderPrice: action.payload,
-      };
+            case ORDER_PRICE:
+            return {
+                ...state,
+                orderPrice:action.payload
+            }
+
+            case STATE_DATA_PAGE:
+            return {
+                ...state,
+                dataSearch:action.payload
+            }
 
     case 'RESET_SEARCH':
       return {
         ...state,
         sneakers: state.allCopySneakers,
-        currentPage: 1,
+        
       };
 
-    case GET_ALL_SNEAKERS_SUCCESS:
-      return {
-        ...state,
-        allSneakers: action.payload,
-      };
+    
 
     case UPDATE_SELECTED_SNEAKER:
       return {
@@ -228,28 +237,14 @@ const productReducer = (state = initialState, action) => {
         selectedSneakerIndex: action.payload,
       };
 
-    case SEARCH_REQUEST:
+    case GET_SEARCH_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
 
-    case SEARCH_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        searchResults: action.payload,
-        error: null,
-      };
-
-case SEARCH_FAILURE:
- return {
-   ...state,
-   loading: false,
-   searchResults: [],
-   error: action.payload,
- };
+    
  case SET_ADMIN:
  return {
     ...state,
@@ -261,7 +256,6 @@ case SEARCH_FAILURE:
     ...state,
     reviews: action.payload,
   };
-
   case REVIEW_POST_REQUEST:
     return {
       ...state,
@@ -284,8 +278,16 @@ case SEARCH_FAILURE:
       postReviewSuccess: false,
     };
 
-  default:
-  return state;
+
+
+  case SET_SELECTED_IMAGE_INDEX:
+      return {
+        ...state,
+        selectedImageIndex: action.payload,
+      };
+
+                  default:
+                  return state;
   }
 };
 
