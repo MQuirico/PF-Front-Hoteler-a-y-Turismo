@@ -1,10 +1,19 @@
 import {
+  FETCH_PRODUCT_DETAIL_FAILURE,
+  FETCH_PRODUCT_DETAIL_SUCCESS,
+  SET_SELECTED_SNEAKER_INDEX,
+  CLEAR_CREATE_PRODUCT_STATE,
+  GET_ALL_SNEAKERS_SUCCESS,
+  UPDATE_SELECTED_SNEAKER,
+  SAVE_USER_DATA_SESSION,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_FAILURE,
+  CREATE_PRODUCT_REQUEST,
   POST_PRODUCT_REQUEST,
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_FAILURE,
-  FETCH_PRODUCT_DETAIL_SUCCESS,
-  FETCH_PRODUCT_DETAIL_FAILURE,
   CLEAR_PRODUCT_DETAIL,
+
   CREATE_PRODUCT_REQUEST,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
@@ -13,10 +22,13 @@ import {
   GET_SEARCH_SUCCESS, 
   GET_SEARCH_NOTFOUND,
   RESET_CURRENTPAGE,
+
   BRAND_VALUE,
   COLOR_VALUE,
   ORDER_PRICE,
+  SET_REVIEWS,
   SIZE_VALUE,
+
   STATE_DATA_PAGE,
   CLEAR_CREATE_PRODUCT_STATE,
   UPDATE_SELECTED_SNEAKER,
@@ -58,7 +70,14 @@ const initialState = {
   searchError: null,
   searchData: null,
   isAdmin:false,
+
 };
+const stateSearchBar = {
+  data: null,
+  page: 0,
+  loading: false,
+  error: null,
+}
 
 const stateSearchBar = {
   data: null,
@@ -265,11 +284,13 @@ case GET_SEARCH_SUCCESS:
     reviews: action.payload,
   };
 
+
   case SET_SELECTED_IMAGE_INDEX:
       return {
         ...state,
         selectedImageIndex: action.payload,
       };
+
               
                   default:
                   return state;
