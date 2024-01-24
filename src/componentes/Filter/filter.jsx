@@ -47,16 +47,18 @@ function Filter({page,pageSize}) {
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-
+      <div className={style.titleContainer}>
+        <h3>FILTER</h3>
+      </div>
        <Select
         name="FilterBrand" 
 
         options={[
           { label:` ${brand && brand.length > 0 ?brand : "selected Brand"}`  },
           { value: '', label: 'all brands'},
-          { value: 'adidas', label: 'adidas'},
-          { value: 'nike', label: 'nike' },
-          { value: 'newbalance', label: 'newbalance' },  
+          { value: 'ADIDAS', label: 'adidas'},
+          { value: 'NIKE', label: 'nike' },
+          { value: 'NEW BALANCE', label: 'newbalance' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />

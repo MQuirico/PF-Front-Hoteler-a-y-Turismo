@@ -3,9 +3,7 @@ import {
   FETCH_PRODUCT_DETAIL_SUCCESS,
   SET_SELECTED_SNEAKER_INDEX,
   CLEAR_CREATE_PRODUCT_STATE,
-  GET_ALL_SNEAKERS_SUCCESS,
   UPDATE_SELECTED_SNEAKER,
-  SAVE_USER_DATA_SESSION,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
   CREATE_PRODUCT_REQUEST,
@@ -13,34 +11,23 @@ import {
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_FAILURE,
   CLEAR_PRODUCT_DETAIL,
-
-  CREATE_PRODUCT_REQUEST,
-  CREATE_PRODUCT_SUCCESS,
-  CREATE_PRODUCT_FAILURE,
   GET_ALL_SNEAKERS, 
   GET_SEARCH_REQUEST, 
   GET_SEARCH_SUCCESS, 
   GET_SEARCH_NOTFOUND,
   RESET_CURRENTPAGE,
-
   BRAND_VALUE,
   COLOR_VALUE,
   ORDER_PRICE,
   SET_REVIEWS,
   SIZE_VALUE,
-
   STATE_DATA_PAGE,
-  CLEAR_CREATE_PRODUCT_STATE,
-  UPDATE_SELECTED_SNEAKER,
-  SET_SELECTED_SNEAKER_INDEX,
-  SAVE_USER_DATA_SESSION,
   SET_ADMIN,
-  SET_REVIEWS,
   SET_SELECTED_IMAGE_INDEX,
-  LOGIN_USER
-
-  
-  
+  LOGIN_USER,
+  REVIEW_POSTED_FAILURE,
+  REVIEW_POSTED_SUCCESS,
+  REVIEW_POST_REQUEST
 } from "../action-types/action-types";
 
 const initialState = {
@@ -63,6 +50,9 @@ const initialState = {
   orderPrice:[],
   dataSearch:[],
   reviews: [],
+  postingReview: false,
+ postReviewError: null,
+ postReviewSuccess: false,
   selectedImageIndex:[],
   login :{},
 
@@ -72,13 +62,6 @@ const initialState = {
   isAdmin:false,
 
 };
-const stateSearchBar = {
-  data: null,
-  page: 0,
-  loading: false,
-  error: null,
-}
-
 const stateSearchBar = {
   data: null,
   page: 0,
@@ -254,16 +237,6 @@ case GET_SEARCH_SUCCESS:
         selectedSneakerIndex: action.payload,
       };
 
-    case SAVE_USER_DATA_SESSION:
-      return {
-        ...state,
-        userDataSession: {
-          ...state.userDataSession,
-          isLoggedIn: true,
-          userData: action.payload,
-        },
-      };
-
     case GET_SEARCH_REQUEST:
       return {
         ...state,
@@ -283,6 +256,28 @@ case GET_SEARCH_SUCCESS:
     ...state,
     reviews: action.payload,
   };
+  case REVIEW_POST_REQUEST:
+    return {
+      ...state,
+      postingReview: true,
+      postReviewError: null,
+      postReviewSuccess: false,
+    };
+  case REVIEW_POSTED_SUCCESS:
+    return {
+      ...state,
+      reviews: [...state.reviews, action.payload],
+      postingReview: false,
+      postReviewSuccess: true,
+    };
+  case REVIEW_POSTED_FAILURE:
+    return {
+      ...state,
+      postingReview: false,
+      postReviewError: action.payload,
+      postReviewSuccess: false,
+    };
+
 
 
   case SET_SELECTED_IMAGE_INDEX:
@@ -291,7 +286,6 @@ case GET_SEARCH_SUCCESS:
         selectedImageIndex: action.payload,
       };
 
-              
                   default:
                   return state;
   }

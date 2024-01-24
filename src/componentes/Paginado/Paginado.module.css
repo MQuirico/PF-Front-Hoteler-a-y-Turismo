@@ -2,7 +2,8 @@
     z-index: 300;
     height: 40px;
     position: absolute;
-    top:70px;
+    top:58px;
+    right: 50px;
 }
 
 .container span{

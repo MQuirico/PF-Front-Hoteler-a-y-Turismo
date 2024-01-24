@@ -109,7 +109,7 @@ const ProductForm = () => {
       setMessage("Por favor, completa el formulario correctamente.");
     }
   };
-  const availableBrands = ["nike", "adidas", "newbalance"];
+  const availableBrands = ["NIKE", "ADIDAS", "NEW BALANCE"];
   const brandColors = {
     nike: ["green", "white", "black"],
     adidas: ["blue", "white", "grey"],
