@@ -14,6 +14,9 @@ const BasicRating = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { auth } = useContext(AuthContext);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(null);
+  const [submitError, setSubmitError] = useState(null);
   
   const idKey = id
   
