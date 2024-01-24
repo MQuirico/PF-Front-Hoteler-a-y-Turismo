@@ -5,8 +5,8 @@ import { FaShopify } from "react-icons/fa";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import logo from "../../assets/Runners Paradise.png";
 import style from "./navBar.module.css";
-import { AuthContext } from "../AuthProvider/authProvider";
-import { gapi } from "gapi-script";
+import {AuthContext} from "../AuthProvider/authProvider";
+import {gapi} from "gapi-script";
 
 export default function NavBar(props) {
   const { auth, setAuth } = useContext(AuthContext);
@@ -50,16 +50,18 @@ const accessToken = token ? token.accessToken : null;
               <div>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                   <ul className="navbar-nav">
-                    <li className="nav-item">
+                    <li className={style.navBarContentFirst}>
                       <Link to="/about" className="nav-link text-black" style={{ position: "relative", top: "1px", marginRight: "10px" }}>
                         ¿Quiénes somos?
                       </Link>
                     </li>
+                    <li className={style.navBarContent}>
                     <Link to="#" className="nav-link text-black">
-                      <FaShopify style={{ fontSize: "24px", marginrig: "1rem", zIndex: "800" }} />
+                      <FaShopify style={{ fontSize: "24px", zIndex: "800" }} />
                     </Link>
+                    </li>
                     <div className={style.userContent}>
-                      <h4>{`Usuario: ${token?.name}`}</h4>
+                      <h4>{token?.name}</h4>
                     </div>
                     <li className="nav-item dropdown" style={{ marginRight: "5rem" }}>
                       <div className={style.userImage}></div>
@@ -81,16 +83,15 @@ const accessToken = token ? token.accessToken : null;
                       </ul>
                     </li>
                   </ul>
-
-                  <Link
-                    className="nav-link text-black dropdown-toggle"
-                    to="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img src={token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "26%", width: "16%" }} alt="User Avatar" />
-                  </Link>
+                    <Link
+                      className="nav-link text-black dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img src={token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "26%", width: "26%" }} alt="User Avatar" />
+                    </Link>
                 </div>
               </div>
             </div>

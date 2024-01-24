@@ -128,9 +128,6 @@ const Detail = ({ brand }) => {
           <Reviews productId={id} />
           </div>
       <div>
-      <Link to="/home">
-              <button className="submit">Home</button>
-            </Link>
     </div>
   </div>
   );

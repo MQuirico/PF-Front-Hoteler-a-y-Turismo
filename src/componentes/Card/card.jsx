@@ -6,13 +6,13 @@ const Card = ({ id, model, size, image, color, brand, price }) => {
   let logoUrl;
 
   switch (brand) {
-    case "nike":
+    case "NIKE":
       logoUrl = "https://i.pinimg.com/originals/33/e6/3d/33e63d5adb0da6b303a83901c8e8463a.png";
       break;
-    case "adidas":
+    case "ADIDAS":
       logoUrl = "https://logodownload.org/wp-content/uploads/2014/07/adidas-logo-0.png";
       break;
-    case "newbalance":
+    case "NEW BALANCE":
       logoUrl = "https://logos-world.net/wp-content/uploads/2020/09/New-Balance-Emblem.png";
       break;
     default:

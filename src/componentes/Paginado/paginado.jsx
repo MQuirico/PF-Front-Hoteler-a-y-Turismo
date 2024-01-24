@@ -21,7 +21,7 @@ const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage }) => {
         <button onClick={prevHandler} disabled={page <= 1} className={style.buttons}>
         ⭀
           </button>
-          <span style={{ color: 'white' }}>
+          <span style={{ color: 'black' }}>
              {page} of {totalPages}
           </span>
           <button onClick={nextHandler} className={style.buttons} disabled={page >= totalPages}>

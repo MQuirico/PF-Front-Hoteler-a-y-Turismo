@@ -19,6 +19,7 @@ const BottomBar = () => {
     dispatch(setSelectedImageIndex(colorIndex));
   };
 
+  console.log("ESTO VIENE DE BUTTONBAR",detail.colors)
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);

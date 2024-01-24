@@ -8,9 +8,7 @@ import Paginado from '../../componentes/Paginado/paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 import SearchBar from '../../componentes/SearchBar/searchBar';
-import { rgba } from 'polished';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import Alert from '../../componentes/Alert/Alert';
 
 
 const Home = () => {
@@ -77,17 +75,14 @@ const RedAlert = ({ message }) => (
           <Filter totalSneaker={searchState ? searchState.length : totalSneaker} page={currentPageSearch >= 1 ?currentPageSearch: currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}></Filter>
         </div>
           <div className={styles.paginado}>
-
           <Paginado totalSneaker={totalSneaker} page={currentPageSearch >= 1 ?currentPageSearch: currentPage} pageSize={pageSize} setCurrentPage={setCurrentPage}/>
-
           </div>
         <div className={styles.cardsComponent}>
           <Cards sneakers={sneakers} />
-          <div className={styles.cardsComponent}>
-          {(sneakers && sneakers.length === 0) && 
- <RedAlert message="No se encontraron resultados. ¡Intenta con diferentes filtros!" />
-}
-
+          <div className={styles.alertComponent}>
+              {(sneakers && sneakers.length === 0) && 
+                  <Alert/>
+              }
       </div>
         </div>
       </div>
