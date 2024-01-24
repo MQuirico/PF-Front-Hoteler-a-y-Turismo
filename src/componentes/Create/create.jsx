@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import validation from "../Validaciones/validaciones";
+import validation from "./validations";
 import "./create.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
