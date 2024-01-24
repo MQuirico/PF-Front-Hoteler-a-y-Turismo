@@ -1,57 +1,69 @@
 import {
+  FETCH_PRODUCT_DETAIL_FAILURE,
+  FETCH_PRODUCT_DETAIL_SUCCESS,
+  SET_SELECTED_SNEAKER_INDEX,
+  CLEAR_CREATE_PRODUCT_STATE,
+  GET_ALL_SNEAKERS_SUCCESS,
+  UPDATE_SELECTED_SNEAKER,
+  SAVE_USER_DATA_SESSION,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_FAILURE,
+  CREATE_PRODUCT_REQUEST,
   POST_PRODUCT_REQUEST,
   POST_PRODUCT_SUCCESS,
   POST_PRODUCT_FAILURE,
-  FETCH_PRODUCT_DETAIL_SUCCESS,
-  FETCH_PRODUCT_DETAIL_FAILURE,
   CLEAR_PRODUCT_DETAIL,
-  CREATE_PRODUCT_REQUEST,
-  CREATE_PRODUCT_SUCCESS,
-  CREATE_PRODUCT_FAILURE,
-  GET_ALL_SNEAKERS_SUCCESS,
+  GET_SEARCH_NOTFOUND,
+  GET_SEARCH_REQUEST,
+  GET_SEARCH_SUCCESS,
+  RESET_CURRENTPAGE,
   GET_ALLL_SNEAKERS,
-  UPDATE_SELECTED_SNEAKER,
-  SET_SELECTED_SNEAKER_INDEX,
-  SAVE_USER_DATA_SESSION,
+  GET_ALL_SNEAKERS,
   SEARCH_SUCCESS,
   SEARCH_REQUEST,
   SEARCH_FAILURE,
-  SET_ADMIN,
-  GET_ALL_SNEAKERS,
-  GET_SEARCH_REQUEST,
-  GET_SEARCH_SUCCESS,
-  GET_SEARCH_NOTFOUND,
-  RESET_CURRENTPAGE,
   BRAND_VALUE,
   COLOR_VALUE,
   ORDER_PRICE,
+  SET_REVIEWS,
   SIZE_VALUE,
-  CLEAR_CREATE_PRODUCT_STATE,
+  SET_ADMIN,
+  STATE_DATA_PAGE,
+  LOGIN_SUCCESS
 } from "../action-types/action-types";
 
 const initialState = {
-  loading: false,
-  product: {
-    detail: null,
-    createdProduct: null,
-    loading: false,
-    error: null,
-  },
-  error: null,
-  searchResults: [],
-  sneakers: [],
-  allCopySneakers: [],
-  currentPage: [],
-  totalSneakers: [],
-  brandValue: [],
-  colorValue: [],
-  sizeValue: [],
-  orderPrice: [],
-  searchLoading: false,
-  searchError: null,
-  searchData: null,
-  isAdmin: false,
+ loading: false,
+ product: {
+   detail: null,
+   createdProduct: null,
+   loading: false,
+   error: null,
+   user: null,
+ },
+ reviews: [],
+ error: null,
+ searchResults: [],
+ sneakers: [],
+ allCopySneakers:[],
+ currentPage:[],
+ totalSneakers:[],
+ brandValue : [],
+ colorValue :[],
+ sizeValue:[],
+ orderPrice:[],
+ searchLoading: false,
+ searchError: null,
+ searchData: null,
+ isAdmin:false,
+ dataSearch:[]
 };
+const stateSearchBar = {
+  data: null,
+  page: 0,
+  loading: false,
+  error: null,
+}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -246,22 +258,37 @@ const productReducer = (state = initialState, action) => {
         error: null,
       };
 
-    case SEARCH_FAILURE:
+case SEARCH_FAILURE:
+ return {
+   ...state,
+   loading: false,
+   searchResults: [],
+   error: action.payload,
+ };
+ case SET_ADMIN:
+ return {
+    ...state,
+    isAdmin: action.payload,
+ };
+
+ case SET_REVIEWS:
+  return {
+    ...state,
+    reviews: action.payload,
+  };
+  case STATE_DATA_PAGE:
+            return {
+                ...state,
+                dataSearch:action.payload
+            };
+            case LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false,
-        searchResults: [],
-        error: action.payload,
+        user: action.payload,
       };
-
-    case SET_ADMIN:
-      return {
-        ...state,
-        isAdmin: action.payload,
-      };
-
-    default:
-      return state;
+              
+                  default:
+                  return state;
   }
 };
 
