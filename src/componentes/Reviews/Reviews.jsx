@@ -11,6 +11,7 @@ import {AuthContext} from "../AuthProvider/authProvider";
 const BasicRating = () => {
   const [value, setValue] = useState(null);
   const [review, setReview] = useState('');
+  const user = useSelector(state => state.userDataSession);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { auth } = useContext(AuthContext);
@@ -163,6 +164,10 @@ const BasicRating = () => {
           </div>
           </div>
         </Form>
+        <hr style={{ width: '1000px', display: 'flex' }} />
+        <div>
+          <h4>OTHER REVIEWS</h4>
+        </div>
       </div>
   </>
   )
