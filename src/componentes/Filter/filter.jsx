@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {  getSneakers,searchBar,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
+import {  getSneakers,searchBar,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
 import style from "./Filter.module.css"
 
@@ -20,19 +20,18 @@ function Filter({page,pageSize}) {
     const handleFilterBrand = (value) => {
         dispatch(getSneakers( page=1, pageSize,value,color,size,price));
         dispatch(brandValue(value))
-        dispatch(resetCurrentPage(1));
       };
 
       const handleFilterColor = (value) => {
         dispatch(getSneakers( page=1, pageSize,brand,value,size,price));
         dispatch(colorValue(value))
-        dispatch(resetCurrentPage(1));
+       ;
       };
 
       const handleFilterSize = (value) => {
         dispatch(getSneakers( page=1, pageSize,brand,color,value,price));
         dispatch(sizeValue(value))
-        dispatch(resetCurrentPage(1));
+        ;
       };
 
       const handleOrderPrice= (value) => {
@@ -42,7 +41,7 @@ function Filter({page,pageSize}) {
     } else{
         dispatch(getSneakers( page=1, pageSize,brand,color,size,value));
         dispatch(orderPrice(value))
-        dispatch(resetCurrentPage(1));}
+      ;}
       };
 
   return (

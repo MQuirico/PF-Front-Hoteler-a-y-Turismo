@@ -4,17 +4,18 @@ import Card from "../Card/Card";
 import style from "./Cards.module.css"
 
 
-const Cards = ({sneakers}) => {
+const Cards = ({sneakers, message}) => {
   
 if (!sneakers || sneakers.length === 0) {
-  return <p>No se encontraron sneakers.</p>;
+  return <p>{message}</p>;
 }
+
 
   return (
     <div className={style.container}>
       <div className={style.cardContent}>
         {sneakers.map(({id,image,name,colors,brand,size,price}) => (
-          <div key={id}>
+          <div key={id} className={style.linkContainer}>
             <Link 
               to={`/detail/${id}`}
               style={{textDecoration:'none'}} >

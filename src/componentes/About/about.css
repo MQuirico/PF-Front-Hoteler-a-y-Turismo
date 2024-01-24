@@ -10,6 +10,10 @@
     justify-content: center;
 }
 
+.container{
+  top:200px
+}
+
   .about {
     color: #333;
     border-radius: 10px;

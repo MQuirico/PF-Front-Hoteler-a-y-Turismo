@@ -7,14 +7,10 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function About(props) {
   return (
-
-    <div className='fondo'>
+    <div className='container mt-5  mb-5'>
     <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xrRac0c5/3Ma9HN6T5Q/T1uHuL5oav5eaP3QQPyCv/Z3MWJ1HpuHrkQIH/FuRx3Ib8xvjQHyLx7O5vjRh2x/WWg==" crossorigin="anonymous" />
   </head>
-  <div className='allContainer'>
-    <div className="container mt-5 about mb-5">
-      
       <div className='cuadrante'>
       <div className='title'>
         <h3>Sobre Nosotros</h3>
@@ -121,7 +117,5 @@ export default function About(props) {
         </div>
     </div>
       </div>
-    </div>
-    </div>
   );
 }

@@ -1,18 +1,41 @@
-.buttons{
-    padding: 4px;
-    font-size: 16px;
-    font-weight: 500;
-    background-color: black;
-    display: inline-block;
-    margin: 6px;
+.container{
+    z-index: 300;
+    height: 40px;
 }
+
+.container span{
+    font-weight: 700;
+    font-size: 12px;
+    position: relative;
+    top: -4px;
+}
+
+.buttons{
+    font-size: 24px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0 auto;
+    color: black;
+    background:none;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.buttons button{
+    cursor: pointer;
+}
+
 
 .buttons:hover{
-    background-color: gray;
+    background: none;
+    scale: 120%;
 }
 
-.container{
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
+
+@media (max-width: 768px) {
+    .container{
+        position: absolute;
+        left: -1000px;
+    }
 }

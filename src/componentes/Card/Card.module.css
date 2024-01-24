@@ -2,49 +2,58 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-}
+  margin: 30px;
+  background-color: white;
+  border-radius: 2px;}
 
 .container:hover{
-  transition: 0.5s;
-  scale: 102%;
+  scale: 103%;
+  transition: ease-out 0.3s;
 }
 
 .cardContent{
-  width: 300px;
-  height: 400px;
-  outline: solid 1px black;
-  margin: 30px;
-  border-radius: 8px;
-  box-shadow: 0px 6px 10px black;
-
+  width: 280px;
+  height: 408px;
+  box-shadow: 0px 2px 4px black;
 }
 
 .cardContent:hover{
   outline: 1px solid #0D6EFD;
-  box-shadow: 0px 6px 10px #0D6EFD;
+  box-shadow: 0px 2px 10px #0D6EFD;
+  transition: 0.3s;
+}
+
+
+.cardContent .cardTitle h3{
+  background-color: black;
+  color: white;
+}
+
+.cardContent h3{
+  background-color: white;
+  margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
+  height: 26px;
 }
 
 .cardContent img{
-  border-radius: 8px 8px 0px 0px;
+  width: 280px;
+  margin: 0 auto;
   height: 300px;
-  width: 300px;
   justify-self: center;
   object-fit: cover;
-}
-
-img{
-  justify-self: center;
-  object-fit: cover;
+  margin-bottom: 6px;
 }
 
 .brand h3{
   display: flex;
   align-items: center;
-  background-color: #0D6EFD;
-  color: white;
+  color: black;
   justify-content: center;
-  height: 50px;
-  font-size: 18px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 500;
   margin: 0 auto;
 }
 
@@ -52,19 +61,16 @@ img{
   display: flex;
   justify-content: center;
   background-color: white;
-  width: 100%;
-  height: 50px;
-  border-radius: 0px 0px 6px 6px;
+  position: relative;
+  top: 7px;
 }
 
 .details h4{
-  font-size: 18px;
-  margin-left: 14px;
-  position: relative;
-  top: 12px;
-  font-size: 20px;
-  color: green;
   font-weight: 700;
+  font-size: 17px;
+  color: green;
+  position: relative;
+  top: 4px;
 }
 
 .details button{
@@ -74,11 +80,11 @@ img{
   top: 12.5px;
   left: 6px;
   height: 25px;
-  background-color: black;
+  background-color: gray;
 }
 
 .details button:hover{
-background-color: gray;
+  background-color: black;
 }
 
 .details button h5{
@@ -88,3 +94,93 @@ background-color: gray;
   top: -6px;
   left: -6px;
 }
+
+.logoContainer img{
+  justify-self: center;
+  object-fit: cover;
+  width: 54px;
+  height: 30px;
+  position: relative;
+  top: -350px;
+  left: 220px;
+  border: none;
+}
+
+
+@media (max-width: 768px) {
+  .cardContent{
+    position: relative;
+    width: 232px;
+    height: 280px;
+    box-shadow: 0px 2px 4px black;
+  }
+  .cardContent img{
+    width: 232px;
+    height: 180px;
+    margin: 0 auto;
+    justify-self: center;
+    object-fit: cover;
+  }
+
+  .logoContainer img{
+    justify-self: center;
+    object-fit: cover;
+    width: 36px;
+    height: 20px;
+    position: relative;
+    top: -350px;
+    left: 220px;
+    border: none;
+  }
+
+
+.brand h3{
+  display: flex;
+  align-items: center;
+  color: black;
+  justify-content: center;
+  height: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  position: relative;
+  top: 7px;
+}
+
+.details h4{
+  font-weight: 700;
+  font-size: 12px;
+  color: green;
+  position: relative;
+  top: 4px;
+}
+
+.details button{
+  position: relative;
+  margin: 0px;
+  width: 35px;
+  top: 12.5px;
+  left: 6px;
+  height: 25px;
+  background-color: gray;
+}
+
+.logoContainer img{
+  justify-self: center;
+  object-fit: cover;
+  width: 50px;
+  height: 26px;
+  position: relative;
+  top: -224px;
+  left: 178px;
+  border: none;
+}
+}
+
+

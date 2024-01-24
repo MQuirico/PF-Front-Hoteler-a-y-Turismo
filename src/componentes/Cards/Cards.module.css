@@ -8,5 +8,8 @@
     flex-wrap: wrap;
     flex-direction: row;
     display: flex;
-    margin: 20px;
+}
+
+.linkContainer{
+    margin: 0 auto;
 }

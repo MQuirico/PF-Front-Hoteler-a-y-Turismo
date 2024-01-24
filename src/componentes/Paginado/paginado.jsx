@@ -17,15 +17,15 @@ const Paginado = ({ totalSneaker, page, pageSize, setCurrentPage }) => {
   
     return (
       <div className={style.container}>
-        <div>
-          <button onClick={prevHandler} disabled={page <= 1} className={style.buttons}>
-            Prev
+        <div className={style.buttonsContainer}>
+        <button onClick={prevHandler} disabled={page <= 1} className={style.buttons}>
+        ⭀
           </button>
           <span style={{ color: 'white' }}>
-            Page {page} of {totalPages}
+             {page} of {totalPages}
           </span>
           <button onClick={nextHandler} className={style.buttons} disabled={page >= totalPages}>
-            Next
+          ⥱    
           </button>
         </div>
       </div>

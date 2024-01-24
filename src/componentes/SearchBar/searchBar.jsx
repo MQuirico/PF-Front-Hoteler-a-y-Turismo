@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSneakers, searchBar, stateSearch  } from '../../redux/actions/actions';
+import { getSneakers, searchBar, stateSearch,resetSearch  } from '../../redux/actions/actions';
 import style from "./SearchBar.module.css";
 
 const SearchBar = () => {
@@ -30,32 +30,35 @@ const SearchBar = () => {
     dispatch(stateSearch(searchTerm))
     setSearch(searchTerm);
 
-    // Llamar a fetchData solo si el término de búsqueda está vacío
+
     if (!searchTerm) {
       fetchData();
     }
   };
 
-  useEffect(() => {
-    // Llamar a fetchData con el término de búsqueda actual
-    fetchData(search);
-  }, [search, dispatch]);
+ useEffect(() => {
+   fetchData(search);
+ }, [search, dispatch]);
 
+ const handleReset = () => {
+   setSearch("");
+   fetchData();
+ };
 
-  return (
-    <div className={style.container}>
-      <form className={style.containerForm} onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          value={search || searchState}
-          onChange={handleChange}
-          placeholder="Search"
-        />
-
-      </form>
-    </div>
-  );
+ return (
+   <div className={style.container}>
+     <form className={style.containerForm} onSubmit={(e) => e.preventDefault()}>
+       <input
+         type="text"
+         value={search || searchState}
+         onChange={handleChange}
+         placeholder="Search"
+       />
+       <img type="submit" src="src\assets\searchbar-loupe.png" alt="" className={style.buttonImg} onClick={handleReset} />
+     </form>
+    
+   </div>
+ );
 };
-
 
 export default SearchBar;

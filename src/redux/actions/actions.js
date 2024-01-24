@@ -1,7 +1,6 @@
 import axios from "axios";
 import {
   GET_ALL_SNEAKERS,
-  GET_SNEAKERS_FAILURE,
   GET_SEARCH_REQUEST,
   GET_SEARCH_NOTFOUND,
   GET_SEARCH_SUCCESS,
@@ -21,20 +20,29 @@ import {
   CLEAR_CREATE_PRODUCT_STATE,
   FETCH_PRODUCT_DETAIL_SUCCESS,
   FETCH_PRODUCT_DETAIL_FAILURE,
+  SET_SELECTED_SNEAKER,
+  SET_SELECTED_SNEAKER_INDEX,
+  SET_SELECTED_IMAGE_INDEX,
+  SAVE_USER_DATA_SESSION,
+  SET_REVIEWS,
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE
+  CREATE_USER_FAILURE,
+  
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
   dispatch({ type: CREATE_USER_REQUEST });
   try {
-    const response = await axios.post('http://localhost:3000/users/create', datauser);
+    const response = await axios.post(
+      "http://localhost:3000/users/create",
+      datauser
+    );
     dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
   }
-}
+};
 
 export const postProductRequest = () => ({
   type: POST_PRODUCT_REQUEST,
@@ -56,7 +64,9 @@ export const postProductFailure = (error) => ({
 
 export const fetchProductDetail = (idKey) => async (dispatch) => {
   try {
-    const response = await fetch(`http://localhost:3000/products/detail/${idKey}`);
+    const response = await fetch(
+      `http://localhost:3000/products/detail/${idKey}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -97,16 +107,16 @@ export const getSneakers = (page, pageSize ="4", brand, colors, size, price) => 
         .join("&");
 
       const url = `http://localhost:3000/products?${queryString}`;
-      console.log(url)
+      console.log(url);
       const response = await axios.get(url);
-      const sneakers = response.data;
+      const sneakersData = response.data;
 
       dispatch({
         type: GET_ALL_SNEAKERS,
         payload: {
-          sneakers: sneakers.paginatedResponse,
-          currentPage: sneakers.setCurrentPage,
-          totalSneaker: sneakers.totalSneaker,
+          sneakers: sneakersData.paginatedResponse,
+          currentPage: sneakersData.setCurrentPage,
+          totalSneaker: sneakersData.totalSneaker,
         },
       });
     } catch (error) {
@@ -187,47 +197,37 @@ export const searchBar = (searchTerm,page,pageSize="4",price) => {
       if ( response.data ) {
         console.log(response.data)
         dispatch(getSearchSuccess(response.data));
-       
-    }} catch (error) {
-      dispatch(getSearchNotFound(error.message || 'Error en la búsqueda'));
+      }
+    } catch (error) {
+      dispatch(getSearchNotFound(error.message || "Error en la búsqueda"));
     }
   };
 };
 
-export const resetCurrentPage = (page) => {
-  return {
-    type: RESET_CURRENTPAGE,
-    payload: page
-  }
-}
+export const resetCurrentPage = (page) => ({
+  type: RESET_CURRENTPAGE,
+  payload: page,
+});
 
-export const brandValue = (value) => {
-  return {
-    type: BRAND_VALUE,
-    payload: value
-  }
-}
+export const brandValue = (value) => ({
+  type: BRAND_VALUE,
+  payload: value,
+});
 
-export const colorValue = (value) => {
-  return {
-    type: COLOR_VALUE,
-    payload: value
-  }
-}
+export const colorValue = (value) => ({
+  type: COLOR_VALUE,
+  payload: value,
+});
 
-export const sizeValue = (value) => {
-  return {
-    type: SIZE_VALUE,
-    payload: value
-  }
-}
+export const sizeValue = (value) => ({
+  type: SIZE_VALUE,
+  payload: value,
+});
 
-export const orderPrice = (value) => {
-  return {
-    type: ORDER_PRICE,
-    payload: value
-  }
-}
+export const orderPrice = (value) => ({
+  type: ORDER_PRICE,
+  payload: value,
+});
 
 export const stateSearch = (search) => ({
   type: STATE_DATA_PAGE,
@@ -235,5 +235,111 @@ export const stateSearch = (search) => ({
 });
 
 export const resetSearch = () => ({
-  type: 'RESET_SEARCH',
+  type: "RESET_SEARCH",
 });
+
+export const setSneakers = (sneakers) => ({
+  type: "SET_SNEAKERS",
+  payload: sneakers,
+});
+
+export const setSelectedSneaker = (sneaker) => ({
+  type: SET_SELECTED_SNEAKER,
+  payload: sneaker,
+});
+
+export const updateSelectedSneaker = (sneaker) => ({
+  type: "UPDATE_SELECTED_SNEAKER",
+  payload: sneaker,
+});
+
+export const setSelectedSneakerIndex = (index) => ({
+  type: SET_SELECTED_SNEAKER_INDEX,
+  payload: index,
+});
+
+export const setSelectedImageIndex = (index) => ({
+  type: SET_SELECTED_IMAGE_INDEX,
+  payload: index,
+});
+
+export const saveUserDataSession = (userData) => ({
+  type: SAVE_USER_DATA_SESSION,
+  payload: userData,
+});
+
+
+
+const validation = (input, existingNames) => {
+  let errors = {};
+
+  let noEmpty = /\S+/;
+  let validateName = /^[a-zA-ZñÑ\s]*$/; // Permitir espacios en blanco en el nombre
+
+  if (
+    Array.isArray(existingNames) &&
+    existingNames.some(
+      (name) => name.toLowerCase() === input.name.toLowerCase()
+    )
+  ) {
+    errors.name = "Este nombre ya está en uso. Por favor, elige otro.";
+  } else if (
+    !noEmpty.test(input.name),
+    !validateName.test(input.name),
+    input.name.trim().length < 3
+  ) {
+    errors.name = "Nombre necesario. Mayor de 3 letras y único";
+  }
+
+  if (!(input.image instanceof File)) {
+    errors.image = "Debe ser un archivo válido";
+  }
+
+  if (
+    isNaN(parseFloat(input.price)),
+    parseFloat(input.price) < 1,
+    parseFloat(input.price) > 10000
+  ) {
+    errors.price = "Ingrese un precio entre 1 y 10000";
+  }
+
+  return errors;
+};
+
+
+   export const postReviews = (userId, idKey, rating, content) => {
+    return async (dispatch) => {
+       try {
+         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
+           rating,
+           content
+         });
+   
+         console.log('Review posted successfully:', response.data);
+   
+       } catch (error) {
+         console.error('Error posting review:', error);
+       }
+    };
+   };
+
+
+   export const setReviews = (reviews) => ({
+    type: SET_REVIEWS,
+    payload: reviews || [],
+  });
+  
+  export const fetchReviews = () => async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3000/reviews'); // Update the URL to the correct endpoint
+      const data = response.data;
+      console.log("TODAS LAS REVIEWS:", data)
+      if (Array.isArray(data)) {
+        dispatch(setReviews(data));
+      } else {
+        console.error('Error: The response is not an array of reviews');
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };

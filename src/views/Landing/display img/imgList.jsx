@@ -1,24 +1,29 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-
+import styles from "../display img/imgList.module.css"
 
 export default function StandardImageList({style}) {
   return (
-    <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} style={style}>
+    <div>
+
+  <div className={styles.container}>
+    <ImageList sx={{ width: 500, margin:'0', overflow: 'hidden', filter:'blur(2px)' }} cols={2} rowHeight={300} style={style}>
       {itemData.map((item) => (
+        
         <ImageListItem key={item.img}>
           <img
-            className='imagen'
             srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
             alt={item.title}
             loading="lazy"
-            style={{ style }}
-          />
+            style={{style}}
+            />
         </ImageListItem>
       ))}
     </ImageList>
+      </div>
+      </div>
   );
 }
 
