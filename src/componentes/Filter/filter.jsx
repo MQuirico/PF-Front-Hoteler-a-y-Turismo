@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {  getSneakers,resetCurrentPage,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
+import {  getSneakers,searchBar,brandValue,colorValue,sizeValue,orderPrice} from "../../redux/actions/actions";
 import Select from "../Select/select.jsx";
 import style from "./Filter.module.css"
 
@@ -9,6 +9,7 @@ function Filter({page,pageSize}) {
   const color = useSelector((state)=> state?.colorValue);
   const size = useSelector((state)=> state?.sizeValue);
   const price = useSelector((state)=> state?.orderPrice);
+  const searchData = useSelector((state)=> state?.dataSearch);
     /* 
   const allSneakers = useSelector((state) => state.allCopySneakers);
   const brands =[ ...new Set(allSneakers.map((sneaker) => sneaker.brand))];
@@ -19,38 +20,41 @@ function Filter({page,pageSize}) {
     const handleFilterBrand = (value) => {
         dispatch(getSneakers( page=1, pageSize,value,color,size,price));
         dispatch(brandValue(value))
-        dispatch(resetCurrentPage(1));
       };
 
       const handleFilterColor = (value) => {
         dispatch(getSneakers( page=1, pageSize,brand,value,size,price));
         dispatch(colorValue(value))
-        dispatch(resetCurrentPage(1));
+       ;
       };
 
       const handleFilterSize = (value) => {
         dispatch(getSneakers( page=1, pageSize,brand,color,value,price));
         dispatch(sizeValue(value))
-        dispatch(resetCurrentPage(1));
+        ;
       };
 
       const handleOrderPrice= (value) => {
+        if(searchData.length>0){
+        dispatch(searchBar(searchData, page=1, pageSize,value));
+        dispatch(orderPrice(value))
+    } else{
         dispatch(getSneakers( page=1, pageSize,brand,color,size,value));
         dispatch(orderPrice(value))
-        dispatch(resetCurrentPage(1));
+      ;}
       };
 
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-      <div className={style.titleContainer}>
-        <h3>FILTERS</h3>
-        </div>
-        <Select
-        name="FilterBrand"
+
+       <Select
+        name="FilterBrand" 
+
         options={[
-          { value: '', label: 'Brand' },
-          { value: 'adidas', label: 'adidas' },
+          { label:` ${brand && brand.length > 0 ?brand : "selected Brand"}`  },
+          { value: '', label: 'all brands'},
+          { value: 'adidas', label: 'adidas'},
           { value: 'nike', label: 'nike' },
           { value: 'newbalance', label: 'newbalance' },  
         ]}
@@ -60,7 +64,8 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterColor"
         options={[
-          { value: '', label: 'Color' },
+          { value:" ",label:`${color && color.length>0 ? color : "selected Color"}`},
+          { value: '', label: 'all colors' },
           { value: 'black', label: 'black' },
           { value: 'red', label: 'red' },
           { value: 'blue', label: 'blue' },
@@ -73,7 +78,8 @@ function Filter({page,pageSize}) {
 <Select
         name="FilterSize"
         options={[
-          { value: '', label: 'Size' },
+          { value: " ", label: `${size && size.length>0 ? size : "selected Size"}`  },
+          { value: '', label: "all Size" },
           { value: '6', label: '6' },
           { value: '7', label: '7' },
           { value: '8', label: '8' },
@@ -87,7 +93,8 @@ function Filter({page,pageSize}) {
 <Select
         name="orderPrice"
         options={[
-          { value: '', label: 'Price' },
+          { value: " ", label: `${price && price.length>0 ? price : "selected Price"}` },
+          { value: '', label: "all price" },
           { value: 'min', label: 'min' },
           { value: 'max', label: 'max' }   
         ]}

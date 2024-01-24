@@ -1,31 +1,37 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import style from './Login.module.css';
-import { AuthContext } from '../AuthProvider/authProvider';
-import { loginUser } from '../../redux/actions/actions';
+import React, { useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
+import {useEffect} from "react";
+import axios from "axios";
+import { useDispatch} from "react-redux";
+import GoogleLogin from "react-google-login";
+import {gapi} from "gapi-script";
+import style from "./Login.module.css";
+import { AuthContext } from "../AuthProvider/authProvider";
 
-const LogIn = (props) => {
+
+export default function LogIn(props) {
+  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
   const [userData, setUserData] = useState({
     email: '',
-    password: '',
+    password: ''
   });
-  const [isValid, setIsValid] = useState(true);
-  const { auth, setAuth } = useContext(AuthContext);
-  const error = useSelector((state) => state.loginError);
-  const userRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%#?&]{8,}$/;
-
-  const dispatch = useDispatch();
+  const [isValid, setIsValid] = useState(false);
+  const {auth, setAuth } = useContext(AuthContext);
   const history = useHistory();
+console.log(userData)
+  const userRegex = new RegExp("^[^s@]+@[^s@]+.[^s@]+$");
+  const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)[A-Za-zd$!%*#?&]{6,}$");
 
   const validarBotonSubmit = () => {
-    setIsValid(!(userRegex.test(userData.email) && passwordRegex.test(userData.password)));
+    if (userRegex.test(userData.email) && passwordRegex.test(userData.password)) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
   };
 
-  const clientID = '1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com';
+  const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com";
 
   const handChangePass = (e) => {
     setUserData({
@@ -38,7 +44,7 @@ const LogIn = (props) => {
   const handleChange = (e) => {
     setUserData({
       ...userData,
-      email: e.target.value,
+      email: e.target.value
     });
     validarBotonSubmit();
   };
@@ -49,64 +55,55 @@ const LogIn = (props) => {
         clientId: clientID,
       });
     };
-    gapi.load('client:auth2', start);
+    gapi.load("client:auth2", start);
   }, []);
 
   const onFailure = () => {
-    console.log('Algo salió mal');
+    setError("Algo salió mal");
   };
 
-  const onSuccess = async (response) => {
-    console.log('Login Success: currentUser:', response);
-  
-    const { id, name, surName, email } = response;
-    const serverResponse = { id, name, surName, email };
-  
-    localStorage.setItem('token', JSON.stringify(serverResponse));
-    
-    setAuth({ token: serverResponse });
-    
-    alert('¡Inicio de sesión exitoso!');
-    
-    history.push('/home');
-  };
-  
-
-  console.log('Contenido del localStorage:', localStorage.getItem('token'));
-
-  const storedToken = localStorage.getItem('token');
-  console.log('Contenido del localStorage:', storedToken);
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    try {
-      const response = await dispatch(loginUser(userData));
-      console.log('Respuesta del servidor en el cliente:', response);
-  
-      if (response && response.id && response.name && response.surName && response.email) {
-        // Almacena la respuesta del servidor en el localStorage
-        localStorage.setItem('token', JSON.stringify(response));
-  
-        // Resto del código para manejar la respuesta
-        alert('¡Inicio de sesión exitoso!');
-        history.push('/home');
-      } else if (response && response.message) {
-        // Si la respuesta tiene un mensaje, muestra el mensaje de error
-        alert(`Error: ${response.message}`);
-      } else {
-        console.error('La respuesta del servidor no tiene las propiedades esperadas.', response);
+        try {
+          const response = await axios.post('http://localhost:3000/users/login', userData); 
+          console.log("response:", response);// Update the URL to the correct endpoint
+          const data = response.data;
+          console.log("user data:", data)
+          if (data) {
+              setAuth({ token: data });
+              history.push("/home")
+              console.log(data)
+          } else {
+            setError('Error: The response is not an array of reviews');
+          }
+        } catch (error) {
+          setError('Error al iniciar sesión:', error.message);
+        }
       }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error.message);
-    }
-  };
 
+  useEffect(() => {
+    console.log('Valor actualizado de auth:', auth);
+  }, [auth]);
+  
+  useEffect(() => {
+    console.log('Valor actualizado de auth:', auth);
+  }, [auth]);
+ 
+  
+  
+  const onSuccess = (response) => {
+   console.log('Login Success: currentUser:', response.profileObj);
+   setAuth({ token: response.profileObj });
+   history.push("/home")
+  };
+  
+  
   return (
     <>
       <div>
         <div className="row justify-content-center">
           <div className="col-md-4 ml-5 border mt-5 p-5">
+          {error && <div style={{ color: 'red', margin: '10px 0' }}>{error}</div>}
             <h2 className="text-center mb-4">Inicie sesión</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -134,13 +131,13 @@ const LogIn = (props) => {
                   placeholder="Y aquí su contraseña..."
                   style={{ height: '50px', fontSize: '16px' }}
                 ></input>
-                {isValid ? (
-                  <p>La contraseña debe tener al menos 1 minúscula, 1 mayúscula, 1 dígito y 8 caracteres de longitud como mínimo</p>
-                ) : (
-                  <p></p>
-                )}
+                {isValid ? <p>La contraseña debe tener al menos 1 minúscula, 1 mayúscula, 1 dígito y 6 caracteres de longitud como mínimo</p> : <p></p>}
               </div>
-              <button type="submit" className="btn btn-primary w-100">
+              <button
+                type="submit"
+                className="btn btn-primary w-100"
+                disabled={!userData.password}
+              >
                 Log In
               </button>
             </form>

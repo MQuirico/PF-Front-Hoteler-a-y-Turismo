@@ -1,4 +1,4 @@
-import React, { useContext, useEffect,useState } from "react";
+import React, {useContext,useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
 import { FaShopify } from "react-icons/fa";
@@ -11,7 +11,6 @@ import { gapi } from "gapi-script";
 export default function NavBar(props) {
   const { auth, setAuth } = useContext(AuthContext);
   const history = useHistory();
-  const [userData, setUserData] = useState(null);
 
   const logOut = () => {
     if (window.gapi && window.gapi.auth2) {
@@ -22,36 +21,17 @@ export default function NavBar(props) {
     }
 
     setAuth(null);
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth');
     history.push('/home');
   };
 
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchUserData(); // Asegúrate de que fetchUserData obtenga la respuesta del servidor
+  console.log('Valor actualizado de auth:', auth);
+}, [auth]);
 
-        if (response && response !== 'undefined') {
-          const parsedResponse = JSON.parse(response);
+const imgDefault = "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
 
-          // Verifica si la respuesta tiene las propiedades esperadas
-          if (parsedResponse && parsedResponse.id && parsedResponse.name && parsedResponse.surName && parsedResponse.email) {
-            setUserData(parsedResponse);
-          } else {
-            console.error('La respuesta del servidor no tiene las propiedades esperadas.');
-          }
-        } else {
-          console.error('La respuesta del servidor es undefined o no es válida.');
-        }
-      } catch (error) {
-        console.error('Error al obtener datos del usuario:', error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-   
- 
   if (auth && auth.token) {
     console.log('Usuario autenticado:', auth.token);
     // Usuario autenticado
@@ -109,7 +89,7 @@ const accessToken = token ? token.accessToken : null;
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    <img src={token.imageUrl} style={{ borderRadius: "50%", height: "26%", width: "26%" }} alt="User Avatar" />
+                    <img src={token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "26%", width: "16%" }} alt="User Avatar" />
                   </Link>
                 </div>
               </div>
@@ -177,8 +157,8 @@ const accessToken = token ? token.accessToken : null;
 
         </div>
       </>
-);
-}
+    );
+  }
 }
 
 //dsadsds
