@@ -163,4 +163,3 @@ console.log(userData)
   );
 };
 
-export default LogIn;

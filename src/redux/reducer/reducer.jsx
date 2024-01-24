@@ -79,12 +79,7 @@ const stateSearchBar = {
   error: null,
 }
 
-const stateSearchBar = {
-  data: null,
-  page: 0,
-  loading: false,
-  error: null,
-}
+
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
