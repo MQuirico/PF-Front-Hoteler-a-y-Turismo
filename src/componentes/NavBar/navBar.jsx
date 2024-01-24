@@ -78,8 +78,6 @@ const logOut = () => {
                   </ul>
                   </li>
                 </ul>
-
-
                     <Link
                       className="nav-link text-black dropdown-toggle"
                       to="#"
@@ -87,13 +85,8 @@ const logOut = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                    
-                        <img src={auth.token.imageUrl} style={{ borderRadius: "50%", height: '26%', width: '26%' }}></img>
-                  
+                      <img src={auth.token.imageUrl} style={{ borderRadius: "50%", height: '26%', width: '26%' }}></img>    
                     </Link>
-
-                
-
               </div>
             </div>
           </div>

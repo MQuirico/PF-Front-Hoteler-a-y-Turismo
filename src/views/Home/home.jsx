@@ -7,9 +7,7 @@ import Paginado from '../../componentes/Paginado/Paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 import SearchBar from '../../componentes/SearchBar/searchBar';
-import { rgba } from 'polished';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import Alert from '../../componentes/Alert/Alert';
 
 
 const Home = () => {
@@ -39,24 +37,6 @@ const Home = () => {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));}
   };
 
-
-  
-      
-const RedAlert = ({ message }) => (
- <div style={{ backgroundColor: rgba(223, 51, 21, 0.8),
-  padding: '10px',
-   color: 'black',
-    width: '50%',
-     display: 'flex',
-      justifyContent: 'center',
-       alignItems: 'center',
-        marginTop: '90px',
-         boxShadow: '0px 6px 10px rgba(100, 51, 21, 0.8)' }}>
- <FontAwesomeIcon icon={faTimesCircle} style={{ marginRight: '10px' }}/>
- {message}
- <FontAwesomeIcon icon={faTimesCircle} style={{ marginLeft: '10px' }}/>
- </div>
-);
   return (
     <div>
       <div className={styles.container}>
@@ -75,11 +55,10 @@ const RedAlert = ({ message }) => (
           </div>
         <div className={styles.cardsComponent}>
           <Cards sneakers={sneakers} />
-          <div className={styles.cardsComponent}>
-          {(sneakers && sneakers.length === 0) && 
- <RedAlert message="No se encontraron resultados. ¡Intenta con diferentes filtros!" />
-}
-
+          <div className={styles.alertComponent}>
+              {(sneakers && sneakers.length === 0) && 
+                  <Alert/>
+              }
       </div>
         </div>
       </div>

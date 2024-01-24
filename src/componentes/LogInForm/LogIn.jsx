@@ -25,10 +25,7 @@ export default function LogIn(props) {
     }
   };
 
-
   const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com"
-
-  
 
   const handChangePass = (e) => {
     setUserData({
@@ -46,7 +43,6 @@ export default function LogIn(props) {
     validarBotonSubmit();
   };
 
-
   useEffect(() =>{
     const start = () => {
       gapi.auth2.init({
@@ -60,12 +56,10 @@ export default function LogIn(props) {
     console.log("Algo salió mal")
   }
  
-  
   const onSuccess = (response) => {
    console.log('Login Success: currentUser:', response.profileObj);
    setAuth({ token: response.profileObj });
   };
-  
   
   return (
     <>
@@ -95,7 +89,7 @@ export default function LogIn(props) {
                   placeholder="Y aquí su contraseña..."
                   style={{ height: "50px",fontSize:'16px' }}
                 ></input>
-                {isValid ? <p>La contraseña debe tener al menos 1 minúscula, 1 mayúscula, 1 dígito y 8 caracteres de longitud como mínimo</p> : <p></p>}
+ <p>La contraseña debe tener al menos 1 minúscula, 1 mayúscula, 1 dígito y 8 caracteres de longitud como mínimo</p> : <p></p>
               </div>
               <button
                 type="submit"

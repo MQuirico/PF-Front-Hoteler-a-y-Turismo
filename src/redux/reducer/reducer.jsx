@@ -5,7 +5,6 @@ import {
   CLEAR_CREATE_PRODUCT_STATE,
   GET_ALL_SNEAKERS_SUCCESS,
   UPDATE_SELECTED_SNEAKER,
-  SAVE_USER_DATA_SESSION,
   CREATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT_FAILURE,
   CREATE_PRODUCT_REQUEST,
@@ -28,7 +27,9 @@ import {
   SET_REVIEWS,
   SIZE_VALUE,
   SET_ADMIN,
-  STATE_DATA_PAGE
+  REVIEW_POSTED_FAILURE,
+  REVIEW_POSTED_SUCCESS,
+  REVIEW_POST_REQUEST
 } from "../action-types/action-types";
 
 const initialState = {
@@ -40,6 +41,9 @@ const initialState = {
    error: null,
  },
  reviews: [],
+ postingReview: false,
+ postReviewError: null,
+ postReviewSuccess: false,
  error: null,
  searchResults: [],
  sneakers: [],
@@ -54,14 +58,7 @@ const initialState = {
  searchError: null,
  searchData: null,
  isAdmin:false,
- dataSearch:[]
 };
-const stateSearchBar = {
-  data: null,
-  page: 0,
-  loading: false,
-  error: null,
-}
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -231,16 +228,6 @@ const productReducer = (state = initialState, action) => {
         selectedSneakerIndex: action.payload,
       };
 
-    case SAVE_USER_DATA_SESSION:
-      return {
-        ...state,
-        userDataSession: {
-          ...state.userDataSession,
-          isLoggedIn: true,
-          userData: action.payload,
-        },
-      };
-
     case SEARCH_REQUEST:
       return {
         ...state,
@@ -274,14 +261,31 @@ case SEARCH_FAILURE:
     ...state,
     reviews: action.payload,
   };
-  case STATE_DATA_PAGE:
-            return {
-                ...state,
-                dataSearch:action.payload
-            }
-              
-                  default:
-                  return state;
+
+  case REVIEW_POST_REQUEST:
+    return {
+      ...state,
+      postingReview: true,
+      postReviewError: null,
+      postReviewSuccess: false,
+    };
+  case REVIEW_POSTED_SUCCESS:
+    return {
+      ...state,
+      reviews: [...state.reviews, action.payload],
+      postingReview: false,
+      postReviewSuccess: true,
+    };
+  case REVIEW_POSTED_FAILURE:
+    return {
+      ...state,
+      postingReview: false,
+      postReviewError: action.payload,
+      postReviewSuccess: false,
+    };
+
+  default:
+  return state;
   }
 };
 

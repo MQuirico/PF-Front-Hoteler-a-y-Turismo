@@ -50,9 +50,9 @@ function Filter({page,pageSize}) {
         name="FilterBrand"
         options={[
           { value: '', label: 'Brand' },
-          { value: 'adidas', label: 'adidas' },
-          { value: 'nike', label: 'nike' },
-          { value: 'newbalance', label: 'newbalance' },  
+          { value: 'ADIDAS', label: 'ADIDAS' },
+          { value: 'NIKE', label: 'NIKE' },
+          { value: 'NEW BALANCE', label: 'NEW BALANCE' },  
         ]}
         onChange={(e) => handleFilterBrand(e.target.value)}
       />

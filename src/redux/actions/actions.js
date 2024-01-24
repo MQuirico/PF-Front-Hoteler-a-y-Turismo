@@ -10,8 +10,8 @@ import {
   COLOR_VALUE,
   SIZE_VALUE,
   ORDER_PRICE,
-  POST_PRODUCT_FAILURE,
   POST_PRODUCT_SUCCESS,
+  POST_PRODUCT_FAILURE,
   POST_PRODUCT_REQUEST,
   CREATE_PRODUCT_FAILURE,
   CREATE_PRODUCT_SUCCESS,
@@ -22,11 +22,12 @@ import {
   FETCH_PRODUCT_DETAIL_FAILURE,
   SET_SELECTED_SNEAKER,
   SET_SELECTED_SNEAKER_INDEX,
-  SAVE_USER_DATA_SESSION,
   SET_REVIEWS,
   STATE_DATA_PAGE,
-  CREATE_USER_REQUEST
-  
+  CREATE_USER_REQUEST,
+  REVIEW_POSTED_FAILURE,
+  REVIEW_POSTED_SUCCESS,
+  REVIEW_POST_REQUEST
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -237,11 +238,6 @@ export const setSelectedSneakerIndex = (index) => ({
   payload: index,
 });
 
-export const saveUserDataSession = (userData) => ({
-  type: SAVE_USER_DATA_SESSION,
-  payload: userData,
-});
-
 export const postCreateProduct = (productData) => async (dispatch) => {
   dispatch(createProductRequest());
   try {
@@ -293,23 +289,21 @@ const validation = (input, existingNames) => {
   return errors;
 };
 
-
-   export const postReviews = (userId, idKey, rating, content) => {
-    return async (dispatch) => {
-       try {
-         const response = await axios.post(`http://localhost:3000/reviews/products/detail/${idKey}/${userId}`, {
-           rating,
-           content
-         });
-   
-         console.log('Review posted successfully:', response.data);
-   
-       } catch (error) {
-         console.error('Error posting review:', error);
-       }
-    };
-   };
-
+export const postReviews = (userId, productId, rating, content) => async (dispatch) => {
+  dispatch({ type: REVIEW_POST_REQUEST });
+  console.log("ESTO RECIBE LA ACTION POSTREVIEW", userId, productId, rating, content)
+  try {
+    const response = await axios.post(`http://localhost:3000/reviews/products/detail/${productId}/${userId}`, {
+      rating,
+      content,
+    });
+    console.log("ESTO VIENE DE LA ACTION ", response)
+    dispatch({ type: REVIEW_POSTED_SUCCESS, payload: response.data.review });
+  } catch (error) {
+    console.error("Error en la acción postReviews:", error);
+    dispatch({ type: REVIEW_POSTED_FAILURE, payload: error.message });
+  }
+  };
 
    export const setReviews = (reviews) => ({
     type: SET_REVIEWS,
@@ -363,4 +357,4 @@ const validation = (input, existingNames) => {
   export const stateSearch = (search) => ({
     type: STATE_DATA_PAGE,
     payload: search,
-  });
+  })
