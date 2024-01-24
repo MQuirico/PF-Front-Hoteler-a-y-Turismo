@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getSneakers, searchBar } from "../../redux/actions/actions";
 import Cards from "../../componentes/Cards/cards";
-import Paginado from '../../componentes/Paginado/Paginado';
+import Paginado from '../../componentes/Paginado/paginado';
 import styles from './Home.module.css';
 import Filter from '../../componentes/Filter/filter';
 import SearchBar from '../../componentes/SearchBar/searchBar';
