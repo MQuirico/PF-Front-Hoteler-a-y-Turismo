@@ -80,7 +80,7 @@ export const fetchProductDetail = (idKey) => async (dispatch) => {
   }
 };
 
-export const getSneakers = (page, pageSize ="4", brand, colors, size, price) => {
+export const getSneakers = (page, pageSize ="8", brand, colors, size, price) => {
   return async function (dispatch) {
     try {
       const queryParams = {
