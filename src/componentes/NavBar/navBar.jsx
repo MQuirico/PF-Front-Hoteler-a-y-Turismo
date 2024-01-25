@@ -73,7 +73,12 @@ const accessToken = token ? token.accessToken : null;
                         </li>
                         <li>
                           <Link to="/configuracion" className="dropdown-item">
-                            Ajustes
+                           ajustes
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/profiledit" className="dropdown-item">
+                           editar perfil
                           </Link>
                         </li>
                         <div className="dropdown-divider"></div>

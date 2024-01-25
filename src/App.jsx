@@ -5,13 +5,14 @@ import Landing from "./views/Landing/landing";
 import Home from "./views/Home/home";
 import Detail from "./views/Detail/detail";
 import Create from "./componentes/Create/create";
-import LogIn from "./componentes/LoginForm/Login";
+import LogIn from "./componentes/LogInForm/LogIn";
 import About from "./componentes/About/about";
 import Registro from "./componentes/Register/Register";
 import Perfil from "./componentes/perfilDeUsuario/perfil"
 import Ajustes from "./componentes/Configuracion/configuracion"
 import ProtectedRoute from './GeneralLogin';
 import { AuthProvider } from "./componentes/AuthProvider/authProvider";
+import UserProfileForm from "./componentes/perfilDeUsuario/edditProfile"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           }}
         />
   <Switch>
+
  <Route exact path="/" component={Landing} />
  <Route exact path="/home" component={Home} />
  <Route exact path="/create" component={Create} />
@@ -36,6 +38,7 @@ function App() {
  <Route exact path="/detail/:id" component={Detail} />
  <Route exact path="/perfil" component= {Perfil} />
  <Route exact path="/Configuracion" component= {Ajustes} />
+ <Route exact path="/profiledit" component={UserProfileForm} />
 </Switch>
       </div>
     </Router>
