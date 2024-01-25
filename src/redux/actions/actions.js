@@ -346,4 +346,3 @@ export const postReviews = (productId, rating, content, name, profileImage) => a
     }
 
   };
-
