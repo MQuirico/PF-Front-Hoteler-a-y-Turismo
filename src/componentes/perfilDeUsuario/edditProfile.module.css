@@ -1,0 +1,93 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 600px;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-top: 95px;
+  margin-right: 150px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+
+.descripcion {
+  margin-right: 10px; /* Espacio entre descripción y input */
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+.editButton {
+  padding: 6px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  align-self: flex-start; /* Alinea el botón al principio del contenedor */
+}
+
+.editButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.saveButton {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; /* Mueve el botón hacia la derecha tanto como sea posible */
+  margin-right: 10px;
+}
+
+.error {
+  color: #ff0000;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.descripcion {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.label1 {
+  font-weight: bold;
+  margin-right: 10px;
+  margin-left: 50px;
+}
+
+.label2 {
+  font-weight: bold;
+  margin-right: 10px;
+  margin-left: 46px;
+}
+.label3 {
+  font-weight: bold;
+  margin-right: 10px; 
+  margin-left: 40px;
+}
+.label4 {
+  font-weight: bold;
+  margin-right: 10px;
+  margin-left: 58px;
+}
