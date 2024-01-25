@@ -23,7 +23,7 @@ const Home = () => {
   const price = useSelector((state) => state?.orderPrice);
 
   const searchState = useSelector((state) => state?.dataSearch); //  estado para los resultados de la búsqueda
-  const pageSize = 4;
+  const pageSize = 8;
 console.log(searchState)
 console.log(price)
 
@@ -40,14 +40,8 @@ console.log(price)
     } else {
     dispatch(getSneakers(page, pageSize, brand, color, size, price));}
   };
-
-
   console.log(currentPage)
-
   console.log(currentPageSearch)
-
-
-      
 const RedAlert = ({ message }) => (
  <div style={{ backgroundColor: rgba(223, 51, 21, 0.8),
   padding: '10px',
@@ -86,8 +80,6 @@ const RedAlert = ({ message }) => (
       </div>
         </div>
       </div>
-      <div className={styles.paginatedComponent}>
-    </div>
     </div>
   );
 };
