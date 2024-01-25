@@ -30,7 +30,8 @@ import {
   CREATE_USER_FAILURE,
   REVIEW_POSTED_FAILURE,
   REVIEW_POSTED_SUCCESS,
-  REVIEW_POST_REQUEST
+  REVIEW_POST_REQUEST,
+  UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE,UPDATE_USER_REQUEST
 } from "../action-types/action-types";
 
 export const registerUser = (datauser) => async (dispatch) => {
@@ -345,4 +346,41 @@ export const postReviews = (productId, rating, content, name, profileImage) => a
       console.error('Error fetching reviews:', error);
     }
 
+  };
+
+  export const updateUserRequest = () => ({
+    type: UPDATE_USER_REQUEST,
+  });
+  
+  export const updateUserSuccess = () => ({
+    type: UPDATE_USER_SUCCESS,
+  });
+  
+  export const updateUserFailure = (error) => ({
+    type: UPDATE_USER_FAILURE,
+    payload: error,
+  });
+  
+  export const updateUser = (id, updatedFields) => {
+    return async (dispatch) => {
+      dispatch(updateUserRequest());
+  
+      try {
+        const response = await fetch(`http://localhost:3000/users/perfil/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedFields),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+  
+        dispatch(updateUserSuccess());
+      } catch (error) {
+        dispatch(updateUserFailure(error.message));
+      }
+    };
   };
