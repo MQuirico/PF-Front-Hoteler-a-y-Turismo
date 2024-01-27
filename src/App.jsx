@@ -10,9 +10,9 @@ import About from "./componentes/About/about";
 import Registro from "./componentes/Register/Register";
 import Perfil from "./componentes/perfilDeUsuario/perfil"
 import Ajustes from "./componentes/Configuracion/configuracion"
-import ProtectedRoute from './GeneralLogin';
+// import ProtectedRoute from './GeneralLogin';
 import { AuthProvider } from "./componentes/AuthProvider/authProvider";
-import UserProfileForm from "./componentes/perfilDeUsuario/edditProfile"
+import Header from "./componentes/DashBoard Usuario/Header";
 
 function App() {
   return (
@@ -37,8 +37,7 @@ function App() {
  <Route exact path="/register" component={Registro} />
  <Route exact path="/detail/:id" component={Detail} />
  <Route exact path="/perfil" component= {Perfil} />
- <Route exact path="/Configuracion" component= {Ajustes} />
- <Route exact path="/profiledit" component={UserProfileForm} />
+ <Route exact path="/Configuracion" component= {Header} />
 </Switch>
       </div>
     </Router>
