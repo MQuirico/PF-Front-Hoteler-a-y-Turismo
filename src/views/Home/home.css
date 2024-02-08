@@ -1,0 +1,41 @@
+
+
+.homeView{
+  background-color: #373739;
+  padding-top: 100px;
+}
+
+.containerr {
+  width: 100%;
+}
+.mainContent .title {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+.mainContent .title h2{
+  margin: 0;
+  margin-right:30px;
+  font-size: 3rem;
+  color: #60d4ea;
+}
+.mainContent .title p{
+  margin: 0;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 5px;
+
+}
+.row .box {
+  width: auto;
+
+}
+
