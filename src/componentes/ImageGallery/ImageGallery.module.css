@@ -14,8 +14,10 @@
   .container {
     display: flex; 
     justify-content:space-around;
-background-color:rgb(218, 219, 219);
+background-color:rgba(1, 2, 2, 0.596);
 height: 30vh;
   }
-  img {border-radius: 9px;}
+  img {border-radius: 9px;
+width: 40vh;
+}
   
