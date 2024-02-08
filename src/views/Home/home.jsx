@@ -26,7 +26,7 @@ function Home() {
       </section>
 
       <footer>
-        <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
+        <p>Derechos de autor © 2024. Todos los derechos reservadoss.</p>
       </footer>
     </div>
   );
