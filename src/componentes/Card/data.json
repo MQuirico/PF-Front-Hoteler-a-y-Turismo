@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cabaña El Bosque",
+    "localidad": "Bariloche",
+    "temporada": "Invierno",
+    "estadia": "Semanal",
+    "habitaciones": 2,
+    "pileta": false,
+    "dias": 7,
+    "noches": 6,
+    "precio": "10000 ars$ la noche por persona",
+    "imagen": "https://cabañasconpileta.com/wp-content/uploads/2022/12/cabanas-con-pileta-en-tigre-me-chinga-1.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Cabaña La Montaña",
+    "localidad": "Tandil",
+    "temporada": "Verano",
+    "estadia": "Fin de semana",
+    "habitaciones": 3,
+    "pileta": true,
+    "dias": 2,
+    "noches": 1,
+    "precio": "10000 ars$ la noche por persona",
+    "imagen": "https://alquileresmoquehue.com/wp-content/uploads/2021/10/astrolabius-01-1170x785.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Cabaña La Tranquilidad",
+    "localidad": "Sierra de la Ventana",
+    "temporada": "Primavera",
+    "estadia": "Quincenal",
+    "habitaciones": 1,
+    "pileta": false,
+    "dias": 15,
+    "noches": 14,
+    "precio": "10000 ars$ la noche por persona",
+    "imagen": "https://www.arquitecturaydiseno.es/medio/2023/02/13/cabana-vistas-al-lago-blanco-madera_7b1c65b7_1280x794.jpg"
+  }
+]
