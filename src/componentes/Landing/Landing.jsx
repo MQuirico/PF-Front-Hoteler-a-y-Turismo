@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import style from './Landing.module.css'
 import ImageGallery from '../ImageGallery/ImageGallery' 
 const Landing=()=>{
@@ -18,16 +19,11 @@ const Landing=()=>{
  <div>
     <div class="row">
       <div class="col-md-12">
-        <p>Derechos de autor © 2024. Todos los derechos reservados..        </p>
-        
+        <p>Derechos de autor © 2024.  Todos los derechos reservados.    </p>
       </div>
     </div>
   </div>
 </footer>
+</div>)}
 
-
-
-
-             </div>)
-}
 export default Landing;
