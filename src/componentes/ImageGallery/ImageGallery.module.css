@@ -15,6 +15,7 @@
     display: flex; 
     justify-content:space-around;
 background-color:rgba(1, 2, 2, 0.596);
+
 height: 30vh;
   }
   img {border-radius: 9px;

@@ -18,7 +18,7 @@ const Landing=()=>{
  <div>
     <div class="row">
       <div class="col-md-12">
-        <p>Derechos de autor © 2024. Todos los derechos reservados.        </p>
+        <p>Derechos de autor © 2024. Todos los derechos reservados..        </p>
         
       </div>
     </div>

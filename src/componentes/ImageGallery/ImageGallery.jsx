@@ -19,6 +19,7 @@ const ImageGallery = ({ images }) => {
 
   return (
     <section className={style.container}>
+      
      {startIndex ===0?'': <button onClick={handlePrev} className={style.boton} >Ant</button>}
       {images.slice(startIndex, startIndex + 4).map((imageUrl, index) => (
         <img

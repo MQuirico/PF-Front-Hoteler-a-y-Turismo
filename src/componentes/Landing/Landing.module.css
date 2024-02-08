@@ -1,5 +1,5 @@
 .container {
-    display: flex; /* Utilizamos flexbox para mostrar las imágenes en línea */
+    display: flex; 
     justify-content:space-around;
 background-color:rgb(218, 219, 219);
 height: 30vh;
