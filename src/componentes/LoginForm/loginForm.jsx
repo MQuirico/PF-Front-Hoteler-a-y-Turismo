@@ -1,129 +1,113 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {useEffect} from "react";
+import { useState, useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
 import GoogleLogin from "react-google-login";
-import {gapi} from "gapi-script";
-import {useDispatch} from 'react-redux';
-// import { saveUserDataSession } from "../../redux/actions/actions";
-import style from "./Login.module.css"
-import { useHistory } from "react-router-dom";
+import axios from "axios";
+import styles from "./loginForm.module.css";
+import { AuthContext } from "../AuthProvider/authProvider";
 
-export default function LogIn(props) {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [esVálido, setEsVálido] = useState("");
-  
+export default function Login() {
+  const { register, handleSubmit, formState: { errors }, setError: setFormError, clearErrors } = useForm();
+  const [errorState, setErrorState] = useState(null);
+  const history = useHistory();
+  const { setAuth } = useContext(AuthContext); // Obtener setAuth del contexto de autenticación
 
-  const dispatch = useDispatch()
-  
-  const clientID = "1066333447186-qce53lrh37h3ki1ih2o5fnjminct9rn3.apps.googleusercontent.com"
-
-  const userRegex = "^[^s@]+@[^s@]+.[^s@]+$";
-  const passwordRegex =
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$";
-
-  const handChangePass = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleChange = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const adminUsername = "admin";
-const adminPassword = "admin";
-
-  const validarBotonSubmit = () => {
-    if (userRegex.test(userName) && passwordRegex.test(password)) {
-      setEsVálido(true);
-    } else {
-      setEsVálido(false);
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('http://localhost:3000/users/login', data);
+      if (response.data) {
+        // Ajustar la respuesta del servidor al formato esperado por NavBar
+        const authData = {
+          token: response.data,
+        };
+        // Guardar la respuesta del servidor en el contexto de autenticación
+        setAuth(authData);
+        localStorage.setItem('auth', JSON.stringify(authData)); // Opcional: guardar la información de autenticación en el almacenamiento local
+        history.push("/home");
+      } else {
+        setErrorState('Error: The response is not valid');
+      }
+    } catch (error) {
+      setErrorState('Error al iniciar sesión: ' + error.message);
     }
   };
 
-  useEffect(() =>{
-    const start = () => {
-      gapi.auth2.init({
-        clientId: clientID,
-      })
+  const responseGoogle = (response) => {
+    console.log(response);
+    // se puede agregar la respuesta de Google ;)
+  };
+
+  const handleEmailChange = (e) => {
+    clearErrors("email");
+    const value = e.target.value;
+    if (!value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setFormError("email", {
+        type: "manual",
+        message: "Ingrese un correo electrónico válido",
+      });
     }
-    gapi.load("client:auth2", start)
-  }, [])
+  };
 
- 
+  const handlePasswordChange = (e) => {
+    clearErrors("password");
+    const value = e.target.value;
+    if (
+      !value.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )
+    ) {
+      setFormError("password", {
+        type: "manual",
+        message:
+          "La contraseña debe contener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula, un número y un carácter especial",
+      });
+    }
+  };
 
-  
-  const onFailure = () => {
-    console.log("Algo salió mal")
-  }
-
-
- 
-//   const history = useHistory();
-  
-//   const onSuccess = (response) => {
-//    console.log('Login Success: currentUser:', response.profileObj);
-//    if (response.profileObj.email === adminUsername && response.profileObj.password === adminPassword) {
-//       history.push("/admin");
-//    } else {
-//       dispatch(saveUserDataSession(response.profileObj));
-//    }
-//   };
-  
   return (
-    <>
-      <div>
-        <div className="row justify-content-center">
-          <div className="col-md-4 ml-5 border mt-5 p-5">
-            <h2 className="text-center mb-4">Inicie sesión</h2>
-            <form className="">
-              <div className="mb-3">
-                <label className="form-label" style={{color:'black'}}>Email:</label>
-                <input
-                  type="text"
-                  className="form-control form-control-lg"
-                  value={userName}
-                  onChange={handleChange}
-                  placeholder="Escriba aquí su email"
-                  style={{ height: "50px", fontSize:'16px' }}
-                ></input>
-              </div>
-              <div className="mb-3">
-                <label className="form-label" style={{color:'black'}}>Contraseña:</label>
-                <input
-                  type="password"
-                  className="form-control form-control-lg"
-                  value={password}
-                  onChange={handChangePass}
-                  placeholder="Y aquí su contraseña..."
-                  style={{ height: "50px",fontSize:'16px' }}
-                ></input>
-              </div>
-              <button
-                type="submit"
-                className="btn btn-primary w-100"
-              >
-                Log In
-              </button>
-            </form>
-          <div className={style.google} style={{"margin": "20px"}}>
-          <GoogleLogin 
-            clientId={clientID}
-            onSuccess={onSuccess}
-            onfailure={onFailure}
-            cookiePolicy={"single_host_policy"}
-            redirectUri={'http://localhost:5173/home'}
-        />
-        </div>
-            <p className="text-center mt-3">¿No estás registrado aún?</p>
-            <Link to="/register">
-              <p className="text-center">
-                <u>Regístrate aquí</u>
-              </p>
-            </Link>
+    <div className={styles.container}>
+      <div className={styles.borde}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <label htmlFor="email">Correo Electrónico:</label>
+            <input
+              type="email"
+              id="email"
+              {...register("email", { required: "El correo electrónico es requerido" })}
+              onChange={handleEmailChange}
+              className={errors.email ? `${styles.input} ${styles.error}` : styles.input}
+            />
+            {errors.email && <p className={styles.error}>{errors.email.message}</p>}
           </div>
+          <div className={styles.passwordInputContainer}>
+            <label htmlFor="password">Contraseña:</label>
+            <div className={styles.passwordInput}>
+              <input
+                type="password"
+                id="password"
+                {...register("password", { required: "La contraseña es requerida" })}
+                onChange={handlePasswordChange}
+                className={errors.password ? `${styles.input} ${styles.error}` : styles.input}
+              />
+            </div>
+            {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+          </div>
+          <button type="submit" className={styles.button}>
+            Ingresar
+          </button>
+        </form>
+        <div className={styles.google}>
+          <GoogleLogin
+            clientId="TU_CLIENT_ID.apps.googleusercontent.com"
+            buttonText="Ingresar con Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
         </div>
-        
+        <p className="text-center mt-3">¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
+        {errorState && <p className={styles.error}>{errorState}</p>} {/* Usar la variable de estado renombrada */}
       </div>
-    </>
+    </div>
   );
 }
