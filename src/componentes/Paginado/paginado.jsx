@@ -1,4 +1,5 @@
 import React from 'react';
+import  "./paginado.css"
 
 const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageClick, isSearchResult }) => {
 
@@ -15,19 +16,19 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageCli
   const isSingleResult = totalPages === 1 && currentPage === 1 && isSearchResult;
 
   return (
-    <div className={style.pagesContainer}>
+    <div className="pagesContainer">
       <div>
         {!isSingleResult && (
           <button
             onClick={() => onPageClick(1)}
-            className={style.sideButton}
+            className="sideButton"
             disabled={currentPage === 1}
           >
             ≪
           </button>
         )}
         {!isSingleResult && currentPage !== 1 && !isSearchResult && (
-          <button className={style.stepButton} onClick={onPrevPage} disabled={currentPage === 1}>
+          <button className="stepButton"onClick={onPrevPage} disabled={currentPage === 1}>
             Prev
           </button>
         )}
@@ -38,7 +39,7 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageCli
           <button
             key={1}
             onClick={() => onPageClick(1)}
-            className={style.pageButton}
+            className="pageButton"
             disabled={currentPage === 1}
           >
             1
@@ -48,7 +49,7 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageCli
             <button
               key={page}
               onClick={() => onPageClick(page)}
-              className={`${style.pageButton} ${page === currentPage ? style.active : ''}`}
+              className={`${"pageButton"} ${page === currentPage ? "active" : ''}`}
               disabled={currentPage === page}
             >
               {page}
@@ -57,23 +58,23 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageCli
         )}
       </div>
 
-      <div className={style.btns}>
+      <div className="btns">
         {!isSingleResult && currentPage !== totalPages && !isSearchResult && (
-          <button className={style.stepButton} onClick={onNextPage} disabled={currentPage === totalPages}>
+          <button className="stepButton" onClick={onNextPage} disabled={currentPage === totalPages}>
             Next
           </button>
         )}
         {!isSingleResult && (
           <button
             onClick={() => onPageClick(25)}
-            className={style.sideButton}
+            className="sideButton"
             disabled={currentPage === 25}
           >
             ≫
           </button>
         )}
       </div>
-      <div className={style.spanPages}>
+      <div className="spanPages">
         <span>{`${currentPage} / ${totalPages}`}</span>
       </div>
     </div>
