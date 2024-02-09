@@ -5,13 +5,14 @@ import {
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
   NO_EVENTS,
-  GET_SEARCH_BY_NAME,
-  CREATE_USER_FAILURE,
-  NO_EVENTS,
-  GET_SEARCH_BY_NAME,
+  GET_ALL_PRODUCTS_REQUEST,
+  GET_ALL_PRODUCTS_SUCCESS,
+  GET_ALL_PRODUCTS_FAILURE,
+  SEARCH_PRODUCTS_REQUEST,
+  SEARCH_PRODUCTS_SUCCESS,
+  SEARCH_PRODUCTS_FAILURE,
 
-} from "../Actions_Type/actions_type";
-
+} from "../action-types/action-types";
 
 const initialState = {
   userDataSession: null,
@@ -20,6 +21,8 @@ const initialState = {
   newUser: null,
   noEvents: "",
   searchName: [],
+  products: [],
+ 
 
 };
 
@@ -56,12 +59,34 @@ const userDataReducer = (state = initialState, action) => {
           loading: false,
           error: action.payload,
         };
-      case GET_SEARCH_BY_NAME:
-        return {
-          ...state,
-          searchName: action.payload,
-          noEvents: "",
-        };
+
+
+        case GET_ALL_PRODUCTS_REQUEST:
+          return { ...state, loading: true, error: null };
+        case GET_ALL_PRODUCTS_SUCCESS:
+          return { ...state, products: action.payload, loading: false, error: null };
+        case GET_ALL_PRODUCTS_FAILURE:
+          return { ...state, loading: false, error: action.payload };
+
+          case SEARCH_PRODUCTS_REQUEST:
+            return {
+              ...state,
+              loading: true,
+              error: null,
+            };
+            case SEARCH_PRODUCTS_SUCCESS:
+              return {
+                ...state,
+                products: [...state.products, ...action.payload], 
+                loading: false,
+                error: null,
+              };
+          case SEARCH_PRODUCTS_FAILURE:
+            return {
+              ...state,
+              loading: false,
+              error: action.payload,
+            };
 
     default:
       return state;

@@ -10,8 +10,14 @@ import {
     NEW_HOTEL_REQUEST,
     NEW_HOTEL_SUCCESS,
     NEW_HOTEL_FAILURE,
+    GET_ALL_PRODUCTS_REQUEST,
+    GET_ALL_PRODUCTS_SUCCESS,
+    GET_ALL_PRODUCTS_FAILURE,
+    SEARCH_PRODUCTS_REQUEST,
+    SEARCH_PRODUCTS_SUCCESS,
+    SEARCH_PRODUCTS_FAILURE,
 
-} from "../Actions_Type/actions_type";
+} from "../action-types/action-types";
 
 export const setUserData = (userData) => {
     return {
@@ -75,4 +81,43 @@ export const newHotel = (hotel) => {
           });
         });
     };
+  };
+
+  export const getAllProducts = () => {
+    return async (dispatch) => {
+      try {
+        dispatch({ type: GET_ALL_PRODUCTS_REQUEST }); 
+        console.log("Fetching products...");
+        const response = await axios.get('http://localhost:3000/products/'); 
+        const products = response.data;
+        console.log("Products received:", products);
+        dispatch({ type: GET_ALL_PRODUCTS_SUCCESS, payload: products });
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        dispatch({ type: GET_ALL_PRODUCTS_FAILURE, payload: error.message });
+      }
+    };
+  };
+
+  export const searchProducts = (name) => async (dispatch) => {
+    dispatch({ type: SEARCH_PRODUCTS_REQUEST });
+  
+    try {
+      const response = await fetch(`http://localhost:3000/products/search/${name}`);
+      const data = await response.json();
+  
+      if (response.ok) {
+        dispatch({
+          type: SEARCH_PRODUCTS_SUCCESS,
+          payload: data.productsFound,
+        });
+      } else {
+        throw new Error(data.message || 'Failed to search products');
+      }
+    } catch (error) {
+      dispatch({
+        type: SEARCH_PRODUCTS_FAILURE,
+        payload: error.message,
+      });
+    }
   };

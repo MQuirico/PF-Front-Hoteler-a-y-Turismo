@@ -7,7 +7,7 @@ import Select from 'react-select';
 import './create.css'
 import { CloudinaryContext, Image } from 'cloudinary-react';
 import axios from 'axios';
-import {newHotel} from '../../redux/actions/actions';
+import {newHotel} from '../../redux/Actions/actions';
 import {useDispatch} from 'react-redux';
 export const formContext = React.createContext()
 
@@ -17,7 +17,7 @@ export default function NewService (){
 
     const styles = {
         autocomplete: {
-          width: '100%',
+          width: '40%',
           marginBottom: '10px',
           '& .MuiOutlinedInput-root': {
             backgroundColor: '#fff', // Color de fondo blanco
@@ -109,11 +109,11 @@ export default function NewService (){
                 }
             );
             console.log('URL de la imagen cargada:', response.data.secure_url);
-        dispatch({
+        dispatch(newHotel({
             ...data,
             images: response.data.secure_url
-        })
-            // Aquí puedes hacer lo que quieras con la URL de la imagen cargada, como guardarla en el estado o enviarla a un servidor
+        }))
+           
         } catch (error) {
             console.error('Error al cargar la imagen:', error);
         }
@@ -155,11 +155,19 @@ export default function NewService (){
             onChange={handleSeasonChange}
             placeholder="Selecciona las estaciones"
             styles={{
-            option: (provided, state) => ({
+        option: (provided, state) => ({
             ...provided,
             color: 'black' // Cambia el color de la fuente a negro
-            })
-            }}
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            width: '40%' // Establece el ancho del control al 40%
+        }),
+        menu: (provided, state) => ({
+            ...provided,
+            width: '40%' // Establece el ancho del menú desplegable al 40%
+        })
+    }}
             />
             <br></br>
             {errors.season?.type === 'required' && <p className="error">**Campo requerido**</p>}
@@ -178,7 +186,7 @@ export default function NewService (){
                 disablePortal
                 id="combo-box-demo"
                 options={locations}
-                sx={{ width: 300 }}
+                sx={{ width: 40 }}
                 renderInput={(params) => <TextField {...params} label="Localidad" />}
                 onChange={(event, newValue) => {
                 setValue('location', newValue);
