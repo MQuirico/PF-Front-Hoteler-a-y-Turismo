@@ -1,24 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from "react"; // Agrega useEffect aquí
+import { useDispatch, useSelector } from "react-redux";
+import Cards from "../../componentes/Cards/cards";
+import Paginado from "../../componentes/Paginado/paginado";
+import Filter from "../../componentes/Filter/filter";
+import SearchBar from "../../componentes/SearchBar/searchBar";
+import { getAllProducts, searchProducts } from "../../redux/Actions/actions";
+import "./home.module.css";
 
 function Home() {
-  console.log("Renderizando el componente Home");
-  
-  return (
-    <div>
-      <header>
-        <h1>Bienvenido a nuestra página de inicio</h1>
-        <nav>
-          <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Contacto</a></li>
-          </ul>
-        </nav>
-      </header>
+  const dispatch = useDispatch();
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-      <section className="main-content">
-        <h2>¡Hola mundo!</h2>
-        <p>Este es un ejemplo de página de inicio.</p>
+  const products = useSelector((state) => state.products || []);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim() !== "") {
+      dispatch(searchProducts(searchTerm.trim()));
+    } else {
+      setFilteredProducts(null); // Establecer a null en lugar de []
+    }
+  };
+
+  return (
+    <div className="homeView">
+      <section className="mainContent">
+        <div className="title">
+          <h2>Home</h2>
+          <p>Este es un ejemplo de página de inicio.</p>
+        </div>
+
+        <Filter />
+        <SearchBar onSearch={handleSearch} />
+
+        <div className="container">
+          <div className="row">
+            <Cards products={filteredProducts.length > 0 ? filteredProducts : products} />
+          </div>
+        </div>
+        <Paginado />
       </section>
 
       <footer>

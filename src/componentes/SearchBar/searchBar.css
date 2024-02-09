@@ -1,1 +1,32 @@
-/*dsadsad*/
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Margen superior para separar del contenido superior */
+  }
+  
+  .searchInput {
+    min-width: 150px; /* Ancho mínimo del input */
+    max-width: 300px; /* Ancho máximo del input */
+    padding: 8px; /* Relleno interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Radio de borde */
+    margin-right: 8px; /* Margen derecho entre el input y el botón */
+  }
+  
+  .searchInput:focus {
+    outline: none; /* Eliminar el contorno al hacer foco en el input */
+  }
+  
+  .searchButton {
+    padding: 8px 16px; /* Relleno interno */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto */
+    border: none; /* Eliminar borde */
+    border-radius: 5px; /* Radio de borde */
+    cursor: pointer; /* Cambiar el cursor al pasar por encima */
+  }
+  
+  .searchButton:hover {
+    background-color: #0056b3; /* Color de fondo del botón al pasar por encima */
+  }
