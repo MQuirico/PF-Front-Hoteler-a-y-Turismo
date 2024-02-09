@@ -1,3 +1,4 @@
+
 import "./App.css";
 import NavBar from "./componentes/NavBar/navBar";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
@@ -15,6 +16,7 @@ import Perfil from "./componentes/PerfilDeUsuario/perfilDeUsuario"
 // import ProtectedRoute from './GeneralLogin';
 
 import { AuthProvider } from "./componentes/AuthProvider/authProvider";
+
 
 function App() {
   return (

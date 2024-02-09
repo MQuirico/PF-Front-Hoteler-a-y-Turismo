@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import {
     SET_USER_DATA,
@@ -49,7 +48,7 @@ export const setUserData = (userData) => {
 export const searchByName = (name) => {
   return async (dispatch) => {
     try {
-      const apiData = await axios.get(`http://localhost:3000/products/search/${name}`);
+      const apiData = await axios.get(`https://back-hostel.onrender.com/products/search/${name}`);
       const searchName = apiData.data;
       return dispatch({
         type: GET_SEARCH_BY_NAME,
