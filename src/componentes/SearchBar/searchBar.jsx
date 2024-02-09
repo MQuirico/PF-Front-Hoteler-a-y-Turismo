@@ -27,7 +27,7 @@ const SearchBar = ({returnToFirstPage}) => {
       <input
         className="w-full bg-transparent m-4 placeholder-DarkTextPurple/50 border border-none outline-none"
         type="text"
-        placeholder="Busca tu evento"
+        placeholder="Search..."
         value={name}
         onChange={(event) => handleChange(event)}
       />
