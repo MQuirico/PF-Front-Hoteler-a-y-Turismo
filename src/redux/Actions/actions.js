@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import {
     SET_USER_DATA,
@@ -12,7 +11,7 @@ import {
     NEW_HOTEL_SUCCESS,
     NEW_HOTEL_FAILURE,
 
-} from "../Actions_Type/actions_type";
+} from "../Actions_Type/actions_type.js";
 
 export const setUserData = (userData) => {
     return {
@@ -60,20 +59,21 @@ export const searchByName = (name) => {
 };
 
 export const newHotel = (hotel) => {
-    return (dispatch) => {
-      dispatch({ type: NEW_HOTEL_REQUEST });
-      axios.post('http://localhost:3000/products/create', hotel)
-        .then(response => {
-          dispatch({
-            type: NEW_HOTEL_SUCCESS,
-            payload: response.data // Puedes ajustar según la estructura de datos recibida
-          });
-        })
-        .catch(error => {
-          dispatch({
-            type: NEW_HOTEL_FAILURE,
-            payload: error.message // Puedes ajustar según la estructura de error que recibas
-          });
+  return (dispatch) => {
+    dispatch({ type: NEW_HOTEL_REQUEST });
+    axios.post('http://localhost:3000/products/create', hotel)
+      .then(response => {
+        dispatch({
+          type: NEW_HOTEL_SUCCESS,
+          payload: response.data // Puedes ajustar según la estructura de datos recibida
         });
-    };
+      })
+      .catch(error => {
+
+        dispatch({
+          type: NEW_HOTEL_FAILURE,
+          payload: error.message // Puedes ajustar según la estructura de error que recibas
+        });
+      });
   };
+};

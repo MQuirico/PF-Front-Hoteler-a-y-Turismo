@@ -1,6 +1,8 @@
 import React from "react";
 import Card from "../../componentes/Card/card";
 import data from "../../componentes/Card/data.json";
+import Paginado from '../../componentes/Paginado/paginado';
+import Filter from "../../componentes/Filter/filter"
 import "./home.css";
 
 function Home() {
@@ -14,6 +16,8 @@ function Home() {
           <p>Este es un ejemplo de página de inicio.</p>
         </div>
 
+        <Filter/>
+
         <div className="containerr">
           <div className="row">
             {data.map((cabaña) => (
@@ -23,6 +27,7 @@ function Home() {
             ))}
           </div>
         </div>
+        <Paginado/>
       </section>
 
       <footer>
