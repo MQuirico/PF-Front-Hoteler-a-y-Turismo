@@ -98,11 +98,12 @@ export default function Login() {
         </form>
         <div className={styles.google}>
           <GoogleLogin
-            clientId="TU_CLIENT_ID.apps.googleusercontent.com"
+            clientId="1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com"
             buttonText="Ingresar con Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
+            redirectUri='http://localhost:5173/home'
           />
         </div>
         <p className="text-center mt-3">¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
+import HomeIcon from '@mui/icons-material/Home';
 import { FaShopify } from "react-icons/fa";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -47,11 +48,14 @@ export default function NavBar(props) {
   }
 
   return (
-    <Navbar fixed="top">
+    <Navbar bg="light" expand="lg" fixed="top">
+    <Link to="/home">
+    <HomeIcon style={{ marginLeft: "20px" }}/>
+    </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginLeft: "-100px" }} />
       <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: "flex-end" }}>
         <Nav style={{ marginRight: "100px" }}>
-          <Nav.Link as={Link} to="/create" style={{ marginLeft: "-20px" }}>Create</Nav.Link>
+          <Nav.Link as={Link} to="/search" style={{ marginLeft: "-20px" }}>Explora destinos</Nav.Link>
           <Nav.Link as={Link} to="/about" style={{ marginLeft: "20px" }}>¿Quiénes somos?</Nav.Link>
           <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link>
           {auth && auth.token && auth.token.id ? (
@@ -70,6 +74,7 @@ export default function NavBar(props) {
           ) : (
             <NavDropdown title={<IoPersonSharp style={{  marginLeft: "20px", marginRight: "1rem", position: "absolute" }} />} id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Regístrate</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/create">Agregar hospedaje</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/login">Inicia Sesión</NavDropdown.Item>
             </NavDropdown>
           )}
