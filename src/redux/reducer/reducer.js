@@ -1,9 +1,12 @@
+
 import {
   SET_USER_DATA,
   CLEAR_USER_DATA,
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE
+  CREATE_USER_FAILURE,
+  NO_EVENTS,
+  GET_SEARCH_BY_NAME,
 
 } from "../Actions_Type/actions_type";
 
@@ -13,6 +16,9 @@ const initialState = {
   loading: false,
   error: null,
   newUser: null,
+  noEvents: "",
+  searchName: [],
+
 };
 
 
@@ -47,6 +53,12 @@ const userDataReducer = (state = initialState, action) => {
           ...state,
           loading: false,
           error: action.payload,
+        };
+      case GET_SEARCH_BY_NAME:
+        return {
+          ...state,
+          searchName: action.payload,
+          noEvents: "",
         };
 
     default:
