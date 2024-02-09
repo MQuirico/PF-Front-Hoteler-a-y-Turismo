@@ -21,9 +21,9 @@ const ImageGallery = ({ images }) => {
           key={index}
           src={imageUrl}
           alt={`Imagen${startIndex + index + 1}`} 
-        />
-      ))}
+        />))}
    <button onClick={handleNext} className={style.boton} disabled={startIndex + 4 >= images.length}>Sig</button>
-    </section>);}
+    </section>)
+    ;}
 
 export default ImageGallery;
