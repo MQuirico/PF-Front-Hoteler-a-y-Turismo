@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchByName } from "../../redux/actions";
-import Search from '../../assets/icons/Search.svg';
+import { searchByName } from "../../redux/Actions";
 
 
 // eslint-disable-next-line react/prop-types
@@ -29,7 +28,7 @@ const SearchBar = ({returnToFirstPage}) => {
       <input
         className="w-full bg-transparent m-4 placeholder-DarkTextPurple/50 border border-none outline-none"
         type="text"
-        placeholder="Busca tu evento"
+        placeholder="Search"
         value={name}
         onChange={(event) => handleChange(event)}
       />
