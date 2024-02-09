@@ -4,7 +4,9 @@ import {
     CLEAR_USER_DATA,
     CREATE_USER_REQUEST,
     CREATE_USER_SUCCESS,
-    CREATE_USER_FAILURE
+    CREATE_USER_FAILURE,
+    GET_SEARCH_BY_NAME,
+    NO_EVENTS
 
 
 } from "../Actions_Type/actions_type";
@@ -34,3 +36,22 @@ export const setUserData = (userData) => {
       dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
     }
   };
+
+export const searchByName = (name) => {
+  return async (dispatch) => {
+    try {
+      const apiData = await axios.get(`http://localhost:3000/products/search/${name}`);
+      const searchName = apiData.data;
+      return dispatch({
+        type: GET_SEARCH_BY_NAME,
+        payload: searchName,
+      });
+    } catch (e) {
+      console.log(e.response.data);
+      return dispatch({
+        type: NO_EVENTS,
+        payload: e.response.data,
+      });
+    }
+  };
+};
