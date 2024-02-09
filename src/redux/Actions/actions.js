@@ -10,6 +10,8 @@ import {
     NEW_HOTEL_REQUEST,
     NEW_HOTEL_SUCCESS,
     NEW_HOTEL_FAILURE,
+    FETCH_PRODUCT_DETAIL_SUCCESS,
+    FETCH_PRODUCT_DETAIL_FAILURE,
 
 } from "../Actions_Type/actions_type.js";
 
@@ -76,4 +78,20 @@ export const newHotel = (hotel) => {
         });
       });
   };
+};
+
+export const fetchProductDetail = (idKey) => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `https://backendrunnersparadise-production.up.railway.app/products/detail/${idKey}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    dispatch({ type: FETCH_PRODUCT_DETAIL_SUCCESS, payload: data });
+  } catch (error) {
+    console.error("Error fetching product detail:", error);
+    dispatch({ type: FETCH_PRODUCT_DETAIL_FAILURE });
+  }
 };

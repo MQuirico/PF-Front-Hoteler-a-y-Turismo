@@ -7,6 +7,8 @@ import {
   CREATE_USER_FAILURE,
   NO_EVENTS,
   GET_SEARCH_BY_NAME,
+  FETCH_PRODUCT_DETAIL_SUCCESS,
+  FETCH_PRODUCT_DETAIL_FAILURE,
 
 } from "../Actions_Type/actions_type";
 
@@ -18,7 +20,7 @@ const initialState = {
   newUser: null,
   noEvents: "",
   searchName: [],
-
+  products: [],
 };
 
 
@@ -60,6 +62,27 @@ const userDataReducer = (state = initialState, action) => {
           searchName: action.payload,
           noEvents: "",
         };
+      case FETCH_PRODUCT_DETAIL_SUCCESS:
+        console.log("Detalle del producto:", action.payload);
+        return {
+          ...state,
+          product: {
+            ...state.product,
+            detail: action.payload,
+          },
+          error: null,
+        };
+
+      case FETCH_PRODUCT_DETAIL_FAILURE:
+        return {
+          ...state,
+          product: {
+            ...state.product,
+            detail: null,
+          },
+          error: action.payload,
+        };
+    
 
     default:
       return state;
