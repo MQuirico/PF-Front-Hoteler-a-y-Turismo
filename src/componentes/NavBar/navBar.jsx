@@ -47,7 +47,7 @@ export default function NavBar(props) {
   }
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top">
+    <Navbar fixed="top">
       <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginLeft: "-100px" }} />
       <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: "flex-end" }}>
         <Nav style={{ marginRight: "100px" }}>
