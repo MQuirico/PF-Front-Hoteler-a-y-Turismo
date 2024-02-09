@@ -1,17 +1,20 @@
 
 import * as React from 'react'
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Select from 'react-select';
 import './create.css'
 import { CloudinaryContext, Image } from 'cloudinary-react';
-import axios from 'axios'
-
+import axios from 'axios';
+import {newHotel} from '../../redux/actions/actions';
+import {useDispatch} from 'react-redux';
 export const formContext = React.createContext()
 
 export default function NewService (){
-    
+    const [images, setImages] = React.useState("")
+    const dispatch = useDispatch()
+
     const styles = {
         autocomplete: {
           width: '100%',
@@ -93,12 +96,12 @@ export default function NewService (){
 
     const onSubmit = async (data) => {
         console.log(data)
-        console.log('estas son las imagenes', data.images)
+        console.log('estas son las imagenes', images)
         
         try {
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/${clCloudName}/image/upload`,
-                data.images,
+                images , 
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -106,6 +109,10 @@ export default function NewService (){
                 }
             );
             console.log('URL de la imagen cargada:', response.data.secure_url);
+        dispatch({
+            ...data,
+            images: response.data.secure_url
+        })
             // Aquí puedes hacer lo que quieras con la URL de la imagen cargada, como guardarla en el estado o enviarla a un servidor
         } catch (error) {
             console.error('Error al cargar la imagen:', error);
@@ -131,7 +138,7 @@ export default function NewService (){
       };
 
     const handleImg = (files) =>{
-        setValue('images', files)
+        setImages(files)
     }
 
     return(
