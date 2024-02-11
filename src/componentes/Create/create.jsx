@@ -33,7 +33,7 @@ export default function NewService (){
 
 
     const seasons = [
-        { value: 'Verano', label: 'Verano' },
+        { value: 'Verano', label: 'Verano' }, //sadsankjsdnfk
         { value: 'Invierno', label: 'Invierno' },
         { value: 'Primavera', label: 'Primavera' },
         { value: 'Otoño', label: 'Otoño' }
