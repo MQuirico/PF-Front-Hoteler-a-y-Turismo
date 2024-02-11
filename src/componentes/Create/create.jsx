@@ -5,15 +5,16 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Select from 'react-select';
 import './create.css'
-import { CloudinaryContext, Image } from 'cloudinary-react';
-import axios from 'axios';
-import {newHotel} from '../../redux/Actions/actions';
 import {useDispatch} from 'react-redux';
+import UploadWidget from './uploadWidget'
+
 export const formContext = React.createContext()
 
 export default function NewService (){
     const [images, setImages] = React.useState("")
     const dispatch = useDispatch()
+
+    
 
     const styles = {
         autocomplete: {
@@ -30,7 +31,7 @@ export default function NewService (){
 
     const {register, formState: { errors }, watch, control, setValue ,handleSubmit} = useForm(); 
 
-    
+
     const clCloudName = 'ds4blfuip'
 
     const seasons = [
@@ -38,7 +39,7 @@ export default function NewService (){
         { value: 'invierno', label: 'Invierno' },
         { value: 'primavera', label: 'Primavera' },
         { value: 'otoño', label: 'Otoño' }
-      ];
+      ]; //safdsadsa
 
       const locations = [
         'El Bolsón, Provincia de Río Negro',
@@ -94,29 +95,11 @@ export default function NewService (){
         'Potrerillos, Provincia de Mendoza'
     ];
 
-    const onSubmit = async (data) => {
+    
+
+    const onSubmit = (data) => {
         console.log(data)
-        console.log('estas son las imagenes', images)
         
-        try {
-            const response = await axios.post(
-                `https://api.cloudinary.com/v1_1/${clCloudName}/image/upload`,
-                images , 
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            );
-            console.log('URL de la imagen cargada:', response.data.secure_url);
-        dispatch(newHotel({
-            ...data,
-            images: response.data.secure_url
-        }))
-           
-        } catch (error) {
-            console.error('Error al cargar la imagen:', error);
-        }
     };
     
     const handleKeyPressPr = (event) => {
@@ -137,9 +120,6 @@ export default function NewService (){
         setValue('season', selectedOptions); // Actualizamos el valor del campo 'season'
       };
 
-    const handleImg = (files) =>{
-        setImages(files)
-    }
 
     return(
         <div>
@@ -157,15 +137,15 @@ export default function NewService (){
             styles={{
         option: (provided, state) => ({
             ...provided,
-            color: 'black' // Cambia el color de la fuente a negro
+            color: 'black' 
         }),
         control: (provided, state) => ({
             ...provided,
-            width: '40%' // Establece el ancho del control al 40%
+            width: '40%' 
         }),
         menu: (provided, state) => ({
             ...provided,
-            width: '40%' // Establece el ancho del menú desplegable al 40%
+            width: '40%' 
         })
     }}
             />
@@ -200,26 +180,32 @@ export default function NewService (){
             <br></br>
             <input type='number' onKeyPress={handleKeyPressPr} {...register('pricePerNight', { required: true })}></input>
             <br></br>
+            {errors.pricePerNight?.type === 'required' && <p className="error">Ingrese un precio por noche para el hospedaje a publicar</p>}
+
 
             <label>¿Qué cantidad de habitaciones alberga el hospedaje a publicar?</label>
             <br></br>
             <input type='number' onKeyPress={handleKeyPressRooms}{...register('totalRooms', {required: true})}></input>
             <br></br>
+            {errors.totalRooms?.type === 'required' && <p className="error">Ingrese la cantidad de habitaciones con las que cuenta el hospedaje a publicar</p>}
             
+
             <label>¿Posee piscina?</label>
             
-            <p>Sí</p>
+            <p style={{ color: "black" }}>Sí</p>
             <input type="radio" name="pool" value={true} {...register('pool',{ required: true })}></input>
-            <p>No</p>
+            <p style={{ color: "black" }}>No</p>
             <input type="radio" name="pool" value={false} ></input>
             <br></br>
-
-            <label>Agregue aquí imágenes sobre el hospedaje</label>
-            <br></br>
-            <input type='file' accept="image/jpeg, image/jpg" 
-            onChange={() =>{handleImg(event.target.files)}} multiple></input>
-            <br></br>
+            {errors.pool?.type === 'required' && <p className="error">Ingrese si el hospedaje a publicar cuenta con pileta</p>}
             
+            <label>Agregue aquí imágenes sobre el hospedaje</label>   
+            <br></br>
+            <formContext.Provider value={{ setValue }}>
+            <UploadWidget />    
+            </formContext.Provider>
+            <br></br>
+            <br></br>
             <button type='submit'>Publicar</button>
         </form>
         </div>
