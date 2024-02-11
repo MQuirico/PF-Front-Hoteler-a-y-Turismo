@@ -39,7 +39,7 @@ export default function NewService (){
         { value: 'invierno', label: 'Invierno' },
         { value: 'primavera', label: 'Primavera' },
         { value: 'otoño', label: 'Otoño' }
-      ];
+      ]; //safdsadsa
 
       const locations = [
         'El Bolsón, Provincia de Río Negro',
