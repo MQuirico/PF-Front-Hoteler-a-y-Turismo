@@ -125,10 +125,10 @@ export const newHotel = (hotel) => {
     }
   };
 
-  export const fetchProductDetail = (idKey) => async (dispatch) => {
+  export const fetchProductDetail = (id) => async (dispatch) => {
     try {
       const response = await fetch(
-        `https://backendrunnersparadise-production.up.railway.app/products/detail/${idKey}`
+        `http://localhost:3000/products/detail/${id}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

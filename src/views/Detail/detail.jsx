@@ -10,12 +10,12 @@ function Detail() {
   const [products, setProducts] = useState({}); // Estado local -> products
 
   useEffect(() => {
-      axios.get(`https://backendrunnersparadise-production.up.railway.app/products/detail/${idKey}`)
+      axios.get(`http://localhost:3000/products/detail/${id}`)
       .then(({ data }) => {
           if(data.name) {
              setProducts(data)
           } else {
-              throw new Error(`Product with ID ${idKey} not found`)
+              throw new Error(`Product with ID ${id} not found`)
           }
       })
       .catch ((error) => {
@@ -27,12 +27,14 @@ function Detail() {
   }, [id]);
 
   return (
-      <div className={style.detailContainer} >
-          <div className={style.productDetail} >
-              <h2 className={style.title} >Discover a little more about { products?.name }</h2>
-              <img className={style.img} src={products?.image} alt={products?.image} />
+      <div className="detailContainer" >
+          <div className="productDetail" >
+              <h2 className="title" >Discover a little more about { products?.name }</h2>
+              <img className="img" src={products?.image} alt={products?.image} />
               <h4>Price per night: {products?.pricePerNight} </h4>
               <h4>Total rooms: {products?.totalRooms} </h4>
+              <h4>Location: {products?.location} </h4>
+              <h4>Season: {products?.season} </h4>
               <h4>Pool: {products?.pool} </h4>
           </div>
       </div>
