@@ -1,20 +1,37 @@
-import React, { useState } from "react";
-import "./searchBar.css"; 
+import React, { useState, useEffect } from "react";
+import "./searchBar.css";
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState(null);
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
+
+    // Limpiar el timeout previo
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    // tiempo de espera para empezar la busqueda
+    const newTimeout = setTimeout(() => {
+      onSearch(searchTerm.trim()); 
+    }, 500); 
+    setTypingTimeout(newTimeout);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(searchTerm.trim()); // Trim para eliminar espacios en blanco innecesarios
-  };
+  useEffect(() => {
+    return () => {
+      // Limpiar el timeout 
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+    };
+  }, [typingTimeout]);
 
   return (
-    <form className="searchBar" onSubmit={handleSubmit}>
+    <form className="searchBar" onSubmit={(event) => event.preventDefault()}>
       <input
         className="searchInput"
         type="text"

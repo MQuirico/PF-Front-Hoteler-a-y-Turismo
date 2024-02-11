@@ -1,0 +1,63 @@
+.homeView {
+  background-color: #1a1a1a; /* Cambio de color de fondo */
+  padding-top: 50px;
+  min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainContent {
+  width: 80%;
+  margin: 20px -50px auto auto; /* Aumento del margen a la derecha */
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en múltiples líneas */
+  justify-content: space-between; /* Distribuye las tarjetas equitativamente */
+  margin-top: 90px;
+  position: absolute;
+}
+
+footer {
+  margin-top: auto; /* Fuerza al pie de página a la parte inferior */
+  padding: 20px 0;
+  color: #888;
+}
+
+
+.cardsRows {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 35px; /* Añade margen negativo para compensar el margen en las tarjetas */
+  
+}
+
+
+
+
+@media (max-width: 992px) {
+  .cardcontainer {
+    flex: 0 0 calc(50% - 20px); /* Cuando el ancho de la pantalla sea menor a 992px, cambia el ancho de cada tarjeta al 50% del contenedor padre */
+  }
+}
+
+.search {
+  margin-left: 1200px;
+  margin-top: -120px;
+  position: absolute;
+}
+
+.paginado {
+  align-items: center;
+  margin-left: auto;
+  margin-bottom: 40px;
+}
+
+
+.fileter {
+  margin-left: 50px;
+  margin-top: -100px;
+  position: absolute;
+  
+}

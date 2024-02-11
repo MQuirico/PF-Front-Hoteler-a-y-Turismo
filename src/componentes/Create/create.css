@@ -1,0 +1,80 @@
+/* Contenedor principal */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titulo del formulario */
+  h3 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Etiquetas y campos de entrada */
+  label {
+    font-weight: bold;
+  }
+  
+  input[type='text'],
+  input[type='number'],
+  input[type='file'] {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Radio buttons */
+  input[type='radio'] {
+    margin-right: 10px;
+  }
+  
+  /* Botón de publicar */
+  button[type='submit'] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type='submit']:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Mensajes de error */
+  .error {
+    color: red;
+    font-size: 14px;
+  }
+  
+  /* Estilos para el selector de estaciones */
+  .Select__control {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos para la lista de opciones */
+  .Select__menu {
+    border-radius: 5px;
+  }
+  
+  /* Estilos para la opción seleccionada */
+  .Select__option--is-selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  

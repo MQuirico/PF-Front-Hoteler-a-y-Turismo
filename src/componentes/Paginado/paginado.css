@@ -1,33 +1,41 @@
 .pagesContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .sideButton,
-  .stepButton,
-  .pageButton {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    color: #333;
-    padding: 8px 12px;
-    margin: 0 5px;
-    cursor: pointer;
-    outline: none;
-  }
-  
-  .pageButton.active {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .btns {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  
-  .spanPages {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.sideButton,
+.stepButton,
+.pageButton {
+  border: none;
+  background-color: transparent;
+  color: #cd1515; /* Azul brillante */
+  padding: 8px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.sideButton:hover,
+.stepButton:hover,
+.pageButton:hover {
+  color: #d04033; /* Azul más oscuro al pasar el ratón */
+}
+
+.pageButton.active {
+  background-color: #ce3333;
+  color: #fff;
+  border-radius: 50%; /* Botón de página activa con bordes redondeados */
+}
+
+.btns {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.spanPages {
+  margin-left: 10px;
+  margin-right: 10px;
+}
