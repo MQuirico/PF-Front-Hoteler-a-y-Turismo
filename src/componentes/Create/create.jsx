@@ -33,10 +33,10 @@ export default function NewService (){
 
 
     const seasons = [
-        { value: 'verano', label: 'Verano' },
-        { value: 'invierno', label: 'Invierno' },
-        { value: 'primavera', label: 'Primavera' },
-        { value: 'otoño', label: 'Otoño' }
+        { value: 'Verano', label: 'Verano' },
+        { value: 'Invierno', label: 'Invierno' },
+        { value: 'Primavera', label: 'Primavera' },
+        { value: 'Otoño', label: 'Otoño' }
       ]; //safdsadsa
 
       const locations = [
