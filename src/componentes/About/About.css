@@ -1,78 +1,84 @@
-.parrafo{
+.parrafo {
     color: rgb(235, 235, 235);
     font-size: 20px;
 }
+
 h2 {
     color: rgba(13, 98, 255, 0.863);
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 6vh;
 }
+
 .bot {
-    background-color:aliceblue;
+    background-color: aliceblue;
     color: rgb(15, 14, 14);
     box-shadow: none;
- margin-left: 190vh;
- border-radius:0%;
+    margin-left: 10px; /* Modificado para que sea relativo */
+    border-radius: 0%;
     height: 5vh;
     width: 19vh;
     text-align: center;
     border-color: rgb(153, 118, 73);
     margin-top: -9px;
-font-size: 15px;
+    font-size: 15px;
 }
 
-.nav {background-color: rgba(13, 13, 14, 0.863); 
-box-shadow:rgba(194, 200, 204, 0.849);}
+.nav {
+    background-color: rgba(13, 13, 14, 0.863);
+    box-shadow: rgba(194, 200, 204, 0.849);
+}
+
 .container {
     background-color: black;
-    min-height: 100vh; 
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-  }
-img {
-    height: 40vh;
-    margin-left: 60px;
-    width: 180vh;
-    border-radius: 0%;
-    height: 60vh;
+    align-items: center; /* Alinea al centro verticalmente */
 }
 
+img {
+    width: 180px; /* Modificado para que sea un tamaño fijo */
+    height: auto;
+    border-radius: 0%;
+}
 
 .contimg {
     display: flex;
     justify-content: center;
-  }
-  
-  .contimg img {
+}
+
+.contimg img {
     width: 190px;
     height: auto;
     margin: 5px;
-    transition: transform 0.3s ease; 
-  }
-  
-  .contimg img:hover {
-    transform: scale(1.5); 
-  }
-  
-  h4 {
-    font-style: italic; 
-    color: #40d7d6; 
-    text-align: center;
-  }
-  h5{
-    text-align: center;
-    color:aliceblue;
+    transition: transform 0.3s ease;
+}
+
+.contimg img:hover {
+    transform: scale(1.5);
+}
+
+h4 {
     font-style: italic;
-  }
-  .servicios{
-   background-color:rgba(15, 30, 43, 0.692);
-   color: black;
-   width: 50%;
-   text-align: center;
-   margin-left: 52vh;
+    color: #40d7d6;
+    text-align: center;
+}
 
-  }
-  .info {
+h5 {
+    text-align: center;
+    color: aliceblue;
+    font-style: italic;
+}
+
+.servicios {
+    background-color: rgba(15, 30, 43, 0.692);
+    color: black;
+    width: 50%;
+    text-align: center;
+    margin-left: 0; /* Modificado para que sea relativo */
+    margin-right: 0; /* Modificado para que sea relativo */
+}
+
+.info {
     background-color: rgb(98, 99, 105);
-  }
-
+}

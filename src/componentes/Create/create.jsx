@@ -5,19 +5,20 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Select from 'react-select';
 import './create.css'
-import { CloudinaryContext, Image } from 'cloudinary-react';
-import axios from 'axios';
-import {newHotel} from '../../redux/actions/actions';
 import {useDispatch} from 'react-redux';
+import UploadWidget from './uploadWidget'
+import { newHotel } from '../../redux/Actions/actions';
+
 export const formContext = React.createContext()
 
 export default function NewService (){
-    const [images, setImages] = React.useState("")
+
+
     const dispatch = useDispatch()
 
     const styles = {
         autocomplete: {
-          width: '100%',
+          width: '40%',
           marginBottom: '10px',
           '& .MuiOutlinedInput-root': {
             backgroundColor: '#fff', // Color de fondo blanco
@@ -28,17 +29,15 @@ export default function NewService (){
         },
       };
 
-    const {register, formState: { errors }, watch, control, setValue ,handleSubmit} = useForm(); 
+    const {register, formState: { errors }, watch, reset, control, setValue ,handleSubmit} = useForm(); 
 
-    
-    const clCloudName = 'ds4blfuip'
 
     const seasons = [
         { value: 'verano', label: 'Verano' },
         { value: 'invierno', label: 'Invierno' },
         { value: 'primavera', label: 'Primavera' },
         { value: 'otoño', label: 'Otoño' }
-      ];
+      ]; //safdsadsa
 
       const locations = [
         'El Bolsón, Provincia de Río Negro',
@@ -94,29 +93,13 @@ export default function NewService (){
         'Potrerillos, Provincia de Mendoza'
     ];
 
-    const onSubmit = async (data) => {
+    
+
+    const onSubmit = (data) => {
         console.log(data)
-        console.log('estas son las imagenes', images)
-        
-        try {
-            const response = await axios.post(
-                `https://api.cloudinary.com/v1_1/${clCloudName}/image/upload`,
-                images , 
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }
-            );
-            console.log('URL de la imagen cargada:', response.data.secure_url);
-        dispatch({
-            ...data,
-            images: response.data.secure_url
-        })
-            // Aquí puedes hacer lo que quieras con la URL de la imagen cargada, como guardarla en el estado o enviarla a un servidor
-        } catch (error) {
-            console.error('Error al cargar la imagen:', error);
-        }
+        dispatch(newHotel(data))
+        reset()
+        console.log(data)
     };
     
     const handleKeyPressPr = (event) => {
@@ -137,9 +120,6 @@ export default function NewService (){
         setValue('season', selectedOptions); // Actualizamos el valor del campo 'season'
       };
 
-    const handleImg = (files) =>{
-        setImages(files)
-    }
 
     return(
         <div>
@@ -155,11 +135,19 @@ export default function NewService (){
             onChange={handleSeasonChange}
             placeholder="Selecciona las estaciones"
             styles={{
-            option: (provided, state) => ({
+        option: (provided, state) => ({
             ...provided,
-            color: 'black' // Cambia el color de la fuente a negro
-            })
-            }}
+            color: 'black' 
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            width: '40%' 
+        }),
+        menu: (provided, state) => ({
+            ...provided,
+            width: '40%' 
+        })
+    }}
             />
             <br></br>
             {errors.season?.type === 'required' && <p className="error">**Campo requerido**</p>}
@@ -178,7 +166,7 @@ export default function NewService (){
                 disablePortal
                 id="combo-box-demo"
                 options={locations}
-                sx={{ width: 300 }}
+                sx={{ width: 40 }}
                 renderInput={(params) => <TextField {...params} label="Localidad" />}
                 onChange={(event, newValue) => {
                 setValue('location', newValue);
@@ -192,26 +180,32 @@ export default function NewService (){
             <br></br>
             <input type='number' onKeyPress={handleKeyPressPr} {...register('pricePerNight', { required: true })}></input>
             <br></br>
+            {errors.pricePerNight?.type === 'required' && <p className="error">Ingrese un precio por noche para el hospedaje a publicar</p>}
+
 
             <label>¿Qué cantidad de habitaciones alberga el hospedaje a publicar?</label>
             <br></br>
             <input type='number' onKeyPress={handleKeyPressRooms}{...register('totalRooms', {required: true})}></input>
             <br></br>
+            {errors.totalRooms?.type === 'required' && <p className="error">Ingrese la cantidad de habitaciones con las que cuenta el hospedaje a publicar</p>}
             
+
             <label>¿Posee piscina?</label>
             
-            <p>Sí</p>
+            <p style={{ color: "black" }}>Sí</p>
             <input type="radio" name="pool" value={true} {...register('pool',{ required: true })}></input>
-            <p>No</p>
+            <p style={{ color: "black" }}>No</p>
             <input type="radio" name="pool" value={false} ></input>
             <br></br>
-
-            <label>Agregue aquí imágenes sobre el hospedaje</label>
-            <br></br>
-            <input type='file' accept="image/jpeg, image/jpg" 
-            onChange={() =>{handleImg(event.target.files)}} multiple></input>
-            <br></br>
+            {errors.pool?.type === 'required' && <p className="error">Ingrese si el hospedaje a publicar cuenta con pileta</p>}
             
+            <label>Agregue aquí imágenes sobre el hospedaje</label>   
+            <br></br>
+            <formContext.Provider value={{ setValue }}>
+            <UploadWidget />    
+            </formContext.Provider>
+            <br></br>
+            <br></br>
             <button type='submit'>Publicar</button>
         </form>
         </div>
