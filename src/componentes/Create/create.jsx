@@ -99,6 +99,9 @@ export default function NewService (){
         console.log(data)
         dispatch(newHotel(data))
         reset()
+        Object.keys(data).forEach((fieldName) => {
+          setValue(fieldName, null);
+        });
         console.log(data)
     };
     
