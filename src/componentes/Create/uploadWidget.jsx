@@ -25,7 +25,9 @@ const UploadWidget = () =>{
     }, []);
 
     return (
-        <button onClick={() => widgetRef.current.open()}>
+        <button onClick={(event) => {
+            event.preventDefault()
+            widgetRef.current.open()}}>
             Subir imágenes
         </button> //sdadasd
     );
