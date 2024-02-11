@@ -7,14 +7,14 @@ import Select from 'react-select';
 import './create.css'
 import {useDispatch} from 'react-redux';
 import UploadWidget from './uploadWidget'
+import { newHotel } from '../../redux/Actions/actions';
 
 export const formContext = React.createContext()
 
 export default function NewService (){
-    const [images, setImages] = React.useState("")
-    const dispatch = useDispatch()
 
-    
+
+    const dispatch = useDispatch()
 
     const styles = {
         autocomplete: {
@@ -29,10 +29,8 @@ export default function NewService (){
         },
       };
 
-    const {register, formState: { errors }, watch, control, setValue ,handleSubmit} = useForm(); 
+    const {register, formState: { errors }, watch, reset, control, setValue ,handleSubmit} = useForm(); 
 
-
-    const clCloudName = 'ds4blfuip'
 
     const seasons = [
         { value: 'verano', label: 'Verano' },
@@ -99,7 +97,9 @@ export default function NewService (){
 
     const onSubmit = (data) => {
         console.log(data)
-        
+        dispatch(newHotel(data))
+        reset()
+        console.log(data)
     };
     
     const handleKeyPressPr = (event) => {
