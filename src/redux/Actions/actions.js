@@ -16,6 +16,10 @@ import {
     SEARCH_PRODUCTS_REQUEST,
     SEARCH_PRODUCTS_SUCCESS,
     SEARCH_PRODUCTS_FAILURE,
+    CLEAR_SEARCH_RESULTS,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE
 
 } from "../action-types/action-types";
 
@@ -120,4 +124,29 @@ export const newHotel = (hotel) => {
         payload: error.message,
       });
     }
+  };
+
+
+  export const clearSearchResults = () => ({
+    type: CLEAR_SEARCH_RESULTS,
+  });
+
+
+  export const fetchProducts = (filters, page, pageSize) => {
+    return async (dispatch) => {
+      dispatch({ type: FETCH_PRODUCTS_REQUEST });
+      try {
+        const response = await axios.get('http://localhost:3000/products/filter', {
+          params: { ...filters, page: page ||  1, pageSize: pageSize ||  10 },
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        });
+        const { products, totalCount } = response.data;
+        const totalPages = Math.ceil(totalCount / pageSize); // Calcular el número total de páginas
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalPages } });
+      } catch (error) {
+        dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+      }
+    };
   };

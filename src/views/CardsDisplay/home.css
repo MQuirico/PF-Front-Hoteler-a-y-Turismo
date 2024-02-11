@@ -1,25 +1,28 @@
 .homeView {
-  background-color: #1a1a1a; /* Cambio de color de fondo */
+  background-image: url("https://static.vecteezy.com/system/resources/previews/025/871/519/non_2x/travel-destination-background-and-template-design-with-travel-destinations-and-famous-landmarks-and-attractions-for-tourism-let-s-go-travel-illustration-vector.jpg"); 
   padding-top: 50px;
-  min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-size: cover; 
+  background-attachment: fixed; 
+  background-position: right; 
 }
 
 .mainContent {
   width: 80%;
-  margin: 20px -50px auto auto; /* Aumento del margen a la derecha */
+  margin: 20px -50px auto auto; 
   display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en múltiples líneas */
-  justify-content: space-between; /* Distribuye las tarjetas equitativamente */
+  flex-wrap: wrap; 
+  justify-content: space-between;
   margin-top: 90px;
   position: absolute;
 }
 
 footer {
-  margin-top: auto; /* Fuerza al pie de página a la parte inferior */
+  margin-top: auto; 
   padding: 20px 0;
   color: #888;
 }
