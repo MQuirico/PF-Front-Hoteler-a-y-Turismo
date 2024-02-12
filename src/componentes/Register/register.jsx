@@ -4,7 +4,7 @@ import styles from "./register.module.css";
 import { useForm } from "react-hook-form";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
-import { registerUser } from "../../redux/actions/actions";
+import { registerUser } from "../../redux/Actions/actions";
 import {Link} from "react-router-dom"
 
 const Register = () => {
