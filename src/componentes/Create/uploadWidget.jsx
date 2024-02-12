@@ -4,6 +4,7 @@ const images = []
 const UploadWidget = () =>{
     const cloudinaryRef = useRef();
     const widgetRef = useRef();
+    const paragraphRef = useRef();
     const {setValue} = useContext(formContext)
     useEffect(() =>{
         cloudinaryRef.current = window.cloudinary;
@@ -16,6 +17,7 @@ const UploadWidget = () =>{
                 images.push(result.info.secure_url)  
                 console.log('Estas son las url de las imagenes:', images) 
                 setValue('images', images)
+                paragraphRef.current.textContent = `Imágenes subidas: ${images?.length}`;
             } else {
                 console.error("Error al subir la imagen:", error);
             }
@@ -25,11 +27,17 @@ const UploadWidget = () =>{
     }, []);
 
     return (
-        <button onClick={(event) => {
+        <>
+        <button style={{marginLeft: '80px'}} onClick={(event) => {
             event.preventDefault()
             widgetRef.current.open()}}>
             Subir imágenes
-        </button> //sdadasd
+        </button> 
+        <br></br>
+        <br></br>
+
+        <p ref={paragraphRef} style={{marginLeft: '60px', color: 'black'}} >Imágenes subidas: {images?.length}</p>
+        </>//sdadasd
     );
 }
 
