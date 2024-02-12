@@ -204,16 +204,14 @@ export default function NewService (){
             <p style={{ color: "black" }}>Sí</p>
             <input type="radio" className="radioYes" name="pool" value={true} {...register('pool',{ required: true })} />
             </label>
-            </div>
-            <div className="radio-group">
             <label>
             <p style={{ color: "black" }}>No</p>
-            <input type="radio" className="radioNo" name="pool" value={false} />
+            <input type="radio" className="radioNo" name="pool" value={false} {...register('pool',{ required: true })}/>
             </label>
             </div>
             </div>
             <br></br>
-            {errors.pool?.type === 'required' && <p className="error">Ingrese si el hospedaje a publicar cuenta con pileta</p>}
+            {errors.pool?.type === 'required' && <p className="error">Indique si el hospedaje a publicar cuenta con pileta</p>}
             
             <label>Agregue aquí imágenes sobre el hospedaje</label>   
             <br></br>
