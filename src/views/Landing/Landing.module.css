@@ -13,7 +13,7 @@ height: 30vh;
     margin-right: 1px;
     margin-top: 5px;
     border-radius: 8px;
-    border-color:rgba(0, 0, 0, 0.945);
+    border-color:aliceblue;
   }
   .img:hover {
     transform: scale(1.1);
@@ -31,15 +31,15 @@ height: 30vh;
     background-repeat: no-repeat;
     height: 100vh;
     width: 100%;
-     background-image: url(https://wallpaperaccess.com/full/3614911.jpg);
-   }
+background-image: url(https://static.vecteezy.com/system/resources/previews/001/176/927/large_2x/blue-and-white-abstract-background-vector.jpg);
+ }
 .hed {
     text-align: left; 
-    font-family: 'Times New Roman', Times, serif;
+    font-family:Arial, Helvetica, sans-serif;
     margin-left: auto;
     margin-right: auto; /*Esto centra el elemento horizontalmente*/
     font-size: 10px;
-    background-color: rgba(4, 4, 5, 0.507);
+    background-color: rgba(4, 4, 5, 0.027);
     background-size: cover;
     height: 35vh;
     width: 35%;
@@ -50,6 +50,8 @@ height: 30vh;
     flex-direction: column; /*Establece la dirección del flujo como columna*/
     justify-content: center; /* Centra verticalmente */
     align-items: center; /* Centra horizontalmente */
+    border-color: black;
+    margin-top: 10vh;
   }
 
 h1 {color:aliceblue;
@@ -63,12 +65,12 @@ h1 {color:aliceblue;
  
 }
 h2 {
-    color:rgb(29, 252, 129);
+    color:rgb(29, 200, 252);
     margin-right: 50px;
 }
 p {
     margin-right:50px;
-    color: aliceblue;
+    color: rgb(240, 240, 240);
     font-size: 16px;
 }
 .miboton{
@@ -95,5 +97,7 @@ p {
     line-height: 0; 
   }
   .parrafo {
-    background-color: rgb(15, 140, 212);
+    background-color: rgb(10, 9, 82);
+    width: 100%;
+
   }

@@ -11,7 +11,7 @@ const Landing=()=>{
           <button className={style.miboton}>Comenzar</button>    
           <header className={style.hed}>
            <h1>¡Descubre tu escape perfecto!</h1>
-          <h2>Reserva tu cabaña ideal para unas vacaciones inolvidables</h2>
+          <h2>Rreserva tu cabaña ideal para unas vacaciones inolvidables</h2>
           <p>Explora nuestro oasis de paz y tranquilidad en medio de la naturaleza.¡Bienvenido a tu refugio vacacional!</p>
          </header>
 
@@ -19,8 +19,8 @@ const Landing=()=>{
 <p className={style.parrafo}>Además de disfrutar de nuestras cómodas cabañas, puedes explorar la belleza natural de la zona, hacer senderismo en los senderos cercanos, o disfrutar de una cena en los restaurantes locales.</p>
 <footer className={style.foot}>
  <div>
-    <div class="row">
-      <div class="col-md-12">
+    <div >
+      <div >
         <p>Derechos de autor © 2024.  Todos los derechos reservados.    </p>
       </div>
     </div>
