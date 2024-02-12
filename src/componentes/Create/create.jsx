@@ -17,17 +17,19 @@ export default function NewService (){
     const dispatch = useDispatch()
 
     const styles = {
-        autocomplete: {
-          width: '40%',
-          marginBottom: '10px',
-          '& .MuiOutlinedInput-root': {
-            backgroundColor: '#fff', // Color de fondo blanco
-          },
-          '& .MuiOutlinedInput-input': {
-            color: '#000', // Color del texto negro
-          },
+      autocomplete: {
+        width: '40%',
+        marginBottom: '10px',
+        '& .MuiOutlinedInput-root': {
+          backgroundColor: '#fff',
         },
-      };
+        '& .MuiOutlinedInput-input': {
+          color: '#000',
+        },
+        backgroundColor: 'white'
+      },
+      
+    };
 
     const {register, formState: { errors }, watch, reset, control, setValue ,handleSubmit} = useForm(); 
 
@@ -125,7 +127,8 @@ export default function NewService (){
 
 
     return(
-        <div>
+      <div className="viewport">
+        <div className="container">
         <h3>Formulario de alta de servicios de hospedaje:</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label>Indique las estaciones del año idóneas para el alquiler de este servicio de hospedaje:</label>
@@ -169,7 +172,7 @@ export default function NewService (){
                 disablePortal
                 id="combo-box-demo"
                 options={locations}
-                sx={{ width: 40 }}
+                sx={{ width: 20 }}
                 renderInput={(params) => <TextField {...params} label="Localidad" />}
                 onChange={(event, newValue) => {
                 setValue('location', newValue);
@@ -195,10 +198,20 @@ export default function NewService (){
 
             <label>¿Posee piscina?</label>
             
+            <div className="radio-container">
+            <div className="radio-group">
+            <label>
             <p style={{ color: "black" }}>Sí</p>
-            <input type="radio" name="pool" value={true} {...register('pool',{ required: true })}></input>
+            <input type="radio" className="radioYes" name="pool" value={true} {...register('pool',{ required: true })} />
+            </label>
+            </div>
+            <div className="radio-group">
+            <label>
             <p style={{ color: "black" }}>No</p>
-            <input type="radio" name="pool" value={false} ></input>
+            <input type="radio" className="radioNo" name="pool" value={false} />
+            </label>
+            </div>
+            </div>
             <br></br>
             {errors.pool?.type === 'required' && <p className="error">Ingrese si el hospedaje a publicar cuenta con pileta</p>}
             
@@ -211,6 +224,7 @@ export default function NewService (){
             <br></br>
             <button type='submit'>Publicar</button>
         </form>
+        </div>
         </div>
     )
 }
