@@ -39,17 +39,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f5f5f5',
   },
   contactInfo: {
-    backgroundColor: '#626369',
+    backgroundColor: 'rgba(98, 99, 105, 0.7)',
     color: '#ffffff',
     padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    borderRadius: '40px'
+    marginTop: theme.spacing(0),
+    borderRadius: '40px',
+    height: '320px'
   },
   contactItem: {
     marginBottom: theme.spacing(1),
   },
   serviceListContainer: {
-    backgroundColor: '#626369',
+    backgroundColor: 'rgba(98, 99, 105, 0.7)',
     color: '#ffffff',// Gris con transparencia
     padding: theme.spacing(2), // Ajusta según sea necesario
     borderRadius: '40px', // Borde redondeado

@@ -6,6 +6,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Select from 'react-select';
 import './create.css'
 import {useDispatch} from 'react-redux';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import UploadWidget from './uploadWidget'
 import { newHotel } from '../../redux/Actions/actions';
 
@@ -13,6 +17,33 @@ export const formContext = React.createContext()
 
 export default function NewService (){
 
+
+  const [open, setOpen] = React.useState(false);
+
+ 
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
     const dispatch = useDispatch()
 
@@ -35,7 +66,7 @@ export default function NewService (){
 
 
     const seasons = [
-        { value: 'Verano', label: 'Verano' }, //sadsankjsdnfk
+        { value: 'Verano', label: 'Verano' }, //sadsankjsdnf
         { value: 'Invierno', label: 'Invierno' },
         { value: 'Primavera', label: 'Primavera' },
         { value: 'Otoño', label: 'Otoño' }
@@ -105,6 +136,7 @@ export default function NewService (){
           setValue(fieldName, null);
         });
         console.log(data)
+        setOpen(true)
     };
     
     const handleKeyPressPr = (event) => {
@@ -215,14 +247,22 @@ export default function NewService (){
             
             <label>Agregue aquí imágenes sobre el hospedaje</label>   
             <br></br>
+            <br></br>
             <formContext.Provider value={{ setValue }}>
             <UploadWidget />    
             </formContext.Provider>
             <br></br>
             <br></br>
-            <button type='submit'>Publicar</button>
+            <button style={{marginLeft: '300px'}} type='submit'>Publicar</button>
         </form>
         </div>
+        <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="¡El hospedaje ha sido creado exitosamente!"
+        action={action}
+        />
         </div>
     )
 }
