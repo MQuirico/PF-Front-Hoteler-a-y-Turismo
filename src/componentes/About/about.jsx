@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Button, Container, Grid, Typography, Card, CardContent, CardMedia, Divider, List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

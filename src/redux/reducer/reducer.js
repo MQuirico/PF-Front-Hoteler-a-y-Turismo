@@ -27,6 +27,7 @@ const initialState = {
   products: [],
   searchResults: [],
   filteredProducts: [],
+  totalPages:  0,
    
 };
 
@@ -75,13 +76,14 @@ const userDataReducer = (state = initialState, action) => {
           ...state,
           loading: true
         };
-        case FETCH_PRODUCTS_SUCCESS:
-          return {
-            ...state,
-            products: action.payload.products || [], // Asegúrate de que esto es lo que quieres actualizar
-            loading: false,
-            error: null,
-          };
+      case FETCH_PRODUCTS_SUCCESS:
+        return {
+          ...state,
+          products: action.payload.products || [],
+          totalPages: action.payload.totalPages, // Agrega esta línea
+          loading: false,
+          error: null,
+        };
       case FETCH_PRODUCTS_FAILURE:
         return {
           loading: false,

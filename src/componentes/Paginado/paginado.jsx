@@ -2,13 +2,13 @@ import React from 'react';
 import './paginado.css';
 
 const Pagination = ({ currentPage, totalPages, onPageClick, isSearchResult }) => {
-  const pagesToShow = 5; 
+  const pagesToShow = 5; // Número de páginas a mostrar en el paginador
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
-  
+  // Calcula las páginas a mostrar en el paginador actual
   let startPage, endPage;
   if (totalPages <= pagesToShow) {
-  
+    // Si hay menos páginas totales que las páginas a mostrar, mostrar todas las páginas
     startPage = 1;
     endPage = totalPages;
   } else {
@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, onPageClick, isSearchResult }) =>
     const halfPagesToShow = Math.floor(pagesToShow / 2);
     startPage = Math.max(1, currentPage - halfPagesToShow);
     endPage = startPage + pagesToShow - 1;
-    
+    // Si las páginas calculadas sobrepasan el límite, ajusta startPage y endPage
     if (endPage > totalPages) {
       endPage = totalPages;
       startPage = Math.max(1, endPage - pagesToShow + 1);

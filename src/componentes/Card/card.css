@@ -1,6 +1,6 @@
 .card {
-  width: 442px;
-  height: 208px;
+  width: 500px;
+  height: 250px;
   border-radius: 15.6px;
   margin: 6.4px;
   overflow: hidden;
@@ -9,6 +9,12 @@
   display: flex;
   flex-direction: row;
   position: relative;
+  transition: transform 0.3s; /* Agregar transición para suavizar el efecto */
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(202, 200, 47, 0.64);
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño en un 5% */
 }
 
 .card svg {
@@ -39,15 +45,7 @@
   justify-content: space-evenly;
 }
 
-.card-img-top {
-  width: 200px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 13.6px;
-  border: 1px solid black;
-  position: absolute;
-  margin-left: -10px;
-}
+
 
 .card-body {
   display: flex;
@@ -58,20 +56,21 @@
 }
 
 .card-title {
-  font-size: auto;
+  font-size: 25px;
   margin-bottom: 0.34em;
   color: #fff;
-  margin-top: -150px;
-  margin-left: 210px;
+  margin-top: -180px;
+  margin-left: 220px;
   border-bottom: 2px solid black ;
   position: absolute;
 }
 
 .card-text {
   margin-bottom: 0.34em;
-  font-size: 14px;
+  font-size: 16px;
   color: #bbb;
-  margin-right: -5px;
+  margin-right: -10px;
   margin-top: 10px;
+ 
 }
 

@@ -25,7 +25,7 @@ const Cards = ({ products, searchTerm }) => {
               location={product.location}
               season={product.season}
               pricePerNight={product.pricePerNight}
-              image={product.image}
+              image={product.images && product.images.length > 0 ? product.images[0] : null}
             />
           </div>
         ))

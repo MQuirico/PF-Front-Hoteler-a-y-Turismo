@@ -13,12 +13,9 @@
 
 .mainContent {
   width: 80%;
-  margin: 20px -50px auto auto; 
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between;
-  margin-top: 90px;
-  position: absolute;
+  margin: 20px auto;
+  padding-top: 20px; /* Mover el contenido hacia abajo para dejar espacio para los controles */
+  position: relative; /* Cambiar a posición relativa para permitir que los controles se posicionen de manera relativa */
 }
 
 footer {
@@ -32,7 +29,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 35px; /* Añade margen negativo para compensar el margen en las tarjetas */
+  margin: 200px; /* Añade margen negativo para compensar el margen en las tarjetas */
   
 }
 
@@ -46,21 +43,28 @@ footer {
 }
 
 .search {
-  margin-left: 1200px;
-  margin-top: -120px;
-  position: absolute;
+  left: 20px;
+  top: 20px;
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
+}
+
+.fileter {
+  right: 20px;
+  top: 20px;
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
 }
 
 .paginado {
-  align-items: center;
-  margin-left: auto;
-  margin-bottom: 40px;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%); /* Centrar horizontalmente el paginado */
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
 }
 
-
-.fileter {
-  margin-left: 50px;
-  margin-top: -100px;
-  position: absolute;
-  
+.cardcontainer {
+  flex: 0 0 calc(50% - 20px); /* Ajusta el ancho de cada tarjeta al 50% del contenedor padre */
+  margin-bottom: -10px; /* Agrega un margen inferior para separar las tarjetas */
 }
