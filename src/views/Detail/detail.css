@@ -1,5 +1,7 @@
 .detailContainer {
-  background-color: #020202;
+  background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg');
+  background-size: cover;
+  background-position: center;
   padding: 20px;
   height: 100vh;
   display: flex;
@@ -42,10 +44,13 @@
 .infoContainer h4 {
   font-family: 'Arial', sans-serif;
   margin-bottom: 10px;
+  transition: text-shadow 0.3s ease;
 }
 
 .infoContainer h4:hover {
+  text-shadow: 0 0 5px #9ea5f3;
   transform: scale(1.05);
+  box-shadow:  0 4px 8px rgba(0, 0, 0, 0)
 }
 
 /* Media queries para hacer el diseño responsive */
