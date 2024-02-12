@@ -12,7 +12,9 @@ const Pagination = ({ currentPage, totalPages, onPageClick, isSearchResult }) =>
     startPage = 1;
     endPage = totalPages;
   } else {
+
     // Calcula las páginas de inicio y fin para que la página actual esté centrada
+    
     const halfPagesToShow = Math.floor(pagesToShow / 2);
     startPage = Math.max(1, currentPage - halfPagesToShow);
     endPage = startPage + pagesToShow - 1;
