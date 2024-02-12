@@ -1,37 +1,48 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { searchByName } from "../../redux/Actions/actions";
+import React, { useState, useEffect } from "react";
+import "./searchBar.css";
 
-
-// eslint-disable-next-line react/prop-types
-const SearchBar = ({returnToFirstPage}) => {
-  const dispatch = useDispatch()
-
-  const [name, setName] = useState("");
+const SearchBar = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState(null);
 
   const handleChange = (event) => {
-    const value = event.target.value;
-    event.preventDefault();
-    setName(value);
+    const searchTerm = event.target.value;
+    setSearchTerm(searchTerm);
 
-    if(value){
-      dispatch(searchByName(value)).then(() => {
-        returnToFirstPage();
-      })} else{
-        dispatch(getEvents())
-      }
+    // Limpiar el timeout previo
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    // tiempo de espera para empezar la busqueda
+    const newTimeout = setTimeout(() => {
+      onSearch(searchTerm.trim()); 
+    }, 500); 
+    setTypingTimeout(newTimeout);
   };
 
+  useEffect(() => {
+    return () => {
+      // Limpiar el timeout 
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+    };
+  }, [typingTimeout]);
+
   return (
-    <div className="mt-6 w-4/6 md:w-2/5 max-w-lg mx-auto h-14 flex justify-evenly items-center rounded-full p-6 border border-secondaryColor shadow-xl transition duration-300 focus-within:shadow-none">
+    <form className="searchBar" onSubmit={(event) => event.preventDefault()}>
       <input
-        className="w-full bg-transparent m-4 placeholder-DarkTextPurple/50 border border-none outline-none"
+        className="searchInput"
         type="text"
         placeholder="Search..."
-        value={name}
-        onChange={(event) => handleChange(event)}
+        value={searchTerm}
+        onChange={handleChange}
       />
-    </div>
+      <button className="searchButton" type="submit">
+        Search
+      </button>
+    </form>
   );
 };
 

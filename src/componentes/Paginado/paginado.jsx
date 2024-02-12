@@ -1,17 +1,29 @@
 import React from 'react';
-import  "./paginado.css"
+import './paginado.css';
 
-const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageClick, isSearchResult }) => {
+const Pagination = ({ currentPage, totalPages, onPageClick, isSearchResult }) => {
+  const pagesToShow = 5; 
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
-  const pageRange = 10; // Número de páginas a mostrar a la vez
-  const pageNumb = Array.from({ length: totalPages }, (_, index) => index + 1);
+  
+  let startPage, endPage;
+  if (totalPages <= pagesToShow) {
+  
+    startPage = 1;
+    endPage = totalPages;
+  } else {
 
-  // Calcula las páginas a mostrar en la paginación actual
-  const startPage = Math.max(1, currentPage - Math.floor(pageRange / 2));
-  const endPage = Math.min(totalPages, startPage + pageRange - 1);
-
-  // Filtra las páginas a mostrar
-  const visiblePages = pageNumb.slice(startPage - 1, endPage);
+    // Calcula las páginas de inicio y fin para que la página actual esté centrada
+    
+    const halfPagesToShow = Math.floor(pagesToShow / 2);
+    startPage = Math.max(1, currentPage - halfPagesToShow);
+    endPage = startPage + pagesToShow - 1;
+    
+    if (endPage > totalPages) {
+      endPage = totalPages;
+      startPage = Math.max(1, endPage - pagesToShow + 1);
+    }
+  }
 
   const isSingleResult = totalPages === 1 && currentPage === 1 && isSearchResult;
 
@@ -28,47 +40,36 @@ const Pagination = ({ currentPage, totalPages, onNextPage, onPrevPage, onPageCli
           </button>
         )}
         {!isSingleResult && currentPage !== 1 && !isSearchResult && (
-          <button className="stepButton"onClick={onPrevPage} disabled={currentPage === 1}>
+          <button className="stepButton" onClick={() => onPageClick(currentPage - 1)} disabled={currentPage === 1}>
             Prev
           </button>
         )}
       </div>
 
       <div>
-        {isSearchResult ? (
+        {Array.from({ length: endPage - startPage + 1 }, (_, index) => index + startPage).map(page => (
           <button
-            key={1}
-            onClick={() => onPageClick(1)}
-            className="pageButton"
-            disabled={currentPage === 1}
+            key={page}
+            onClick={() => onPageClick(page)}
+            className={`${"pageButton"} ${page === currentPage ? "active" : ''}`}
+            disabled={currentPage === page}
           >
-            1
+            {page}
           </button>
-        ) : (
-          visiblePages.map((page) => (
-            <button
-              key={page}
-              onClick={() => onPageClick(page)}
-              className={`${"pageButton"} ${page === currentPage ? "active" : ''}`}
-              disabled={currentPage === page}
-            >
-              {page}
-            </button>
-          ))
-        )}
+        ))}
       </div>
 
       <div className="btns">
         {!isSingleResult && currentPage !== totalPages && !isSearchResult && (
-          <button className="stepButton" onClick={onNextPage} disabled={currentPage === totalPages}>
+          <button className="stepButton" onClick={() => onPageClick(currentPage + 1)} disabled={currentPage === totalPages}>
             Next
           </button>
         )}
         {!isSingleResult && (
           <button
-            onClick={() => onPageClick(25)}
+            onClick={() => onPageClick(totalPages)}
             className="sideButton"
-            disabled={currentPage === 25}
+            disabled={currentPage === totalPages}
           >
             ≫
           </button>

@@ -16,8 +16,10 @@ import {
     SEARCH_PRODUCTS_REQUEST,
     SEARCH_PRODUCTS_SUCCESS,
     SEARCH_PRODUCTS_FAILURE,
-    FETCH_PRODUCT_DETAIL_SUCCESS,
-    FETCH_PRODUCT_DETAIL_FAILURE,
+    CLEAR_SEARCH_RESULTS,
+    FETCH_PRODUCTS_REQUEST,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE
 
 } from "../action-types/action-types";
 
@@ -67,24 +69,23 @@ export const searchByName = (name) => {
 };
 
 export const newHotel = (hotel) => {
-  return (dispatch) => {
-    dispatch({ type: NEW_HOTEL_REQUEST });
-    axios.post('http://localhost:3000/products/create', hotel)
-      .then(response => {
-        dispatch({
-          type: NEW_HOTEL_SUCCESS,
-          payload: response.data // Puedes ajustar según la estructura de datos recibida
+    return (dispatch) => {
+      dispatch({ type: NEW_HOTEL_REQUEST });
+      axios.post('http://localhost:3000/products/create', hotel)
+        .then(response => {
+          dispatch({
+            type: NEW_HOTEL_SUCCESS,
+            payload: response.data // Puedes ajustar según la estructura de datos recibida
+          });
+        })
+        .catch(error => {
+          dispatch({
+            type: NEW_HOTEL_FAILURE,
+            payload: error.message // Puedes ajustar según la estructura de error que recibas
+          });
         });
-      })
-      .catch(error => {
-
-        dispatch({
-          type: NEW_HOTEL_FAILURE,
-          payload: error.message // Puedes ajustar según la estructura de error que recibas
-        });
-      });
+    };
   };
-};
 
   export const getAllProducts = () => {
     return async (dispatch) => {
@@ -125,18 +126,27 @@ export const newHotel = (hotel) => {
     }
   };
 
-  export const fetchProductDetail = (id) => async (dispatch) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/products/detail/${id}`
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+
+  export const clearSearchResults = () => ({
+    type: CLEAR_SEARCH_RESULTS,
+  });
+
+
+  export const fetchProducts = (filters, page, pageSize) => {
+    return async (dispatch) => {
+      dispatch({ type: FETCH_PRODUCTS_REQUEST });
+      try {
+        const response = await axios.get('http://localhost:3000/products/filter', {
+          params: { ...filters, page: page ||  1, pageSize: pageSize ||  10 },
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        });
+        const { products, totalCount } = response.data;
+        const totalPages = Math.ceil(totalCount / pageSize); // Calcular el número total de páginas
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalPages } });
+      } catch (error) {
+        dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
       }
-      const data = await response.json();
-      dispatch({ type: FETCH_PRODUCT_DETAIL_SUCCESS, payload: data });
-    } catch (error) {
-      console.error("Error fetching product detail:", error);
-      dispatch({ type: FETCH_PRODUCT_DETAIL_FAILURE });
-    }
+    };
   };

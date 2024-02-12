@@ -11,9 +11,10 @@ import {
   SEARCH_PRODUCTS_REQUEST,
   SEARCH_PRODUCTS_SUCCESS,
   SEARCH_PRODUCTS_FAILURE,
-  FETCH_PRODUCT_DETAIL_SUCCESS,
-  FETCH_PRODUCT_DETAIL_FAILURE,
-  
+  CLEAR_SEARCH_RESULTS,
+  FETCH_PRODUCTS_REQUEST,
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAILURE
 } from "../action-types/action-types";
 
 const initialState = {
@@ -24,8 +25,10 @@ const initialState = {
   noEvents: "",
   searchName: [],
   products: [],
+  searchResults: [],
+  filteredProducts: [],
+   
 };
-
 
 const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -40,74 +43,72 @@ const userDataReducer = (state = initialState, action) => {
         userDataSession: null,
       };
 
-      case CREATE_USER_REQUEST:
+    case CREATE_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case CREATE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        newUser: action.payload,
+        error: null,
+      };
+    case CREATE_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case GET_ALL_PRODUCTS_REQUEST:
+      return { ...state, loading: true, error: null };
+    case GET_ALL_PRODUCTS_SUCCESS:
+      return { ...state, products: action.payload, loading: false, error: null };
+    case GET_ALL_PRODUCTS_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+      case FETCH_PRODUCTS_REQUEST:
+        return {
+          ...state,
+          loading: true
+        };
+        case FETCH_PRODUCTS_SUCCESS:
+          return {
+            ...state,
+            products: action.payload.products || [], // Asegúrate de que esto es lo que quieres actualizar
+            loading: false,
+            error: null,
+          };
+      case FETCH_PRODUCTS_FAILURE:
+        return {
+          loading: false,
+          products: [],
+          error: action.payload
+        };
+  
+      case SEARCH_PRODUCTS_REQUEST:
         return {
           ...state,
           loading: true,
           error: null,
         };
-      case CREATE_USER_SUCCESS:
+      case SEARCH_PRODUCTS_SUCCESS:
         return {
           ...state,
+          searchResults: action.payload,  
           loading: false,
-          newUser: action.payload,
           error: null,
         };
-      case CREATE_USER_FAILURE:
+      case SEARCH_PRODUCTS_FAILURE:
         return {
           ...state,
           loading: false,
           error: action.payload,
         };
-
-
-        case GET_ALL_PRODUCTS_REQUEST:
-          return { ...state, loading: true, error: null };
-        case GET_ALL_PRODUCTS_SUCCESS:
-          return { ...state, products: action.payload, loading: false, error: null };
-        case GET_ALL_PRODUCTS_FAILURE:
-          return { ...state, loading: false, error: action.payload };
-
-          case SEARCH_PRODUCTS_REQUEST:
-            return {
-              ...state,
-              loading: true,
-              error: null,
-            };
-            case SEARCH_PRODUCTS_SUCCESS:
-              return {
-                ...state,
-                products: [...state.products, ...action.payload], 
-                loading: false,
-                error: null,
-              };
-          case SEARCH_PRODUCTS_FAILURE:
-            return {
-              ...state,
-              loading: false,
-              error: action.payload,
-            };
-
-          case FETCH_PRODUCT_DETAIL_SUCCESS:
-            console.log("Detalle del producto:", action.payload);
-            return {
-              ...state,
-              product: {
-                ...state.products,
-                detail: action.payload,
-              },
-              error: null,
-            };
-
-          case FETCH_PRODUCT_DETAIL_FAILURE:
-            return {
-              ...state,
-              product: {
-                ...state.products,
-                detail: null,
-              },
-              error: action.payload,
-            };
+        
 
     default:
       return state;
