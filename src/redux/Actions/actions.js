@@ -137,14 +137,13 @@ export const newHotel = (hotel) => {
       dispatch({ type: FETCH_PRODUCTS_REQUEST });
       try {
         const response = await axios.get('http://localhost:3000/products/filter', {
-          params: { ...filters, page: page ||  1, pageSize: pageSize ||  10 },
+          params: { ...filters, page: page ||  1, pageSize: pageSize ||  6 },
           headers: {
             'Cache-Control': 'no-cache'
           }
         });
-        const { products, totalCount } = response.data;
-        const totalPages = Math.ceil(totalCount / pageSize); // Calcular el número total de páginas
-        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalPages } });
+        const { products, totalCount, totalPages } = response.data;
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalCount, totalPages } });
       } catch (error) {
         dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
       }

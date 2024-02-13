@@ -153,9 +153,10 @@ export default function NewService (){
        
     const selectedSeasons = watch('season', []);
 
-    const handleSeasonChange = (selectedOptions) => {
-        setValue('season', selectedOptions); // Actualizamos el valor del campo 'season'
-      };
+    const handleSeasonChange = (selectedOption) => {
+      // Establecer el valor de la temporada como una cadena simple
+      setValue('season', selectedOption.value);
+    };
 
 
     return(
@@ -166,12 +167,11 @@ export default function NewService (){
             <label>Indique las estaciones del año idóneas para el alquiler de este servicio de hospedaje:</label>
             <br></br>
             <Select
-            isMulti
             options={seasons}
             {...register('season', { required: true })}
             value={selectedSeasons}
             onChange={handleSeasonChange}
-            placeholder="Selecciona las estaciones"
+            placeholder="Selecciona la temporada"
             styles={{
         option: (provided, state) => ({
             ...provided,
