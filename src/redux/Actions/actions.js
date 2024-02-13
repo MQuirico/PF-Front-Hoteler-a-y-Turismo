@@ -40,7 +40,7 @@ export const setUserData = (userData) => {
     dispatch({ type: CREATE_USER_REQUEST });
     try {
       const response = await axios.post(
-        "http://localhost:3000/users/create",
+        "https://back-hostel.onrender.com/users/create",
         datauser
       );
       dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
@@ -71,7 +71,7 @@ export const searchByName = (name) => {
 export const newHotel = (hotel) => {
     return (dispatch) => {
       dispatch({ type: NEW_HOTEL_REQUEST });
-      axios.post('http://localhost:3000/products/create', hotel)
+      axios.post('https://back-hostel.onrender.com/products/create', hotel)
         .then(response => {
           dispatch({
             type: NEW_HOTEL_SUCCESS,
@@ -92,7 +92,7 @@ export const newHotel = (hotel) => {
       try {
         dispatch({ type: GET_ALL_PRODUCTS_REQUEST }); 
         console.log("Fetching products...");
-        const response = await axios.get('http://localhost:3000/products/'); 
+        const response = await axios.get('https://back-hostel.onrender.com/products/'); 
         const products = response.data;
         console.log("Products received:", products);
         dispatch({ type: GET_ALL_PRODUCTS_SUCCESS, payload: products });
@@ -107,7 +107,7 @@ export const newHotel = (hotel) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
   
     try {
-      const response = await fetch(`http://localhost:3000/products/search/${name}`);
+      const response = await fetch(`https://back-hostel.onrender.com/products/search/${name}`);
       const data = await response.json();
   
       if (response.ok) {
@@ -136,7 +136,7 @@ export const newHotel = (hotel) => {
     return async (dispatch) => {
       dispatch({ type: FETCH_PRODUCTS_REQUEST });
       try {
-        const response = await axios.get('http://localhost:3000/products/filter', {
+        const response = await axios.get('https://back-hostel.onrender.com/products/filter', {
           params: { ...filters, page: page ||  1, pageSize: pageSize ||  6 },
           headers: {
             'Cache-Control': 'no-cache'

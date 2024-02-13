@@ -12,7 +12,7 @@ function Detail() {
   const [products, setProducts] = useState({}); // Estado local -> products
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/products/detail/${id}`)
+    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
