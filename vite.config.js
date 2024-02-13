@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['@material-ui/icons/Facebook']
+      external: ['@material-ui/icons/Facebook',
+      '@material-ui/icons/Instagram']
     }
   }
 })
