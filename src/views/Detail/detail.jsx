@@ -24,14 +24,18 @@ function Detail() {
       .catch((error) => {
         throw new Error(error.message);
       });
-
-    return setProducts({}); // se limpia el estado cuando se desmonta el componente.
-
   }, [id]);
+
+  useEffect(() => {
+    console.log("Products:", products);
+  }, [products]);
+
 
   const renderImage = () => {
     if (products.images && products.images.length > 0) {
-      return  <img src={image}   />
+      const imageUrl = products.images[currentImageIndex];
+      console.log("Image URL:", imageUrl);
+      return <img src={imageUrl} alt="Product" />;
     } else {
       return <p>No image available</p>;
     }
@@ -68,7 +72,7 @@ function Detail() {
   return (
     <div className="detailContainer">
       <div className="productDetail">
-        <h2 classNae="title">Discover a little more about {products.name}</h2>
+      <h2 className="title">Discover a little more about {products.name}</h2>
           {renderImage()}
           {products.images && products.images.length > 1 && (
             <div className="imageNavigation">
