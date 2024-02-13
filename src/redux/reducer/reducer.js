@@ -14,7 +14,13 @@ import {
   CLEAR_SEARCH_RESULTS,
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
-  FETCH_PRODUCTS_FAILURE
+  FETCH_PRODUCTS_FAILURE,
+  UPDATE_USER_PROFILE_REQUEST,
+  UPDATE_USER_PROFILE_SUCCESS,
+  UPDATE_USER_PROFILE_FAILURE,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAILURE,
 } from "../action-types/action-types";
 
 const initialState = {
@@ -27,7 +33,10 @@ const initialState = {
   products: [],
   searchResults: [],
   filteredProducts: [],
-  totalPages:  0
+  totalPages:  0,
+  updateUserError: null,
+  passwordAndEmailUpdating: false,
+  passwordAndEmailUpdateError: null,
    
 };
 
@@ -110,7 +119,43 @@ const userDataReducer = (state = initialState, action) => {
           loading: false,
           error: action.payload,
         };
-        
+        case UPDATE_USER_PROFILE_REQUEST:
+          return {
+            ...state,
+            loading: true,
+            error: null,
+          };
+        case UPDATE_USER_PROFILE_SUCCESS:
+          return {
+            ...state,
+            loading: false,
+            data: action.payload,
+          };
+        case UPDATE_USER_PROFILE_FAILURE:
+          return {
+            ...state,
+            loading: false,
+            error: action.payload,
+          };
+          case UPDATE_PASSWORD_REQUEST:
+            return {
+              ...state,
+              passwordAndEmailUpdating: true,
+              passwordAndEmailUpdateError: null,
+            };
+      
+          case UPDATE_PASSWORD_SUCCESS:
+            return {
+              ...state,
+              passwordAndEmailUpdating: false,
+            };
+      
+          case UPDATE_PASSWORD_FAILURE:
+            return {
+              ...state,
+              passwordAndEmailUpdating: false,
+              passwordAndEmailUpdateError: action.payload,
+            };
 
     default:
       return state;

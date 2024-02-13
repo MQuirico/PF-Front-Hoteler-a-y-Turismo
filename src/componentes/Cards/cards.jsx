@@ -6,7 +6,17 @@ const Cards = ({ products }) => {
   return (
     <div className={style.cardscontainer}>
       {Array.isArray(products) && products.length ===   0 ? (
-        <p>No hay productos disponibles</p>
+           <p style={{
+            backgroundColor: '#f8d7da', 
+            color: '#721c24',
+            padding: '10px', 
+            border: '1px solid #f5c6cb', 
+            borderRadius: '4px',
+            marginBottom: '10px', 
+            display: 'inline-block' 
+          }}>
+            No hay ofertas disponibles.
+          </p>
       ) : (
         products.map((product) => (
           <div key={product.id} className={style.cardcontainer}>
