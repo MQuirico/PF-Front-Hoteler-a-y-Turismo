@@ -59,6 +59,7 @@ export default function NavBar(props) {
           <Nav.Link as={Link} to="/about" style={{ marginLeft: "20px" }}>¿Quiénes somos?</Nav.Link>
           <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link>
           {auth && auth.token && auth.token.id ? (
+            
             <>
               <NavDropdown title={<img src={auth.token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "32px", width: "32px", marginLeft: "-10px", marginRight: "5px" }} alt="User Avatar" />} id="basic-nav-dropdown">
                 {auth.token.rol === "buyer" && (
