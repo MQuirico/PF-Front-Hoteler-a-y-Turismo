@@ -52,7 +52,7 @@ function Home() {
 
   const onPageChange = (page) => {
     setCurrentPage(page);
-    // Aquí deberíamos estar utilizando la acción fetchProducts para obtener los productos de la página actual
+  
     dispatch(fetchProducts({}, page, cardsPerPage));
   };
 
@@ -66,7 +66,17 @@ function Home() {
           <SearchBar onSearch={handleSearch} />
         </div>
         {error ? (
-          <p>No se encontraron resultados.</p>
+          <p style={{
+            backgroundColor: '#f8d7da', 
+            color: '#721c24',
+            padding: '10px', 
+            border: '1px solid #f5c6cb', 
+            borderRadius: '4px',
+            marginBottom: '10px', 
+            display: 'inline-block' 
+          }}>
+            No se encontraron resultados.
+          </p>
         ) : (
           <div className="cardsRows">
             <Cards products={searchTerm.trim() !== "" ? searchResults : products} />

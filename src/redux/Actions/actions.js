@@ -19,7 +19,13 @@ import {
     CLEAR_SEARCH_RESULTS,
     FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE
+    FETCH_PRODUCTS_FAILURE,
+    UPDATE_USER_PROFILE_REQUEST,
+    UPDATE_USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_FAILURE,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_FAILURE,
 
 } from "../action-types/action-types";
 
@@ -150,4 +156,88 @@ export const newHotel = (hotel) => {
     };
   };
 
-  //dsaddsad
+  
+
+  export const updateUserProfileRequest = () => ({
+    type: UPDATE_USER_PROFILE_REQUEST,
+  });
+  
+  export const updateUserProfileSuccess = (data) => ({
+    type: UPDATE_USER_PROFILE_SUCCESS,
+    payload: data,
+  });
+  
+  export const updateUserProfileFailure = (error) => ({
+    type: UPDATE_USER_PROFILE_FAILURE,
+    payload: error,
+  });
+  
+  // Acción para modificar cualquier dato del perfil de usuario
+  export const updateUserProfileData =
+    (idKey, updatedFields) => async (dispatch) => {
+      dispatch(updateUserProfileRequest());
+  
+      try {
+        const response = await axios.put(
+          `https://back-hostel.onrender.com/users/perfil/${idKey}`,
+          updatedFields
+        );
+  
+        dispatch(updateUserProfileSuccess(response.data));
+      } catch (error) {
+        console.error("Error al actualizar datos de usuario:", error);
+        dispatch(
+          updateUserProfileFailure(error.response?.data || "Error en el servidor")
+        );
+      }
+    };
+
+
+
+ 
+    
+    export const updatePasswordRequest = () => ({
+      type: UPDATE_PASSWORD_REQUEST,
+    });
+    
+    export const updatePasswordSuccess = () => ({
+      type: UPDATE_PASSWORD_SUCCESS,
+    });
+    
+    export const updatePasswordFailure = (error) => ({
+      type: UPDATE_PASSWORD_FAILURE,
+      payload: error,
+    });
+    
+    //action para el pasww
+    export const updatePassword = (id, currentPassword, newPassword) => {
+      return async (dispatch) => {
+        dispatch(updatePasswordRequest());
+    
+        try {
+          const response = await fetch(
+            `https://back-hostel.onrender.com/users/perfil/updatepassword/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                currentPassword,
+                newPassword,
+              }),
+            }
+          );
+    
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error (${response.status}): ${errorData.message}`);
+          }
+    
+          dispatch(updatePasswordSuccess());
+        } catch (error) {
+          dispatch(updatePasswordFailure(error.message));
+        }
+      };
+    };
+  
