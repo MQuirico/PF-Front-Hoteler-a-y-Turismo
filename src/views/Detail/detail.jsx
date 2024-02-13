@@ -31,7 +31,7 @@ function Detail() {
 
   const renderImage = () => {
     if (products.images && products.images.length > 0) {
-      return <img className="img" src={products.images[currentImageIndex]} alt={products.name} />;
+      return  <img src={image}   />
     } else {
       return <p>No image available</p>;
     }
@@ -68,7 +68,7 @@ function Detail() {
   return (
     <div className="detailContainer">
       <div className="productDetail">
-        <h2 className="title">Discover a little more about {products.name}</h2>
+        <h2 classNae="title">Discover a little more about {products.name}</h2>
           {renderImage()}
           {products.images && products.images.length > 1 && (
             <div className="imageNavigation">
