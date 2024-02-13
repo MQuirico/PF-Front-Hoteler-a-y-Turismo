@@ -11,23 +11,23 @@ function Home() {
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.searchResults);
   const products = useSelector((state) => state.products);
+  const totalPages = useSelector((state) => state.totalPages);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showAllCards, setShowAllCards] = useState(true);
-
-  const cardsPerPage = 6;
+  const cardsPerPage = 6; // Número de tarjetas por página
 
   useEffect(() => {
     setCurrentPage(1);
   }, [searchResults]);
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    dispatch(fetchProducts({}, currentPage, cardsPerPage));
+  }, [dispatch, currentPage, cardsPerPage]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm.trim());
+    setCurrentPage(1); // Reiniciar la página a 1 cuando se realiza una búsqueda
     if (searchTerm.trim() !== "") {
       dispatch(searchProducts(searchTerm.trim()))
         .then((response) => {
@@ -42,7 +42,7 @@ function Home() {
         });
     } else {
       setError(false);
-      dispatch(fetchProducts());
+      dispatch(fetchProducts({}, 1, cardsPerPage)); // Asegurarse de que se obtengan los productos de la primera página al limpiar la búsqueda
     }
   };
 
@@ -50,46 +50,32 @@ function Home() {
     setError(searchResults.length === 0 && searchTerm.trim() !== "");
   }, [searchResults, searchTerm]);
 
-  const totalCards = showAllCards ? products.length : searchResults.length;
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
-
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-
-  const currentCards = searchTerm.trim() !== "" ? searchResults : products.slice(indexOfFirstCard, indexOfLastCard);
-
   const onPageChange = (page) => {
     setCurrentPage(page);
+    // Aquí deberíamos estar utilizando la acción fetchProducts para obtener los productos de la página actual
+    dispatch(fetchProducts({}, page, cardsPerPage));
   };
 
   return (
     <div className="homeView">
       <section className="mainContent">
-
-        <div className="fileter">
-        <Filter />
+        <div className="filter">
+          <Filter />
         </div>
-        
         <div className="search">
-        <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} />
         </div>
-
         {error ? (
-        <p>No se encontraron resultados.</p>
-      ) : (
-        <div className="cardsRows">
-          {currentCards.map((card, index) => (
-            <Cards key={index} products={[card]} />
-          ))}
-        </div>
-      )}
+          <p>No se encontraron resultados.</p>
+        ) : (
+          <div className="cardsRows">
+            <Cards products={searchTerm.trim() !== "" ? searchResults : products} />
+          </div>
+        )}
         <div className="paginado">
-
-        <Paginado currentPage={currentPage} onPageClick={onPageChange} totalPages={totalPages} />
-
+          <Paginado currentPage={currentPage} onPageClick={onPageChange} totalPages={totalPages} />
         </div>
       </section>
-
       <footer>
         <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
       </footer>

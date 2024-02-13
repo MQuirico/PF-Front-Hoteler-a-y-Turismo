@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { IoPersonSharp } from "react-icons/io5";
 import HomeIcon from '@mui/icons-material/Home';
+import logo from '../../assets/hp2.jpg'
 import { FaShopify } from "react-icons/fa";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -50,16 +51,17 @@ export default function NavBar(props) {
   return (
     <Navbar bg="light" expand="lg" fixed="top">
     <Link to="/home">
-    <HomeIcon style={{ marginLeft: "20px" }}/>
+    <img src={logo} style={{ marginLeft: "20px", height: '60px', width: '160px' }}/>
     </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginLeft: "-100px" }} />
       <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: "flex-end" }}>
         <Nav style={{ marginRight: "100px" }}>
+          {auth && <p style={{color: 'black', fontWeight: 'bold', marginTop: '8px' }} >¡Bienvenido, {auth?.token?.name} {auth?.token?.surName}!</p>}
           <Nav.Link as={Link} to="/search" style={{ marginLeft: "-20px" }}>Explora destinos</Nav.Link>
           <Nav.Link as={Link} to="/about" style={{ marginLeft: "20px" }}>¿Quiénes somos?</Nav.Link>
-          <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link>
-          {auth && auth.token && auth.token.id ? (
-            
+          {/* <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link> */}
+         { console.log(auth)}
+          {auth && auth.token ? (
             <>
               <NavDropdown title={<img src={auth.token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "32px", width: "32px", marginLeft: "-10px", marginRight: "5px" }} alt="User Avatar" />} id="basic-nav-dropdown">
                 {auth.token.rol === "buyer" && (

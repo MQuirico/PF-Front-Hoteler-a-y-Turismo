@@ -8,6 +8,7 @@ function Detail() {
   const { id } = useParams();
   console.log(id);
 
+//dsddsad
   const [products, setProducts] = useState({}); // Estado local -> products
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Button, Container, Grid, Typography, Card, CardContent, CardMedia, Divider, List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
 import './About.css'
 
 
@@ -127,11 +125,9 @@ const About = () => {
                   </ListItem>
                   <ListItem className={classes.contactItem}>
                     <ListItemText primary="Facebook: @cabañascbv" />
-                    <FacebookIcon />
                   </ListItem>
                   <ListItem className={classes.contactItem}>
                     <ListItemText primary="Instagram: @cabañassvd" />
-                    <InstagramIcon />
                   </ListItem>
                 </List>
                 <Divider />

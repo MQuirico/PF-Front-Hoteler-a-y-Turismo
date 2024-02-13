@@ -6,8 +6,8 @@
   }
   
   .searchInput {
-    min-width: 300px; 
-    max-width: 300px; 
+    min-width: 400px; 
+    max-width: 400px; 
     padding: 8px; 
     border: 1px solid #ccc; 
     border-radius: 5px;
@@ -20,7 +20,7 @@
   
   .searchButton {
     padding: 8px 16px;
-    background-color: #000000; 
+    background-color: #a19999; 
     color: #fff; 
     border: none; 
     border-radius: 5px; 
