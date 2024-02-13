@@ -4,4 +4,11 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      external: ['@material-ui/icons/Facebook',
+      '@material-ui/icons/Instagram']
+    }
+  }
 })
+
