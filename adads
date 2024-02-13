@@ -1,0 +1,661 @@
+[33mcommit 4f0c25c0e51c8915f0b9b11bcacd2e0b7754381e[m[33m ([m[1;36mHEAD -> [m[1;32mAndrés[m[33m, [m[1;31morigin/Andrés[m[33m)[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 13 00:31:05 2024 -0300
+
+    dsa
+
+[33mcommit 2ff10b76e642bf0c3e2b04f1df24f7b4e327e6b0[m
+Merge: b7c1177 c8b3821
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 13 00:28:57 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Andrés
+
+[33mcommit b7c11779598608ac7a485c742c10cf53a5048b69[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 13 00:23:20 2024 -0300
+
+    ultimos home
+
+[33mcommit c8b38215cef4c52cf506f8227cbcab7d8097cfb3[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 22:31:17 2024 -0300
+
+    iconos arreglado
+
+[33mcommit f55b6ddd28f591372256f38346a68c6f56bab70b[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 21:43:09 2024 -0300
+
+    filter
+
+[33mcommit b54807c01658d1c9a79769378eb81037035b364b[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 21:28:52 2024 -0300
+
+    Inst Icon
+
+[33mcommit 70d96dc1d2a918c2bd4f7d6efc4f72d41f53adb4[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 21:23:25 2024 -0300
+
+    viteconfig
+
+[33mcommit 5a0c3679a8233993dca6fa8e2f688227bcf9b096[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 21:14:12 2024 -0300
+
+    store
+
+[33mcommit 63f388a454bde1d860d8a49a3d4e40f5544effd0[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 21:05:25 2024 -0300
+
+    lock
+
+[33mcommit f6766e0e95883d02b7966070bb42b395b244d530[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 19:52:25 2024 -0300
+
+    build hecho see
+
+[33mcommit d7e036ac7764c5eb80aaccb2cee1e486695b9bf0[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 19:50:32 2024 -0300
+
+    build hecho
+
+[33mcommit b627d49b2acac7b4318a7eca91e14907e9fd3398[m
+Merge: ce80729 05fa3d1
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 19:34:21 2024 -0300
+
+    Merge pull request #28 from MQuirico/Matías
+    
+    Matías
+
+[33mcommit 05fa3d114a162f03f908b9883f2f8f96ad26076f[m[33m ([m[1;31morigin/Matías[m[33m)[m
+Merge: 6350327 a1a0edc
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 19:33:16 2024 -0300
+
+    Merge branch 'Matías' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Matías
+
+[33mcommit 635032795fd0f97fbfe87de4064a1a3b1dfd2105[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 19:30:50 2024 -0300
+
+    12feb 19:30hs
+
+[33mcommit ce8072935a9d11f444f80b418f51f2ecce243666[m
+Merge: 3b38388 a1a0edc
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 15:31:17 2024 -0300
+
+    Merge pull request #27 from MQuirico/Matías
+    
+    cambios + algunos estilos
+
+[33mcommit a1a0edcb046d34ab29c1006166b069b35f93a915[m
+Merge: 6da0293 3b38388
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 15:31:06 2024 -0300
+
+    Merge branch 'develop' into Matías
+
+[33mcommit 6da029321384816504cc46700f7cef3ddaf5a702[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 15:28:06 2024 -0300
+
+    cambios + algunos estilos
+
+[33mcommit b7931c887faf8c0ac371f4ab0bfbae7746207b06[m[33m ([m[1;31morigin/Joan[m[33m)[m
+Merge: 9eecf41 3b38388
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Mon Feb 12 12:16:22 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Andrés
+
+[33mcommit 9eecf41ad3c967c85b0511042f63d35802afdd89[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Mon Feb 12 12:16:12 2024 -0300
+
+    home casi listo le faltan detalles de estilo... 12/2
+
+[33mcommit 3b38388ae51db0da56a3f2155b95dc2e53b8a033[m
+Merge: feed481 0ec11dc
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 00:23:25 2024 -0300
+
+    Merge pull request #26 from MQuirico/Matías
+    
+    Estilos y ultimas correcciones para Create
+
+[33mcommit feed4815917d66bd3371247b871cc10896b7c31b[m
+Merge: b3706c5 f466e6b
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 00:23:12 2024 -0300
+
+    Merge pull request #25 from MQuirico/Pomelo
+    
+    detail y estilo
+
+[33mcommit 0ec11dc314c3ce8490f6026a98b2ea8d73f142a3[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 12 00:13:15 2024 -0300
+
+    create con estilos y todo pipí cucú
+
+[33mcommit f466e6bfc9bad88a8a1d55cc6211448d07d2bac1[m[33m ([m[1;31morigin/Pomelo[m[33m)[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Sun Feb 11 22:34:29 2024 -0300
+
+    css
+
+[33mcommit 472da776045e1e009f0ea9acd5e686c27cb05f47[m
+Merge: 719a2b9 512c978
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Sun Feb 11 22:05:41 2024 -0300
+
+    detail y estilos
+
+[33mcommit b3706c5b84adff6801ec27ffcd87c68776e251e5[m
+Merge: 68b2df2 c002517
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 20:05:35 2024 -0300
+
+    Merge pull request #24 from MQuirico/Matías
+    
+    mayus seasons
+
+[33mcommit c002517f1153b203fdfdc43e0c92b81854350ac9[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 20:02:17 2024 -0300
+
+    mayus seasons
+
+[33mcommit 68b2df2787e8c276327cd89ed7a428c2f2ddf6ae[m
+Merge: 512c978 25d8429
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 19:56:46 2024 -0300
+
+    Merge pull request #23 from MQuirico/Matías
+    
+    ultimo
+
+[33mcommit 25d8429fa6cafb9143351e9f3d03d9fc03a138d7[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 19:51:45 2024 -0300
+
+    mayuscula en values create
+
+[33mcommit 23bea774e773d3b0d3fac821a29df39dbcd979bb[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 19:36:26 2024 -0300
+
+    ultimo
+
+[33mcommit 719a2b9173457de2cdef06af28fd8cbe2911653e[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Sun Feb 11 19:34:22 2024 -0300
+
+    up for pull
+
+[33mcommit 512c978c34d8f3d44913cf701831b21c60895d49[m
+Merge: 3cacd55 9560f00
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 19:30:11 2024 -0300
+
+    Merge pull request #22 from MQuirico/Andrés
+    
+    Andrés
+
+[33mcommit 9560f00e47ace93d4d4cfcec5b709df5c9265458[m
+Merge: 7edc423 3cacd55
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 19:22:32 2024 -0300
+
+    Merge branch 'develop' into Andrés
+
+[33mcommit 7edc4235ed36b78f0c276d087ec0b39e76d07cb6[m
+Merge: 9a2822d 66bf0ff
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Sun Feb 11 19:20:45 2024 -0300
+
+    ultimos home search filtros ordenamiento cards paginado actions
+
+[33mcommit 3cacd55ac9a27b75907cc5dd36c1c65150042d37[m
+Merge: dd9c8f9 202fb6d
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 18:23:00 2024 -0300
+
+    Merge pull request #21 from MQuirico/Matías
+    
+    arreglado preventDefault en form Createe
+
+[33mcommit 202fb6d9239e075616efa258ab9d5b0e69f7773b[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 18:07:53 2024 -0300
+
+    arreglado preventDefault en form Create
+
+[33mcommit dd9c8f9d05fb3f1e3f67d2d8d6faf7cbb590afeb[m
+Merge: 4bd1536 2841f89
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 03:16:08 2024 -0300
+
+    Merge pull request #20 from MQuirico/Matías
+    
+    Matías
+
+[33mcommit 2841f89bf7edd44c263c691df6eb012832dbf607[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 02:25:51 2024 -0300
+
+    formulario alta productos + cloudinary implementado---
+
+[33mcommit fa1678bb4536ae6e641a153e90d1d8f995106b84[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sun Feb 11 02:17:36 2024 -0300
+
+    Formulario alta productos + Cloudinary implementado
+
+[33mcommit 4bd15367fea6d6a52bdc3412b863fd31d45c267e[m
+Merge: 66bf0ff d7c3fe8
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Sun Feb 11 02:14:24 2024 -0300
+
+    Merge pull request #19 from MQuirico/Matías
+    
+    about modificado
+
+[33mcommit d7c3fe8b1cdd3a7db592b503253fbdf2de6c2499[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Sat Feb 10 16:52:53 2024 -0300
+
+    about modificado
+
+[33mcommit b1cdce39711849ffeceecf6cd83671aa9209d44d[m
+Merge: b51bfd8 620475f
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Fri Feb 9 18:24:17 2024 -0300
+
+    detail almost finished
+
+[33mcommit 66bf0ff30d78b3b9fd55e2d133c14bdcf32d8844[m
+Merge: 620475f e9b4ef2
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Fri Feb 9 16:49:54 2024 -0300
+
+    ahora si andaria la cosa
+
+[33mcommit b51bfd83bb9b0209500aeddc04ba7088a3dc2a04[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Fri Feb 9 16:22:22 2024 -0300
+
+    detail
+
+[33mcommit 620475f1584b6fa7b9c8514500456168bd9e2220[m
+Merge: 6788155 965190c
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Fri Feb 9 15:13:45 2024 -0300
+
+    Merge branch 'Matías' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Matías
+
+[33mcommit 67881551ba9b92dcbe1f89dfd6419264b6f8bb03[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Fri Feb 9 14:53:26 2024 -0300
+
+    actualizacion 9-2-2024
+
+[33mcommit 9a2822d907be08684d943aef54ce91174376a2a4[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Fri Feb 9 11:23:38 2024 -0300
+
+    ultimos cambios 9/2
+
+[33mcommit 02dd3e5e0da62823c3e26436f17127d0d726ebe8[m
+Merge: cc66ddd bbd9048
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Fri Feb 9 03:12:53 2024 -0300
+
+    Merge branch 'develop' into Matías
+
+[33mcommit e9b4ef2613ae7a65743bf3ccabf6b499b82aaf02[m
+Merge: 7f8ecaf c2f74fc
+Author: Leandro <112503474+LeandroPom@users.noreply.github.com>
+Date:   Fri Feb 9 01:54:10 2024 -0300
+
+    Merge pull request #16 from MQuirico/Pomelo
+    
+    fix
+
+[33mcommit c2f74fc18ff00d906155feb0daffe21ee57ef1f2[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Fri Feb 9 01:51:50 2024 -0300
+
+    fix
+
+[33mcommit 20fa1bd7b776eff376f1982868adbe911d1fd19b[m
+Merge: 1bc2b26 7f8ecaf
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Fri Feb 9 01:37:15 2024 -0300
+
+    search last change
+
+[33mcommit 7f8ecaf4e025e37377405c802a2e2b4f95383f97[m
+Merge: e5eaf95 c9fc149
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 23:26:42 2024 -0300
+
+    Merge pull request #14 from MQuirico/Joan
+    
+    home implemento, falta filter(Select)
+
+[33mcommit c9fc14989cab1718c935f26d88eea1f1f19245f6[m
+Author: Joan Laurente <Joan2022Laurente>
+Date:   Thu Feb 8 21:21:04 2024 -0500
+
+    home implemento
+
+[33mcommit e5eaf95fbde448dd9bc9356c0ba380cc733c65c7[m
+Merge: 8f53d90 6991454
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 22:40:10 2024 -0300
+
+    Merge pull request #13 from MQuirico/Angie
+    
+    Angie
+
+[33mcommit 69914543f3b30663a46c2e9d58a68a9bb4a5fcfb[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 22:30:38 2024 -0300
+
+    s
+
+[33mcommit 8dbb438bd6108433cf67ab3794c4ee146ac304c4[m
+Merge: 9e6152c 8f53d90
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 22:29:57 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Angie
+
+[33mcommit 8f53d907ccd8b48099379761e1e3ab2e6674eabe[m
+Merge: bbd9048 965190c
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 22:01:39 2024 -0300
+
+    Merge pull request #10 from MQuirico/Matías
+    
+    Matías
+
+[33mcommit 1bc2b2659b5e96ad87a784f8d5153ffefd051015[m
+Merge: a8d2213 bbd9048
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 21:57:10 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Pomelo
+
+[33mcommit a8d2213119d23ad2673734ffcedcc4ebff84a033[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 21:56:37 2024 -0300
+
+    action-search url
+
+[33mcommit 494e3100c7e145aa4809e1990e805e33acacac48[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 21:47:21 2024 -0300
+
+    arreglos search
+
+[33mcommit 965190cca0b176781173bc1de88520c25438b5be[m
+Merge: cc66ddd bbd9048
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 21:34:08 2024 -0300
+
+    Merge branch 'develop' into Matías
+
+[33mcommit cc66dddc0693077b4a345e823ba607582cfade91[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 21:29:30 2024 -0300
+
+    retoques a Create
+
+[33mcommit 7e56ed3f5c9dc4aad8b72f309bd60f3bfc89689a[m
+Merge: 8047ea5 24b72f1
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 20:49:46 2024 -0300
+
+    Merge
+
+[33mcommit 8047ea5a5ee0dafe532557fcaa4e5f0f44b9b2aa[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 20:46:11 2024 -0300
+
+    correccion
+
+[33mcommit bbd904897e682263279fa63bf6d0f0c8cdd2a0c9[m
+Merge: a94df00 24b72f1
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 20:10:58 2024 -0300
+
+    Merge pull request #8 from MQuirico/Matías
+    
+    Formulario Create
+
+[33mcommit 24b72f12f1134d2bb74d3f4838b347297fbb4a5b[m
+Merge: 0795ed9 28c6b30
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 20:10:33 2024 -0300
+
+    Merge branch 'develop' into Matías
+
+[33mcommit a94df001ce3b74d38a9e565ef11aa51b90a09944[m
+Merge: 28c6b30 910079e
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 20:10:12 2024 -0300
+
+    Merge pull request #9 from MQuirico/Pomelo
+    
+    paginate, search, actions-search, action-types, reducer-search,
+
+[33mcommit 9e6152cc1f7cd3d4c6393b29d047e5dbb7209946[m
+Merge: 891eef6 28c6b30
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 20:08:47 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Angie
+
+[33mcommit 28c6b30f19054d90762fec96236c80950472cb38[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 20:04:29 2024 -0300
+
+    corrección carpetas
+
+[33mcommit 891eef68ada4d3c41d9ea1f49981399868242b58[m
+Merge: fef8e3a 7d0556f
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 20:02:29 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Angie
+
+[33mcommit 910079e078201130060cff2b90782347f65e99e7[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 19:43:31 2024 -0300
+
+    paginate, search, actions, action-type, reducer
+
+[33mcommit 7d0556f93e077a875516c7e6f6b7b86bb58d25b8[m
+Merge: ce6b9f7 5cbde04
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 19:29:51 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into develop
+
+[33mcommit fef8e3abae45f7d2a5044dfeb99df5db92f6de06[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 17:15:40 2024 -0300
+
+    s
+
+[33mcommit 5cbde04cfbfea9bf325c1bbcc8a7202c0aeac22d[m
+Merge: b8c4c36 54e1fa3
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 17:09:39 2024 -0300
+
+    Merge pull request #7 from MQuirico/Joan
+    
+    diseño de home
+
+[33mcommit 0795ed94d21ea4794be3d33b2fefb892951ef484[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 16:56:22 2024 -0300
+
+    Fornulario Create
+
+[33mcommit 1ffbf0cca24bebce70a0304780446d258c4ba89b[m
+Merge: 88f959d b8c4c36
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 14:29:08 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Pomelo
+
+[33mcommit 88f959d38582c54b6c088b322e9bb0b2de4b55ca[m
+Author: LeandroPom <leotrabajo02@gmail.com>
+Date:   Thu Feb 8 14:28:47 2024 -0300
+
+    paginate
+
+[33mcommit 54e1fa347f8d9f5dd8f6609d172dfab5c0a2bef3[m
+Author: Joan Laurente <Joan2022Laurente>
+Date:   Thu Feb 8 11:42:19 2024 -0500
+
+    homeee
+
+[33mcommit a9a3e91f983e36d889b226cf142a1853fa2c45ae[m
+Author: Joan Laurente <Joan2022Laurente>
+Date:   Thu Feb 8 11:40:33 2024 -0500
+
+    home diseño
+
+[33mcommit 1586d72e1b9b550f77ed3965cda95617681df527[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 13:30:06 2024 -0300
+
+    s
+
+[33mcommit 0a69544f2710ca329a9d47c673f09dde140707e7[m
+Merge: 30e5352 b8c4c36
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 13:24:17 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Angie
+
+[33mcommit 30e535269ff012075e2e56b48bdbcd4e2e75223e[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Thu Feb 8 12:50:40 2024 -0300
+
+    d
+
+[33mcommit b8c4c36d0f80e59aceda762e9db18bf74c42aa2f[m
+Merge: f5c63e9 31fde4d
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Thu Feb 8 12:49:16 2024 -0300
+
+    Merge pull request #5 from MQuirico/Joan
+    
+    cardss
+
+[33mcommit 31fde4dee755c1be5b748ccd50785fc5a35b948f[m
+Author: Joan Laurente <Joan2022Laurente>
+Date:   Thu Feb 8 10:41:38 2024 -0500
+
+    cards
+
+[33mcommit 6f502769bd744281512083c42eee688281140ccd[m
+Author: Joan Laurente <Joan2022Laurente>
+Date:   Thu Feb 8 10:38:43 2024 -0500
+
+    cardsss
+
+[33mcommit f5c63e9b6d78c902aa0b126a060d20d500977b9b[m
+Merge: d39262c 372cbb8
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Thu Feb 8 11:58:43 2024 -0300
+
+    Merge pull request #4 from MQuirico/Andrés
+    
+    perfil, login, navbar
+
+[33mcommit 372cbb830f6b9ffe9c9937afb8a952b662d736b9[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Thu Feb 8 11:48:43 2024 -0300
+
+    perfil, login, navbar
+
+[33mcommit fda5684e8d88717bb77a1d589b068178ec93689e[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Wed Feb 7 22:09:48 2024 -0300
+
+    land
+
+[33mcommit 16a0afd723d4c553704fca6f3d0be5374b4e0182[m
+Author: AAlexandraCastillo <casstlealexandra@gmail.com>
+Date:   Wed Feb 7 21:29:52 2024 -0300
+
+    Landing
+
+[33mcommit 883ef437907780ce68a729d778232a243f20a87c[m
+Merge: ce6b9f7 d39262c
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Wed Feb 7 16:16:36 2024 -0300
+
+    Merge branch 'develop' of https://github.com/MQuirico/PF-Front-Hoteler-a-y-Turismo into Matías
+
+[33mcommit d39262c37f995caf092cd1c0298dd2bc210bc2b1[m[33m ([m[1;31morigin/Tomás-Amoroso[m[33m)[m
+Merge: c49495f d80b223
+Author: AndresVeraXX1 <108779502+AndresXX1@users.noreply.github.com>
+Date:   Tue Feb 6 18:41:11 2024 -0300
+
+    Merge pull request #2 from MQuirico/Andrés
+    
+    Andrés
+
+[33mcommit d80b223c64dad9f54cf4e8bc80cf5168b6695af1[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 6 18:38:52 2024 -0300
+
+    ahora si
+
+[33mcommit c09ce3a51bcd090729fcfe8a091174d956a08d3d[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 6 18:21:15 2024 -0300
+
+    de nuevo
+
+[33mcommit c49495f1dbe83d829d50ea7957bb37e533231362[m
+Merge: 7d648ac d73ba8b
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Tue Feb 6 15:48:12 2024 -0300
+
+    Merge pull request #1 from MQuirico/Andrés
+    
+    front
+
+[33mcommit d73ba8bacfb9e4ad8c18af4840609a5828a9d84d[m
+Author: AndresveraXX <andres_9_09@hotmail.com>
+Date:   Tue Feb 6 12:59:08 2024 -0300
+
+    front
+
+[33mcommit ce6b9f77b7294ef812d7ef74131c22050b84388c[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 5 23:15:32 2024 -0300
+
+    Vite inicializado6
+
+[33mcommit 7d648ac5b95e7928426305a74ca0d85596bc8c13[m
+Author: MQuirico <128657405+MQuirico@users.noreply.github.com>
+Date:   Mon Feb 5 22:15:28 2024 -0300
+
+    Inicializar nueva rama
