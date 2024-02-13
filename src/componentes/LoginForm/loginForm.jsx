@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
 import GoogleLogin from "react-google-login";
+import {gapi} from "gapi-script";
 import axios from "axios";
 import styles from "./loginForm.module.css";
 import { AuthContext } from "../AuthProvider/authProvider";
@@ -11,10 +12,13 @@ export default function Login() {
   const [errorState, setErrorState] = useState(null);
   const history = useHistory();
   const { setAuth } = useContext(AuthContext); // Obtener setAuth del contexto de autenticación
+  const [error, setError] = useState(null);
+
+  const clientID = '1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com'
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3000/users/login', data);
+      const response = await axios.post('http://localhost:3003/users/login', data);
       if (response.data) {
         // Ajustar la respuesta del servidor al formato esperado por NavBar
         const authData = {
@@ -32,10 +36,25 @@ export default function Login() {
     }
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-    // se puede agregar la respuesta de Google ;)
+  useEffect(() => {
+    const start = () => {
+      gapi.auth2.init({
+        clientId: clientID,
+      });
+    };
+    gapi.load("client:auth2", start);
+  }, []);
+
+  const onSuccess = (response) => {
+    console.log('Login Success: currentUser:', response.profileObj);
+    setAuth({ token: response.profileObj });
+    history.push("/home")
+   };
+
+   const onFailure = () => {
+    setError("Algo salió mal");
   };
+
 
   const handleEmailChange = (e) => {
     clearErrors("email");
@@ -100,13 +119,13 @@ export default function Login() {
           <GoogleLogin
             clientId="1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com"
             buttonText="Ingresar con Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={onSuccess}
+            onFailure={onFailure}
             cookiePolicy={"single_host_origin"}
             redirectUri='http://localhost:5173/home'
           />
         </div>
-        <p className="text-center mt-3">¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
+        <p className="text-center mt-3" style={{color: 'black', marginLeft: '5px'}} >¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
         {errorState && <p className={styles.error}>{errorState}</p>} {/* Usar la variable de estado renombrada */}
       </div>
     </div>
