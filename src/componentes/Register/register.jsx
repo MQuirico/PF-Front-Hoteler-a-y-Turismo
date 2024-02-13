@@ -4,7 +4,7 @@ import styles from "./register.module.css";
 import { useForm } from "react-hook-form";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
-import { registerUser } from "../../redux/actions/actions";
+import { registerUser } from "../../redux/Actions/actions";
 import {Link} from "react-router-dom"
 
 const Register = () => {
@@ -117,14 +117,14 @@ const Register = () => {
         <button
           type="submit"
           className={`${styles.button}`}
-          disabled={!isFormValid} // Deshabilitar el botón de registro si el formulario no es válido
+          disabled={isFormValid} // Deshabilitar el botón de registro si el formulario no es válido
           >
           -- Registrarse --
         </button>
       </form>
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleSnackbarClose}
         message={message}
         action={
@@ -139,7 +139,7 @@ const Register = () => {
         }
         />
         
-<p className="text-center mt-3">¿Ya estas registrado? <Link to="/login">Logueate aquí</Link></p>
+<p className="text-center mt-3" style={{color: 'black'}} >¿Ya estas registrado? <Link to="/login">Logueate aquí</Link></p>
         </div>
     </div>
   );

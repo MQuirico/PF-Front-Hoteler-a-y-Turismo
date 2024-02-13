@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(2),
-    'margin-top': '40px'
+    'margin-top': '50px'
   },
   section: {
     marginBottom: theme.spacing(4),
@@ -90,10 +90,10 @@ const HomePage = () => {
       {/* Sección de Presentación */}
       <section className={classes.section}>
       <Typography variant="h3" gutterBottom style={{ fontFamily: 'Source Sans Pro', 'margin-left': '503px' }}>
-          ¡Bienvenido a Zona de Relax!
+          ¡Bienvenido a HostelsPremium!
         </Typography>
         <Typography variant="body1" style={{ color: 'black', 'margin-left': '445px' }}>
-        "Tu escape perfecto: Zona de Relax – Descubre el destino ideal para tus alquileres vacacionales."
+        "Tu escape perfecto: HostelsPremium – Descubre el destino ideal para tus alquileres vacacionales."
         </Typography>
       </section>
 
