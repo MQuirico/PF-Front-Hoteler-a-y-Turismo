@@ -9,6 +9,8 @@ const Card = ({ id, name, location, season, pricePerNight, image, highlight }) =
     return null;
   }
 
+  const seasonLabel = season ? JSON.parse(season).label : ""; // Parsea el objeto season y obtiene el valor de label
+
   return (
     <div className="fondo">
       <Link to={`/detail/${id}`} className={`card ${highlight ? "highlight" : ""}`}>
@@ -20,7 +22,7 @@ const Card = ({ id, name, location, season, pricePerNight, image, highlight }) =
         </div>
         <div className="card-body">
           <p className="card-text"> <br/> {location}</p>
-          <p className="card-text">Temporada: <br/> {season} <br/><br/></p>
+          <p className="card-text">Temporada: <br/> {seasonLabel} <br/><br/></p>
           <p className="card-text">Precio por noche: {pricePerNight}</p>
         </div>
       </Link>

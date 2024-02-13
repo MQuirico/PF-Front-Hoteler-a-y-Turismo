@@ -1,5 +1,5 @@
 .homeView {
-  background-image: url("https://static.vecteezy.com/system/resources/previews/025/871/519/non_2x/travel-destination-background-and-template-design-with-travel-destinations-and-famous-landmarks-and-attractions-for-tourism-let-s-go-travel-illustration-vector.jpg"); 
+  background-image: url("https://www.shutterstock.com/shutterstock/photos/2179390943/display_1500/stock-photo-country-wooden-bedroom-close-up-in-boho-style-in-white-and-beige-tones-bed-hanging-chair-and-2179390943.jpg"); 
   padding-top: 50px;
   min-height: 100vh; 
   display: flex;
@@ -29,8 +29,9 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 200px; /* Añade margen negativo para compensar el margen en las tarjetas */
-  
+  margin: -100px; /* Añade margen negativo para compensar el margen en las tarjetas */
+  margin-top: 110px;
+  position: absolute;
 }
 
 
@@ -43,8 +44,8 @@ footer {
 }
 
 .search {
-  left: 20px;
-  top: 20px;
+  left: 1100px;
+  top: 05px;
   position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
   z-index: 999;
 }
@@ -58,13 +59,10 @@ footer {
 
 .paginado {
   left: 50%;
-  bottom: 20px;
+  bottom: -100px;
   transform: translateX(-50%); /* Centrar horizontalmente el paginado */
   position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
   z-index: 999;
 }
 
-.cardcontainer {
-  flex: 0 0 calc(50% - 20px); /* Ajusta el ancho de cada tarjeta al 50% del contenedor padre */
-  margin-bottom: -10px; /* Agrega un margen inferior para separar las tarjetas */
-}
+

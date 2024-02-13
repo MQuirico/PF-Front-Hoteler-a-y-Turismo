@@ -9,32 +9,33 @@
 .stepButton,
 .pageButton {
   border: none;
-  background-color: transparent;
-  color: #cd1515; /* Azul brillante */
+  background-color: rgba(0, 0, 0, 0.76);
+  color: #fff7f7; /* Color de texto principal */
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
   outline: none;
   transition: all 0.3s ease;
+  font-weight: bold; /* Texto en negrita para mayor énfasis */
+  font-size: 14px; /* Tamaño de fuente ligeramente aumentado */
+  border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
+  border: 1px solid #000000; /* Borde delgado para una apariencia más definida */
 }
 
+/* Cambia el color de fondo al pasar el ratón para todos los botones */
 .sideButton:hover,
 .stepButton:hover,
 .pageButton:hover {
-  color: #d04033; /* Azul más oscuro al pasar el ratón */
+  background-color: #f0f0f0; /* Color de fondo gris claro al pasar el ratón */
 }
 
+/* Estilo para el botón de página activa */
 .pageButton.active {
-  background-color: #ce3333;
-  color: #fff;
-  border-radius: 50%; /* Botón de página activa con bordes redondeados */
+  background-color: #ff0000; /* Color de fondo azul para indicar la página activa */
+  color: #fff; /* Color de texto blanco para resaltar */
 }
 
-.btns {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
+/* Espaciado adicional entre las páginas y los botones */
 .spanPages {
   margin-left: 10px;
   margin-right: 10px;

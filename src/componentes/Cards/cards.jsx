@@ -2,22 +2,13 @@ import React from "react";
 import Card from "../Card/card";
 import style from "./cards.module.css";
 
-const Cards = ({ products, searchTerm }) => {
-  let filteredProducts = [];
-  if (Array.isArray(products)) {
-    filteredProducts = searchTerm
-      ? products.filter((product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      : products;
-  }
-
+const Cards = ({ products }) => {
   return (
     <div className={style.cardscontainer}>
-      {Array.isArray(filteredProducts) && filteredProducts.length === 0 ? (
+      {Array.isArray(products) && products.length ===   0 ? (
         <p>No hay productos disponibles</p>
       ) : (
-        filteredProducts.map((product) => (
+        products.map((product) => (
           <div key={product.id} className={style.cardcontainer}>
             <Card
               id={product.id}
@@ -25,7 +16,7 @@ const Cards = ({ products, searchTerm }) => {
               location={product.location}
               season={product.season}
               pricePerNight={product.pricePerNight}
-              image={product.images && product.images.length > 0 ? product.images[0] : null}
+              image={product.images && product.images.length >  0 ? product.images[0] : null}
             />
           </div>
         ))
