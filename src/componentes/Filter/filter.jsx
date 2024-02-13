@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../redux/Actions/actions";
-import style from "./Filter.module.css";
+import style from "./filter.module.css";
 import debounce from "lodash/debounce";
 
 function Filter({ onPageChange }) {
