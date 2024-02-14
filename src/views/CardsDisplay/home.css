@@ -1,5 +1,5 @@
 .homeView {
-  background-image: url("https://static.vecteezy.com/system/resources/previews/025/871/519/non_2x/travel-destination-background-and-template-design-with-travel-destinations-and-famous-landmarks-and-attractions-for-tourism-let-s-go-travel-illustration-vector.jpg"); 
+  background-image: url("https://image.made-in-china.com/44f3j00OwVDTmjaykqy/Hotel-Decorative-3D-PVC-Modern-Design-Wall-Paper.webp"); 
   padding-top: 50px;
   min-height: 100vh; 
   display: flex;
@@ -13,12 +13,9 @@
 
 .mainContent {
   width: 80%;
-  margin: 20px -50px auto auto; 
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between;
-  margin-top: 90px;
-  position: absolute;
+  margin: 20px auto;
+  padding-top: 20px; /* Mover el contenido hacia abajo para dejar espacio para los controles */
+  position: relative; /* Cambiar a posición relativa para permitir que los controles se posicionen de manera relativa */
 }
 
 footer {
@@ -32,8 +29,9 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 35px; /* Añade margen negativo para compensar el margen en las tarjetas */
-  
+  margin: -100px; /* Añade margen negativo para compensar el margen en las tarjetas */
+  margin-top: 110px;
+  position: absolute;
 }
 
 
@@ -46,21 +44,25 @@ footer {
 }
 
 .search {
-  margin-left: 1200px;
-  margin-top: -120px;
-  position: absolute;
+  left: 1100px;
+  top: 05px;
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
+}
+
+.fileter {
+  right: 20px;
+  top: 20px;
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
 }
 
 .paginado {
-  align-items: center;
-  margin-left: auto;
-  margin-bottom: 40px;
+  left: 50%;
+  bottom: -100px;
+  transform: translateX(-50%); /* Centrar horizontalmente el paginado */
+  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  z-index: 999;
 }
 
 
-.fileter {
-  margin-left: 50px;
-  margin-top: -100px;
-  position: absolute;
-  
-}

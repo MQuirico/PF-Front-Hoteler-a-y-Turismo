@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./searchBar.css";
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,11 +41,22 @@ const SearchBar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <button className="searchButton" type="submit">
-        Search
-      </button>
+<IconButton
+  type="submit"
+  aria-label="search"
+  style={{
+    backgroundColor: 'black',
+    marginTop: '-9px',
+    transition: 'background-color 0.3s', 
+    '&:hover': {
+      backgroundColor: 'blue',
+    }
+  }}
+>
+  <SearchIcon />
+</IconButton>
     </form>
   );
-};
+}
 
 export default SearchBar;

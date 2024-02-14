@@ -3,19 +3,26 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: #adaeb08d;
+  background-color: #09090986;
   border-radius: 5px;
+  width: 900px;
 }
 
+/* Estilos modificados para reducir el espacio entre los selectores */
 .select {
   padding: 8px;
+  margin-right: 10px; /* Ajusta el margen derecho para separar los selectores */
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: white;
   font-size: 14px;
   color: #333;
   outline: none;
-  margin-left: 25px;
+}
+
+/* Elimina el margen derecho del último selector para evitar espacios innecesarios */
+.select:last-child {
+  margin-right: 0;
 }
 
 .select:focus {

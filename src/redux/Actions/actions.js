@@ -19,7 +19,13 @@ import {
     CLEAR_SEARCH_RESULTS,
     FETCH_PRODUCTS_REQUEST,
     FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE
+    FETCH_PRODUCTS_FAILURE,
+    UPDATE_USER_PROFILE_REQUEST,
+    UPDATE_USER_PROFILE_SUCCESS,
+    UPDATE_USER_PROFILE_FAILURE,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_FAILURE,
 
 } from "../action-types/action-types";
 
@@ -40,7 +46,7 @@ export const setUserData = (userData) => {
     dispatch({ type: CREATE_USER_REQUEST });
     try {
       const response = await axios.post(
-        "http://localhost:3000/users/create",
+        "https://back-hostel.onrender.com/users/create",
         datauser
       );
       dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
@@ -71,7 +77,7 @@ export const searchByName = (name) => {
 export const newHotel = (hotel) => {
     return (dispatch) => {
       dispatch({ type: NEW_HOTEL_REQUEST });
-      axios.post('http://localhost:3000/products/create', hotel)
+      axios.post('https://back-hostel.onrender.com/products/create', hotel)
         .then(response => {
           dispatch({
             type: NEW_HOTEL_SUCCESS,
@@ -92,7 +98,7 @@ export const newHotel = (hotel) => {
       try {
         dispatch({ type: GET_ALL_PRODUCTS_REQUEST }); 
         console.log("Fetching products...");
-        const response = await axios.get('http://localhost:3000/products/'); 
+        const response = await axios.get('https://back-hostel.onrender.com/products/'); 
         const products = response.data;
         console.log("Products received:", products);
         dispatch({ type: GET_ALL_PRODUCTS_SUCCESS, payload: products });
@@ -107,7 +113,7 @@ export const newHotel = (hotel) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
   
     try {
-      const response = await fetch(`http://localhost:3000/products/search/${name}`);
+      const response = await fetch(`https://back-hostel.onrender.com/products/search/${name}`);
       const data = await response.json();
   
       if (response.ok) {
@@ -136,17 +142,102 @@ export const newHotel = (hotel) => {
     return async (dispatch) => {
       dispatch({ type: FETCH_PRODUCTS_REQUEST });
       try {
-        const response = await axios.get('http://localhost:3000/products/filter', {
-          params: { ...filters, page: page ||  1, pageSize: pageSize ||  10 },
+        const response = await axios.get('https://back-hostel.onrender.com/products/filter', {
+          params: { ...filters, page: page ||  1, pageSize: pageSize ||  6 },
           headers: {
             'Cache-Control': 'no-cache'
           }
         });
-        const { products, totalCount } = response.data;
-        const totalPages = Math.ceil(totalCount / pageSize); // Calcular el número total de páginas
-        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalPages } });
+        const { products, totalCount, totalPages } = response.data;
+        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalCount, totalPages } });
       } catch (error) {
         dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
       }
     };
   };
+
+  
+
+  export const updateUserProfileRequest = () => ({
+    type: UPDATE_USER_PROFILE_REQUEST,
+  });
+  
+  export const updateUserProfileSuccess = (data) => ({
+    type: UPDATE_USER_PROFILE_SUCCESS,
+    payload: data,
+  });
+  
+  export const updateUserProfileFailure = (error) => ({
+    type: UPDATE_USER_PROFILE_FAILURE,
+    payload: error,
+  });
+  
+  // Acción para modificar cualquier dato del perfil de usuario
+  export const updateUserProfileData =
+    (idKey, updatedFields) => async (dispatch) => {
+      dispatch(updateUserProfileRequest());
+  
+      try {
+        const response = await axios.put(
+          `https://back-hostel.onrender.com/users/perfil/${idKey}`,
+          updatedFields
+        );
+  
+        dispatch(updateUserProfileSuccess(response.data));
+      } catch (error) {
+        console.error("Error al actualizar datos de usuario:", error);
+        dispatch(
+          updateUserProfileFailure(error.response?.data || "Error en el servidor")
+        );
+      }
+    };
+
+
+
+ 
+    
+    export const updatePasswordRequest = () => ({
+      type: UPDATE_PASSWORD_REQUEST,
+    });
+    
+    export const updatePasswordSuccess = () => ({
+      type: UPDATE_PASSWORD_SUCCESS,
+    });
+    
+    export const updatePasswordFailure = (error) => ({
+      type: UPDATE_PASSWORD_FAILURE,
+      payload: error,
+    });
+    
+    //action para el pasww
+    export const updatePassword = (id, currentPassword, newPassword) => {
+      return async (dispatch) => {
+        dispatch(updatePasswordRequest());
+    
+        try {
+          const response = await fetch(
+            `https://back-hostel.onrender.com/users/perfil/updatepassword/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                currentPassword,
+                newPassword,
+              }),
+            }
+          );
+    
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error (${response.status}): ${errorData.message}`);
+          }
+    
+          dispatch(updatePasswordSuccess());
+        } catch (error) {
+          dispatch(updatePasswordFailure(error.message));
+        }
+      };
+    };
+  

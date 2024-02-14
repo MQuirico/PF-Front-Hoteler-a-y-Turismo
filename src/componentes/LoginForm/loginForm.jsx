@@ -11,7 +11,7 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors }, setError: setFormError, clearErrors } = useForm();
   const [errorState, setErrorState] = useState(null);
   const history = useHistory();
-  const { setAuth } = useContext(AuthContext); // Obtener setAuth del contexto de autenticación
+  const { setAuth } = useContext(AuthContext); 
   const [error, setError] = useState(null);
 
   const clientID = '1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com'
@@ -20,13 +20,13 @@ export default function Login() {
     try {
       const response = await axios.post('https://back-hostel.onrender.com/users/login', data);
       if (response.data) {
-        // Ajustar la respuesta del servidor al formato esperado por NavBar
+        
         const authData = {
           token: response.data,
         };
-        // Guardar la respuesta del servidor en el contexto de autenticación
+        
         setAuth(authData);
-        localStorage.setItem('auth', JSON.stringify(authData)); // Opcional: guardar la información de autenticación en el almacenamiento local
+        localStorage.setItem('auth', JSON.stringify(authData)); 
         history.push("/home");
       } else {
         setErrorState('Error: The response is not valid');
@@ -34,7 +34,7 @@ export default function Login() {
     } catch (error) {
       setErrorState('Error al iniciar sesión: ' + error.message);
     }
-  };
+  };//dsdad
 
   useEffect(() => {
     const start = () => {

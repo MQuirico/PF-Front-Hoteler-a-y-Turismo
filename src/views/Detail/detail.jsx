@@ -56,6 +56,7 @@ function Home() {
     dispatch(fetchProducts({}, page, cardsPerPage));
   };
 
+
   return (
     <div className="homeView">
       <section className="mainContent">
