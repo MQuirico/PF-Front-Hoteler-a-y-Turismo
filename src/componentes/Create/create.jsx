@@ -1,4 +1,5 @@
 
+
 import * as React from 'react'
 import { useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
@@ -10,7 +11,6 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import UploadWidget from './uploadWidget'
 import { newHotel } from '../../redux/Actions/actions';
 
 export const formContext = React.createContext()
@@ -19,8 +19,9 @@ export default function NewService (){
 
 
   const [open, setOpen] = React.useState(false);
-
  
+
+  let images = []
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -66,11 +67,11 @@ export default function NewService (){
 
 
     const seasons = [
-        { value: 'Verano', label: 'Verano' }, //sadsankjsdnf
+        { value: 'Verano', label: 'Verano' },
         { value: 'Invierno', label: 'Invierno' },
         { value: 'Primavera', label: 'Primavera' },
         { value: 'Otoño', label: 'Otoño' }
-      ]; //safdsadsa
+      ]; 
 
       const locations = [
         'El Bolsón, Provincia de Río Negro',
@@ -127,15 +128,43 @@ export default function NewService (){
     ];
 
     
+    const cloudinaryRef = React.useRef();
+    const widgetRef = React.useRef();
+    const paragraphRef = React.useRef();
+    React.useEffect(() =>{
+        cloudinaryRef.current = window.cloudinary;
+        widgetRef.current = cloudinaryRef.current.createUploadWidget({
+            cloudName: "ds4blfuip",
+            uploadPreset: "ml_default"
+        }, function(error, result){
+            if (!error && result && result.event === "success") {
+                console.log("Imagen subida exitosamente:", result.info.secure_url);
+                images.push(result.info.secure_url)  
+                console.log('Estas son las url de las imagenes:', images) 
+                setValue('images', images)
+                paragraphRef.current.textContent = `Imágenes subidas: ${images?.length}`;
+            } else {
+                console.error("Error al subir la imagen:", error);
+            }
+        });       
+    }, []);
+
 
     const onSubmit = (data) => {
-        console.log(data)
-        dispatch(newHotel(data))
+        const seasonParser = data.season.map(item => item.value)
+        const dataForSubmit  = {
+            ...data,
+            season: seasonParser
+        }
+        dispatch(newHotel(dataForSubmit))
         reset()
+        images.splice(0, images.length);
+        paragraphRef.current.textContent = `Imágenes subidas: ${images?.length}`
+        console.log(images.length)
         Object.keys(data).forEach((fieldName) => {
           setValue(fieldName, null);
         });
-        console.log(data)
+        console.log(dataForSubmit)
         setOpen(true)
     };
     
@@ -154,7 +183,7 @@ export default function NewService (){
     const selectedSeasons = watch('season', []);
 
     const handleSeasonChange = (selectedOptions) => {
-        setValue('season', selectedOptions); // Actualizamos el valor del campo 'season'
+        setValue('season', selectedOptions); 
       };
 
 
@@ -248,9 +277,15 @@ export default function NewService (){
             <label>Agregue aquí imágenes sobre el hospedaje</label>   
             <br></br>
             <br></br>
-            <formContext.Provider value={{ setValue }}>
-            <UploadWidget />    
-            </formContext.Provider>
+            <button style={{marginLeft: '80px'}} onClick={(event) => {
+            event.preventDefault()
+            widgetRef.current.open()}}>
+            Subir imágenes
+            </button> 
+            <br></br>
+            <br></br>
+
+            <p ref={paragraphRef} style={{marginLeft: '60px', color: 'black'}} >Imágenes subidas: {images?.length}</p>
             <br></br>
             <br></br>
             <button style={{marginLeft: '300px'}} type='submit'>Publicar</button>
@@ -258,7 +293,7 @@ export default function NewService (){
         </div>
         <Snackbar
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
         message="¡El hospedaje ha sido creado exitosamente!"
         action={action}
