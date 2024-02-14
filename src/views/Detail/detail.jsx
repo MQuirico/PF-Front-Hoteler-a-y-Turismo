@@ -1,57 +1,96 @@
-import React from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import './detail.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Cards from "../../componentes/Cards/cards";
+import Paginado from "../../componentes/Paginado/paginado";
+import Filter from "../../componentes/Filter/filter";
+import SearchBar from "../../componentes/SearchBar/searchBar";
+import { fetchProducts, searchProducts } from "../../redux/Actions/actions";
+import "./detail.css";
 
-function Detail() {
-  const { id } = useParams();
-  console.log(id);
-
-  const [products, setProducts] = useState({}); // Estado local -> products
+function Home() {
+  const dispatch = useDispatch();
+  const searchResults = useSelector((state) => state.searchResults);
+  const products = useSelector((state) => state.products);
+  const totalPages = useSelector((state) => state.totalPages);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [error, setError] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 6; // Número de tarjetas por página
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/products/detail/${id}`)
-      .then(({ data }) => {
-        if (data.name) {
-          setProducts(data);
-        } else {
-          throw new Error(`Product with ID ${id} not found`);
-        }
-      })
-      .catch((error) => {
-        throw new Error(error.message);
-      });
+    setCurrentPage(1);
+  }, [searchResults]);
 
-    return setProducts({}); // se limpia el estado cuando se desmonta el componente.
+  useEffect(() => {
+    dispatch(fetchProducts({}, currentPage, cardsPerPage));
+  }, [dispatch, currentPage, cardsPerPage]);
 
-  }, [id]);
-
-  // Función para renderizar la propiedad "pool"
-  const renderPool = (poolValue) => {
-    return poolValue ? 'Yes' : 'No';
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm.trim());
+    setCurrentPage(1); // Reiniciar la página a 1 cuando se realiza una búsqueda
+    if (searchTerm.trim() !== "") {
+      dispatch(searchProducts(searchTerm.trim()))
+        .then((response) => {
+          if (response.status === 400) {
+            setError(true);
+          } else {
+            setError(false);
+          }
+        })
+        .catch(() => {
+          setError(true);
+        });
+    } else {
+      setError(false);
+      dispatch(fetchProducts({}, 1, cardsPerPage)); // Asegurarse de que se obtengan los productos de la primera página al limpiar la búsqueda
+    }
   };
 
-  // Función para renderizar la propiedad "season" como una lista separada por comas y espacios
-  const renderSeason = (seasonArray) => {
-    return seasonArray ? seasonArray.join(', ') : '';
+  useEffect(() => {
+    setError(searchResults.length === 0 && searchTerm.trim() !== "");
+  }, [searchResults, searchTerm]);
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  
+    dispatch(fetchProducts({}, page, cardsPerPage));
   };
 
   return (
-    <div className="detailContainer">
-      <div className="productDetail">
-        <h2 className="title">Discover a little more about {products?.name}</h2>
-        <img className="img" src={products?.image} alt={products?.image} />
-        <div className="infoContainer">
-          <h4>Price per night: {products?.pricePerNight}</h4>
-          <h4>Total rooms: {products?.totalRooms}</h4>
-          <h4>Location: {products?.location}</h4>
-          <h4>Season: {renderSeason(products?.season)}</h4>
-          <h4>Pool: {renderPool(products?.pool)}</h4>
+    <div className="homeView">
+      <section className="mainContent">
+        <div className="filter">
+          <Filter />
         </div>
-      </div>
+        <div className="search">
+          <SearchBar onSearch={handleSearch} />
+        </div>
+        {error ? (
+          <p style={{
+            backgroundColor: '#f8d7da', 
+            color: '#721c24',
+            padding: '10px', 
+            border: '1px solid #f5c6cb', 
+            borderRadius: '4px',
+            marginBottom: '10px', 
+            display: 'inline-block' 
+          }}>
+            No se encontraron resultados.
+          </p>
+        ) : (
+          <div className="cardsRows">
+            <Cards products={searchTerm.trim() !== "" ? searchResults : products} />
+          </div>
+        )}
+        <div className="paginado">
+          <Paginado currentPage={currentPage} onPageClick={onPageChange} totalPages={totalPages} />
+        </div>
+      </section>
+      <footer>
+        <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
+      </footer>
     </div>
   );
 }
 
-export default Detail;
+export default Home;

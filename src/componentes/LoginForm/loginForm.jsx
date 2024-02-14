@@ -18,7 +18,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3003/users/login', data);
+      const response = await axios.post('https://back-hostel.onrender.com/users/login', data);
       if (response.data) {
         // Ajustar la respuesta del servidor al formato esperado por NavBar
         const authData = {
