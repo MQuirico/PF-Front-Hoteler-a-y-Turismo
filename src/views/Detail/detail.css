@@ -1,66 +1,74 @@
-.homeView {
-  background-image: url("https://image.made-in-china.com/44f3j00OwVDTmjaykqy/Hotel-Decorative-3D-PVC-Modern-Design-Wall-Paper.webp"); 
-  padding-top: 50px;
-  min-height: 100vh; 
+/* .container{
+  background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg');
+  background-size: cover;
+  
+}
+ */
+
+.detailContainer {
+  /* background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg'); */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-size: cover; 
-  background-attachment: fixed; 
-  background-position: right; 
-}
-
-.mainContent {
-  width: 80%;
-  margin: 20px auto;
-  padding-top: 20px; /* Mover el contenido hacia abajo para dejar espacio para los controles */
-  position: relative; /* Cambiar a posición relativa para permitir que los controles se posicionen de manera relativa */
-}
-
-footer {
-  margin-top: auto; 
-  padding: 20px 0;
-  color: #888;
 }
 
 
-.cardsRows {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: -100px; /* Añade margen negativo para compensar el margen en las tarjetas */
-  margin-top: 110px;
-  position: absolute;
+.productDetail {
+  background-color: #373739;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+  width: 100%; 
+  max-width: 600px; 
 }
 
+.productDetail:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
 
+.img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
 
+.title {
+  font-family: 'Arial', sans-serif;
+  color: #60d4ea;
+}
 
-@media (max-width: 992px) {
-  .cardcontainer {
-    flex: 0 0 calc(50% - 20px); /* Cuando el ancho de la pantalla sea menor a 992px, cambia el ancho de cada tarjeta al 50% del contenedor padre */
+.infoContainer {
+  color: #60d4ea;
+}
+
+.infoContainer h4 {
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 10px;
+  transition: text-shadow 0.3s ease;
+}
+
+.infoContainer h4:hover {
+  text-shadow: 0 0 5px #9ea5f3;
+  transform: scale(1.05);
+  box-shadow:  0 4px 8px rgba(0, 0, 0, 0)
+}
+
+/* Media queries para hacer el diseÃ±o responsive */
+
+/* @media (max-width: 768px) {
+  .productDetail {
+    padding: 10px; 
   }
-}
 
-.search {
-  left: 1100px;
-  top: 05px;
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
-  z-index: 999;
-}
+  .img {
+    margin-bottom: 10px; 
+  }
+} */
 
-.fileter {
-  right: 20px;
-  top: 20px;
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
-  z-index: 999;
-}
-
-.paginado {
-  left: 50%;
-  bottom: -100px;
-  transform: translateX(-50%); /* Centrar horizontalmente el paginado */
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
-  z-index: 999;
-}
