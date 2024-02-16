@@ -1,0 +1,21 @@
+.root {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
+  }
+  
+  .drawerPaper {
+    width: 240px;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 24px;
+    background-image: url('https://www.minimalstudio.es/wp-content/uploads/2022/02/caracteristicas-de-la-arquitectura-minimalista-minimal-studio.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }

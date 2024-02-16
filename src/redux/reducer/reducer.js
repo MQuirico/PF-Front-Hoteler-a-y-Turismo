@@ -21,6 +21,12 @@ import {
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_PAYMONTH_FAILURE,
+  UPDATE_USER_PAYMONTH_SUCCESS,
+  UPDATE_USER_PAYMONTH_REQUEST,
 } from "../action-types/action-types";
 
 const initialState = {
@@ -156,6 +162,47 @@ const userDataReducer = (state = initialState, action) => {
               passwordAndEmailUpdating: false,
               passwordAndEmailUpdateError: action.payload,
             };
+
+            case UPDATE_USER_REQUEST:
+              return {
+                ...state,
+                loading: true,
+                updateUserError: null, 
+              };
+              case UPDATE_USER_SUCCESS:
+                return {
+                  ...state,
+                  loading: false,
+                  user: action.payload,
+                };
+            case UPDATE_USER_FAILURE:
+              return {
+                ...state,
+                loading: false,
+                error: action.payload,
+              };
+
+              case UPDATE_USER_PAYMONTH_REQUEST:
+                return {
+                  ...state,
+                  loading: true,
+                  error: null,
+                  success: false,
+                };
+              case UPDATE_USER_PAYMONTH_SUCCESS:
+                return {
+                  ...state,
+                  loading: false,
+                  error: null,
+                  success: true,
+                };
+              case UPDATE_USER_PAYMONTH_FAILURE:
+                return {
+                  ...state,
+                  loading: false,
+                  error: action.payload,
+                  success: false,
+                };
 
     default:
       return state;

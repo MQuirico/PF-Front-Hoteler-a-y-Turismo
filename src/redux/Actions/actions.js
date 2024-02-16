@@ -26,6 +26,12 @@ import {
     UPDATE_PASSWORD_REQUEST,
     UPDATE_PASSWORD_SUCCESS,
     UPDATE_PASSWORD_FAILURE,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAILURE,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_PAYMONTH_FAILURE,
+    UPDATE_USER_PAYMONTH_SUCCESS,
+    UPDATE_USER_PAYMONTH_REQUEST,
 
 } from "../action-types/action-types";
 
@@ -241,3 +247,84 @@ export const newHotel = (hotel) => {
       };
     };
   
+
+    export const updateUserRequest = () => ({
+      type: UPDATE_USER_REQUEST,
+    });
+    
+    export const updateUserSuccess = () => ({
+      type: UPDATE_USER_SUCCESS,
+    });
+    
+    export const updateUserFailure = (error) => ({
+      type: UPDATE_USER_FAILURE,
+      payload: error,
+    });
+    
+    //action para modificar el mail
+    export const updateUser = (id, updatedFields) => {
+      return async (dispatch) => {
+        dispatch(updateUserRequest());
+    
+        try {
+          console.log("Datos enviados al servidor:", { id, updatedFields });
+    
+          const response = await fetch(
+            `https://back-hostel.onrender.com/users/perfil/update/${id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedFields),
+            }
+          );
+    
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+    
+          dispatch(updateUserSuccess());
+        } catch (error) {
+          console.error("Error en la acción:", error);
+          dispatch(updateUserFailure(error.message));
+        }
+      };
+    };
+
+
+    // action para agregar tarjeta
+export const updateUserpay = (userId, paymentMethods) => {
+  return async (dispatch) => {
+    dispatch({ type: UPDATE_USER_PAYMONTH_REQUEST });
+
+    try {
+      const response = await fetch(
+        `https://back-hostel.onrender.com/users/${userId}/paymentMethods`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(paymentMethods), // Envía solo los datos de la tarjeta, no un objeto anidado
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar paymentMethods");
+      }
+
+      const updatedProfile = await response.json();
+
+      dispatch({
+        type: UPDATE_USER_PAYMONTH_SUCCESS,
+        payload: updatedProfile,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_USER_PAYMONTH_FAILURE,
+        payload: error.message || "Error al actualizar el perfil del usuario",
+      });
+    }
+  };
+};

@@ -1,0 +1,112 @@
+.form2 {
+    width: 350px;
+    height: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-left: 450px;
+    margin-top: 70px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
+    position: absolute;
+  }
+  
+  
+  .detailContainers2 {
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230717/pngtree-simplified-staircase-setting-for-product-presentation-stage-performance-exhibition-and-3d-image_3897064.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .inputContainer2 {
+    margin-bottom: 15px; 
+    width: 100%; /* Ajustar el ancho al 100% */
+  }
+  
+  .label2 {
+    font-size: 12px; 
+    font-weight: bold;
+    margin-bottom: 5px; 
+    margin-right: 10px;
+  }
+  
+  .input2 {
+    width: calc(100% - 16px); /* Ajustar el ancho al 100% menos el ancho del borde */
+    font-size: 14px; 
+    text-align: left;
+    height: 35px;
+    border-radius: 5px;
+    border: 0.5px solid #837b7b;
+    background-color: #ffffff;
+  }
+  
+  .editButton,
+  .saveButton {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px; 
+  }
+  
+  .editButton {
+    background-color: #131314;
+    color: #090808;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 0px;
+  
+  }
+  
+  .editButton:hover {
+    background-color: #2980b9; 
+  }
+  
+  .saveButton {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .saveButton:hover {
+    background-color: #219653;
+  }
+  
+  .error2 {
+    color: #c0392b;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  
+  
+  .title2{
+  margin-bottom: 20px;
+    border-bottom: 2px black;
+  }
+  
+
+  
+  
+
+
+  
+  @media (max-width: 600px) {
+    .form2 {
+      width: 80%;
+    }
+  }
+  

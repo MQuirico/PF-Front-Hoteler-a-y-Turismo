@@ -58,17 +58,9 @@
   text-shadow: 0 0 5px #9ea5f3;
   transform: scale(1.05);
   box-shadow:  0 4px 8px rgba(0, 0, 0, 0)
-}
+} 
 
-/* Media queries para hacer el diseÃ±o responsive */
 
-/* @media (max-width: 768px) {
-  .productDetail {
-    padding: 10px; 
-  }
 
-  .img {
-    margin-bottom: 10px; 
-  }
-} */
+ @media (max-width: 768px) {
 

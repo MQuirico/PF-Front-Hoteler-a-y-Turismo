@@ -20,6 +20,7 @@ function Detail() {
   const location = useLocation(); // Obtener la ubicación del estado
   const selectedImage = location.state && location.state.selectedImage; // Obtener la imagen del estado
 /// DETAIL RECIBE DE CARD POR STATE LA PROP IMAGE CON LA CONST SELECTEDIMAGE ///
+
 const ProSpan = styled('span')({
   display: 'inline-block',
   height: '1em',
@@ -72,9 +73,10 @@ function Label({ componentName, valueType, isProOnly }) {
   return content;
 }
 
+
 /// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
   useEffect(() => {
-    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
+    axios.get(`http://localhost:3000/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -105,6 +107,7 @@ function Label({ componentName, valueType, isProOnly }) {
   };
 
   return (
+
     <div className="container" style={{
       backgroundImage: "url('https://media.infocielo.com/p/dbc6bcdde57cfd82955b5b47f3d9eaa1/adjuntos/299/imagenes/001/307/0001307849/1200x675/smart/turismo-rural-gandara-chascomus-refugio-el-vergeljpg.jpg')", 
       backgroundSize: "cover",
@@ -177,10 +180,13 @@ function Label({ componentName, valueType, isProOnly }) {
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
+
         </div>
         <button>Hacer reserva</button>
       </div>
+
       
+
     </div>
   );
 }
