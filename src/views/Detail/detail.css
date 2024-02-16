@@ -16,8 +16,8 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
-  width: 100%; /* El detalle del producto ocupa todo el ancho */
-  max-width: 600px; /* Establecemos un ancho máximo para evitar que el contenido se extienda demasiado en pantallas grandes */
+  width: 100%; 
+  max-width: 600px; 
 }
 
 .productDetail:hover {
@@ -51,16 +51,16 @@
   text-shadow: 0 0 5px #9ea5f3;
   transform: scale(1.05);
   box-shadow:  0 4px 8px rgba(0, 0, 0, 0)
-}
+} 
 
-/* Media queries para hacer el diseño responsive */
 
-@media (max-width: 768px) {
+
+ @media (max-width: 768px) {
   .productDetail {
-    padding: 10px; /* Reducir el padding en pantallas más pequeñas */
+    padding: 10px; 
   }
 
   .img {
-    margin-bottom: 10px; /* Reducir el margen inferior de la imagen en pantallas más pequeñas */
+    margin-bottom: 10px; 
   }
 }

@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from '../../redux/Actions/actions';
 import './detail.css';
 
 function Detail() {
   const { id } = useParams();
-  console.log(id);
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState({});
+  const productsState = useSelector((state) => state.products);
+  const location = useLocation(); // Obtener la ubicación del estado
+  const selectedImage = location.state && location.state.selectedImage; // Obtener la imagen del estado
+/// DETAIL RECIBE DE CARD POR STATE LA PROP IMAGE CON LA CONST SELECTEDIMAGE ///
 
-//dsddsad
-  const [products, setProducts] = useState({}); // Estado local -> products
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+/// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
   useEffect(() => {
-    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
+    axios.get(`http://localhost:3000/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -24,69 +27,56 @@ function Detail() {
       .catch((error) => {
         throw new Error(error.message);
       });
+
+    // Limpiar el estado cuando se desmonta el componente.
+    return () => setProducts({});
   }, [id]);
 
   useEffect(() => {
-    console.log("Products:", products);
-  }, [products]);
-
-
-  const renderImage = () => {
-    if (products.images && products.images.length > 0) {
-      const imageUrl = products.images[currentImageIndex];
-      console.log("Image URL:", imageUrl);
-      return <img src={imageUrl} alt="Product" />;
-    } else {
-      return <p>No image available</p>;
+    if (!productsState) {
+      dispatch(fetchProducts(id));
     }
-  };
+  }, [dispatch, id, productsState]);
 
-  const handlePreviousImage = () => {
-    if (currentImageIndex === 0) {
-      setCurrentImageIndex(products.images.length - 1);
-    } else {
-      setCurrentImageIndex(currentImageIndex - 1);
-    }
-  };
+  if (!products || !products.name) {
+    return <div>Loading...</div>;
+  }
 
-  const handleNextImage = () => {
-    if (currentImageIndex === products.images.length - 1) {
-      setCurrentImageIndex(0);
-    } else {
-      setCurrentImageIndex(currentImageIndex + 1);
-    }
-  };
-
-  // Función para renderizar la propiedad "pool"
   const renderPool = (poolValue) => {
     return poolValue ? 'Yes' : 'No';
   };
 
-  // Función para renderizar la propiedad "season" como una lista separada por comas y espacios
-  const renderSeason = (seasonArray) => {
-    if (!seasonArray || seasonArray.length === 0) return '';
-    return seasonArray.map(season => season.label).join(', ');
-  };
-
-
   return (
-    <div className="detailContainer">
-      <div className="productDetail">
-      <h2 className="title">Discover a little more about {products.name}</h2>
-          {renderImage()}
-          {products.images && products.images.length > 1 && (
-            <div className="imageNavigation">
-              <button onClick={handlePreviousImage}>Previous</button>
-              <button onClick={handleNextImage}>Next</button>
-            </div>
-          )}
-          <div className="infoContainer">
-          <h4>Price per night: {products?.pricePerNight}</h4>
-          <h4>Total rooms: {products?.totalRooms}</h4>
-          <h4>Location: {products?.location}</h4>
-          <h4>Season: {renderSeason(products.season)}</h4>
-          <h4>Pool: {renderPool(products?.pool)}</h4>
+    <div className="container">
+      <div className="detailContainer">
+        <div className="imagePreview">
+          {/* Utiliza la imagen obtenida de la ubicación del estado */}
+          <img
+            src={selectedImage || 'URL_POR_DEFECTO_PARA_IMAGEN'}
+            alt={products.name}
+          />
         </div>
+        <div className="detailContent">
+          <h2>{products.name}</h2>
+          <div className="locationContainer">
+            <h4>{products.location}</h4>
+          </div>
+          <div className="price">
+            <h4>${products.pricePerNight} ARG</h4>
+          </div>
+          <div className="containerRooms">
+            <h4>Total rooms: {products.totalRooms}</h4>
+          </div>
+          <div className="seasonContainer">
+            <h4>Season: {products.season.join(", ")}</h4>
+          </div>
+          <div>
+            <h4>Pool: {renderPool(products.pool)}</h4>
+          </div>
+        </div>
+      </div>
+      <div className="reviewContainer">
+        {/* Agrega el componente de revisión aquí */}
       </div>
     </div>
   );

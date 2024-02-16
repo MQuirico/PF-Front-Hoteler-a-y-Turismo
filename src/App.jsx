@@ -10,7 +10,7 @@ import Create from "./componentes/Create/create";
 import LogIn from "./componentes/LoginForm/loginForm";
 import About from './componentes/About/about'
 import Registro from "./componentes/Register/register";
-import UserProfileForm from "./componentes/prefilDeUsuario/prefilDeUsuario"
+import DashboardUsuario from "./componentes/prefilDeUsuario/dashBoard"
 
 
 // import ProtectedRoute from './GeneralLogin';
@@ -42,7 +42,7 @@ function App() {
  <Route exact path="/detail/:id" component={Detail} />
 
  <Route exact path="/create" component= {Create} />
-<Route exact path = "/configUser" component = {UserProfileForm} />
+<Route exact path = "/configUser" component = {DashboardUsuario} />
 </Switch> 
       </div>
     </Router>
