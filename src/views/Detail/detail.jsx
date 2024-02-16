@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from '../../redux/Actions/actions';
-import './detail.css';
+import './detail.css'
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
@@ -11,6 +11,8 @@ import { styled } from '@mui/material/styles';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import AlignItemsList from './ReviewList/reviewList';
+import MakeReview from './MakeReview/makeReview'
 
 function Detail() {
   const { id } = useParams();
@@ -32,14 +34,24 @@ const ProSpan = styled('span')({
   backgroundImage: 'url(https://mui.com/static/x/pro.svg)',
 });
 
-const StyledDateCalendar = styled(DateCalendar)(({ theme }) => ({
+const StyledLabel = styled(Label)({
+  marginRight: "100vh",
+  position: "fixed",
+  width: "40vh"
+})
+
+const StyledDateCalendar = styled(DateCalendar)({
   
-  marginLeft: "2px !important",
-  marginBottom: "4px !important",
+  marginLeft: "0.5vh !important",
+  marginTop: "3vh !important",
+  position: "fixed",
+
   '.Mui-selected': {
     backgroundColor: 'orange',
   },
-}));
+});
+
+
 
 
 function Label({ componentName, valueType, isProOnly }) {
@@ -47,7 +59,8 @@ function Label({ componentName, valueType, isProOnly }) {
     <span style={{
       color: "black",
       fontSize: "large",
-      marginTop: "4vh"
+      marginTop: "0vh",
+      position: "fixed"
     }} >
       <strong>Disponiblidad</strong> para reserva
     </span>
@@ -112,17 +125,16 @@ function Label({ componentName, valueType, isProOnly }) {
       backgroundRepeat: "no-repeat", 
       height: "94.9vh",
       maxWidth: "300vh"
-      
-      }} >
+      }}>
+
       <div className="detailContainer" style={{
         backgroundColor: "rgba(245, 245, 245, 0.65)",
         height: "90vh",
         width: "107vh",
         marginTop: "1.5vh",
         marginLeft: "100vh",
-        borderRadius: "5%"
-
-      }} >
+        borderRadius: "3%"
+      }}>
           
         <div className="detailContent" style={{
           marginTop: "1vh",
@@ -132,21 +144,25 @@ function Label({ componentName, valueType, isProOnly }) {
           position: "fixed",
           
         }}>
+
           <img style={{
-            borderRadius: "8%"
+            borderRadius: "8%",
+            maxHeight: "250px",
+            maxWidth: "320px"
           }}
             src={products.images[0]}
             alt={products.name}
           />
+
           <h2 style={{
-          marginLeft: "55vh",
-          marginTop: "-26vh",
+          marginLeft: "50vh",
+          marginTop: "-22vh",
           position: "fixed",
           color: "brown"
           }}>{products.name}</h2>
             <h4 style={{
             marginLeft: "41vh",
-            marginTop: "-22vh"
+            marginTop: "-18vh"
           }}>{products.location}</h4>
             <h4 style={{
           marginLeft: "41vh"
@@ -170,15 +186,23 @@ function Label({ componentName, valueType, isProOnly }) {
           'DateRangePicker',
         ]}
         >
-        <DemoItem label={<Label componentName="DatePicker" valueType="date" />}>
-        
+        <DemoItem label={<StyledLabel componentName="DatePicker" valueType="date" />}>
         <StyledDateCalendar />
-        
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
+        <button style={{
+          marginTop: "38vh",
+          marginLeft: "19vh",
+          position: "fixed",
+          cursor: "pointer"
+        }}>
+        Hacer reserva
+        </button>
+        <AlignItemsList className="list" />
+        <MakeReview />
         </div>
-        <button>Hacer reserva</button>
+        
       </div>
       
     </div>
