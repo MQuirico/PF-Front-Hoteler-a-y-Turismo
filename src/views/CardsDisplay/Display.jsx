@@ -47,7 +47,7 @@ function Home() {
   };
 
   useEffect(() => {
-    setError(searchResults.length === 0 && searchTerm.trim() !== "");
+    setError(searchResults?.length === 0 && searchTerm.trim() !== "");
   }, [searchResults, searchTerm]);
 
   const onPageChange = (page) => {

@@ -1,5 +1,12 @@
-.detailContainer {
+/* .container{
   background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg');
+  background-size: cover;
+  
+}
+ */
+
+.detailContainer {
+  /* background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg'); */
   background-size: cover;
   background-position: center;
   padding: 20px;
@@ -56,11 +63,4 @@
 
 
  @media (max-width: 768px) {
-  .productDetail {
-    padding: 10px; 
-  }
 
-  .img {
-    margin-bottom: 10px; 
-  }
-}
