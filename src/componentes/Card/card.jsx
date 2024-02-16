@@ -9,7 +9,9 @@ const Card = ({ id, name, location, season, pricePerNight, image, highlight }) =
     return null;
   }
 
-  const temp = season.join(", ");
+
+  
+
 
   return (
     <div className="fondo">
@@ -22,7 +24,9 @@ const Card = ({ id, name, location, season, pricePerNight, image, highlight }) =
         </div>
         <div className="card-body">
           <p className="card-text"> <br/> {location}</p>
-          <p className="card-text">Temporada: {temp} <br/> {} <br/><br/></p>
+
+          <p className="card-text">Temporada: <br/> {season} <br/><br/></p>
+
           <p className="card-text">Precio por noche: {pricePerNight}</p>
         </div>
       </Link>

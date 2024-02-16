@@ -1,30 +1,18 @@
 .form {
-  width: 350px;
-  height: 600px;
+  width: 320px;
+  height: 540px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  margin-left: 790px;
-  margin-top: 100px;
+  margin-left: 450px;
+  margin-top: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-  overflow-y: auto;
+  position: absolute; 
+  margin-bottom: 20px;
 }
-
-
-.detailContainers {
-  background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230717/pngtree-simplified-staircase-setting-for-product-presentation-stage-performance-exhibition-and-3d-image_3897064.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 20px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 
 .inputContainer {
   margin-bottom: 15px; 
@@ -54,8 +42,8 @@
 }
 
 .editButton {
-  background-color: #131314;
-  color: #090808;
+  background-color: #3498db;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -96,21 +84,107 @@
 }
 
 .title{
-margin-bottom: 20px;
-  border-bottom: 2px black;
+  color: #0b0b0b;
+
+  border: 1px solid #ffffff;
+  width: 250px;
+  border-radius: 12.825px;
+  height: 38.25px;
+  margin-right: 50px;
+  text-align: center;
+  background-color: #ffffffc5;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.7);
+  margin-left: 15px;
+  margin-top: -80px;
+  margin-bottom: 50px;
+  position: absolute;
 }
 
 .fileInput{
   border: 1px solid rgb(186, 184, 184);
 }
 
-.detailContainer {
-  background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 20px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.previewContainer {
+  margin-top: 110px;
+  position: relative;
 }
+
+.preview {
+  border: 1px solid #fdfffee6;
+  padding: 22.95px;
+  background-color: #fdfffee6;
+  border-radius: 12.825px;
+  margin-right: 22.95px;
+  margin-top: 15px;
+  margin-bottom: 22.95px;
+  position: absolute;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  width: 300px;
+  height: 540px;
+  margin-left: 90px;
+  overflow: auto; 
+}
+
+.preview::-webkit-scrollbar {
+  width: 5px; 
+}
+
+.preview::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); 
+  border-radius: 4px; 
+}
+
+.preview::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.textopreview {
+  text-align: center;
+  font-size: 50px;
+  margin-bottom: 0px;
+  margin-top: -10px;
+}
+
+.titulo {
+  color: #0b0b0b;
+
+  border: 1px solid #ecf0f1;
+  width: 250px;
+  border-radius: 12.825px;
+  height: 38.25px;
+  margin-right: 50px;
+  text-align: center;
+  background-color: #f7f7f7;
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.7);
+  margin-left: 115px;
+  margin-top: -40px;
+  margin-bottom: 50px;
+  position: absolute;
+}
+
+.textoPrev p {
+  color: #34495e;
+  font-size: 17px;
+  text-align: left;
+  margin-top: 45px;
+  
+}
+
+
+
+.mail{
+  position: absolute;
+  margin-left: 200px;
+
+}
+
+
+
+
+
+
+
+
+
+
