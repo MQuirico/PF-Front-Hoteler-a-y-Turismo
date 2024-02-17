@@ -6,27 +6,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function AlignItemsList() {
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
-  const [reviews, setReviews] = React.useState([])
-
-React.useEffect(()=>{
- axios.get(`https://back-hostel.onrender.com/reviews/products/${id}`)
-  .then(({data}) => {
-    if (data){
-    setReviews(data)
-  } else {
-    setReviews(["No hay reviews"])
-  }
-  })
-  .catch((error) =>{
-    throw new Error(error.message);
-  } )
-  return () => setReviews({});
-}, [id])
+  const reviews = useSelector((state)=> state.reviews.data)
+  const dispatch = useDispatch()
+  console.log(id)
+  
 
 console.log(reviews)
 

@@ -32,6 +32,9 @@ import {
     UPDATE_USER_PAYMONTH_FAILURE,
     UPDATE_USER_PAYMONTH_SUCCESS,
     UPDATE_USER_PAYMONTH_REQUEST,
+    FETCH_REVIEWS_FAILURE,
+    FETCH_REVIEWS_REQUEST,
+    FETCH_REVIEWS_SUCCESS
 
 } from "../action-types/action-types";
 
@@ -325,6 +328,38 @@ export const updateUserpay = (userId, paymentMethods) => {
         type: UPDATE_USER_PAYMONTH_FAILURE,
         payload: error.message || "Error al actualizar el perfil del usuario",
       });
+    }
+  };
+};
+
+export const fetchReviewsRequest = () => ({
+  type: FETCH_REVIEWS_REQUEST
+});
+
+export const fetchReviewsSuccess = (data) => ({
+  type: FETCH_REVIEWS_SUCCESS,
+  payload: data
+});
+
+export const fetchReviewsFailure = (error) => ({
+  type: FETCH_REVIEWS_FAILURE,
+  payload: error
+});
+
+export const fetchReviews = (ID) => {
+  return async (dispatch) => {
+    dispatch(fetchReviewsRequest());
+    try {
+      const response = await axios.get(`https://back-hostel.onrender.com/reviews/products/${ID}`);
+      const data = response.data;
+      console.log(typeof data, data)
+      if (data) {
+        dispatch(fetchReviewsSuccess(data));
+      } else {
+        dispatch(fetchReviewsSuccess(["No hay reviews"]));
+      }
+    } catch (error) {
+      dispatch(fetchReviewsFailure(error.message));
     }
   };
 };
