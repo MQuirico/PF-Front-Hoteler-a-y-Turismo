@@ -14,7 +14,7 @@ export default function AlignItemsList() {
   const [reviews, setReviews] = React.useState([])
 
 React.useEffect(()=>{
- axios.get(`https://back-hostel.onrender.com/reviews/products/${id}`)
+ axios.get(`http://localhost:3000/reviews/products/${id}`)
   .then(({data}) => {
     if (data){
     setReviews(data)

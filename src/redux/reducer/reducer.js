@@ -43,6 +43,7 @@ const initialState = {
   updateUserError: null,
   passwordAndEmailUpdating: false,
   passwordAndEmailUpdateError: null,
+  success:[]
    
 };
 

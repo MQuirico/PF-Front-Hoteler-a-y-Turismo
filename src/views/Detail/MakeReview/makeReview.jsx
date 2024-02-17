@@ -25,7 +25,7 @@ export default function MakeReview(){
             profileImage: auth.token.imageUrl
         }
         console.log(dataToSend)
-        axios.post(`https://back-hostel.onrender.com/reviews/products/detail/${id}`, dataToSend)
+        axios.post(`http://localhost:3000/reviews/products/detail/${id}`, dataToSend)
         .then(response => {
             console.log('Reseña enviada exitosamente:', response.data);
         Object.keys(data).forEach((fieldName) => {

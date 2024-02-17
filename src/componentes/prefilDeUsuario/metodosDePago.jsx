@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserpay } from '../../../src/redux/Actions/actions';
+import { updateUserpay } from '../../redux/Actions/actions';
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { TextField, Button, Typography } from '@mui/material';
 import styles from './metodosDePago.module.css';
@@ -13,6 +13,18 @@ import Cabal from '../../assets/caval.jpeg';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useForm } from 'react-hook-form';
 
+
+const handleKeyPress1 = (event) => {
+  if (!/[0-9]/.test(event.key) || event.target.value.length >= 16) {
+    event.preventDefault();
+  }
+};
+
+const handleKeyPress2 = (event) => {
+  if (!/[0-9]/.test(event.key) || event.target.value.length >= 3) {
+    event.preventDefault();
+  }
+};
 
 const PaymentMethodsForm = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -32,18 +44,17 @@ const PaymentMethodsForm = () => {
     cvv: false,
   });
 
-  const [addPaymentError, setAddPaymentError] = useState(null);
   const [numberError, setNumberError] = useState('');
   const [cvvError, setCvvError] = useState('');
   const [selectedBrand, setSelectedBrand] = React.useState("");
   const [brandImage, setBrandImage] = React.useState(null);
   const { register, formState: { errors }, setValue, handleSubmit } = useForm();
+  const [addPaymentError, setAddPaymentError] = useState(null);
 
   const dispatch = useDispatch();
   const { loading = false, error: updateUserError = null } = useSelector(
     (state) => state.userDataSession || {}
   );
-
 
   useEffect(() => {
     if (auth && auth.token) {
@@ -104,14 +115,28 @@ const PaymentMethodsForm = () => {
 
   const history = useHistory();
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-const handleChange = (e) => {
-  let inputValue = e.target.value;
-  inputValue = inputValue.replace(/\D/g, '');
-  inputValue = inputValue.replace(/(\d{4})(?=\d)/g, '$1-');
-  inputValue = inputValue.slice(0, 19);
-  setFormData({ ...formData, number: inputValue });
-};
+    // Validación p/ número de tarjeta
+    if (e.target.name === 'number') {
+      if (!/^\d+$/.test(e.target.value)) {
+        setNumberError('Ingrese solo números para el número de tarjeta.');
+      } else {
+        setNumberError('');
+      }
+    }
+
+    // Validación p/ CVV
+    if (e.target.name === 'cvv') {
+      if (!/^\d+$/.test(e.target.value)) {
+        setCvvError('Ingrese solo números para el CVV.');
+      } else {
+        setCvvError('');
+      }
+    }
+  };
+
 
 
   const onSubmit = (data, e) => {
@@ -135,46 +160,61 @@ const handleChange = (e) => {
     
     switch (selectedBrand) {
       case 'Visa':
-          setBrandImage(Visa);
-          break;
-          case 'MasterCard':
-              setBrandImage(MasterCard);
+        setBrandImage(Visa);
         break;
-        case 'Naranja':
+      case 'MasterCard':
+        setBrandImage(MasterCard);
+        break;
+      case 'Naranja':
         setBrandImage(Naranja);
         break;
-        case 'American Express':
-            setBrandImage(Amex);
+      case 'American Express':
+        setBrandImage(Amex);
         break;
-        case 'Diners Club':
+      case 'Diners Club':
         setBrandImage(Diners);
         break;
       case 'Cabal':
         setBrandImage(Cabal);
         break;
-        default:
-            setBrandImage(null);
+      default:
+        setBrandImage(null);
         break;
     }
   };
-  
-  const handleChangeFecha = (e) => {
-      let inputValue = e.target.value;
-      inputValue = inputValue.replace(/\D/g, '');
-      if (inputValue.length > 2) {
-        inputValue = inputValue.slice(0, 2) + '/' + inputValue.slice(2);
-      }
-      inputValue = inputValue.slice(0, 5);
-      setFormData({ ...formData, expirationDate: inputValue });
-    };
 
-    const handleChangeCVV = (e) => {
-        let inputValue = e.target.value;
-        inputValue = inputValue.replace(/\D/g, '');
-        inputValue = inputValue.slice(0, 4);
-        setFormData({ ...formData, cvv: inputValue });
-      };
 
+  const formatCreditCardNumber = (value) => {
+    
+    const cardNumber = value.replace(/\D/g, '').slice(0, 16);
+
+ 
+    const formattedCardNumber = cardNumber.replace(/(\d{4})/g, '$1 ');
+
+    return formattedCardNumber.trim();
+  };
+
+  const formatExpirationDate = (value) => {
+   
+    const expirationDate = value.replace(/\D/g, '').slice(0, 4);
+
+
+    const formattedExpirationDate = expirationDate.replace(/(\d{2})(\d{2})/, '$1/$2');
+
+    return formattedExpirationDate.trim();
+  };
+
+  const handleCardNumberChange = (e) => {
+    const formattedCardNumber = formatCreditCardNumber(e.target.value);
+    setFormData({ ...formData, number: formattedCardNumber });
+  };
+
+  const handleExpirationDateChange = (e) => {
+    const formattedExpirationDate = formatExpirationDate(e.target.value);
+    setFormData({ ...formData, expirationDate: formattedExpirationDate });
+  };
+
+ 
 
 
   return (
@@ -258,7 +298,7 @@ const handleChange = (e) => {
           id="expirationDate"
           name="expirationDate"
           value={formData.expirationDate}
-          onChange={handleChangeFecha}
+          onChange={handleChange}
           disabled={!editMode.expirationDate}
           variant="outlined"
           size="small"
@@ -279,7 +319,7 @@ const handleChange = (e) => {
           id="cvv"
           name="cvv"
           value={formData.cvv}
-          onChange={handleChangeCVV}
+          onChange={handleChange}
           disabled={!editMode.cvv}
           variant="outlined"
           size="small"
