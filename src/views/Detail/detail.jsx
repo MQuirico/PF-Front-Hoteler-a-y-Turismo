@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
@@ -13,15 +13,19 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import AlignItemsList from './ReviewList/reviewList';
 import MakeReview from './MakeReview/makeReview'
+import { fetchReviews } from '../../redux/Actions/actions';
 
 function Detail() {
-  const { id } = useParams();
   const dispatch = useDispatch();
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = React.useState({});
   const productsState = useSelector((state) => state.products);
   const location = useLocation(); // Obtener la ubicación del estado
-  const selectedImage = location.state && location.state.selectedImage; // Obtener la imagen del estado
-/// DETAIL RECIBE DE CARD POR STATE LA PROP IMAGE CON LA CONST SELECTEDIMAGE ///
+  const url = window.location.href;
+  const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
+  
+  React.useEffect(() => {
+    dispatch(fetchReviews(id));
+  }, [dispatch, id]);
 
 const ProSpan = styled('span')({
   display: 'inline-block',
@@ -55,15 +59,22 @@ const StyledDateCalendar = styled(DateCalendar)({
 
 
 
+
+
+
+
 function Label({ componentName, valueType, isProOnly }) {
   const content = (
     <span style={{
       color: "black",
       fontSize: "large",
-      marginTop: "0vh",
-      position: "fixed"
+      marginTop: "-1vh",
+      marginLeft: "5vh",
+      position: "fixed",
+      textAlign: "center"
     }} >
-      <strong>Disponiblidad</strong> para reserva
+      He aquí un <strong>calendario</strong> para<br></br>
+      ayudarte a planificar.
     </span>
   );
 
@@ -86,10 +97,9 @@ function Label({ componentName, valueType, isProOnly }) {
   return content;
 }
 
-
 /// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
-  useEffect(() => {
-    axios.get(`http://localhost:3000/products/detail/${id}`)
+  React.useEffect(() => {
+    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -105,22 +115,26 @@ function Label({ componentName, valueType, isProOnly }) {
     return () => setProducts({});
   }, [id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!productsState) {
       dispatch(fetchProducts(id));
     }
-  }, [dispatch, id, productsState]);
+  }, [dispatch, id, productsState],
+  );
+
 
   if (!products || !products.name) {
     return <div>Loading...</div>;
   }
+
+  
+  
 
   const renderPool = (poolValue) => {
     return poolValue ? 'Posee piscina' : 'No posee piscina';
   };
 
   return (
-
     <div className="container" style={{
       backgroundImage: "url('https://media.infocielo.com/p/dbc6bcdde57cfd82955b5b47f3d9eaa1/adjuntos/299/imagenes/001/307/0001307849/1200x675/smart/turismo-rural-gandara-chascomus-refugio-el-vergeljpg.jpg')", 
       backgroundSize: "cover",
@@ -194,7 +208,6 @@ function Label({ componentName, valueType, isProOnly }) {
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
-
         <button style={{
           marginTop: "38vh",
           marginLeft: "19vh",
@@ -203,15 +216,14 @@ function Label({ componentName, valueType, isProOnly }) {
         }}>
         Hacer reserva
         </button>
+       
         <AlignItemsList className="list" />
         <MakeReview />
-
+       
         </div>
         
       </div>
-
       
-
     </div>
   );
 }
