@@ -27,6 +27,9 @@ import {
   UPDATE_USER_PAYMONTH_FAILURE,
   UPDATE_USER_PAYMONTH_SUCCESS,
   UPDATE_USER_PAYMONTH_REQUEST,
+  FETCH_REVIEWS_FAILURE,
+  FETCH_REVIEWS_REQUEST,
+  FETCH_REVIEWS_SUCCESS
 } from "../action-types/action-types";
 
 const initialState = {
@@ -43,7 +46,11 @@ const initialState = {
   updateUserError: null,
   passwordAndEmailUpdating: false,
   passwordAndEmailUpdateError: null,
-   
+  reviews: {
+    data: null,
+    loading: false,
+    error: null
+  }
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -203,7 +210,33 @@ const userDataReducer = (state = initialState, action) => {
                   error: action.payload,
                   success: false,
                 };
-
+                case FETCH_REVIEWS_REQUEST:
+                  return {
+                    ...state,
+                    reviews:{
+                      ...state.reviews,
+                    loading: true,
+                    error: null}
+                  };
+                case FETCH_REVIEWS_SUCCESS:
+                  return {
+                    ...state,
+                    reviews:{
+                      ...state.reviews,
+                      loading: false,
+                    data: action.payload 
+                  }
+                  };
+                case FETCH_REVIEWS_FAILURE:
+                  return {
+                    ...state,
+                    reviews:{
+                    ...state.reviews,
+                    loading: false,
+                    error: action.payload
+                    }
+                    
+                  };
     default:
       return state;
   }
