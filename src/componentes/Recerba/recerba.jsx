@@ -136,12 +136,14 @@ const ReservationForm = (props) => {
                     />
                 </div>
                 <button type="submit">Reservar</button>
-               
+                <div>
 
-               
-    
+                { Product && (
+                    <button onClick={(event) => handlePayClick(event, Product.id)}>Pagar con Mercado Pago</button>
+                    )}
+                    </div>
             </form>
-                   
+                    {console.log("dsadsa",Product.id)}
         </div>
     );
 };
