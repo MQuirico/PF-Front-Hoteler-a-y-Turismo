@@ -20,6 +20,10 @@ import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites } from '../../redux/Actions/actions';
 // import { Link } from '@mui/material';
 import {Link} from "react-router-dom";
+import { getAllUsers } from '../../redux/Actions/actions';
+import { useEffect } from 'react';
+
+
  
 function Detail() {
   const dispatch = useDispatch();
@@ -100,6 +104,46 @@ const StyledDateCalendar = styled(DateCalendar)({
     backgroundColor: 'orange',
   },
 });
+
+
+useEffect(() => {
+  // Llama a la acción getAllUsers cuando el componente se monte
+  dispatch(getAllUsers());
+}, [dispatch]);
+
+useEffect(() => {
+  if (!id || !products || Object.keys(products).length === 0) {
+    dispatch(fetchProducts(id));
+  }
+}, [dispatch, id, products]);
+
+const handlePayClick = async (event, id) => {
+  event.preventDefault();
+
+  try {
+    // Verificar que productId no sea undefined
+  if (!products) {
+    console.error('ID del producto no definido.');
+    return;
+  }
+
+    // Enviar la solicitud POST con los datos del producto y del usuario
+    const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
+      productId: products.id,
+      userId: 1,
+      quantity: 1,
+      card: "visa"
+    });
+    const { data } = response;
+
+    // Redirigir al usuario a la URL proporcionada por MercadoPago utilizando un enlace
+    window.location.href = data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
 
 
 
@@ -309,7 +353,7 @@ console.log(products)
         </DemoContainer>
         </LocalizationProvider>
        
-        <Link to={{ pathname: "/reserva", state: productsProp }}>Ir al destino
+        <Link to={{ pathname: "/reserva", state: productsProp }}>
         <button style={{
           marginTop: "38vh",
           marginLeft: "10px",
@@ -319,6 +363,10 @@ console.log(products)
         Hacer reserva
         </button>
         </Link>
+       
+
+
+          
         <AlignItemsList className="list" />
         <MakeReview />
        

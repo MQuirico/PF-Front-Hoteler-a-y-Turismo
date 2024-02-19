@@ -41,6 +41,9 @@ import {
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
     CREATE_RESERVATION_SUCCESS,
+    GET_ALL_USERS_REQUEST,
+    GET_ALL_USERS_SUCCESS,
+    GET_ALL_USERS_FAILURE,
 
 } from "../action-types/action-types";
 
@@ -446,3 +449,17 @@ const createReservationFailure = (error) => ({
   payload: error,
 });
 
+//para mp
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    dispatch({ type: GET_ALL_USERS_REQUEST });
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      const users = response.data;
+      dispatch({ type: GET_ALL_USERS_SUCCESS, payload: users });
+    } catch (error) {
+      dispatch({ type: GET_ALL_USERS_FAILURE, payload: error.message });
+    }
+  };
+};

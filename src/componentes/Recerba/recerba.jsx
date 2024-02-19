@@ -1,34 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createReservation } from '../../redux/Actions/actions'
 import { AuthContext } from '../AuthProvider/authProvider';
 import "./recerba.css"
-import axios from 'axios'
+import axios from 'axios';
+import { getAllUsers } from '../../redux/Actions/actions';
+
 
 const ReservationForm = (props) => {
     const [products, setProducts] = React.useState({});
-    const ProductId = props.location.state;
-    console.log("productid",ProductId);
+    const Product = props.location.state;
+    console.log("productid",Product);
     const dispatch = useDispatch();
     const {auth} = useContext(AuthContext);
-
-
-    // React.useEffect(() => {
-    //     axios.get(`http://localhost:3000/products/detail/${ProductId}`)
-    //       .then(({ data }) => {
-    //         if (data.name) {
-    //           setProducts(data);
-    //         } else {
-    //           throw new Error(`Product with ID ${id} not found`);
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         throw new Error(error.message);
-    //       });
-    
-    //     // Limpiar el estado cuando se desmonta el componente.
-    //     return () => setProducts({});
-    //   }, [ProductId]);
 
 
     const [guests, setGuests] = useState(1);
@@ -54,19 +38,54 @@ const ReservationForm = (props) => {
     };
 
     
-
+    useEffect(() => {
+        // Llama a la acción getAllUsers cuando el componente se monte
+        dispatch(getAllUsers());
+      }, [dispatch]);
+      
+      useEffect(() => {
+        if (!Product.id || !Product || Object.keys(Product).length === 0) {
+          dispatch(fetchProducts(Product.id));
+        }
+      }, [dispatch, Product.id, Product]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         
+        
         const userId = auth.token.id
-
+        
         dispatch(createReservation(ProductId.id, userId, checkInDate, checkOutDate, rooms, guests,products.price));
     };
     
     console.log("esto viene de recerba",auth.token.id)
-
+    
+    const handlePayClick = async (event, id) => {
+    //     event.preventDefault();
+    
+    //     try {
+    //       // Verificar que productId no sea undefined
+    //     if (!products) {
+    //       console.error('ID del producto no definido.');
+    //       return;
+    //     }
+    
+    //       // Enviar la solicitud POST con los datos del producto y del usuario
+    // //       const response = await axios.post('http://localhost:3000/payment/create-order', {
+    // //         productId: products.id,
+    // //         userId: 1,
+    // //         quantity: 1,
+    // //         card: "visa"
+    // //       });
+    // //       const { data } = response;
+    
+    // //       // Redirigir al usuario a la URL proporcionada por MercadoPago utilizando un enlace
+    // //       window.location.href = data;
+    // //     } catch (error) {
+    // //       console.error('Error:', error);
+    // //     }
+       };
     
 
     return (
@@ -117,7 +136,12 @@ const ReservationForm = (props) => {
                     />
                 </div>
                 <button type="submit">Reservar</button>
+               
+
+               
+    
             </form>
+                   
         </div>
     );
 };

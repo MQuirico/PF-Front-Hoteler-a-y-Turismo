@@ -74,7 +74,7 @@ console.log(window.location.href)
             setValue('rating', newValue)
             }}
             />
-            <input id="rev" style={{width: '90vh', height: '12vh'}} type="textarea" {...register('content', { required: true })}></input>
+            <input id="rev" style={{width: '90vh', height: '9vh'}} type="textarea" {...register('content', { required: true })}></input>
             <button type="submit" style={{height: '10vh', position: 'fixed'}}>Enviar Reseña</button>
             </form>
         </div>
