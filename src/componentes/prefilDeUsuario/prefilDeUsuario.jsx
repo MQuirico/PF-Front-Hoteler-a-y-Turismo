@@ -262,8 +262,8 @@ const UserProfileForm = ({ updateUserData }) => {
       <div className={styles.profileInfo}>
         <div className={styles.previewContainer}>
           <div className={styles.previewWrapper}>
-            <h4 className={styles.titulo}>Tus Datos</h4>
             <div className={styles.preview}>
+            <h4>Tus Datos</h4>
               <div className={styles.textopreview}>
                 <div className={styles.textoPrev}>
                   <p className={styles.name}><strong><FaUser /> Nombre: </strong>{userData.name}</p>
