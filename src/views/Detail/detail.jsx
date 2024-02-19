@@ -229,9 +229,13 @@ console.log(products)
       backgroundSize: "cover",
       backgroundPosition: "center", 
       backgroundRepeat: "no-repeat", 
-      height: "94.9vh",
-      maxWidth: "300vh",
-      marginTop: "80px"
+      height: "91.8vh",
+      width: "209.7vh",
+      maxWidth: "270vh",
+      marginTop: "80px",
+      marginLeft: "0vh",
+      overflow: "hidden",
+      position: "fixed"
       }}>
 
       <div className="detailContainer" style={{
@@ -309,7 +313,7 @@ console.log(products)
         </DemoContainer>
         </LocalizationProvider>
        
-        <Link to={{ pathname: "/reserva", state: productsProp }}>Ir al destino
+        <Link to={{ pathname: "/reserva", state: productsProp }}>
         <button style={{
           marginTop: "38vh",
           marginLeft: "10px",

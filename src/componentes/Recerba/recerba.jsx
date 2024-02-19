@@ -14,7 +14,7 @@ const ReservationForm = (props) => {
 
 
     // React.useEffect(() => {
-    //     axios.get(`http://localhost:3000/products/detail/${ProductId}`)
+    //     axios.get(`https://back-hostel.onrender.com/products/detail/${ProductId}`)
     //       .then(({ data }) => {
     //         if (data.name) {
     //           setProducts(data);
