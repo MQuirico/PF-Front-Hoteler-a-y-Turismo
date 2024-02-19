@@ -14,18 +14,61 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import AlignItemsList from './ReviewList/reviewList';
 import MakeReview from './MakeReview/makeReview'
 import { fetchReviews } from '../../redux/Actions/actions';
+import starFil from "../../assets/star-outline-filled.png";
+import starOut from "../../assets/star-curved-outline.png";
+import { AuthContext } from '../../componentes/AuthProvider/authProvider';
+import { getFavorites } from '../../redux/Actions/actions';
 
 function Detail() {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
-  const productsState = useSelector((state) => state.products);
-  const location = useLocation(); // Obtener la ubicación del estado
+  const [favIcon, setFav] = React.useState();
+  const {auth} = React.useContext(AuthContext)
+  const favorites = useSelector(state => state.favorites.data)
+  const location = useLocation()
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
+  const productsState = useSelector((state) => state.products);
+  const stateFav = favorites?.productId?.includes(id)
+  let sqrtGoogle = null
+  /* switch (stateFav){
+      case true: 
+      setFav(starFil)
+      break;
+      case false:
+      setFav(starOut)
+      break;
+      case undefined:
+      setFav(starOut)
+      break;
+      default:
+      return
+  } */
+  
+
+  
+  ; // Obtener la ubicación del estado
   
   React.useEffect(() => {
     dispatch(fetchReviews(id));
-  }, [dispatch, id]);
+    switch (stateFav){
+      case true: 
+      setFav(starFil)
+      break;
+      case false:
+      setFav(starOut)
+      break;
+      case undefined:
+      setFav(starOut)
+      break;
+      default:
+      return
+  }
+  }, [dispatch, stateFav,starOut,starFil, id]);
+
+  /* React.useEffect(() => {
+    localStorage.setItem("FavImage", image);
+  }, [image]); */
 
 const ProSpan = styled('span')({
   display: 'inline-block',
@@ -55,11 +98,6 @@ const StyledDateCalendar = styled(DateCalendar)({
     backgroundColor: 'orange',
   },
 });
-
-
-
-
-
 
 
 
@@ -115,6 +153,8 @@ function Label({ componentName, valueType, isProOnly }) {
     return () => setProducts({});
   }, [id]);
 
+console.log(products)
+
   React.useEffect(() => {
     if (!productsState) {
       dispatch(fetchProducts(id));
@@ -127,7 +167,52 @@ function Label({ componentName, valueType, isProOnly }) {
     return <div>Loading...</div>;
   }
 
+
+
+  const setDelFavorite = () =>{
+    
+    
+    
+    const toSend ={
+      userId: auth.token.id,  //recordar manejar usuarios de Google
+      productId: id
+    }
+    console.log(toSend)
+    switch (favIcon){
+      case starOut:
+    axios.post("https://back-hostel.onrender.com/favorites/add", toSend)
+    .then((response) => {
+      if(response){
+        setFav(starFil) 
+        dispatch(getFavorites(toSend.userId))
+      }
+    })
+    .catch((error) => {
+      throw new Error(error.message)
+    })
+    break;
+    case starFil:
+      axios.delete("https://back-hostel.onrender.com/favorites/delete", { data: toSend })
+      .then((response) =>{
+        if (response.data.message){
+          setFav(starOut)
+          dispatch(getFavorites(toSend.userId))
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          console.error('Error:', error.response.data.error);
+        } else if (error.request) {
+          console.error('Error de solicitud:', error.request);
+        } else {
+          console.error('Error:', error.message);
+        }
+      });
   
+      break;
+      default:
+        return;
+  }}
   
 
   const renderPool = (poolValue) => {
@@ -193,7 +278,17 @@ function Label({ componentName, valueType, isProOnly }) {
             <h4 style={{
           marginLeft: "41vh"
           }}>{renderPool(products.pool)}</h4>
-          
+          {auth && <img 
+          src={ favIcon } 
+          style={{
+            maxHeight: "6vh", 
+            maxWidth: "6vh", 
+            marginTop: "-16vh", 
+            marginLeft: "90vh", 
+            position:"fixed",
+            cursor: "pointer"
+            }}
+          onClick={setDelFavorite}></img>}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer
         components={[

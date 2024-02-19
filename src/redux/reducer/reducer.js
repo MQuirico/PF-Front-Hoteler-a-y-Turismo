@@ -29,7 +29,11 @@ import {
   UPDATE_USER_PAYMONTH_REQUEST,
   FETCH_REVIEWS_FAILURE,
   FETCH_REVIEWS_REQUEST,
-  FETCH_REVIEWS_SUCCESS
+  FETCH_REVIEWS_SUCCESS,
+  GET_FAVORITES_FAILURE,
+  GET_FAVORITES_REQUEST,
+  GET_FAVORITES_SUCCESS,
+  DELETE_FAVSTATE
 } from "../action-types/action-types";
 
 const initialState = {
@@ -48,6 +52,11 @@ const initialState = {
   passwordAndEmailUpdateError: null,
   reviews: {
     data: null,
+    loading: false,
+    error: null
+  },
+  favorites:{
+    data: [],
     loading: false,
     error: null
   }
@@ -237,6 +246,43 @@ const userDataReducer = (state = initialState, action) => {
                     }
                     
                   };
+                  case GET_FAVORITES_REQUEST:
+                      return {
+                        ...state,
+                        favorites: {
+                          ...state.favorites,
+                          loading: true,
+                          error: null
+                        }
+                      };
+                    case GET_FAVORITES_SUCCESS:
+                      return {
+                        ...state,
+                        favorites: {
+                          data: action.payload,
+                          loading: false,
+                          error: null
+                        }
+                      };
+                    case GET_FAVORITES_FAILURE:
+                      return {
+                        ...state,
+                        favorites: {
+                          ...state.favorites,
+                          loading: false,
+                          error: action.payload
+                        }
+                      };
+                      case DELETE_FAVSTATE:
+                      return {
+                        ...state,
+                        favorites: {
+                          data: [],
+                          loading: false,
+                          error: null
+                        }
+                      };
+
     default:
       return state;
   }
