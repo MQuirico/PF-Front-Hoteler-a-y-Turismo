@@ -160,7 +160,7 @@ const DashboardUsuario = () => {
             </ListItem>
             <ListItem button onClick={handleReviews}>
               <SettingsIcon style={{marginLeft: "30px",marginTop: "20px"}} />
-              <ListItemText primary="Historial de reservas" style={{ marginLeft: "10px",marginTop: "30px" }} />
+              <ListItemText primary="⭐ Tus hospedajes de interés ⭐" style={{ marginLeft: "10px",marginTop: "30px" }} />
             </ListItem>
             <div className={classes.divider1}></div>
             <ListItem button onClick={logOut}>
