@@ -38,7 +38,9 @@ import {
     GET_FAVORITES_FAILURE,
     GET_FAVORITES_REQUEST,
     GET_FAVORITES_SUCCESS,
-    DELETE_FAVSTATE
+    DELETE_FAVSTATE,
+    CREATE_RESERVATION_FAILURE,
+    CREATE_RESERVATION_SUCCESS,
 
 } from "../action-types/action-types";
 
@@ -409,3 +411,38 @@ export const deleteFavState = () => ({
     error: null
   }
 });
+
+
+export const createReservation = (productId, userId, startDate, endDate, totalRooms, totalGuests) => {
+  return async (dispatch) => {
+    try {
+    
+      const response = await axios.post('http://localhost:3000/recervas/new', {
+        productId,
+        userId,
+        startDate,
+        endDate,
+        totalRooms,
+        totalGuests,
+      });
+
+    
+      dispatch(createReservationSuccess(response.data));
+    } catch (error) {
+  
+      dispatch(createReservationFailure(error.message));
+    }
+  };
+};
+
+
+const createReservationSuccess = (reservation) => ({
+  type: CREATE_RESERVATION_SUCCESS,
+  payload: reservation,
+});
+
+const createReservationFailure = (error) => ({
+  type: CREATE_RESERVATION_FAILURE,
+  payload: error,
+});
+

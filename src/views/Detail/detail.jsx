@@ -18,7 +18,9 @@ import starFil from "../../assets/star-outline-filled.png";
 import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites } from '../../redux/Actions/actions';
-
+// import { Link } from '@mui/material';
+import {Link} from "react-router-dom";
+ 
 function Detail() {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
@@ -219,6 +221,8 @@ console.log(products)
     return poolValue ? 'Posee piscina' : 'No posee piscina';
   };
 
+  const productsProp = products
+
   return (
     <div className="container" style={{
       backgroundImage: "url('https://media.infocielo.com/p/dbc6bcdde57cfd82955b5b47f3d9eaa1/adjuntos/299/imagenes/001/307/0001307849/1200x675/smart/turismo-rural-gandara-chascomus-refugio-el-vergeljpg.jpg')", 
@@ -226,7 +230,8 @@ console.log(products)
       backgroundPosition: "center", 
       backgroundRepeat: "no-repeat", 
       height: "94.9vh",
-      maxWidth: "300vh"
+      maxWidth: "300vh",
+      marginTop: "80px"
       }}>
 
       <div className="detailContainer" style={{
@@ -303,20 +308,21 @@ console.log(products)
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
+       
+        <Link to={{ pathname: "/reserva", state: productsProp }}>Ir al destino
         <button style={{
           marginTop: "38vh",
-          marginLeft: "19vh",
+          marginLeft: "10px",
           position: "fixed",
           cursor: "pointer"
         }}>
         Hacer reserva
         </button>
-       
+        </Link>
         <AlignItemsList className="list" />
         <MakeReview />
        
         </div>
-        
       </div>
       
     </div>

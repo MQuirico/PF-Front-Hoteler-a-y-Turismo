@@ -94,6 +94,11 @@
       width: 80%;
     }
   }
+  @media (max-width: 600px) {
+    .title {
+      width: 80%;
+    }
+  }
   
   .title{
 
