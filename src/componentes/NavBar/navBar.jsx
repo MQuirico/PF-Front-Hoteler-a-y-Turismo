@@ -6,14 +6,16 @@ import logo from '../../assets/hp2.jpg'
 import { FaShopify } from "react-icons/fa";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import * as ReactRedux from 'react-redux'
+import { getFavorites, deleteFavState } from "../../redux/Actions/actions";
 import { AuthContext } from "../AuthProvider/authProvider";
 
 export default function NavBar(props) {
   const { auth, setAuth } = useContext(AuthContext);
   const history = useHistory();
   const [loading, setLoading] = useState(true); 
-
+  const dispatch = ReactRedux.useDispatch()
+  const favorites = ReactRedux.useSelector(state => state.favorites.data)
   const logOut = () => {
     if (window.gapi && window.gapi.auth2) {
       var auth2 = window.gapi.auth2.getAuthInstance();
@@ -24,6 +26,7 @@ export default function NavBar(props) {
 
     setAuth(null);
     localStorage.removeItem("auth");
+    dispatch(deleteFavState())
     history.push("/home");
   };
 
@@ -41,12 +44,18 @@ export default function NavBar(props) {
   useEffect(() => {
     if (auth) {
       localStorage.setItem("auth", JSON.stringify(auth));
+      let id = null;
+      if (auth.token.id) { id = auth.token.id; }
+      if (auth.token.googleId) { id = Math.sqrt(auth.token.googleId)}
+      dispatch(getFavorites(id));
     }
-  }, [auth]);
+  }, [auth, dispatch]);
 
   if (loading) {
     return <div>Cargando...</div>;
   }
+
+   console.log (auth, favorites)
 
   return (
     <Navbar bg="light" expand="lg" fixed="top">
@@ -60,7 +69,7 @@ export default function NavBar(props) {
           <Nav.Link as={Link} to="/search" style={{ marginLeft: "-20px" }}>Explora destinos</Nav.Link>
           <Nav.Link as={Link} to="/about" style={{ marginLeft: "20px" }}>¿Quiénes somos?</Nav.Link>
           {/* <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link> */}
-         { console.log(auth)}
+         
           {auth && auth.token ? (
             <>
               <NavDropdown title={<img src={auth.token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "32px", width: "32px", marginLeft: "-10px", marginRight: "5px" }} alt="User Avatar" />} id="basic-nav-dropdown">

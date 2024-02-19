@@ -34,7 +34,11 @@ import {
     UPDATE_USER_PAYMONTH_REQUEST,
     FETCH_REVIEWS_FAILURE,
     FETCH_REVIEWS_REQUEST,
-    FETCH_REVIEWS_SUCCESS
+    FETCH_REVIEWS_SUCCESS,
+    GET_FAVORITES_FAILURE,
+    GET_FAVORITES_REQUEST,
+    GET_FAVORITES_SUCCESS,
+    DELETE_FAVSTATE
 
 } from "../action-types/action-types";
 
@@ -90,13 +94,13 @@ export const newHotel = (hotel) => {
         .then(response => {
           dispatch({
             type: NEW_HOTEL_SUCCESS,
-            payload: response.data // Puedes ajustar según la estructura de datos recibida
+            payload: response.data 
           });
         })
         .catch(error => {
           dispatch({
             type: NEW_HOTEL_FAILURE,
-            payload: error.message // Puedes ajustar según la estructura de error que recibas
+            payload: error.message 
           });
         });
     };
@@ -181,7 +185,7 @@ export const newHotel = (hotel) => {
     payload: error,
   });
   
-  // Acción para modificar cualquier dato del perfil de usuario
+
   export const updateUserProfileData =
     (idKey, updatedFields) => async (dispatch) => {
       dispatch(updateUserProfileRequest());
@@ -363,3 +367,45 @@ export const fetchReviews = (ID) => {
     }
   };
 };
+
+
+
+
+const getFavoritesRequest = () => ({
+  type: GET_FAVORITES_REQUEST
+});
+
+
+const getFavoritesSuccess = (data) => ({
+  type: GET_FAVORITES_SUCCESS,
+  payload: data
+});
+
+const getFavoritesFailure = (error) => ({
+  type: GET_FAVORITES_FAILURE,
+  payload: error
+});
+
+
+export const getFavorites = (id) => {
+  return async (dispatch) => {
+    dispatch(getFavoritesRequest());
+
+    try {
+      const response = await axios.get(`https://back-hostel.onrender.com/favorites/get/${id}`);
+      dispatch(getFavoritesSuccess(response.data));
+    } catch (error) {
+      dispatch(getFavoritesFailure(error));
+    }
+  };
+};
+
+
+export const deleteFavState = () => ({
+  type: DELETE_FAVSTATE,
+  data: {
+    data: [],
+    loading: false,
+    error: null
+  }
+});

@@ -97,7 +97,7 @@ const Register = () => {
             name="password"
             placeholder="Ingrese su contraseña..."
             {...register("password", {
-              required: "*Campo obligatorio*",
+              required: true,
               pattern: {
                 value: /^(?=.*[A-Z])(?=.*[@.])[a-zA-Z0-9@.]{6,12}$/,
                 message: "La contraseña debe contener de 6 a 12 caracteres e incluir: una mayúscula como primer caracter, una minúscula y un caracter especial: Password@"
@@ -112,7 +112,7 @@ const Register = () => {
             {showPassword ? "Ocultar" : "Mostrar"}
           </button>
         </div>
-        {errors.password && <span className={styles.error}>{errors.password.message}</span>}
+        {errors?.password?.type === "required" && <span className={styles.error}>{errors.password.message}</span>}
 
         <button
           type="submit"
