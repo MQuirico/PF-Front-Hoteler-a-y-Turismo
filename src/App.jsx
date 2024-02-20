@@ -7,12 +7,12 @@ import Home from "./views/Home/home";
 import Detail from "./views/Detail/detail";
 import SearchPage from "./views/CardsDisplay/Display";
 import LogIn from "./componentes/LoginForm/loginForm";
-import About from './componentes/About/about'
+import About from './componentes/About/about';
 import Registro from "./componentes/Register/register";
 import DashboardUsuario from "./componentes/prefilDeUsuario/dashBoard"
-import ReservationForm from "./componentes/Recerba/recerba";
 
-// import ProtectedRoute from './GeneralLogin';
+import ReservationForm from "./componentes/Reserva/reserva";
+
 
 import { AuthProvider } from "./componentes/AuthProvider/authProvider";
 
@@ -39,6 +39,11 @@ function App() {
  <Route exact path="/about" component={About} />
  <Route exact path="/register" component={Registro} />
  <Route exact path="/detail/:id" component={Detail} />
+
+ <Route exact path = "/reserva" component = {ReservationForm} />
+ <Route exact path="/create" component= {Create} />
+
+
 <Route exact path = "/configUser" component = {DashboardUsuario} />
 <Route exact path = "/reserva" component = {ReservationForm} />
 </Switch> 

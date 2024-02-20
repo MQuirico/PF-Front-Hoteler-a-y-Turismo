@@ -40,10 +40,8 @@ import {
     GET_FAVORITES_SUCCESS,
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
-    CREATE_RESERVATION_SUCCESS,
-    GET_ALL_USERS_REQUEST,
-    GET_ALL_USERS_SUCCESS,
-    GET_ALL_USERS_FAILURE,
+
+    CREATE_RESERVATION_SUCCESS
 
 } from "../action-types/action-types";
 
@@ -420,7 +418,7 @@ export const createReservation = (productId, userId, startDate, endDate, totalRo
   return async (dispatch) => {
     try {
     
-      const response = await axios.post('http://localhost:3000/recervas/new', {
+      const response = await axios.post('https://back-hostel.onrender.com/recervas/new', {
         productId,
         userId,
         startDate,
@@ -447,6 +445,7 @@ const createReservationSuccess = (reservation) => ({
 const createReservationFailure = (error) => ({
   type: CREATE_RESERVATION_FAILURE,
   payload: error,
+
 });
 
 //para mp
