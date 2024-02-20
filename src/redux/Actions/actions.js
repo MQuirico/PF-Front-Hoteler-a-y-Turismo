@@ -40,10 +40,15 @@ import {
     GET_FAVORITES_SUCCESS,
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
-
-    CREATE_RESERVATION_SUCCESS
-
+    CREATE_RESERVATION_SUCCESS,
 } from "../action-types/action-types";
+
+import {
+  START_RESERVATION_PROCESS,
+  START_RESERVATION_SUCCESS,
+  START_RESERVATION_FAILURE,
+  CONCLUDE_RESERVATION
+} from "../action-types/action-types-BuyReservation"
 
 export const setUserData = (userData) => {
     return {
@@ -448,3 +453,42 @@ const createReservationFailure = (error) => ({
 
 });
 
+
+const startReservationProcess = () => {
+  return {
+      type: START_RESERVATION_PROCESS
+  };
+};
+
+const startReservationSuccess = (reservationData) => {
+  return {
+      type: START_RESERVATION_SUCCESS,
+      payload: reservationData
+  };
+};
+
+const startReservationFailure = (errorMessage) => {
+  return {
+      type: START_RESERVATION_FAILURE,
+      payload: errorMessage
+  };
+};
+
+export const concludeReservation = () => {
+  return {
+      type: CONCLUDE_RESERVATION
+  };
+};
+
+
+export const startReservation = (reservationData) => {
+  return async (dispatch) => {
+      dispatch(startReservationProcess());
+
+      try {
+          dispatch(startReservationSuccess(reservationData));
+      } catch (error) {
+          dispatch(startReservationFailure(error.message));
+      }
+  };
+};

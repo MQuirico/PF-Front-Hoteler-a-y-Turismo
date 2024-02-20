@@ -65,7 +65,7 @@ const UserProfileForm = ({ updateUserData }) => {
   }, [auth]);
 
   const dispatch = useDispatch();
-  const authState = useSelector((state) => state.auth);
+  const authState = useSelector((state) => state.stateA.auth);
   const loading = authState ? authState.loading : undefined;
   const error = authState ? authState.error : undefined;
 
