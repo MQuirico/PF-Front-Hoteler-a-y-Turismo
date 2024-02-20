@@ -33,7 +33,10 @@ import {
   GET_FAVORITES_FAILURE,
   GET_FAVORITES_REQUEST,
   GET_FAVORITES_SUCCESS,
-  DELETE_FAVSTATE
+  DELETE_FAVSTATE,
+  CREATE_RESERVATION_FAILURE,
+  CREATE_RESERVATION_SUCCESS,
+
 } from "../action-types/action-types";
 
 const initialState = {
@@ -59,7 +62,8 @@ const initialState = {
     data: [],
     loading: false,
     error: null
-  }
+  },
+  reservation: null,
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -282,6 +286,19 @@ const userDataReducer = (state = initialState, action) => {
                           error: null
                         }
                       };
+
+                      case CREATE_RESERVATION_SUCCESS:
+                        return {
+                          ...state,
+                          reservation: action.payload,
+                          error: null,
+                        };
+                      case CREATE_RESERVATION_FAILURE:
+                        return {
+                          ...state,
+                          reservation: null,
+                          error: action.payload,
+                        };
 
     default:
       return state;
