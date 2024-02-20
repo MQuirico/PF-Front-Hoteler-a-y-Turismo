@@ -1,75 +1,146 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import './historialReviews.css';
+import * as ReactRedux from 'react-redux';
+import {Link} from 'react-router-dom'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import {fetchProducts} from '../../redux/Actions/actions';
+import Del from '../../assets/borrar.png'
+import axios from 'axios'
+import { AuthContext } from '../AuthProvider/authProvider';
+import { getFavorites } from '../../redux/Actions/actions';
 
-const ReviewsHistory = () => {
-  const calculateTimeLeft = () => {
-    const now = new Date();
-    const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 8); // Hora argentina 06:08 AM
-    if (now.getTime() > targetDate.getTime()) {
-      targetDate.setDate(targetDate.getDate() + 1); // Avanza al día siguiente si la hora actual ya pasó
+export default function ReviewsHistory (){
+  const {auth} = React.useContext(AuthContext)
+  const dispatch = ReactRedux.useDispatch()
+  const favorites = ReactRedux.useSelector(state => state.favorites.data)
+  const products = ReactRedux.useSelector(state => state.products)
+  const [fav, setFav] = React.useState([])
+  const [currentPage, setCurrentPage] = React.useState(1);
+  
+  
+ 
+  React.useEffect(() => {
+    dispatch(fetchProducts({}, currentPage,  6));
+  }, [dispatch, currentPage]);
+
+  React.useEffect(() => {
+    let favs = products.filter(product => favorites.productId.includes(product.id));
+    setFav(favs);
+  }, [products, favorites]);
+
+ const deletion = (id) => {
+  const toSend ={
+    userId: auth.token.id,  //recordar manejar usuarios de Google
+    productId: id
+  }
+  axios.delete("https://back-hostel.onrender.com/favorites/delete", { data: toSend })
+  .then((response) =>{
+    if (response.data.message){
+      dispatch(getFavorites(toSend.userId))
     }
-    const difference = targetDate - now;
-    let timeLeft = {};
+  })
+  .catch(error => {
+    if (error.response) {
+      console.error('Error:', error.response.data.error);
+    } else if (error.request) {
+      console.error('Error de solicitud:', error.request);
+    } else {
+      console.error('Error:', error.message);
+    }
+  })
+ }
 
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-      };
+ return(
+  <div style={{
+    overflowX: "hidden",/* Oculta la barra de desplazamiento horizontal */
+    overflowY: "hidden",
+    height: "89vh",
+    width: "174vh",
+    display: "grid",
+    marginTop: "6.1vh",
+    gridTemplateColumns: "repeat(5, 1fr)", // 6 columnas
+    gridTemplateRows: "repeat(4, minmax(300px, 1fr))", // 4 filas con altura mínima de 200px
+    gap: "1vh", // Espacio entre las cards
+    backgroundImage: "url(https://www.minimalstudio.es/wp-content/uploads/2022/02/caracteristicas-de-la-arquitectura-minimalista-minimal-studio.jpg)", 
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  }}>
+   {fav.length === 0 && 
+    <div style={{ 
+  border: "2px solid red",
+  borderRadius: "5%",
+  backgroundColor: "rgba(255, 0, 0, 0.15)",
+  height: "10vh",
+  width: "40vh",
+  marginTop: "15vh",
+  marginLeft: "30vh",
+  position: "fixed"
+  }}>
+  <p style={{
+  textAlign: "center",
+  position: "fixed",
+  fontSize: "larger",
+  color: "red",
+  marginTop: "0.7vh",
+  marginLeft: "3vh",
+  fontWeight: "bold"
+   }}>
+   No has marcado ningún <br></br> hospedaje como favorito aún.<br></br> <Link to="/search">Descubre un hospedaje de tu interés</Link>
+   </p>
+  </div> 
+   } 
+  
+
+   {fav.map((element, index) =>
+   
+    <Card key={index} sx={{ maxWidth: 1000}}>
+      <CardActionArea key={index}>
+        <CardMedia
+          key={index}
+          component="img"
+          height="140"
+          image={element?.images}
+          alt="green iguana"
+        />
+        <CardContent>
+        <Link to={`/detail/${element.id}`}>
+          <Typography  gutterBottom variant="h5" component="div">
+            {element.name}
+          </Typography>
+        </Link>
+          <Typography  variant="body2" color="text.secondary">
+            {element.location}
+            <br></br>
+            Temporadas: {element.season.join(", ")}
+            <br></br>
+            AR${element.pricePerNight}/noche
+          </Typography>
+          <img 
+          src={Del} 
+          style={{
+            maxHeight: "5vh",
+            maxWidth: "3vh",
+            marginLeft: "25vh",
+            cursor: "pointer"
+          }}
+          onClick={() => {deletion(element.id)}}
+          >
+
+          </img>
+        </CardContent>
+      </CardActionArea>
+    </Card> 
+    )
     }
 
-    return timeLeft;
-  };
+  
+  </div>
+ )
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  });
-
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach(interval => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-      <span key={interval}>
-        {timeLeft[interval]} {interval}{' '}
-      </span>
-    );
-  });
-
-  return (
-    <div style={{
-        border: "1px solid black",
-        marginTop: "100px",
-        height: "720px",
-        width: "850px",
-        marginLeft: "300px",
-        borderRadius: "10px",
-        backgroundColor: "#ffffff4f", 
-        boxShadow: "0 0 9px rgba(0, 0, 0, 0.7)", 
-        marginBottom: "50px"
-      }}>
-      <div className="countdown-timer">
-        <h2>Próximamente</h2>
-        <div className="icon-container">
-          <i className="fas fa-exclamation-triangle"></i>
-        </div>
-        <div className="timer">
-          {timerComponents.length ? timerComponents : <span>¡Se acabó el tiempo!</span>}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ReviewsHistory;
+}
+  
