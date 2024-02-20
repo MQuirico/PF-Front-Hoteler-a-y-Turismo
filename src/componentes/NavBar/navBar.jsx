@@ -15,7 +15,7 @@ export default function NavBar(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(true); 
   const dispatch = ReactRedux.useDispatch()
-  const favorites = ReactRedux.useSelector(state => state.favorites.data)
+  const favorites = ReactRedux.useSelector(state => state.stateA.favorites.data)
   const logOut = () => {
     if (window.gapi && window.gapi.auth2) {
       var auth2 = window.gapi.auth2.getAuthInstance();

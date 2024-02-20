@@ -4,10 +4,10 @@ import thunk from 'redux-thunk';
 import rootReducer from "../reducer/reducer";
 import ReservationReducer from "../reducer/reducerBuyReservation";
 
-const mainReducer =combineReducers({
+const mainReducer = combineReducers({
     stateA: rootReducer,
     stateB: ReservationReducer
-  });
+});
 
 const middleware = applyMiddleware(thunk);
 

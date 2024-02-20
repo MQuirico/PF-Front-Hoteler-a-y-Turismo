@@ -18,17 +18,18 @@ import starFil from "../../assets/star-outline-filled.png";
 import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites } from '../../redux/Actions/actions';
+import { startReservation } from '../../redux/Actions/actions';
 
 function Detail() {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();
   const {auth} = React.useContext(AuthContext)
-  const favorites = useSelector(state => state.favorites.data)
+  const favorites = useSelector(state => state.stateA.favorites.data)
   const location = useLocation()
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
-  const productsState = useSelector((state) => state.products);
+  const productsState = useSelector((state) => state.stateA.products);
   const stateFav = favorites?.productId?.includes(id)
   let sqrtGoogle = null
   /* switch (stateFav){

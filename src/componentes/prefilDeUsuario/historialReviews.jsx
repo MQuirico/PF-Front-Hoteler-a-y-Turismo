@@ -16,8 +16,8 @@ import { getFavorites } from '../../redux/Actions/actions';
 export default function ReviewsHistory (){
   const {auth} = React.useContext(AuthContext)
   const dispatch = ReactRedux.useDispatch()
-  const favorites = ReactRedux.useSelector(state => state.favorites.data)
-  const products = ReactRedux.useSelector(state => state.products)
+  const favorites = ReactRedux.useSelector(state => state.stateA.favorites.data)
+  const products = ReactRedux.useSelector(state => state.stateA.products)
   const [fav, setFav] = React.useState([])
   const [currentPage, setCurrentPage] = React.useState(1);
   

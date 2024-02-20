@@ -9,9 +9,9 @@ import "./home.css";
 
 function Home() {
   const dispatch = useDispatch();
-  const searchResults = useSelector((state) => state.searchResults);
-  const products = useSelector((state) => state.products);
-  const totalPages = useSelector((state) => state.totalPages);
+  const searchResults = useSelector((state) => state.stateA.searchResults);
+  const products = useSelector((state) => state.stateA.products);
+  const totalPages = useSelector((state) => state.stateA.totalPages);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

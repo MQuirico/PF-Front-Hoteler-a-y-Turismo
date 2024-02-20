@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function AlignItemsList() {
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
-  const reviews = useSelector((state)=> state.reviews.data)
+  const reviews = useSelector((state)=> state.stateA.reviews.data)
   const dispatch = useDispatch()
   console.log(id)
   

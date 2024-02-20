@@ -53,7 +53,7 @@ const PaymentMethodsForm = () => {
 
   const dispatch = useDispatch();
   const { loading = false, error: updateUserError = null } = useSelector(
-    (state) => state.userDataSession || {}
+    (state) => state.stateA.userDataSession || {}
   );
 
   useEffect(() => {
