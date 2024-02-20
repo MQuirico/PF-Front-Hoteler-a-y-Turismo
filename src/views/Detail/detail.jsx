@@ -223,14 +223,21 @@ console.log(products)
     return poolValue ? 'Posee piscina' : 'No posee piscina';
   };
 
+  const productsProp = products
+
   return (
     <div className="container" style={{
       backgroundImage: "url('https://media.infocielo.com/p/dbc6bcdde57cfd82955b5b47f3d9eaa1/adjuntos/299/imagenes/001/307/0001307849/1200x675/smart/turismo-rural-gandara-chascomus-refugio-el-vergeljpg.jpg')", 
       backgroundSize: "cover",
       backgroundPosition: "center", 
       backgroundRepeat: "no-repeat", 
-      height: "94.9vh",
-      maxWidth: "300vh"
+      height: "91.8vh",
+      width: "209.7vh",
+      maxWidth: "270vh",
+      marginTop: "80px",
+      marginLeft: "0vh",
+      overflow: "hidden",
+      position: "fixed"
       }}>
 
       <div className="detailContainer" style={{
@@ -308,10 +315,12 @@ console.log(products)
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
+
         <Link to="/reserva">
         <button style={{
           marginTop: "-12vh",
           marginLeft: "83vh",
+
           position: "fixed",
           cursor: "pointer",
           height: "5vh",
@@ -319,12 +328,16 @@ console.log(products)
         }}>
         Hacer reserva
         </button>
+
        </Link>
+
         <AlignItemsList className="list" />
         
        
         </div>
+
         <MakeReview />
+
       </div>
       
     </div>

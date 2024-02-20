@@ -76,9 +76,7 @@ export default function NavBar(props) {
                 {auth.token.rol === "buyer" && (
                   <NavDropdown.Item as={Link} to="/configUser" style={{ marginLeft: "0px" }}>Ajustes</NavDropdown.Item>
                 )}
-                {auth.token.rol === "admin" && (
-                  <NavDropdown.Item as={Link} to="/configAdmin">Ajustes</NavDropdown.Item>
-                )}
+
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logOut}>Cerrar Sesión</NavDropdown.Item>
               </NavDropdown>
@@ -86,7 +84,7 @@ export default function NavBar(props) {
           ) : (
             <NavDropdown title={<IoPersonSharp style={{  marginLeft: "20px", marginRight: "1rem", position: "absolute" }} />} id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Regístrate</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/create">Agregar hospedaje</NavDropdown.Item>
+              
               <NavDropdown.Item as={Link} to="/login">Inicia Sesión</NavDropdown.Item>
             </NavDropdown>
           )}

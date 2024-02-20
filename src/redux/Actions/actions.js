@@ -450,6 +450,7 @@ const createReservationSuccess = (reservation) => ({
 const createReservationFailure = (error) => ({
   type: CREATE_RESERVATION_FAILURE,
   payload: error,
+
 });
 
 
