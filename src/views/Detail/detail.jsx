@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from '../../redux/Actions/actions';
 import './detail.css'
@@ -91,7 +91,7 @@ const StyledLabel = styled(Label)({
 const StyledDateCalendar = styled(DateCalendar)({
   
   marginLeft: "0.5vh !important",
-  marginTop: "3vh !important",
+  marginTop: "13vh !important",
   position: "fixed",
 
   '.Mui-selected': {
@@ -106,13 +106,16 @@ function Label({ componentName, valueType, isProOnly }) {
     <span style={{
       color: "black",
       fontSize: "large",
-      marginTop: "-1vh",
-      marginLeft: "5vh",
+      marginTop: "3vh",
+      marginLeft: "2vh",
       position: "fixed",
       textAlign: "center"
     }} >
-      He aquí un <strong>calendario</strong> para<br></br>
-      ayudarte a planificar.
+      He aquí un <strong>calendario</strong> para ayudarte<br></br>
+      a planificar.<br></br>
+      ¡Recuerda consultar al titular por<br></br>
+      disponibilidad de fechas!<br></br>
+      
     </span>
   );
 
@@ -235,7 +238,8 @@ console.log(products)
         width: "107vh",
         marginTop: "1.5vh",
         marginLeft: "100vh",
-        borderRadius: "3%"
+        borderRadius: "3%",
+        position: "fixed"
       }}>
           
         <div className="detailContent" style={{
@@ -243,48 +247,48 @@ console.log(products)
           marginLeft: "2vh",
           height: "90vh",
           width: "107vh",
-          position: "fixed",
-          
+          position: "fixed"
         }}>
 
           <img style={{
             borderRadius: "8%",
             maxHeight: "250px",
-            maxWidth: "320px"
+            maxWidth: "320px",
+            position: "fixed"
           }}
             src={products.images[0]}
             alt={products.name}
           />
 
           <h2 style={{
-          marginLeft: "50vh",
-          marginTop: "-22vh",
+          marginLeft: "45vh",
+          marginTop: "1vh",
           position: "fixed",
           color: "brown"
           }}>{products.name}</h2>
             <h4 style={{
-            marginLeft: "41vh",
-            marginTop: "-18vh"
+            marginLeft: "35vh",
+            marginTop: "5vh"
           }}>{products.location}</h4>
             <h4 style={{
-          marginLeft: "41vh"
+          marginLeft: "35vh"
           }}>AR$ {products.pricePerNight}/noche</h4>
             <h4 style={{
-          marginLeft: "41vh"
+          marginLeft: "35vh"
           }}>Cantidad de Habitaciones: {products.totalRooms}</h4>
             <h4 style={{
-          marginLeft: "41vh"
+          marginLeft: "35vh"
           }}>Idóneo para alquilar en: {products.season.join(", ")}</h4>
             <h4 style={{
-          marginLeft: "41vh"
+          marginLeft: "35vh"
           }}>{renderPool(products.pool)}</h4>
           {auth && <img 
           src={ favIcon } 
           style={{
             maxHeight: "6vh", 
             maxWidth: "6vh", 
-            marginTop: "-16vh", 
-            marginLeft: "90vh", 
+            marginTop: "-23vh", 
+            marginLeft: "98vh", 
             position:"fixed",
             cursor: "pointer"
             }}
@@ -303,20 +307,23 @@ console.log(products)
         </DemoItem>
         </DemoContainer>
         </LocalizationProvider>
+        <Link to="/reserva">
         <button style={{
-          marginTop: "38vh",
-          marginLeft: "19vh",
+          marginTop: "-12vh",
+          marginLeft: "83vh",
           position: "fixed",
-          cursor: "pointer"
+          cursor: "pointer",
+          height: "5vh",
+          width: "15vh"
         }}>
         Hacer reserva
         </button>
-       
+       </Link>
         <AlignItemsList className="list" />
-        <MakeReview />
+        
        
         </div>
-        
+        <MakeReview />
       </div>
       
     </div>

@@ -22,9 +22,18 @@ console.log(reviews)
   return (
     <>
     <h5 style={{
-        marginLeft: '35vh'
+        marginLeft: '35vh',
+        marginTop: "2vh"
     }}>Algunas reseñas de experiencias en este hospedaje:</h5>
-    <List sx={{ width: '65%', marginLeft: '35vh', height: '40%' ,bgcolor: 'background.paper', overflow: "hidden", overflowY: "auto" }}>
+    <List sx={{ 
+      width: '65%', 
+      marginLeft: '35vh', 
+      height: '40%',
+      bgcolor: 'background.paper', 
+      overflowY: "auto",
+      marginTop: "3vh",
+      borderRadius: "3%"
+    }}>
     {Object.keys(reviews).map((key) => {
     const review = reviews[key];
     return (
