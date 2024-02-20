@@ -21,17 +21,17 @@ export default function ReviewsHistory (){
   const [fav, setFav] = React.useState([])
   const [currentPage, setCurrentPage] = React.useState(1);
   
-  
+console.log(favorites)
  
   React.useEffect(() => {
-    dispatch(fetchProducts({}, currentPage,  6));
+    dispatch(fetchProducts(null, currentPage,18 ));
   }, [dispatch, currentPage]);
 
   React.useEffect(() => {
     let favs = products.filter(product => favorites.productId.includes(product.id));
     setFav(favs);
   }, [products, favorites]);
-
+  
  const deletion = (id) => {
   const toSend ={
     userId: auth.token.id,  //recordar manejar usuarios de Google
@@ -53,7 +53,7 @@ export default function ReviewsHistory (){
     }
   })
  }
-
+console.log(favorites?.productId.length ,fav.length)
  return(
   <div style={{
     overflowX: "hidden",/* Oculta la barra de desplazamiento horizontal */

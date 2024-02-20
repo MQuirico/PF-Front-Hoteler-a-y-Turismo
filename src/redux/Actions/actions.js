@@ -40,7 +40,8 @@ import {
     GET_FAVORITES_SUCCESS,
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
-    CREATE_RESERVATION_SUCCESS,
+
+    CREATE_RESERVATION_SUCCESS
 
 } from "../action-types/action-types";
 
@@ -444,5 +445,6 @@ const createReservationSuccess = (reservation) => ({
 const createReservationFailure = (error) => ({
   type: CREATE_RESERVATION_FAILURE,
   payload: error,
+
 });
 

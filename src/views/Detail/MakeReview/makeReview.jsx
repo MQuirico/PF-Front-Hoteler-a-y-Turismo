@@ -10,7 +10,7 @@ import { fetchReviews } from '../../../redux/Actions/actions';
 import {Link} from 'react-router-dom'
 export default function MakeReview(){
     const {register, reset, handleSubmit, setValue} = useForm()
-    const [value, estValue] = React.useState(2);
+    const [value, estValue] = React.useState(0);
     const [open, setOpen] = React.useState(false)
     const [message, setMessage] = React.useState("")
     const {auth} = React.useContext(AuthContext);
@@ -46,7 +46,7 @@ export default function MakeReview(){
             setValue(fieldName, null);
           });
           reset()
-          estValue(2)
+          estValue(0)
           if(response.data){dispatch(fetchReviews(id))}
     })
     .catch(error => {
@@ -60,13 +60,19 @@ console.log(window.location.href)
 
     if (auth){
         return (
-        <div style={{marginTop: '6vh', position: 'fixed'}}>
+        <div style={{
+            marginTop: '60vh',
+            marginRight: '20vh',
+            position: 'fixed'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <h5>   ¿Has vacacionado en este sitio 🏨? Deja una reseña pública<br></br> 
-            para que los demás usuarios conozcan tu experiencia en este hospedaje.😊</h5>
-            <Typography style={{marginLeft: '73vh', marginTop: '-6vh', position: 'fixed'}} component="legend">Califica este hospedaje</Typography>
+            <h5 style={{ 
+            textAlign: "center",
+            marginLeft: "1vh"
+            }} >   ¿Has vacacionado en este sitio 🏨? Deja una reseña pública para <br></br> 
+            que los demás usuarios conozcan tu experiencia en este hospedaje.😊</h5>
+            <Typography style={{marginLeft: '67vh', marginTop: '-6vh', position: 'fixed'}} component="legend">Califica este hospedaje</Typography>
             <Rating
-            style={{marginLeft: '75.5vh', marginTop: '-4vh',position: 'fixed'}}
+            style={{marginLeft: '69vh', marginTop: '-4vh',position: 'fixed'}}
             name="simple-controlled"
             value={value}
             onChange={(event, newValue) => {
@@ -74,8 +80,17 @@ console.log(window.location.href)
             setValue('rating', newValue)
             }}
             />
-            <input id="rev" style={{width: '90vh', height: '9vh'}} type="textarea" {...register('content', { required: true })}></input>
-            <button type="submit" style={{height: '9vh', position: 'fixed'}}>Enviar Reseña</button>
+            <input 
+            id="rev" 
+            style={{
+                width: '70vh', 
+                height: '9vh', 
+                marginLeft: "0vh",
+                marginBottom: "-5vh",
+                position: "fixed"}} 
+            type="textarea" 
+            {...register('content', { required: true })}></input>
+            <button type="submit" style={{height: '9vh', marginLeft:"70vh" ,position: 'fixed'}}>Enviar Reseña</button>
             </form>
         </div>
     )}
