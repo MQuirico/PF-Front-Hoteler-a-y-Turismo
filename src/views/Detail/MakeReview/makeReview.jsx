@@ -96,7 +96,11 @@ console.log(window.location.href)
     )}
     else {
         return (
-            <h4 style={{marginTop: '10vh', marginLeft: '19vh', position: 'fixed', textAlign: 'center'}}>
+            <h4 style={{
+             marginTop: '70vh',
+             marginLeft: '7vh', 
+             position: 'fixed', 
+             textAlign: 'center'}}>
             <Link to="/login">Inicia sesión</Link> para dejarnos tus comentarios<br></br>
             y reseñas acerca de tus experiencias en nuestros hospedajes</h4>
         )

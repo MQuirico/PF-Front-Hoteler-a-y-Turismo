@@ -244,7 +244,7 @@ console.log(products)
         backgroundColor: "rgba(245, 245, 245, 0.65)",
         height: "90vh",
         width: "107vh",
-        marginTop: "1.5vh",
+        marginTop: "-1vh",
         marginLeft: "100vh",
         borderRadius: "3%",
         position: "fixed"
