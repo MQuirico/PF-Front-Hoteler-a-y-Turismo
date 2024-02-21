@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Card, CardContent, CardMedia } from '@material-ui/core';
+import { useEffect } from 'react';
+import { getAllUsers } from '../../redux/Actions/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +23,16 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
+  
+  const dispatch = useDispatch(); // Obtiene la función dispatch del store Redux
+  const users = useSelector(state => state.users);; // Obtén los datos de los usuarios del estado de Redux
+  console.log(users, "DATOS DEL USUARIO DE LA DB")
+  useEffect(() => {
+    // Llama a la acción getAllUsers cuando el componente se monte
+    dispatch(getAllUsers());
 
+
+  }, [])
   // Ejemplo de datos de publicaciones
   const publicaciones = [
     {

@@ -101,6 +101,46 @@ const StyledDateCalendar = styled(DateCalendar)({
 });
 
 
+useEffect(() => {
+  // Llama a la acción getAllUsers cuando el componente se monte
+  dispatch(getAllUsers());
+}, [dispatch]);
+
+useEffect(() => {
+  if (!id || !products || Object.keys(products).length === 0) {
+    dispatch(fetchProducts(id));
+  }
+}, [dispatch, id, products]);
+
+const handlePayClick = async (event, id) => {
+  event.preventDefault();
+
+  try {
+    // Verificar que productId no sea undefined
+  if (!products) {
+    console.error('ID del producto no definido.');
+    return;
+  }
+
+    // Enviar la solicitud POST con los datos del producto y del usuario
+    const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
+      productId: products.id,
+      userId: 1,
+      quantity: 1,
+      card: "visa"
+    });
+    const { data } = response;
+
+    // Redirigir al usuario a la URL proporcionada por MercadoPago utilizando un enlace
+    window.location.href = data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
+
+
 
 function Label({ componentName, valueType, isProOnly }) {
   const content = (
