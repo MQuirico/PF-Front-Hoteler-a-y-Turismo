@@ -6,6 +6,9 @@ import {gapi} from "gapi-script";
 import axios from "axios";
 import styles from "./loginForm.module.css";
 import { AuthContext } from "../AuthProvider/authProvider";
+import * as ReactRedux from 'react-redux';
+import { checkGoogleId } from "../../redux/Actions/actions";
+import { registerUser } from "../../redux/Actions/actions";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors }, setError: setFormError, clearErrors } = useForm();
@@ -13,7 +16,8 @@ export default function Login() {
   const history = useHistory();
   const { setAuth } = useContext(AuthContext); 
   const [error, setError] = useState(null);
-
+  const dispatch = ReactRedux.useDispatch()
+  const googlecheck = ReactRedux.useSelector(state => state.stateA.checkGoogle)
   const clientID = '1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com'
 
   const onSubmit = async (data) => {
@@ -45,11 +49,38 @@ export default function Login() {
     gapi.load("client:auth2", start);
   }, []);
 
-  const onSuccess = (response) => {
+
+  const onSuccess = async (response) => {
     console.log('Login Success: currentUser:', response.profileObj);
     setAuth({ token: response.profileObj });
-    history.push("/home")
-   };
+
+    try {
+        dispatch(checkGoogleId(response.profileObj.googleId));
+        
+        // Aquí puedes acceder a la respuesta y realizar el condicional
+        if (googlecheck.data) {
+            // Si el usuario ya existe, no hacemos nada
+            history.push("/home");
+        } else {
+            // Si el usuario no existe, lo registramos
+            const toSend = {
+                name: response.profileObj.givenName,
+                surName: response.profileObj.familyName,
+                email: response.profileObj.email,
+                password: "Google10.",
+                googleId: response.profileObj.googleId
+            };
+            dispatch(registerUser(toSend));
+            // Suponiendo que registerUser también devuelve una promesa
+            
+        }
+    } catch (error) {
+        console.error('Error en checkGoogleId:', error);
+    }
+
+    // Aquí necesitas decidir qué hacer con esta línea, ya que la redirección se hará de manera asincrónica
+    history.push("/home");
+};
 
    const onFailure = () => {
     setError("Algo salió mal");

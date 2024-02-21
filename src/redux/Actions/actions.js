@@ -41,6 +41,9 @@ import {
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
     CREATE_RESERVATION_SUCCESS,
+    CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
+    CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
+    CHECK_GOOGLEUSER_EXISTANCE_FAILURE
 } from "../action-types/action-types";
 
 import {
@@ -490,5 +493,40 @@ export const startReservation = (reservationData) => {
       } catch (error) {
           dispatch(startReservationFailure(error.message));
       }
+  };
+};
+
+export const checkGoogleId = (GoogleID) => {
+  return async (dispatch) => {
+    dispatch(checkGoogleIdRequest());
+
+    try {
+      const response = await axios.get(`https://back-hostel.onrender.com/users/detail/${GoogleID}`);
+      dispatch(checkGoogleIdSuccess(response.data));
+      console.log(response.data)
+    } catch (error) {
+      dispatch(checkGoogleIdFailure(error.message));
+      console.log(error.message)
+    }
+  };
+};
+
+const checkGoogleIdRequest = () => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_REQUEST
+  };
+};
+
+const checkGoogleIdSuccess = (userData) => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
+    payload: userData
+  };
+};
+
+const checkGoogleIdFailure = (errorMessage) => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
+    payload: errorMessage
   };
 };
