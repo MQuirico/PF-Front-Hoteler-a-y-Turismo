@@ -10,7 +10,6 @@ import LogIn from "./componentes/LoginForm/loginForm";
 import About from './componentes/About/about';
 import Registro from "./componentes/Register/register";
 import DashboardUsuario from "./componentes/prefilDeUsuario/dashBoard"
-
 import ReservationForm from "./componentes/Reserva/reserva";
 
 
@@ -45,7 +44,7 @@ function App() {
 
 
 <Route exact path = "/configUser" component = {DashboardUsuario} />
-<Route exact path = "/reserva" component = {ReservationForm} />
+
 </Switch> 
       </div>
     </Router>
