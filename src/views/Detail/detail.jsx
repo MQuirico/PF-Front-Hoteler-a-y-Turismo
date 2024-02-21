@@ -19,7 +19,6 @@ import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites } from '../../redux/Actions/actions';
 // import { Link } from '@mui/material';
-import {Link} from "react-router-dom";
 import { getAllUsers } from '../../redux/Actions/actions';
 import { useEffect } from 'react';
 
