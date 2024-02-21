@@ -456,6 +456,20 @@ const createReservationFailure = (error) => ({
 
 });
 
+//para mp
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    dispatch({ type: GET_ALL_USERS_REQUEST });
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      const users = response.data;
+      dispatch({ type: GET_ALL_USERS_SUCCESS, payload: users });
+    } catch (error) {
+      dispatch({ type: GET_ALL_USERS_FAILURE, payload: error.message });
+    }
+  };
+};
 
 const startReservationProcess = () => {
   return {
