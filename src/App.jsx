@@ -41,7 +41,7 @@ function App() {
  <Route exact path="/detail/:id" component={Detail} />
 
  <Route exact path = "/reserva" component = {ReservationForm} />
- <Route exact path="/create" component= {Create} />
+
 
 
 <Route exact path = "/configUser" component = {DashboardUsuario} />
