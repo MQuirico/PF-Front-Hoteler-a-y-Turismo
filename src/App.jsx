@@ -10,7 +10,6 @@ import LogIn from "./componentes/LoginForm/loginForm";
 import About from './componentes/About/about';
 import Registro from "./componentes/Register/register";
 import DashboardUsuario from "./componentes/prefilDeUsuario/dashBoard"
-import NewService from "./componentes/Create/create";
 import ReservationForm from "./componentes/Reserva/reserva";
 
 
@@ -41,11 +40,11 @@ function App() {
  <Route exact path="/detail/:id" component={Detail} />
 
  <Route exact path = "/reserva" component = {ReservationForm} />
- <Route exact path="/create" component= {NewService} />
+
 
 
 <Route exact path = "/configUser" component = {DashboardUsuario} />
-<Route exact path = "/reserva" component = {ReservationForm} />
+
 </Switch> 
       </div>
     </Router>

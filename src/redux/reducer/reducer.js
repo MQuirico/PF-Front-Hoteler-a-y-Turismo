@@ -36,6 +36,9 @@ import {
   DELETE_FAVSTATE,
   CREATE_RESERVATION_FAILURE,
   CREATE_RESERVATION_SUCCESS,
+  GET_ALL_USERS_REQUEST,
+  GET_ALL_USERS_SUCCESS,
+  GET_ALL_USERS_FAILURE,
   CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
   CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
   CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
@@ -335,6 +338,13 @@ const userDataReducer = (state = initialState, action) => {
                           }
                         }
                         
+
+                        case GET_ALL_USERS_REQUEST:
+                          return { ...state, loading: true, error: null };
+                          case GET_ALL_USERS_SUCCESS:
+                          return { ...state, users: action.payload, loading: false, error: null };
+                          case GET_ALL_USERS_FAILURE:
+                          return { ...state, loading: false, error: action.payload };
 
     default:
       return state;
