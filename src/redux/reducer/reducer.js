@@ -36,9 +36,14 @@ import {
   DELETE_FAVSTATE,
   CREATE_RESERVATION_FAILURE,
   CREATE_RESERVATION_SUCCESS,
+
+  CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
+  CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
+  CHECK_GOOGLEUSER_EXISTANCE_FAILURE;
   GET_ALL_USERS_REQUEST,
   GET_ALL_USERS_SUCCESS,
   GET_ALL_USERS_FAILURE,
+
 
 } from "../action-types/action-types";
 
@@ -63,6 +68,11 @@ const initialState = {
   },
   favorites:{
     data: [],
+    loading: false,
+    error: null
+  }, 
+  checkGoogle:{
+    data:{},
     loading: false,
     error: null
   },
@@ -302,6 +312,34 @@ const userDataReducer = (state = initialState, action) => {
                           reservation: null,
                           error: action.payload,
                         };
+                      case CHECK_GOOGLEUSER_EXISTANCE_REQUEST:
+                        return{
+                          ...state,
+                          checkGoogle:{
+                            data:{},
+                            loading: true,
+                            error: null
+                          }
+                        }
+                      case CHECK_GOOGLEUSER_EXISTANCE_SUCCESS:
+                        return{
+                          ...state,
+                          checkGoogle:{
+                            data:action.payload,
+                            loading: false,
+                            error: null
+                          }
+                        }
+                      case CHECK_GOOGLEUSER_EXISTANCE_FAILURE:
+                        return{
+                          ...state,
+                          checkGoogle:{
+                            data:{},
+                            loading: false,
+                            error: action.payload
+                          }
+                        }
+                        
 
                         case GET_ALL_USERS_REQUEST:
                           return { ...state, loading: true, error: null };
