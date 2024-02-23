@@ -22,13 +22,13 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('https://back-hostel.onrender.com/users/login', data);
+      const response = await axios.post('http://localhost:3003/users/login', data);
       if (response.data) {
         
         const authData = {
           token: response.data,
         };
-        
+        console.log("se esta haciendo el login", authData)
         setAuth(authData);
         localStorage.setItem('auth', JSON.stringify(authData)); 
         history.push("/home");
@@ -51,18 +51,20 @@ export default function Login() {
 
 
   const onSuccess = async (response) => {
-    console.log('Login Success: currentUser:', response.profileObj);
-    setAuth({ token: response.profileObj });
+    /* console.log('Login Success: currentUser:', response.profileObj);
+    setAuth({ token: response.profileObj }); */
 
     try {
-        dispatch(checkGoogleId(response.profileObj.googleId));
-        
-        // Aquí puedes acceder a la respuesta y realizar el condicional
+        dispatch(checkGoogleId(response.profileObj.googleId)); //usar await
         if (googlecheck.data) {
-            // Si el usuario ya existe, no hacemos nada
+          const toLogIn = {
+            email: googlecheck.data.email,
+            password: googlecheck.data.password
+          }
+          onSubmit(toLogIn)
+            console.log("GoogleUser ya registrado", googlecheck.data)
             history.push("/home");
         } else {
-            // Si el usuario no existe, lo registramos
             const toSend = {
                 name: response.profileObj.givenName,
                 surName: response.profileObj.familyName,
@@ -70,15 +72,17 @@ export default function Login() {
                 password: "Google10.",
                 googleId: response.profileObj.googleId
             };
-            dispatch(registerUser(toSend));
-            // Suponiendo que registerUser también devuelve una promesa
-            
+           await dispatch(registerUser(toSend));
+           const LogIn = {
+            email: response.profileObj.email,
+            password: "Google10."
+           }
+           onSubmit(LogIn)
+            console.log("Es tu primera vez con logIn de Google, te hemos registrado")        
         }
     } catch (error) {
         console.error('Error en checkGoogleId:', error);
     }
-
-    // Aquí necesitas decidir qué hacer con esta línea, ya que la redirección se hará de manera asincrónica
     history.push("/home");
 };
 

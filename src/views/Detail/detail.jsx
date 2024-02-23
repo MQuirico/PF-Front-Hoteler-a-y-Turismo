@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import * as RRD from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from '../../redux/Actions/actions';
 import './detail.css'
@@ -17,21 +17,20 @@ import { fetchReviews } from '../../redux/Actions/actions';
 import starFil from "../../assets/star-outline-filled.png";
 import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
-import { getFavorites } from '../../redux/Actions/actions';
-import { startReservation } from '../../redux/Actions/actions';
-
+import { getFavorites ,startReservation } from '../../redux/Actions/actions';
+import {getAllUsers} from '../../redux/Actions/actions'
 function Detail() {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();
   const {auth} = React.useContext(AuthContext)
   const favorites = useSelector(state => state.stateA.favorites.data)
-  const location = useLocation()
+  const location = RRD.useLocation()
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
   const productsState = useSelector((state) => state.stateA.products);
   const stateFav = favorites?.productId?.includes(id)
-  let sqrtGoogle = null
+  const history = RRD.useHistory()
   /* switch (stateFav){
       case true: 
       setFav(starFil)
@@ -101,12 +100,12 @@ const StyledDateCalendar = styled(DateCalendar)({
 });
 
 
-useEffect(() => {
+React.useEffect(() => {
   // Llama a la acción getAllUsers cuando el componente se monte
   dispatch(getAllUsers());
 }, [dispatch]);
 
-useEffect(() => {
+React.useEffect(() => {
   if (!id || !products || Object.keys(products).length === 0) {
     dispatch(fetchProducts(id));
   }
@@ -213,7 +212,10 @@ console.log(products)
 
 
 
+  
   const setDelFavorite = () =>{
+    
+    
     
     
     
@@ -258,12 +260,22 @@ console.log(products)
         return;
   }}
   
+  
+    
+    
 
   const renderPool = (poolValue) => {
     return poolValue ? 'Posee piscina' : 'No posee piscina';
   };
 
-  const productsProp = products
+  const onClickReserva = () => {
+    const toSend = {
+      products
+    }
+    dispatch(startReservation(toSend))
+    history.push("/reserva")
+  }
+
 
   return (
     <div className="container" style={{
@@ -356,8 +368,10 @@ console.log(products)
         </DemoContainer>
         </LocalizationProvider>
 
-        <Link to="/reserva">
-        <button style={{
+        
+        <button 
+        onClick={onClickReserva}
+        style={{
           marginTop: "-12vh",
           marginLeft: "83vh",
 
@@ -368,8 +382,7 @@ console.log(products)
         }}>
         Hacer reserva
         </button>
-
-       </Link>
+       
 
         <AlignItemsList className="list" />
         
@@ -381,7 +394,7 @@ console.log(products)
       </div>
       
     </div>
-  );
-}
+  ); }
+
 
 export default Detail;

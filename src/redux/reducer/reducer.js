@@ -71,7 +71,7 @@ const initialState = {
     error: null
   }, 
   checkGoogle:{
-    data:{},
+    data: null,
     loading: false,
     error: null
   },

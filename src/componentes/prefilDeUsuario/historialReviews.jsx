@@ -28,11 +28,16 @@ console.log(favorites)
   }, [dispatch, currentPage]);
 
   React.useEffect(() => {
-    let favs = products.filter(product => favorites.productId.includes(product.id));
+    let favs = products.filter(product => favorites?.productId.includes(product.id));
     setFav(favs);
   }, [products, favorites]);
   
  const deletion = (id) => {
+  /* let strGoogleId = auth.token.googleId
+  if(auth.token.googleId){
+    strGoogleId = toString(auth.token.googleId)
+  }
+   */
   const toSend ={
     userId: auth.token.id,  //recordar manejar usuarios de Google
     productId: id
