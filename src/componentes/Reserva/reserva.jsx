@@ -27,7 +27,7 @@ const ReservationForm = (props) => {
         const response = await axios.post("http://localhost:3003/payment/create-order",{
             productId: 5 ,/* info.products.id, */
             quantity: data.quantity,
-            userId: 4,/* auth.token.id, */
+            userId:  auth.token.id, */
             startDate: data.startDate,
             endDate: data.endDate,
             totalGuests: data.guests
