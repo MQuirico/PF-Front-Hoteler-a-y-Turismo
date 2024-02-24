@@ -72,7 +72,7 @@ export const setUserData = (userData) => {
     dispatch({ type: CREATE_USER_REQUEST });
     try {
       const response = await axios.post(
-        "http://localhost:3003/users/create",
+        "https://back-hostel.onrender.com/users/create",
         datauser
       );
       dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
@@ -526,7 +526,7 @@ export const checkGoogleId = (GoogleID) => {
     dispatch(checkGoogleIdRequest());
 
     try {
-      const response = await axios.get(`http://localhost:3003/users/detail/${GoogleID}`);
+      const response = await axios.get(`https://back-hostel.onrender.com/users/detail/${GoogleID}`);
       dispatch(checkGoogleIdSuccess(response.data));
       console.log(response.data)
     } catch (error) {

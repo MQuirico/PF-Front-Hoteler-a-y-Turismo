@@ -25,14 +25,16 @@ const ReservationForm = (props) => {
 
     const createPreference = async (data) => {
         try { 
-        const response = await axios.post("http://localhost:3003/payment/create-order",{
-            productId: info.products.id, 
-            quantity: data.quantity,
-            userId: auth.token.id, 
-            startDate: data.startDate,
-            endDate: data.endDate,
-            totalGuests: data.guests
-        });
+            const body = {
+                productId: info.products.id, 
+                quantity: data.quantity,
+                userId: auth.token.id, 
+                startDate: data.startDate,
+                endDate: data.endDate,
+                totalGuests: data.guests
+            }
+            console.log(body)
+        const response = await axios.post("https://back-hostel.onrender.com/payment/create-order", body);
         console.log(response)
         console.log(response.data)
         const url = response.data;
