@@ -19,15 +19,16 @@ const ReservationForm = (props) => {
     const {auth} = useContext(AuthContext);
     const {register, handleSubmit, reset, setValue } = useForm()
     const [MPpref, setMPpref] = useState(null)
+    const [errDate, setErrDate] = useState(null)
     const info = useSelector(state => state.stateB.reservData.reservation)
     console.log("USER ID =>", auth.token.id)
 
     const createPreference = async (data) => {
         try { 
         const response = await axios.post("http://localhost:3003/payment/create-order",{
-            productId: 5 ,/* info.products.id, */
+            productId: info.products.id, 
             quantity: data.quantity,
-            userId:  auth.token.id, */
+            userId: auth.token.id, 
             startDate: data.startDate,
             endDate: data.endDate,
             totalGuests: data.guests
@@ -56,6 +57,8 @@ const ReservationForm = (props) => {
         const diferenciaMilisegundos = fechaFinal.getTime() - fechaInicial.getTime();
         const diasDeDiferencia = diferenciaMilisegundos / (1000 * 60 * 60 * 24);
         console.log(diasDeDiferencia)
+        if(diasDeDiferencia > 0){
+            setErrDate(null) 
         const toSend = {
             startDate: data.startDate,
             endDate: data.finDate,
@@ -66,7 +69,9 @@ const ReservationForm = (props) => {
        reset()
        Object.keys(data).forEach((fieldName) => {
                   setValue(fieldName, null);
-                });
+                });} else {
+                    setErrDate("La fecha de Salida no puede ser anterior a la fecha de Entrada")
+                }
         
         
     }
@@ -86,6 +91,12 @@ const ReservationForm = (props) => {
                     id="guests"
                     min="1"
                     max="10"
+                    onKeyPress={(event) => {        
+                    const pattern = /[0-9\b]/;
+                    if (!pattern.test(event.key)) {
+                    event.preventDefault();
+                        }
+                    }}
                     {...register("guests", { required: true })}
                 />
             </div>
@@ -115,7 +126,7 @@ const ReservationForm = (props) => {
                     {...register("finDate", { required: true })}
                 />
             </div>
-                
+                {errDate && <p style={{color: "red"}}>{errDate}</p>}
                <button type="submit">Reservar</button> 
             </form>
             
