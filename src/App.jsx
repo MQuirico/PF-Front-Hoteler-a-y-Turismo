@@ -38,7 +38,6 @@ function App() {
  <Route exact path="/about" component={About} />
  <Route exact path="/register" component={Registro} />
  <Route exact path="/detail/:id" component={Detail} />
-
  <Route exact path = "/reserva" component = {ReservationForm} />
 
 

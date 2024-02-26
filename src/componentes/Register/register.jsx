@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import styles from "./register.module.css";
 import { useForm } from "react-hook-form";
 import IconButton from "@mui/material/IconButton";
@@ -9,6 +9,7 @@ import {Link} from "react-router-dom"
 
 const Register = () => {
   const dispatch = useDispatch();
+  const errorServer = useSelector(state => state.stateA.error)
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange' }); 
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
@@ -22,15 +23,28 @@ const Register = () => {
     setSnackbarOpen(false);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Datos enviados al backend:", data);
-    dispatch(registerUser(data)); // Aquí despachamos la acción para registrar al usuario
-    setMessage(
-      "¡Te has registrado correctamente! Verifica tu casilla de correo"
-    );
-    setSnackbarOpen(true);
-    reset();
+    try {
+      // Despacha la acción y espera a que se complete
+      await dispatch(registerUser(data));
+      // Verifica si hay un error en el estado de Redux
+      if (errorServer) {
+        setMessage(errorServer);
+        setSnackbarOpen(true);
+      } else {
+        setMessage("¡Te has registrado correctamente! Verifica tu casilla de correo");
+        setSnackbarOpen(true);
+        reset();
+      }
+    } catch (error) {
+      console.error("Error al registrar usuario:", error.message);
+      // Manejar el error aquí, por ejemplo, puedes mostrar un mensaje de error al usuario
+      setMessage("Error al registrar usuario: " + error.message);
+      setSnackbarOpen(true);
+    }
   };
+  
 
   useEffect(() => {
     setIsFormValid(Object.keys(errors).length === 0); 

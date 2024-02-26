@@ -61,18 +61,17 @@ console.log(window.location.href)
     if (auth){
         return (
         <div style={{
-            marginTop: '60vh',
-            marginRight: '20vh',
-            position: 'fixed'}}>
+            marginTop: '570px',
+            marginLeft: '120px',
+            position: "absolute"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
             <h5 style={{ 
             textAlign: "center",
             marginLeft: "1vh"
-            }} >   ¿Has vacacionado en este sitio 🏨? Deja una reseña pública para <br></br> 
-            que los demás usuarios conozcan tu experiencia en este hospedaje.😊</h5>
-            <Typography style={{marginLeft: '67vh', marginTop: '-6vh', position: 'fixed'}} component="legend">Califica este hospedaje</Typography>
+            }} >   ¿Has vacacionado en este sitio 🏨? </h5> <br /><br /><br />
+            <Typography style={{marginLeft: '80px', marginTop: '-6vh', position: 'absolute', marginBottom:"5px"}} component="legend">Califica este hospedaje</Typography> 
             <Rating
-            style={{marginLeft: '69vh', marginTop: '-4vh',position: 'fixed'}}
+            style={{marginLeft: '90px', marginTop: '-3.4vh',position: 'absolute'}}
             name="simple-controlled"
             value={value}
             onChange={(event, newValue) => {
@@ -83,14 +82,14 @@ console.log(window.location.href)
             <input 
             id="rev" 
             style={{
-                width: '70vh', 
+                width: '600px', 
                 height: '9vh', 
                 marginLeft: "0vh",
                 marginBottom: "-5vh",
-                position: "fixed"}} 
+                position: "absolute"}} 
             type="textarea" 
             {...register('content', { required: true })}></input>
-            <button type="submit" style={{height: '9vh', marginLeft:"70vh" ,position: 'fixed'}}>Enviar Reseña</button>
+            <button type="submit" style={{height: '9vh', marginLeft:"615px" ,position: 'absolute'}}>Enviar Reseña</button>
             </form>
         </div>
     )}
@@ -99,7 +98,7 @@ console.log(window.location.href)
             <h4 style={{
              marginTop: '70vh',
              marginLeft: '7vh', 
-             position: 'fixed', 
+             position: 'absolute', 
              textAlign: 'center'}}>
             <Link to="/login">Inicia sesión</Link> para dejarnos tus comentarios<br></br>
             y reseñas acerca de tus experiencias en nuestros hospedajes</h4>

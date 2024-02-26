@@ -45,8 +45,7 @@ export default function NavBar(props) {
     if (auth) {
       localStorage.setItem("auth", JSON.stringify(auth));
       let id = null;
-      if (auth.token.id) { id = auth.token.id; }
-      if (auth.token.googleId) { id = Math.sqrt(auth.token.googleId)}
+      if (auth?.token?.id) { id = auth?.token?.id; }
       dispatch(getFavorites(id));
     }
   }, [auth, dispatch]);
@@ -74,6 +73,10 @@ export default function NavBar(props) {
             <>
               <NavDropdown title={<img src={auth.token.imageUrl || imgDefault} style={{ borderRadius: "50%", height: "32px", width: "32px", marginLeft: "-10px", marginRight: "5px" }} alt="User Avatar" />} id="basic-nav-dropdown">
                 {auth.token.rol === "buyer" && (
+                  <NavDropdown.Item as={Link} to="/configUser" style={{ marginLeft: "0px" }}>Ajustes</NavDropdown.Item>
+                )}
+
+                {auth.token.googleId && (
                   <NavDropdown.Item as={Link} to="/configUser" style={{ marginLeft: "0px" }}>Ajustes</NavDropdown.Item>
                 )}
 

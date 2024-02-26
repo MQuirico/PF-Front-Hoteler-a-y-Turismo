@@ -1,24 +1,28 @@
-.container {
+
+
+
+
+.contasdds {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 91.8vh;
+  height: 500px;
   width: 209.7vh;
   max-width: 270vh;
   margin-top: 80px;
   margin-left: 0vh;
-  overflow: hidden;
-  position: fixed;
+  
 }
 
-.detailContainer {
-  background-color: rgba(245, 245, 245, 0.65);
+.detailContainersdsd {
+
   height: 90vh;
   width: 107vh;
   margin-top: -1vh;
   margin-left: 100vh;
   border-radius: 3%;
-  position: fixed;
+  position: absolute;
+  
 }
 
 .detailContent {
@@ -29,39 +33,61 @@
   position: fixed;
 }
 
-.detailContent img {
-  border-radius: 8%;
-  max-height: 250px;
-  max-width: 320px;
-  position: fixed;
+.detailContainersdsd img {
+  margin-left: -750px;
+  position: absolute;
+  margin-top: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 2000px;
 }
 
-.detailContent h2 {
-  margin-left: 45vh;
-  margin-top: 1vh;
-  position: fixed;
-  color: brown;
+
+
+.detailContainersdsd h4 {
+  margin-left: 50px;
+  margin-top: 20px;
+  position: relative;
 }
 
-.detailContent h4 {
-  margin-left: 35vh;
-  margin-top: 5vh;
-}
-
-.detailContent button {
-  margin-top: -12vh;
-  margin-left: 83vh;
-  position: fixed;
+.detailContainersdsd button {
+  margin-top: 420px;
+  margin-left: 150px;
+  position: absolute;
   cursor: pointer;
-  height: 5vh;
-  width: 15vh;
+  height: 60px;
+  width: 150px;
 }
 
-.detailContent img.favorite-icon {
+.detailContainersdsd img.favorite-icon {
   max-height: 6vh;
   max-width: 6vh;
-  margin-top: -23vh;
+  margin-top: 50px;
   margin-left: 98vh;
-  position: fixed;
+  position: absolute;
   cursor: pointer;
 }
+
+.list {
+  margin-left: 100px;
+  
+}
+
+
+.localidad {
+  position: absolute;
+  margin-left: -150px;
+  margin-top: 20px;
+}
+
+.caracteristicas {
+
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 700px;
+  margin-left: 50px;
+  position: absolute;
+  margin-top: 98px;
+  height: 250px;
+}
+

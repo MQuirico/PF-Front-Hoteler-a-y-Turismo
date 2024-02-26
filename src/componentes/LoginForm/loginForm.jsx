@@ -6,6 +6,9 @@ import {gapi} from "gapi-script";
 import axios from "axios";
 import styles from "./loginForm.module.css";
 import { AuthContext } from "../AuthProvider/authProvider";
+import * as ReactRedux from 'react-redux';
+import { checkGoogleId } from "../../redux/Actions/actions";
+import { registerUser } from "../../redux/Actions/actions";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors }, setError: setFormError, clearErrors } = useForm();
@@ -13,7 +16,8 @@ export default function Login() {
   const history = useHistory();
   const { setAuth } = useContext(AuthContext); 
   const [error, setError] = useState(null);
-
+  const dispatch = ReactRedux.useDispatch()
+  const googlecheck = ReactRedux.useSelector(state => state.stateA.checkGoogle)
   const clientID = '1066333447186-evqflps97jn0k7585c92i4ve45g64hoj.apps.googleusercontent.com'
 
   const onSubmit = async (data) => {
@@ -24,7 +28,7 @@ export default function Login() {
         const authData = {
           token: response.data,
         };
-        
+        console.log("se esta haciendo el login", authData)
         setAuth(authData);
         localStorage.setItem('auth', JSON.stringify(authData)); 
         history.push("/home");
@@ -45,11 +49,42 @@ export default function Login() {
     gapi.load("client:auth2", start);
   }, []);
 
-  const onSuccess = (response) => {
-    console.log('Login Success: currentUser:', response.profileObj);
-    setAuth({ token: response.profileObj });
-    history.push("/home")
-   };
+
+  const onSuccess = async (response) => {
+    /* console.log('Login Success: currentUser:', response.profileObj);
+    setAuth({ token: response.profileObj }); */
+
+    try {
+        dispatch(checkGoogleId(response.profileObj.googleId)); //usar await
+        if (googlecheck.data) {
+          const toLogIn = {
+            email: googlecheck.data.email,
+            password: googlecheck.data.password
+          }
+          onSubmit(toLogIn)
+            console.log("GoogleUser ya registrado", googlecheck.data)
+            history.push("/home");
+        } else {
+            const toSend = {
+                name: response.profileObj.givenName,
+                surName: response.profileObj.familyName,
+                email: response.profileObj.email,
+                password: "Google10.",
+                googleId: response.profileObj.googleId
+            };
+           await dispatch(registerUser(toSend));
+           const LogIn = {
+            email: response.profileObj.email,
+            password: "Google10."
+           }
+           onSubmit(LogIn)
+            console.log("Es tu primera vez con logIn de Google, te hemos registrado")        
+        }
+    } catch (error) {
+        console.error('Error en checkGoogleId:', error);
+    }
+    history.push("/home");
+};
 
    const onFailure = () => {
     setError("Algo salió mal");

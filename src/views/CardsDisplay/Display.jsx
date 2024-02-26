@@ -9,7 +9,7 @@ import "./home.css";
 function Home() {
   const dispatch = useDispatch();
   const searchResults = useSelector((state) => state.stateA.searchResults);
-  const products = useSelector((state) => state.stateA.products);
+ 
   const totalPages = useSelector((state) => state.stateA.totalPages);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
@@ -82,7 +82,7 @@ function Home() {
           </p>
         ) : (
           <div className="cardsRows">
-            <Cards products={searchTerm.trim() !== "" ? searchResults : products} />
+           
           </div>
         )}
         <div className="paginado">

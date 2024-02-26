@@ -41,8 +41,11 @@ import {
     DELETE_FAVSTATE,
     CREATE_RESERVATION_FAILURE,
     CREATE_RESERVATION_SUCCESS,
+    CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
+    CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
+    CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
     GET_ALL_USERS_REQUEST,
-    GET_ALL_USERS_FAILURE
+    GET_ALL_USERS_FAILURE,
 } from "../action-types/action-types";
 
 import {
@@ -74,9 +77,18 @@ export const setUserData = (userData) => {
       );
       dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
     } catch (error) {
-      dispatch({ type: CREATE_USER_FAILURE, payload: error.message });
+      console.log(error.response.data.error);
+      if (error.response && error.response.status ===  400) {
+        if (error.response.data.error === "Ya existe un usuario registrado con este email") {
+          dispatch({ type: CREATE_USER_FAILURE, payload: "Ya existe un usuario registrado con este email" });
+        } else {
+          dispatch({ type: CREATE_USER_FAILURE, payload: error.response.data.error || "Error desconocido" });
+        }
+      } else {
+        dispatch({ type: CREATE_USER_FAILURE, payload: "Error interno del servidor." });
+      }
     }
-  };
+  };/* https://back-hostel.onrender.com/ */
 
 export const searchByName = (name) => {
   return async (dispatch) => {
@@ -461,7 +473,7 @@ export const getAllUsers = () => {
   return async (dispatch) => {
     dispatch({ type: GET_ALL_USERS_REQUEST });
     try {
-      const response = await axios.get("http://localhost:3002/users");
+      const response = await axios.get("https://back-hostel.onrender.com/users");
       const users = response.data;
       dispatch({ type: GET_ALL_USERS_SUCCESS, payload: users });
     } catch (error) {
@@ -506,5 +518,40 @@ export const startReservation = (reservationData) => {
       } catch (error) {
           dispatch(startReservationFailure(error.message));
       }
+  };
+};
+
+export const checkGoogleId = (GoogleID) => {
+  return async (dispatch) => {
+    dispatch(checkGoogleIdRequest());
+
+    try {
+      const response = await axios.get(`https://back-hostel.onrender.com/users/detail/${GoogleID}`);
+      dispatch(checkGoogleIdSuccess(response.data));
+      console.log(response.data)
+    } catch (error) {
+      dispatch(checkGoogleIdFailure(error.message));
+      console.log(error.message)
+    }
+  };
+};
+
+const checkGoogleIdRequest = () => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_REQUEST
+  };
+};
+
+const checkGoogleIdSuccess = (userData) => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
+    payload: userData
+  };
+};
+
+const checkGoogleIdFailure = (errorMessage) => {
+  return {
+    type: CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
+    payload: errorMessage
   };
 };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import * as RRD from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from '../../redux/Actions/actions';
 import './detail.css'
@@ -17,40 +17,21 @@ import { fetchReviews } from '../../redux/Actions/actions';
 import starFil from "../../assets/star-outline-filled.png";
 import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
-import { getFavorites } from '../../redux/Actions/actions';
-import { startReservation } from '../../redux/Actions/actions';
-import { useEffect } from 'react';
-import { getAllUsers } from '../../redux/Actions/actions';
-
+import { getFavorites ,startReservation } from '../../redux/Actions/actions';
+import {getAllUsers} from '../../redux/Actions/actions'
 function Detail() {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();
   const {auth} = React.useContext(AuthContext)
   const favorites = useSelector(state => state.stateA.favorites.data)
-  const location = useLocation()
+  const location = RRD.useLocation()
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
   const productsState = useSelector((state) => state.stateA.products);
   const stateFav = favorites?.productId?.includes(id)
-  let sqrtGoogle = null
-  /* switch (stateFav){
-      case true: 
-      setFav(starFil)
-      break;
-      case false:
-      setFav(starOut)
-      break;
-      case undefined:
-      setFav(starOut)
-      break;
-      default:
-      return
-  } */
-  
+  const history = RRD.useHistory()
 
-  
-  ; // Obtener la ubicación del estado
   
   React.useEffect(() => {
     dispatch(fetchReviews(id));
@@ -69,33 +50,30 @@ function Detail() {
   }
   }, [dispatch, stateFav,starOut,starFil, id]);
 
-  /* React.useEffect(() => {
-    localStorage.setItem("FavImage", image);
-  }, [image]); */
+
 
 const ProSpan = styled('span')({
   display: 'inline-block',
-  height: '1em',
-  width: '1em',
+  height: '100px !important',
+  width: '250px',
   verticalAlign: 'middle',
-  marginLeft: '0.3em',
-  marginBottom: '0.08em',
+  marginLeft: '200px',
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
   backgroundImage: 'url(https://mui.com/static/x/pro.svg)',
 });
 
 const StyledLabel = styled(Label)({
-  marginRight: "100vh",
-  position: "fixed",
+  marginRight: "-100px",
+  position: "absolute",
   width: "40vh"
 })
 
 const StyledDateCalendar = styled(DateCalendar)({
   
-  marginLeft: "0.5vh !important",
-  marginTop: "13vh !important",
-  position: "fixed",
+  marginLeft: "450px !important",
+  marginTop: "350px !important",
+  position: "absolute",
 
   '.Mui-selected': {
     backgroundColor: 'orange',
@@ -103,12 +81,12 @@ const StyledDateCalendar = styled(DateCalendar)({
 });
 
 
-useEffect(() => {
+React.useEffect(() => {
   // Llama a la acción getAllUsers cuando el componente se monte
   dispatch(getAllUsers());
 }, [dispatch]);
 
-useEffect(() => {
+React.useEffect(() => {
   if (!id || !products || Object.keys(products).length === 0) {
     dispatch(fetchProducts(id));
   }
@@ -149,16 +127,16 @@ function Label({ componentName, valueType, isProOnly }) {
     <span style={{
       color: "black",
       fontSize: "large",
-      marginTop: "3vh",
-      marginLeft: "2vh",
-      position: "fixed",
-      textAlign: "center"
-    }} >
-      He aquí un <strong>calendario</strong> para ayudarte<br></br>
-      a planificar.<br></br>
-      ¡Recuerda consultar al titular por<br></br>
-      disponibilidad de fechas!<br></br>
+      marginTop: "350px",
+      marginLeft: "500px",
       
+      textAlign: "center",
+      position:"absolute"
+    }} >
+      <div style={{marginTop: "60px"}}>
+      
+      </div>
+     
     </span>
   );
 
@@ -215,7 +193,10 @@ console.log(products)
 
 
 
+  
   const setDelFavorite = () =>{
+    
+    
     
     
     
@@ -260,130 +241,96 @@ console.log(products)
         return;
   }}
   
+  
+    
+    
 
   const renderPool = (poolValue) => {
     return poolValue ? 'Posee piscina' : 'No posee piscina';
   };
 
-  const productsProp = products
+  const onClickReserva = () => {
+    const toSend = {
+      products
+    }
+    dispatch(startReservation(toSend))
+    history.push("/reserva")
+  }
+
 
   return (
-    <div className="container" style={{
-      backgroundImage: "url('https://media.infocielo.com/p/dbc6bcdde57cfd82955b5b47f3d9eaa1/adjuntos/299/imagenes/001/307/0001307849/1200x675/smart/turismo-rural-gandara-chascomus-refugio-el-vergeljpg.jpg')", 
-      backgroundSize: "cover",
-      backgroundPosition: "center", 
-      backgroundRepeat: "no-repeat", 
-      height: "91.8vh",
-      width: "209.7vh",
-      maxWidth: "270vh",
-      marginTop: "80px",
-      marginLeft: "0vh",
-      overflow: "hidden",
-      position: "fixed"
-      }}>
-
-      <div className="detailContainer" style={{
-        backgroundColor: "rgba(245, 245, 245, 0.65)",
-        height: "90vh",
-        width: "107vh",
-        marginTop: "-1vh",
-        marginLeft: "100vh",
-        borderRadius: "3%",
-        position: "fixed"
-      }}>
+    <div className='fonderfd'>
+    <div className="contasdds">
+      <div className="detailContainersdsd">
+       
           
-        <div className="detailContent" style={{
-          marginTop: "1vh",
-          marginLeft: "2vh",
-          height: "90vh",
-          width: "107vh",
-          position: "fixed"
-        }}>
+        <div className="localidad">
 
-          <img style={{
-            borderRadius: "8%",
-            maxHeight: "250px",
-            maxWidth: "320px",
-            position: "fixed"
-          }}
+        <h3>{products.location}</h3>
+        
+        </div>
+          
+         
+          <img
+           style={{height: "450px", width: "700px"}}
             src={products.images[0]}
             alt={products.name}
           />
-
-          <h2 style={{
-          marginLeft: "45vh",
-          marginTop: "1vh",
-          position: "fixed",
-          color: "brown"
-          }}>{products.name}</h2>
-            <h4 style={{
-            marginLeft: "35vh",
-            marginTop: "5vh"
-          }}>{products.location}</h4>
-            <h4 style={{
-          marginLeft: "35vh"
-          }}>AR$ {products.pricePerNight}/noche</h4>
-            <h4 style={{
-          marginLeft: "35vh"
-          }}>Cantidad de Habitaciones: {products.totalRooms}</h4>
-            <h4 style={{
-          marginLeft: "35vh"
-          }}>Idóneo para alquilar en: {products.season.join(", ")}</h4>
-            <h4 style={{
-          marginLeft: "35vh"
-          }}>{renderPool(products.pool)}</h4>
-          {auth && <img 
-          src={ favIcon } 
-          style={{
-            maxHeight: "6vh", 
-            maxWidth: "6vh", 
-            marginTop: "-23vh", 
-            marginLeft: "98vh", 
-            position:"fixed",
-            cursor: "pointer"
-            }}
-          onClick={setDelFavorite}></img>}
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer
-        components={[
-          'DatePicker',
-          'TimePicker',
-          'DateTimePicker',
-          'DateRangePicker',
-        ]}
-        >
-        <DemoItem label={<StyledLabel componentName="DatePicker" valueType="date" />}>
-        <StyledDateCalendar />
-        </DemoItem>
-        </DemoContainer>
-        </LocalizationProvider>
-
-        <Link to="/reserva">
-        <button style={{
-          marginTop: "-12vh",
-          marginLeft: "83vh",
-
-          position: "fixed",
-          cursor: "pointer",
-          height: "5vh",
-          width: "15vh"
-        }}>
-        Hacer reserva
-        </button>
-
-       </Link>
-
-        <AlignItemsList className="list" />
         
-       
+
+          <div className="caracteristicas">
+
+          <h2>{products.name}</h2>
+
+          <h4>AR$ {products.pricePerNight}/noche</h4>
+          <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
+          <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
+          <h4>{renderPool(products.pool)}</h4>
+          
+          </div>
+
+          
+          
+          
+          {auth && <img
+            src={favIcon}
+            onClick={setDelFavorite}
+            className="favorite-icon"
+            style={{}}
+          />}
+
+          
+
+
+<LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer
+              components={[
+                'DatePicker',
+                'TimePicker',
+                'DateTimePicker',
+                'DateRangePicker',
+              ]}
+            >
+              <DemoItem label={<StyledLabel componentName="DatePicker" valueType="date" />}>
+                <StyledDateCalendar />
+              </DemoItem>
+            </DemoContainer>
+          </LocalizationProvider>
+
+          <button
+            onClick={onClickReserva}
+          >
+            Hacer reserva
+          </button>
+
+          <AlignItemsList className="list" />
         </div>
-
         <MakeReview />
-
       </div>
-      
-    </div>
+      </div>
   );
 }
 
-export default Detail;
+export default Detail; 
+
+
