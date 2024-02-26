@@ -5,13 +5,13 @@
   padding: 10px;
   background-color: #09090986;
   border-radius: 5px;
-  width: 900px;
+  max-width: 1700px;
 }
 
-/* Estilos modificados para reducir el espacio entre los selectores */
+
 .select {
   padding: 8px;
-  margin-right: 10px; /* Ajusta el margen derecho para separar los selectores */
+  margin-right: 1px; 
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: white;
@@ -20,11 +20,16 @@
   outline: none;
 }
 
-/* Elimina el margen derecho del último selector para evitar espacios innecesarios */
+
 .select:last-child {
   margin-right: 0;
 }
 
 .select:focus {
   border-color: #007bff;
+}
+
+
+.search{
+  margin-top: -15px;
 }

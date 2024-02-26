@@ -22,17 +22,20 @@ console.log(reviews)
   return (
     <>
     <h5 style={{
-        marginLeft: '35vh',
-        marginTop: "2vh"
-    }}>Algunas reseñas de experiencias en este hospedaje:</h5>
+        marginLeft: '70px',
+        marginTop: "560px",
+        position: "absolute"
+    }}>Algunas reseñas de experiencias:</h5>
     <List sx={{ 
-      width: '65%', 
-      marginLeft: '35vh', 
-      height: '40%',
+      width: '700px',
+      height: "500px",
+      marginLeft: '0px', 
       bgcolor: 'background.paper', 
       overflowY: "auto",
-      marginTop: "3vh",
-      borderRadius: "3%"
+      marginTop: "600px",
+      borderRadius: "3%",
+      position: "absolute",
+      backgroundColor: "transparent"
     }}>
     {Object.keys(reviews).map((key) => {
     const review = reviews[key];
@@ -40,7 +43,7 @@ console.log(reviews)
       <React.Fragment key={key}>
         <ListItem sx={{ height: '10vh' }} alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar  src={review.profileImage} />
+            <Avatar  src={review.profileImage}/>
           </ListItemAvatar>
           <ListItemText
             primary={review.name}
