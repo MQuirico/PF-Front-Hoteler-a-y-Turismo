@@ -9,8 +9,8 @@
 .stepButton,
 .pageButton {
   border: none;
-  background-color: rgba(0, 0, 0, 0.76);
-  color: #fff7f7; /* Color de texto principal */
+  background-color: rgba(105, 102, 102, 0.386);
+  color: #363434; /* Color de texto principal */
   padding: 8px 12px;
   margin: 0 5px;
   cursor: pointer;
@@ -19,7 +19,7 @@
   font-weight: bold; /* Texto en negrita para mayor énfasis */
   font-size: 14px; /* Tamaño de fuente ligeramente aumentado */
   border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
-  border: 1px solid #000000; /* Borde delgado para una apariencia más definida */
+  border: 1px solid rgba(139, 137, 137, 0.76); /* Borde delgado para una apariencia más definida */
 }
 
 /* Cambia el color de fondo al pasar el ratón para todos los botones */

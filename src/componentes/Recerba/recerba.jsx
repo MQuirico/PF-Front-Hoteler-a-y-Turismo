@@ -1,26 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createReservation } from '../../redux/Actions/actions'
+import { createReservation } from '../../redux/Actions/actions';
 import { AuthContext } from '../AuthProvider/authProvider';
 import "./recerba.css"
-import axios from 'axios';
-import { getAllUsers } from '../../redux/Actions/actions';
-
+import { createReservation, getAllUsers } from '../../redux/Actions/actions';
 
 const ReservationForm = (props) => {
-    const [products, setProducts] = React.useState({});
+    const [products, setProducts] = useState({});
     const Product = props.location.state;
-    console.log("productid",Product);
     const dispatch = useDispatch();
-    const {auth} = useContext(AuthContext);
-
+    const { auth } = useContext(AuthContext);
 
     const [guests, setGuests] = useState(1);
     const [rooms, setRooms] = useState(1);
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
 
-  
     const handleGuestsChange = (e) => {
         setGuests(e.target.value);
     };
@@ -37,56 +32,25 @@ const ReservationForm = (props) => {
         setCheckOutDate(e.target.value);
     };
 
+    useEffect(() => {
+        dispatch(getAllUsers());
+    }, [dispatch]);
     
     useEffect(() => {
-        // Llama a la acción getAllUsers cuando el componente se monte
-        dispatch(getAllUsers());
-      }, [dispatch]);
-      
-      useEffect(() => {
         if (!Product.id || !Product || Object.keys(Product).length === 0) {
-          dispatch(fetchProducts(Product.id));
+            dispatch(createReservation(Product.id));
         }
-      }, [dispatch, Product.id, Product]);
+    }, [dispatch, Product.id, Product]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        
-        
-        const userId = auth.token.id
-        
-        dispatch(createReservation(ProductId.id, userId, checkInDate, checkOutDate, rooms, guests,products.price));
+        const userId = auth.token.id;
+        dispatch(createReservation(Product.id, userId, checkInDate, checkOutDate, rooms, guests, products.price));
     };
     
-    console.log("esto viene de recerba",auth.token.id)
-    
     const handlePayClick = async (event, id) => {
-    //     event.preventDefault();
-    
-    //     try {
-    //       // Verificar que productId no sea undefined
-    //     if (!products) {
-    //       console.error('ID del producto no definido.');
-    //       return;
-    //     }
-    
-    //       // Enviar la solicitud POST con los datos del producto y del usuario
-    // //       const response = await axios.post('http://localhost:3000/payment/create-order', {
-    // //         productId: products.id,
-    // //         userId: 1,
-    // //         quantity: 1,
-    // //         card: "visa"
-    // //       });
-    // //       const { data } = response;
-    
-    // //       // Redirigir al usuario a la URL proporcionada por MercadoPago utilizando un enlace
-    // //       window.location.href = data;
-    // //     } catch (error) {
-    // //       console.error('Error:', error);
-    // //     }
-       };
-    
+        // Tu lógica para pagar con Mercado Pago
+    };
 
     return (
         <div className="reservation-container">
@@ -137,13 +101,11 @@ const ReservationForm = (props) => {
                 </div>
                 <button type="submit">Reservar</button>
                 <div>
-
-                { Product && (
-                    <button onClick={(event) => handlePayClick(event, Product.id)}>Pagar con Mercado Pago</button>
+                    { Product && (
+                        <button onClick={(event) => handlePayClick(event, Product.id)}>Pagar con Mercado Pago</button>
                     )}
-                    </div>
+                </div>
             </form>
-                    {console.log("dsadsa",Product.id)}
         </div>
     );
 };

@@ -40,20 +40,21 @@ const SearchBar = ({ onSearch }) => {
         placeholder="Search..."
         value={searchTerm}
         onChange={handleChange}
+        style={{ height: "55px", marginTop: "-5px", width: "21px"}}
       />
 <IconButton
   type="submit"
   aria-label="search"
   style={{
-    backgroundColor: 'black',
-    marginTop: '-9px',
+    backgroundColor: 'transparent',
+    marginTop: '-2px',
     transition: 'background-color 0.3s', 
     '&:hover': {
       backgroundColor: 'blue',
     }
   }}
 >
-  <SearchIcon />
+  <SearchIcon style={{ marginLeft: "-80px"}} />
 </IconButton>
     </form>
   );

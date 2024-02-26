@@ -1,63 +1,67 @@
-
-/* .container{
-  background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg');
-  background-size: cover;
-  
-}
- */
-
-.detailContainer {
-  /* background-image: url('https://get.wallhere.com/photo/1920x1200-px-China-city-cityscape-Hong-Kong-990316.jpg'); */
+.container {
   background-size: cover;
   background-position: center;
-  padding: 20px;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-repeat: no-repeat;
+  height: 91.8vh;
+  width: 209.7vh;
+  max-width: 270vh;
+  margin-top: 80px;
+  margin-left: 0vh;
+  overflow: hidden;
+  position: fixed;
 }
 
-
-.productDetail {
-  background-color: #373739;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-  width: 100%; 
-  max-width: 600px; 
+.detailContainer {
+  background-color: rgba(245, 245, 245, 0.65);
+  height: 90vh;
+  width: 107vh;
+  margin-top: -1vh;
+  margin-left: 100vh;
+  border-radius: 3%;
+  position: fixed;
 }
 
-.productDetail:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
+.detailContent {
+  margin-top: 1vh;
+  margin-left: 2vh;
+  height: 90vh;
+  width: 107vh;
+  position: fixed;
 }
 
-.img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 20px;
+.detailContent img {
+  border-radius: 8%;
+  max-height: 250px;
+  max-width: 320px;
+  position: fixed;
 }
 
-.title {
-  font-family: 'Arial', sans-serif;
-  color: #60d4ea;
+.detailContent h2 {
+  margin-left: 45vh;
+  margin-top: 1vh;
+  position: fixed;
+  color: brown;
 }
 
-.infoContainer {
-  color: #60d4ea;
+.detailContent h4 {
+  margin-left: 35vh;
+  margin-top: 5vh;
 }
 
-.infoContainer h4 {
-  font-family: 'Arial', sans-serif;
-  margin-bottom: 10px;
-  transition: text-shadow 0.3s ease;
+.detailContent button {
+  margin-top: -12vh;
+  margin-left: 83vh;
+  position: fixed;
+  cursor: pointer;
+  height: 5vh;
+  width: 15vh;
 }
 
-.infoContainer h4:hover {
-  text-shadow: 0 0 5px #9ea5f3;
-  transform: scale(1.05);
-  box-shadow:  0 4px 8px rgba(0, 0, 0, 0)
-} 
-
+.detailContent img.favorite-icon {
+  max-height: 6vh;
+  max-width: 6vh;
+  margin-top: -23vh;
+  margin-left: 98vh;
+  position: fixed;
+  cursor: pointer;
+}

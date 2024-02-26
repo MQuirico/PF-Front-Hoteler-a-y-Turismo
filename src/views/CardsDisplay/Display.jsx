@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Cards from "../../componentes/Cards/cards";
 import Paginado from "../../componentes/Paginado/paginado";
 import Filter from "../../componentes/Filter/filter";
-import SearchBar from "../../componentes/SearchBar/searchBar";
 import { fetchProducts, searchProducts } from "../../redux/Actions/actions";
 import "./home.css";
 
@@ -15,19 +14,20 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6; // Número de tarjetas por página
+  const [filters, setFilters] = useState({}); // Estado para almacenar los filtros aplicados
+  const cardsPerPage = 8; // Número de tarjetas por página
 
   useEffect(() => {
     setCurrentPage(1);
   }, [searchResults]);
 
   useEffect(() => {
-    dispatch(fetchProducts({}, currentPage, cardsPerPage));
-  }, [dispatch, currentPage, cardsPerPage]);
+    dispatch(fetchProducts(filters, currentPage, cardsPerPage)); // Incluir filtros en la solicitud de productos
+  }, [dispatch, filters, currentPage, cardsPerPage]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm.trim());
-    setCurrentPage(1); // Reiniciar la página a 1 cuando se realiza una búsqueda
+    setCurrentPage(1);
     if (searchTerm.trim() !== "") {
       dispatch(searchProducts(searchTerm.trim()))
         .then((response) => {
@@ -42,7 +42,7 @@ function Home() {
         });
     } else {
       setError(false);
-      dispatch(fetchProducts({}, 1, cardsPerPage)); // Asegurarse de que se obtengan los productos de la primera página al limpiar la búsqueda
+      dispatch(fetchProducts({}, 1, cardsPerPage));
     }
   };
 
@@ -52,19 +52,22 @@ function Home() {
 
   const onPageChange = (page) => {
     setCurrentPage(page);
-  
-    dispatch(fetchProducts({}, page, cardsPerPage));
+    dispatch(fetchProducts(filters, page, cardsPerPage)); // Incluir filtros en la solicitud de paginación
+  };
+
+  const applyFilters = (newFilters) => {
+    setFilters(newFilters);
+    setCurrentPage(1); // Reiniciar la página al aplicar filtros
+    dispatch(fetchProducts(newFilters, 1, cardsPerPage)); // Incluir filtros en la solicitud de productos
   };
 
   return (
     <div className="homeView">
       <section className="mainContent">
         <div className="filter">
-          <Filter />
+          <Filter onPageChange={onPageChange} applyFilters={applyFilters} />
         </div>
-        <div className="search">
-          <SearchBar onSearch={handleSearch} />
-        </div>
+
         {error ? (
           <p style={{
             backgroundColor: '#f8d7da', 
@@ -83,11 +86,17 @@ function Home() {
           </div>
         )}
         <div className="paginado">
-          <Paginado currentPage={currentPage} onPageClick={onPageChange} totalPages={totalPages} />
+        <Paginado
+  currentPage={currentPage}
+  onPageClick={onPageChange}
+  totalPages={totalPages}
+  isSearchResult={searchTerm.trim() !== ""}
+  filters={filters} // Pasar los filtros al componente Paginado
+/>
         </div>
       </section>
       <footer>
-        <p>Derechos de autor © 2024. Todos los derechos reservados.</p>
+     
       </footer>
     </div>
   );

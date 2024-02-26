@@ -6,8 +6,8 @@
   }
   
   .searchInput {
-    min-width: 400px; 
-    max-width: 400px; 
+    min-width: 250px; 
+    max-width: 350px; 
     padding: 8px; 
     border: 1px solid #ccc; 
     border-radius: 5px;

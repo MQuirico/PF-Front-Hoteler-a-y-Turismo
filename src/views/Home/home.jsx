@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Card, CardContent, CardMedia } from '@material-ui/core';
 import { useEffect } from 'react';
 import { getAllUsers } from '../../redux/Actions/actions';
+import { useDispatch,useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {

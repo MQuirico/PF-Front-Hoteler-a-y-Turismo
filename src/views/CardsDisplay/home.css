@@ -1,7 +1,7 @@
 .homeView {
-  background-image: url("https://image.made-in-china.com/44f3j00OwVDTmjaykqy/Hotel-Decorative-3D-PVC-Modern-Design-Wall-Paper.webp"); 
+  background-image: url("https://en.idei.club/uploads/posts/2023-06/thumbs/1687339939_en-idei-club-p-white-abstract-design-dizain-pinterest-61.jpg"); 
   padding-top: 50px;
-  min-height: 100vh; 
+  min-height: 170vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,8 +14,8 @@
 .mainContent {
   width: 80%;
   margin: 20px auto;
-  padding-top: 20px; /* Mover el contenido hacia abajo para dejar espacio para los controles */
-  position: relative; /* Cambiar a posición relativa para permitir que los controles se posicionen de manera relativa */
+  padding-top: 20px; 
+  position: relative;
 }
 
 footer {
@@ -29,7 +29,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: -100px; /* Añade margen negativo para compensar el margen en las tarjetas */
+  margin: -100px; 
   margin-top: 110px;
   position: absolute;
 }
@@ -39,29 +39,29 @@ footer {
 
 @media (max-width: 992px) {
   .cardcontainer {
-    flex: 0 0 calc(50% - 20px); /* Cuando el ancho de la pantalla sea menor a 992px, cambia el ancho de cada tarjeta al 50% del contenedor padre */
+    flex: 0 0 calc(50% - 20px); 
   }
 }
 
 .search {
   left: 1100px;
   top: 05px;
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  position: absolute; 
   z-index: 999;
 }
 
 .fileter {
   right: 20px;
   top: 20px;
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  position: absolute;
   z-index: 999;
 }
 
 .paginado {
   left: 50%;
   bottom: -100px;
-  transform: translateX(-50%); /* Centrar horizontalmente el paginado */
-  position: absolute; /* Cambiar a posición absoluta dentro de mainContent */
+  transform: translateX(-50%); 
+  position: absolute;
   z-index: 999;
 }
 
