@@ -22,21 +22,33 @@ console.log(reviews)
   return (
     <>
     <h5 style={{
-        marginLeft: '70px',
-        marginTop: "560px",
+        marginLeft: '100px',
+        marginTop: "600px",
         position: "absolute"
     }}>Algunas reseñas de experiencias:</h5>
-    <List sx={{ 
-      width: '700px',
-      height: "500px",
-      marginLeft: '0px', 
-      bgcolor: 'background.paper', 
-      overflowY: "auto",
-      marginTop: "600px",
-      borderRadius: "3%",
-      position: "absolute",
-      backgroundColor: "transparent"
-    }}>
+      <List sx={{ 
+        color: "black",
+        width: '700px',
+        height: "430px",
+        marginLeft: '50px', 
+        bgcolor: 'background.paper', 
+        overflowY: "auto",
+        marginTop: "640px",
+        borderRadius: "3%",
+        position: "absolute",
+        backgroundColor: "transparent",
+        "&::-webkit-scrollbar": {
+          width: "8px",
+          backgroundColor: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          borderRadius: "4px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      }}>
     {Object.keys(reviews).map((key) => {
     const review = reviews[key];
     return (
@@ -53,7 +65,7 @@ console.log(reviews)
                   sx={{ display: 'inline' }}
                   component="span"
                   variant="body2"
-                  color="text.primary"
+                  color="black"
                 >
                   {review.rating}/5
                 </Typography>
