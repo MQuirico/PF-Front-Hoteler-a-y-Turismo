@@ -1,75 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './historialReservas.css';
+import axios from 'axios';
+import moment from 'moment';
+import { getAllProducts } from '../../redux/Actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from '../AuthProvider/authProvider';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const Reservas = () => {
-  const calculateTimeLeft = () => {
-    const now = new Date();
-    const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 8); // Hora argentina 06:08 AM
-    if (now.getTime() > targetDate.getTime()) {
-      targetDate.setDate(targetDate.getDate() + 1); // Avanza al día siguiente si la hora actual ya pasó
-    }
-    const difference = targetDate - now;
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const { auth } = useContext(AuthContext);
+  const [reservations, setReservations] = useState(null);
+  const products = useSelector((state) => state?.stateA?.products);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+    dispatch(getAllProducts());
+    axios.get(`http://localhost:3003/recervas/getByUserID/${auth?.token?.id}`)
+      .then((response) => {
+        if (response.data) {
+          setReservations(response.data);
+        }
+      });
+  }, [auth.token.id, dispatch]);
 
-    return () => clearTimeout(timer);
-  });
+  const reserID = reservations?.map((res) => res.productId);
 
-  const timerComponents = [];
+  let prodRes = products.filter((p) => reserID?.includes(p.id));
 
-  Object.keys(timeLeft).forEach(interval => {
-    if (!timeLeft[interval]) {
-      return;
+  let objetosFiltrados = [];
+
+  reserID?.forEach((id) => {
+    let prod = prodRes?.find((pr) => pr.id === id);
+    let rese = reservations?.find((re) => re.productId === id);
+
+    if (prod && rese) {
+      let objResult = {
+        name: prod.name.toUpperCase(),
+        location: prod.location.toUpperCase(),
+        startDate: moment(rese.startDate).format('DD-MM-YYYY'),
+        endDate: moment(rese.endDate).format('DD-MM-YYYY'),
+        totalGuests: rese.totalGuests,
+      };
+      objetosFiltrados.push(objResult);
     }
-
-    timerComponents.push(
-      <span key={interval}>
-        {timeLeft[interval]} {interval}{' '}
-      </span>
-    );
   });
 
-  return (
-    <div style={{
-        border: "1px solid black",
-        marginTop: "100px",
-        height: "720px",
-        width: "850px",
-        marginLeft: "300px",
-        borderRadius: "10px",
-        backgroundColor: "#ffffff4f", 
-        boxShadow: "0 0 9px rgba(0, 0, 0, 0.7)", 
-        marginBottom: "50px"
+ const rows = ["Hospedaje", "Distrito", "Fecha Ingreso", "Fecha Salida", "Huéspedes"];
+
+  if (reservations) {
+    return (
+      <div id="container" style={{
+        overflowX: "hidden",
+        overflowY: "hidden",
+        height: "89vh",
+        width: "174vh",
+        display: "flex",
+        marginTop: "6.1vh",
+        gap: "1vh",
+        backgroundImage: "url(https://www.minimalstudio.es/wp-content/uploads/2022/02/caracteristicas-de-la-arquitectura-minimalista-minimal-studio.jpg)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}>
-      <div className="countdown-timer">
-        <h2>Próximamente</h2>
-        <div className="icon-container">
-          <i className="fas fa-exclamation-triangle"></i>
-        </div>
-        <div className="timer">
-          {timerComponents.length ? timerComponents : <span>¡Se acabó el tiempo!</span>}
-        </div>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+              {rows.map((row, index) => (
+                  <TableCell sx={{ width: 10 }} key={index}>
+                    {row.toUpperCase()}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {objetosFiltrados.map((reserva, index) => (
+                <TableRow key={index}>
+                  <TableCell>{reserva.name}</TableCell>
+                  <TableCell>{reserva.location}</TableCell>
+                  <TableCell>{reserva.startDate}</TableCell>
+                  <TableCell>{reserva.endDate}</TableCell>
+                  <TableCell>{reserva.totalGuests}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <div>No hay reservas disponibles.</div>;
+  }
 };
 
 export default Reservas;

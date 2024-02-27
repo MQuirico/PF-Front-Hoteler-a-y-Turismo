@@ -46,6 +46,9 @@ import {
     CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
     GET_ALL_USERS_REQUEST,
     GET_ALL_USERS_FAILURE,
+    RETRIEVE_RESERVATIONS_REQUEST,
+    RETRIEVE_RESERVATIONS_SUCCESS,
+    RETRIEVE_RESERVATIONS_FAILURE
 } from "../action-types/action-types";
 
 import {
@@ -214,7 +217,7 @@ export const newHotel = (hotel) => {
   
       try {
         const response = await axios.put(
-          `https://back-hostel.onrender.com/users/perfil/${idKey}`,
+          `http://localhost:3003/users/perfil/${idKey}`,
           updatedFields
         );
   
@@ -251,7 +254,7 @@ export const newHotel = (hotel) => {
     
         try {
           const response = await fetch(
-            `https://back-hostel.onrender.com/users/perfil/updatepassword/${id}`,
+            `http://localhost:3003/users/perfil/updatepassword/${id}`,
             {
               method: "PUT",
               headers: {
@@ -299,7 +302,7 @@ export const newHotel = (hotel) => {
           console.log("Datos enviados al servidor:", { id, updatedFields });
     
           const response = await fetch(
-            `https://back-hostel.onrender.com/users/perfil/update/${id}`,
+            `http://localhost:3003/users/perfil/update/${id}`,
             {
               method: "PUT",
               headers: {
@@ -371,12 +374,13 @@ export const fetchReviewsFailure = (error) => ({
   type: FETCH_REVIEWS_FAILURE,
   payload: error
 });
-
+/* https://back-hostel.onrender.com/
+ */
 export const fetchReviews = (ID) => {
   return async (dispatch) => {
     dispatch(fetchReviewsRequest());
     try {
-      const response = await axios.get(`https://back-hostel.onrender.com/reviews/products/${ID}`);
+      const response = await axios.get(`http://localhost:3003/reviews/products/${ID}`);
       const data = response.data;
       console.log(typeof data, data)
       if (data) {
@@ -553,5 +557,31 @@ const checkGoogleIdFailure = (errorMessage) => {
   return {
     type: CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
     payload: errorMessage
+  };
+};
+
+export const retrieveReservations = (productId, userId, reserved) => {
+  return (dispatch) => {
+
+      dispatch({ type: RETRIEVE_RESERVATIONS_REQUEST });
+      axios.post('http://localhost:3003/recervas/get', 
+      { 
+        productId: productId,
+        userId: userId,
+        reserved: reserved 
+      } )
+          .then((response) => {
+              dispatch({
+                  type: RETRIEVE_RESERVATIONS_SUCCESS,
+                  payload: response.data 
+              });
+          })
+          .catch((error) => {
+              
+              dispatch({
+                  type: RETRIEVE_RESERVATIONS_FAILURE,
+                  error: error.message 
+              });
+          });
   };
 };

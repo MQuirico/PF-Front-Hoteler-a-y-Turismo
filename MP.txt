@@ -1,0 +1,14 @@
+user : TESTUSER1085975738
+pass: DcCsx0nYrb    
+
+tarjeta:
+marca: Visa
+num de tarjeta: 4509 9535 6623 3704
+num seguridad: 123
+fecha vencimient: 11/25
+
+nombre APRO
+(DNI) 12345678
+
+
+ACCESS_TOKEN=TEST-6077027000073308-021516-0afa6250aab64c3e4ede6757c0e353dc-1685251308

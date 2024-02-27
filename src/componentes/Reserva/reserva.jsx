@@ -11,7 +11,7 @@ import MP from "../../assets/MP.jpg"
 
 const ReservationForm = (props) => {
     
-    initMercadoPago('TEST-cffc0dca-c449-485c-b1f5-64e41cd2c3d2', 
+    initMercadoPago('TEST-7860a425-2de7-43eb-bb06-ddcc75336f75', 
     {locale: "es-AR"}
     );
     const [products, setProducts] = useState({});
@@ -34,10 +34,9 @@ const ReservationForm = (props) => {
                 totalGuests: Number(data.guests)
             }
             console.log(body)
-        const response = await axios.post("https://back-hostel.onrender.com/payment/create-order", body);
-        console.log(response)
-        console.log(response.data)
-        const {url} = response.data;
+        const response = await axios.post("http://localhost:3003/payment/create-order", body);
+
+        const url = response.data.link;
         return url
         }   
         catch(error){
@@ -49,10 +48,10 @@ const ReservationForm = (props) => {
         const url = await createPreference(data);
        if (url){
         setMPpref(url)
-        console.log(setMPpref)
+        
        }
     } 
-
+console.log(MPpref)
     const submit = (data) =>{
         const fechaInicial = new Date(data.startDate);
         const fechaFinal = new Date(data.finDate);
@@ -129,10 +128,15 @@ const ReservationForm = (props) => {
                 />
             </div>
                 {errDate && <p style={{color: "red"}}>{errDate}</p>}
-               <button type="submit">Reservar</button> 
+               <button type="submit">Iniciar Reserva</button> 
             </form>
-            
-          
+           {MPpref && <a href={MPpref}>
+           <img src={MP} style={{
+                        'cursor': 'pointer'
+                        }
+                        } />
+           </a>
+           }          
         </div>
     );
 };

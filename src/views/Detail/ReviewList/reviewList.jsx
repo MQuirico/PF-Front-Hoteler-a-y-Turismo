@@ -12,9 +12,10 @@ export default function AlignItemsList() {
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
   const reviews = useSelector((state)=> state.stateA.reviews.data)
+  const [currentDate, setCurrentDate] = React.useState(new Date)
   const dispatch = useDispatch()
   console.log(id)
-  
+  console.log(typeof currentDate, currentDate)
 
 console.log(reviews)
 
