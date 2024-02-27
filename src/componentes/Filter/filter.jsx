@@ -11,6 +11,7 @@ import { searchProducts } from "../../redux/Actions/actions";
 import Cards from "../../componentes/Cards/cards";
 import { useEffect } from "react";
 
+
 function Filter({ applyFilters }) {
   const [selectedTemporada, setSelectedTemporada] = useState('');
   const [selectedLocalidad, setSelectedLocalidad] = useState('');

@@ -1,113 +1,148 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createReservation } from '../../redux/Actions/actions';
+import React, { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createReservation } from '../../redux/Actions/actions'
 import { AuthContext } from '../AuthProvider/authProvider';
-import "./recerba.css"
-import { createReservation, getAllUsers } from '../../redux/Actions/actions';
+import "./reserba.css"
+import axios from 'axios'
+import {useForm} from 'react-hook-form'
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import MP from "../../assets/MP.jpg"
+
 
 const ReservationForm = (props) => {
+    
+    initMercadoPago('TEST-7860a425-2de7-43eb-bb06-ddcc75336f75', 
+    {locale: "es-AR"}
+    );
     const [products, setProducts] = useState({});
-    const Product = props.location.state;
     const dispatch = useDispatch();
-    const { auth } = useContext(AuthContext);
+    const {auth} = useContext(AuthContext);
+    const {register, handleSubmit, reset, setValue } = useForm()
+    const [MPpref, setMPpref] = useState(null)
+    const [errDate, setErrDate] = useState(null)
+    const info = useSelector(state => state.stateB.reservData.reservation)
+    console.log("USER ID =>", auth.token.id)
 
-    const [guests, setGuests] = useState(1);
-    const [rooms, setRooms] = useState(1);
-    const [checkInDate, setCheckInDate] = useState('');
-    const [checkOutDate, setCheckOutDate] = useState('');
+    const createPreference = async (data) => {
+        try { 
+            const body = {
+                productId: info.products.id, 
+                userId: auth.token.id, 
+                quantity: data.quantity,
+                startDate: data.startDate,
+                endDate: data.endDate,
+                totalGuests: Number(data.guests)
+            }
+            console.log(body)
+        const response = await axios.post("http://localhost:3003/payment/create-order", body);
 
-    const handleGuestsChange = (e) => {
-        setGuests(e.target.value);
-    };
-
-    const handleRoomsChange = (e) => {
-        setRooms(e.target.value);
-    };
-
-    const handleCheckInDateChange = (e) => {
-        setCheckInDate(e.target.value);
-    };
-
-    const handleCheckOutDateChange = (e) => {
-        setCheckOutDate(e.target.value);
-    };
-
-    useEffect(() => {
-        dispatch(getAllUsers());
-    }, [dispatch]);
-    
-    useEffect(() => {
-        if (!Product.id || !Product || Object.keys(Product).length === 0) {
-            dispatch(createReservation(Product.id));
+        const url = response.data.link;
+        return url
+        }   
+        catch(error){
+            console.log(error)
         }
-    }, [dispatch, Product.id, Product]);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const userId = auth.token.id;
-        dispatch(createReservation(Product.id, userId, checkInDate, checkOutDate, rooms, guests, products.price));
-    };
+        }
     
-    const handlePayClick = async (event, id) => {
-        // Tu lógica para pagar con Mercado Pago
-    };
+     const handleBuy = async (data) => {
+        const url = await createPreference(data);
+       if (url){
+        setMPpref(url)
+        
+       }
+    } 
+console.log(MPpref)
+    const submit = (data) =>{
+        const fechaInicial = new Date(data.startDate);
+        const fechaFinal = new Date(data.finDate);
+        const diferenciaMilisegundos = fechaFinal.getTime() - fechaInicial.getTime();
+        const diasDeDiferencia = diferenciaMilisegundos / (1000 * 60 * 60 * 24);
+        console.log(diasDeDiferencia)
+        if(diasDeDiferencia > 0){
+            setErrDate(null) 
+        const toSend = {
+            startDate: data.startDate,
+            endDate: data.finDate,
+            quantity: diasDeDiferencia,
+            guests: data.guests
+        }
+       handleBuy(toSend) 
+       reset()
+       Object.keys(data).forEach((fieldName) => {
+                  setValue(fieldName, null);
+                });} else {
+                    setErrDate("La fecha de Salida no puede ser anterior a la fecha de Entrada")
+                }
+        
+        
+    }
+
+
+     
+    console.log(MPpref)
 
     return (
-        <div className="reservation-container">
-            <h2 className='titulo'>Reserva tu estadía</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <div>precio:{products.price}</div>
-                    <label htmlFor="guests">Cantidad de Huéspedes:</label>
-                    <input
-                        type="number"
-                        id="guests"
-                        value={guests}
-                        onChange={handleGuestsChange}
-                        min="1"
-                        max="10"
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="rooms">Cantidad de Habitaciones:</label>
-                    <input
-                        type="number"
-                        id="rooms"
-                        value={rooms}
-                        onChange={handleRoomsChange}
-                        min="1"
-                        max="5"
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="checkInDate">Fecha de Entrada:</label>
-                    <input
-                        type="date"
-                        id="checkInDate"
-                        value={checkInDate}
-                        onChange={handleCheckInDateChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="checkOutDate">Fecha de Salida:</label>
-                    <input
-                        type="date"
-                        id="checkOutDate"
-                        value={checkOutDate}
-                        onChange={handleCheckOutDateChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Reservar</button>
-                <div>
-                    { Product && (
-                        <button onClick={(event) => handlePayClick(event, Product.id)}>Pagar con Mercado Pago</button>
-                    )}
-                </div>
+        <div className="reservationcontainer">
+            <h2 className='titulo'>Reserva tu estadía en "{info.products.name}"</h2>
+            <form onSubmit={handleSubmit(submit)}>
+            <div className="form-group">
+                <label htmlFor="guests">Cantidad de Huéspedes:</label>
+                <input
+                    type="number"
+                    id="guests"
+                    min="1"
+                    max="10"
+                    onKeyPress={(event) => {        
+                    const pattern = /[0-9\b]/;
+                    if (!pattern.test(event.key)) {
+                    event.preventDefault();
+                        }
+                    }}
+                    {...register("guests", { required: true })}
+                />
+            </div>
+            {/* <div className="form-group">
+                <label htmlFor="rooms">Cantidad de Habitaciones:</label>
+                <input
+                    type="number"
+                    id="rooms"
+                    min="1"
+                    max="5"
+                    {...register("roomsQuan", { required: true })}
+                />
+            </div> */}
+            <div className="form-group">
+                <label htmlFor="checkInDate">Fecha de Entrada:</label>
+                <input
+                    type="date"
+                    id="checkInDate"
+                    {...register("startDate", { required: true })}        
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="checkOutDate">Fecha de Salida:</label>
+                <input
+                    type="date"
+                    id="checkOutDate"
+                    {...register("finDate", { required: true })}
+                />
+            </div>
+              
+                {errDate && <p style={{color: "red"}}>{errDate}</p>}
+
+               <button type="submit">Iniciar Reserva</button> 
+            
             </form>
+           {MPpref && <img >
+
+           </img>
+           }
+          
         </div>
     );
 };
 
 export default ReservationForm;
+
+
+/* onClick={()=>{handleBuy(event)}} */

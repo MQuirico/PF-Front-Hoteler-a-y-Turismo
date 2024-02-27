@@ -61,17 +61,18 @@ console.log(window.location.href)
     if (auth){
         return (
         <div style={{
-            marginTop: '570px',
-            marginLeft: '120px',
-            position: "absolute"}}>
+            marginTop: '935px',
+            marginLeft: '130px',
+            position: "absolute",
+            marginBottom: "200px"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
             <h5 style={{ 
             textAlign: "center",
             marginLeft: "1vh"
-            }} >   ¿Has vacacionado en este sitio 🏨? </h5> <br /><br /><br />
-            <Typography style={{marginLeft: '80px', marginTop: '-6vh', position: 'absolute', marginBottom:"5px"}} component="legend">Califica este hospedaje</Typography> 
+            }} >   ¿Has vacacionado en este sitio 🏨? </h5> 
+            <Typography style={{marginLeft: '350px', marginTop: '-30px', position: 'absolute', marginBottom:"5px"}} component="legend">Califica este hospedaje</Typography> 
             <Rating
-            style={{marginLeft: '90px', marginTop: '-3.4vh',position: 'absolute'}}
+            style={{marginLeft: '540px', marginTop: '-30px',position: 'absolute'}}
             name="simple-controlled"
             value={value}
             onChange={(event, newValue) => {
