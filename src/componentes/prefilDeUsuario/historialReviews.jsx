@@ -109,7 +109,7 @@ console.log(favorites?.productId.length ,fav.length)
           key={index}
           component="img"
           height="140"
-          image={element?.images}
+          image={element?.images[0]}
           alt="green iguana"
         />
         <CardContent>

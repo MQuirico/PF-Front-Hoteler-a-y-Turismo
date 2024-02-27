@@ -1,151 +1,238 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/Actions/actions";
 import style from "./filter.module.css";
 import debounce from "lodash/debounce";
+import { TextField, IconButton, MenuItem } from "@mui/material";
+import {   LocationOn, Pool, Sort } from "@mui/icons-material";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import SearchBar from "../SearchBar/searchBar";
+import { searchProducts } from "../../redux/Actions/actions";
+import Cards from "../../componentes/Cards/cards";
+import { useEffect } from "react";
 
-function Filter({ onPageChange }) {
+
+function Filter({ applyFilters }) {
   const [selectedTemporada, setSelectedTemporada] = useState('');
   const [selectedLocalidad, setSelectedLocalidad] = useState('');
   const [selectedPileta, setSelectedPileta] = useState('');
   const [orderPrice, setOrderPrice] = useState('');
-  const [page, setPage] = useState(1); 
   const [pageSize, setPageSize] = useState(5); 
+  const [isSearchResult, setIsSearchResult] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchResults = useSelector((state) => state.stateA.searchResults);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(false);
+  const products = useSelector((state) => state.stateA.products);
+  const cardsPerPage = 8; 
 
   const dispatch = useDispatch();
 
 
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm.trim());
+    setCurrentPage(1);
+    if (searchTerm.trim() !== "") {
+      dispatch(searchProducts(searchTerm.trim()))
+        .then((response) => {
+          if (response.status === 400) {
+            setError(true);
+          } else {
+            setError(false);
+          }
+        })
+        .catch(() => {
+          setError(true);
+        });
+    } else {
+      setError(false);
+      dispatch(fetchProducts({}, 1, cardsPerPage));
+    }
+  };
 
-  
   const handleFilterChange = useCallback(
     debounce((filters) => {
-      dispatch(fetchProducts({ ...filters, page, pageSize }));
-    }, 300), // Tiempo de espera en milisegundos
-    [dispatch, page, pageSize]
+      dispatch(fetchProducts({ ...filters, page: 1, pageSize }));
+      setIsSearchResult(true);
+    }, 300),
+    [dispatch, pageSize]
   );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchResults]);
+
+  useEffect(() => {
+    setError(searchResults?.length === 0 && searchTerm.trim() !== "");
+  }, [searchResults, searchTerm]);
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
   
+    dispatch(fetchProducts({}, page, cardsPerPage));
+  };
+
+  const applyAndHandleFilterChange = useCallback((filters) => {
+    handleFilterChange(filters);
+    applyFilters(filters);
+  }, [handleFilterChange, applyFilters]);
+
   const handleFilterTemporada = useCallback((value) => {
     setSelectedTemporada(value);
-    handleFilterChange({ temporada: value, localidad: selectedLocalidad, pileta: selectedPileta, orderPrice });
-  }, [handleFilterChange, selectedLocalidad, selectedPileta, orderPrice]);
-  
-  
+    const filters = { temporada: value, localidad: selectedLocalidad, pileta: selectedPileta, orderPrice };
+    applyAndHandleFilterChange(filters);
+  }, [applyAndHandleFilterChange, selectedLocalidad, selectedPileta, orderPrice]);
+
   const handleFilterLocalidad = useCallback((value) => {
     setSelectedLocalidad(value);
-    handleFilterChange({ temporada: selectedTemporada, localidad: value, pileta: selectedPileta, orderPrice });
-  }, [handleFilterChange, selectedTemporada, selectedPileta, orderPrice]);
-  
-  
+    const filters = { temporada: selectedTemporada, localidad: value, pileta: selectedPileta, orderPrice };
+    applyAndHandleFilterChange(filters);
+  }, [applyAndHandleFilterChange, selectedTemporada, selectedPileta, orderPrice]);
+
   const handleFilterPileta = useCallback((value) => {
     setSelectedPileta(value);
-    handleFilterChange({ temporada: selectedTemporada, localidad: selectedLocalidad, pileta: value, orderPrice });
-  }, [handleFilterChange, selectedTemporada, selectedLocalidad, orderPrice]);
-  
-  
+    const filters = { temporada: selectedTemporada, localidad: selectedLocalidad, pileta: value, orderPrice };
+    applyAndHandleFilterChange(filters);
+  }, [applyAndHandleFilterChange, selectedTemporada, selectedLocalidad, orderPrice]);
+
   const handleOrderPriceChange = useCallback((value) => {
     setOrderPrice(value);
-    handleFilterChange({ temporada: selectedTemporada, localidad: selectedLocalidad, pileta: selectedPileta, orderPrice: value });
-  }, [handleFilterChange, selectedTemporada, selectedLocalidad, selectedPileta]);
-  
-  
-  
+    const filters = { temporada: selectedTemporada, localidad: selectedLocalidad, pileta: selectedPileta, orderPrice: value };
+    applyAndHandleFilterChange(filters);
+  }, [applyAndHandleFilterChange, selectedTemporada, selectedLocalidad, selectedPileta]);
+
   return (
     <div className={style.containerContent}>
       <div className={style.container}>
-      <select
-  name="FilterTemporada"
-  value={selectedTemporada}
-  onChange={(e) => handleFilterTemporada(e.target.value)}
-  className={style.select}
->
-  <option value="">Temporada</option>
-  <option value="Verano">Verano</option>
-  <option value="Invierno">Invierno</option>
-  <option value="Otoño">Otoño</option>
-  <option value="Primavera">Primavera</option>
-</select>
+        <TextField
+          select
+          value={selectedTemporada}
+          onChange={(e) => handleFilterTemporada(e.target.value)}
+          className={style.select}
+          InputProps={{
+            startAdornment: (
+              <IconButton>
+                <WbSunnyIcon  /> Temporada
+              </IconButton>
+            ),
+          }}
+        >
+          <MenuItem value="">Temporada</MenuItem>
+          <MenuItem value="Verano">Verano</MenuItem>
+          <MenuItem value="Invierno">Invierno</MenuItem>
+          <MenuItem value="Otoño">Otoño</MenuItem>
+          <MenuItem value="Primavera">Primavera</MenuItem>
+        </TextField>
 
-        <select
-          name="FilterLocalidad"
+        <TextField
+          select
           value={selectedLocalidad}
           onChange={(e) => handleFilterLocalidad(e.target.value)}
           className={style.select}
+          InputProps={{
+            startAdornment: (
+              <IconButton>
+                <LocationOn /> Localidad
+              </IconButton>
+            ),
+          }}
         >
-          <option value="">Localidad</option>
-          <option value="El Bolsón, Provincia de Río Negro">El Bolsón, Provincia de Río Negro</option>
-          <option value="Villa Pehuenia, Provincia de Neuquén">Villa Pehuenia, Provincia de Neuquén</option>
-          <option value='Purmamarca, Provincia de Jujuy'>Purmamarca, Provincia de Jujuy</option>
-          <option value='Villa Traful, Provincia de Neuquén'>Villa Traful, Provincia de Neuquén</option>
-          <option value="Las Grutas, Provincia de Río Negro">Las Grutas, Provincia de Río Negro</option>
-          <option value="San Javier, Provincia de Tucumán">San Javier, Provincia de Tucumán</option>
-          <option value="Los Reartes, Provincia de Córdoba">Los Reartes, Provincia de Córdoba</option>
-          <option value="Caviahue, Provincia de Neuquén">Caviahue, Provincia de Neuquén</option>
-          <option value="Tafí del Valle, Provincia de Tucumán">Tafí del Valle, Provincia de Tucumán</option>
-          <option value="Villa Meliquina, Provincia de Neuquén">Villa Meliquina, Provincia de Neuquén</option>
-          <option value="San Marcos Sierras, Provincia de Córdoba">San Marcos Sierras, Provincia de Córdoba</option>
-          <option value="Cuesta Blanca, Provincia de Córdoba">Cuesta Blanca, Provincia de Córdoba</option>
-          <option value="El Soberbio, Provincia de Misiones">El Soberbio, Provincia de Misiones</option>
-          <option value="Villa General Roca, Provincia de Córdoba">Villa General Roca, Provincia de Córdoba</option>
-          <option value="Colonia Suiza, Provincia de Río Negro">Colonia Suiza, Provincia de Río Negro</option>
-          <option value="San Antonio de los Cobres, Provincia de Salta">San Antonio de los Cobres, Provincia de Salta</option>
-          <option value="Tilcara, Provincia de Jujuy">Tilcara, Provincia de Jujuy</option>
-          <option value="El Condor, Provincia de Río Negro">El Condor, Provincia de Río Negro</option>
-          <option value="Villa Yacanto, Provincia de Córdoba">Villa Yacanto, Provincia de Córdoba</option>
-          <option value="Cholila, Provincia de Chubut">Cholila, Provincia de Chubut</option>
-          <option value="Villa La Angostura, Provincia de Neuquén">Villa La Angostura, Provincia de Neuquén</option>
-          <option value="Santa Ana, Provincia de Misiones">Santa Ana, Provincia de Misiones</option>
-          <option value="Las Rabonas, Provincia de Córdoba">Las Rabonas, Provincia de Córdoba</option>
-          <option value="Yavi, Provincia de Jujuy">Yavi, Provincia de Jujuy</option>
-          <option value="Villa Ciudad Parque Los Reartes, Provincia de Córdoba">Villa Ciudad Parque Los Reartes, Provincia de Córdoba</option>
-          <option value="Villa Cura Brochero, Provincia de Córdoba">Villa Cura Brochero, Provincia de Córdoba</option>
-          <option value="Villa Berna, Provincia de Córdoba">Villa Berna, Provincia de Córdoba</option>
-          <option value="Los Molles, Provincia de San Luis">Los Molles, Provincia de San Luis</option>
-          <option value="Los Alerces, Provincia de Chubut">Los Alerces, Provincia de Chubut</option>
-          <option value="Nono, Provincia de Córdoba">Nono, Provincia de Córdoba</option>
-          <option value="Lago Puelo, Provincia de Chubut">Lago Puelo, Provincia de Chubut</option>
-          <option value="La Cumbrecita, Provincia de Córdoba">La Cumbrecita, Provincia de Córdoba</option>
-          <option value="San Pedro de Colalao, Provincia de Tucumán">San Pedro de Colalao, Provincia de Tucumán</option>
-          <option value="Villa Lago Meliquina, Provincia de Neuquén">Villa Lago Meliquina, Provincia de Neuquén</option>
-          <option value="Los Hornillos, Provincia de Córdoba">Los Hornillos, Provincia de Córdoba</option>
-          <option value="Villa Quila Quina, Provincia de Neuquén">Villa Quila Quina, Provincia de Neuquén</option>
-          <option value="Capilla del Monte, Provincia de Córdoba">Capilla del Monte, Provincia de Córdoba</option>
-          <option value="El Chocón, Provincia de Neuquén">El Chocón, Provincia de Neuquén</option>
-          <option value="Maimará, Provincia de Jujuy">Maimará, Provincia de Jujuy</option>
-          <option value="Miramar, Provincia de Córdoba">Miramar, Provincia de Córdoba</option>
-          <option value="El Mollar, Provincia de Tucumán">El Mollar, Provincia de Tucumán</option>
-          <option value="El Hoyo, Provincia de Chubut">El Hoyo, Provincia de Chubut</option>
-          <option value="Yacanto de Calamuchita, Provincia de Córdoba">Yacanto de Calamuchita, Provincia de Córdoba</option>
-          <option value="San Roque, Provincia de Córdoba">San Roque, Provincia de Córdoba</option>
-          <option value="Villa de Las Rosas, Provincia de Córdoba">Villa de Las Rosas, Provincia de Córdoba</option>
-          <option value="El Maitén, Provincia de Chubut">El Maitén, Provincia de Chubut</option>
-          <option value="San José de la Dormida, Provincia de Córdoba">San José de la Dormida, Provincia de Córdoba</option>
-          <option value="Merlo, Provincia de San Luis">Merlo, Provincia de San Luis</option>
-          <option value="Potrerillos, Provincia de Mendoza">Potrerillos, Provincia de Mendoza</option>
+          <MenuItem value="">Localidad</MenuItem>
+          <MenuItem value="El Bolsón, Provincia de Río Negro">El Bolsón, Provincia de Río Negro</MenuItem>
+          <MenuItem value="Villa Pehuenia, Provincia de Neuquén">Villa Pehuenia, Provincia de Neuquén</MenuItem>
+          <MenuItem value='Purmamarca, Provincia de Jujuy'>Purmamarca, Provincia de Jujuy</MenuItem>
+          <MenuItem value='Villa Traful, Provincia de Neuquén'>Villa Traful, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Las Grutas, Provincia de Río Negro">Las Grutas, Provincia de Río Negro</MenuItem>
+          <MenuItem value="San Javier, Provincia de Tucumán">San Javier, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Los Reartes, Provincia de Córdoba">Los Reartes, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Caviahue, Provincia de Neuquén">Caviahue, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Tafí del Valle, Provincia de Tucumán">Tafí del Valle, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Villa Meliquina, Provincia de Neuquén">Villa Meliquina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="San Marcos Sierras, Provincia de Córdoba">San Marcos Sierras, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Cuesta Blanca, Provincia de Córdoba">Cuesta Blanca, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Soberbio, Provincia de Misiones">El Soberbio, Provincia de Misiones</MenuItem>
+          <MenuItem value="Villa General Roca, Provincia de Córdoba">Villa General Roca, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Colonia Suiza, Provincia de Río Negro">Colonia Suiza, Provincia de Río Negro</MenuItem>
+          <MenuItem value="San Antonio de los Cobres, Provincia de Salta">San Antonio de los Cobres, Provincia de Salta</MenuItem>
+          <MenuItem value="Tilcara, Provincia de Jujuy">Tilcara, Provincia de Jujuy</MenuItem>
+          <MenuItem value="El Condor, Provincia de Río Negro">El Condor, Provincia de Río Negro</MenuItem>
+          <MenuItem value="Villa Yacanto, Provincia de Córdoba">Villa Yacanto, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Cholila, Provincia de Chubut">Cholila, Provincia de Chubut</MenuItem>
+          <MenuItem value="Villa La Angostura, Provincia de Neuquén">Villa La Angostura, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Santa Ana, Provincia de Misiones">Santa Ana, Provincia de Misiones</MenuItem>
+          <MenuItem value="Las Rabonas, Provincia de Córdoba">Las Rabonas, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Yavi, Provincia de Jujuy">Yavi, Provincia de Jujuy</MenuItem>
+          <MenuItem value="Villa Ciudad Parque Los Reartes, Provincia de Córdoba">Villa Ciudad Parque Los Reartes, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Cura Brochero, Provincia de Córdoba">Villa Cura Brochero, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Berna, Provincia de Córdoba">Villa Berna, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Los Molles, Provincia de San Luis">Los Molles, Provincia de San Luis</MenuItem>
+          <MenuItem value="Los Alerces, Provincia de Chubut">Los Alerces, Provincia de Chubut</MenuItem>
+          <MenuItem value="Nono, Provincia de Córdoba">Nono, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Lago Puelo, Provincia de Chubut">Lago Puelo, Provincia de Chubut</MenuItem>
+          <MenuItem value="La Cumbrecita, Provincia de Córdoba">La Cumbrecita, Provincia de Córdoba</MenuItem>
+          <MenuItem value="San Pedro de Colalao, Provincia de Tucumán">San Pedro de Colalao, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Villa Lago Meliquina, Provincia de Neuquén">Villa Lago Meliquina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Los Hornillos, Provincia de Córdoba">Los Hornillos, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Quila Quina, Provincia de Neuquén">Villa Quila Quina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Capilla del Monte, Provincia de Córdoba">Capilla del Monte, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Chocón, Provincia de Neuquén">El Chocón, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Maimará, Provincia de Jujuy">Maimará, Provincia de Jujuy</MenuItem>
+          <MenuItem value="Miramar, Provincia de Córdoba">Miramar, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Mollar, Provincia de Tucumán">El Mollar, Provincia de Tucumán</MenuItem>
+          <MenuItem value="El Hoyo, Provincia de Chubut">El Hoyo, Provincia de Chubut</MenuItem>
+          <MenuItem value="Yacanto de Calamuchita, Provincia de Córdoba">Yacanto de Calamuchita, Provincia de Córdoba</MenuItem>
+          <MenuItem value="San Roque, Provincia de Córdoba">San Roque, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa de Las Rosas, Provincia de Córdoba">Villa de Las Rosas, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Maitén, Provincia de Chubut">El Maitén, Provincia de Chubut</MenuItem>
+          <MenuItem value="San José de la Dormida, Provincia de Córdoba">San José de la Dormida, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Merlo, Provincia de San Luis">Merlo, Provincia de San Luis</MenuItem>
+          <MenuItem value="Potrerillos, Provincia de Mendoza">Potrerillos, Provincia de Mendoza</MenuItem>
+        </TextField>
 
-        </select>
-
-        <select
-          name="FilterPileta"
+        <TextField
+          select
           value={selectedPileta}
           onChange={(e) => handleFilterPileta(e.target.value)}
           className={style.select}
+          InputProps={{
+            startAdornment: (
+              <IconButton>
+                <Pool />
+              </IconButton>
+            ),
+          }}
         >
-          <option value="">Pileta</option>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
+          <MenuItem value="">Pileta</MenuItem>
+          <MenuItem value="si">Sí</MenuItem>
+          <MenuItem value="no">No</MenuItem>
+        </TextField>
 
-        <select
-          name="orderPriceChange"
+        <TextField
+          select
           value={orderPrice}
           onChange={(e) => handleOrderPriceChange(e.target.value)}
           className={style.select}
+          InputProps={{
+            startAdornment: (
+              <IconButton>
+                <Sort /> Precio
+              </IconButton>
+            ),
+          }}
         >
-          <option value="">Ordenar por precio</option>
-          <option value="asc">Menor Precio a mayor precio</option>
-          <option value="desc">Mayor precio a menor precio</option>
-        </select>
+          <MenuItem value="">Ordenar por precio</MenuItem>
+          <MenuItem value="asc">Menor a mayor</MenuItem>
+          <MenuItem value="desc">Mayor a menor</MenuItem>
+        </TextField>
+        
+        <div className={style.search}>
+        <SearchBar onSearch={handleSearch} />
+        </div>
       </div>
+      <div className="cardsRows">
+           
+      <Cards products={searchTerm.trim() !== "" ? searchResults : products} />
+           </div>
     </div>
   );
 }

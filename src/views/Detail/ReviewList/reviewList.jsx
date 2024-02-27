@@ -23,25 +23,40 @@ console.log(reviews)
   return (
     <>
     <h5 style={{
-        marginLeft: '35vh',
-        marginTop: "2vh"
-    }}>Algunas reseñas de experiencias en este hospedaje:</h5>
-    <List sx={{ 
-      width: '65%', 
-      marginLeft: '35vh', 
-      height: '40%',
-      bgcolor: 'background.paper', 
-      overflowY: "auto",
-      marginTop: "3vh",
-      borderRadius: "3%"
-    }}>
+        marginLeft: '100px',
+        marginTop: "600px",
+        position: "absolute"
+    }}>Algunas reseñas de experiencias:</h5>
+      <List sx={{ 
+        color: "black",
+        width: '700px',
+        height: "430px",
+        marginLeft: '50px', 
+        bgcolor: 'background.paper', 
+        overflowY: "auto",
+        marginTop: "640px",
+        borderRadius: "3%",
+        position: "absolute",
+        backgroundColor: "transparent",
+        "&::-webkit-scrollbar": {
+          width: "8px",
+          backgroundColor: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          borderRadius: "4px",
+        },
+        "&::-webkit-scrollbar-thumb:hover": {
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      }}>
     {Object.keys(reviews).map((key) => {
     const review = reviews[key];
     return (
       <React.Fragment key={key}>
         <ListItem sx={{ height: '10vh' }} alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar  src={review.profileImage} />
+            <Avatar  src={review.profileImage}/>
           </ListItemAvatar>
           <ListItemText
             primary={review.name}
@@ -51,7 +66,7 @@ console.log(reviews)
                   sx={{ display: 'inline' }}
                   component="span"
                   variant="body2"
-                  color="text.primary"
+                  color="black"
                 >
                   {review.rating}/5
                 </Typography>

@@ -75,7 +75,7 @@ export const setUserData = (userData) => {
     dispatch({ type: CREATE_USER_REQUEST });
     try {
       const response = await axios.post(
-        "https://back-hostel.onrender.com/users/create",
+        "http://localhost:3002/users/create",
         datauser
       );
       dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
@@ -96,7 +96,7 @@ export const setUserData = (userData) => {
 export const searchByName = (name) => {
   return async (dispatch) => {
     try {
-      const apiData = await axios.get(`https://back-hostel.onrender.com/products/search/${name}`);
+      const apiData = await axios.get(`http://localhost:3002/products/search/${name}`);
       const searchName = apiData.data;
       return dispatch({
         type: GET_SEARCH_BY_NAME,
@@ -115,7 +115,7 @@ export const searchByName = (name) => {
 export const newHotel = (hotel) => {
     return (dispatch) => {
       dispatch({ type: NEW_HOTEL_REQUEST });
-      axios.post('https://back-hostel.onrender.com/products/create', hotel)
+      axios.post('http://localhost:3002/products/create', hotel)
         .then(response => {
           dispatch({
             type: NEW_HOTEL_SUCCESS,
@@ -136,7 +136,7 @@ export const newHotel = (hotel) => {
       try {
         dispatch({ type: GET_ALL_PRODUCTS_REQUEST }); 
         console.log("Fetching products...");
-        const response = await axios.get('https://back-hostel.onrender.com/products/'); 
+        const response = await axios.get('http://localhost:3002/products/'); 
         const products = response.data;
         console.log("Products received:", products);
         dispatch({ type: GET_ALL_PRODUCTS_SUCCESS, payload: products });
@@ -151,7 +151,7 @@ export const newHotel = (hotel) => {
     dispatch({ type: SEARCH_PRODUCTS_REQUEST });
   
     try {
-      const response = await fetch(`https://back-hostel.onrender.com/products/search/${name}`);
+      const response = await fetch(`http://localhost:3002/products/search/${name}`);
       const data = await response.json();
   
       if (response.ok) {
@@ -174,13 +174,13 @@ export const newHotel = (hotel) => {
   export const clearSearchResults = () => ({
     type: CLEAR_SEARCH_RESULTS,
   });
-
+GET_ALL_USERS_REQUEST
 
   export const fetchProducts = (filters, page, pageSize) => {
     return async (dispatch) => {
       dispatch({ type: FETCH_PRODUCTS_REQUEST });
       try {
-        const response = await axios.get('https://back-hostel.onrender.com/products/filter', {
+        const response = await axios.get('http://localhost:3002/products/filter', {
           params: { ...filters, page: page ||  1, pageSize: pageSize ||  6 },
           headers: {
             'Cache-Control': 'no-cache'
@@ -332,7 +332,7 @@ export const updateUserpay = (userId, paymentMethods) => {
 
     try {
       const response = await fetch(
-        `https://back-hostel.onrender.com/users/${userId}/paymentMethods`,
+        `http://localhost:3002/users/${userId}/paymentMethods`,
         {
           method: "PUT",
           headers: {
@@ -418,7 +418,7 @@ export const getFavorites = (id) => {
     dispatch(getFavoritesRequest());
 
     try {
-      const response = await axios.get(`https://back-hostel.onrender.com/favorites/get/${id}`);
+      const response = await axios.get(`http://localhost:3002/favorites/get/${id}`);
       dispatch(getFavoritesSuccess(response.data));
     } catch (error) {
       dispatch(getFavoritesFailure(error));
@@ -441,7 +441,7 @@ export const createReservation = (productId, userId, startDate, endDate, totalRo
   return async (dispatch) => {
     try {
     
-      const response = await axios.post('https://back-hostel.onrender.com/recervas/new', {
+      const response = await axios.post('http://localhost:3002/recervas/new', {
         productId,
         userId,
         startDate,

@@ -1,37 +1,38 @@
 import React from "react";
-import Card from "../Card/card";
-import style from "./cards.module.css";
+import CustomCard from "../Card/card"; // Cambiado de Card a CustomCard
+import { Grid, Typography } from "@mui/material";
+import "./Cards.css"; // Importa el archivo CSS donde definiste la clase
 
 const Cards = ({ products }) => {
+  const gridSpacing = window.innerWidth < 4 ? 10 : 15;
+  const xsSize = products.length < 4 ? 12 / products.length : 3;
+  const gridStyle = {
+    marginLeft: "-150px", // Desplazar todas las tarjetas 20px hacia la izquierda
+  };
+
   return (
-    <div className={style.cardscontainer}>
-      {Array.isArray(products) && products.length ===   0 ? (
-           <p style={{
-            backgroundColor: '#f8d7da', 
-            color: '#721c24',
-            padding: '10px', 
-            border: '1px solid #f5c6cb', 
-            borderRadius: '4px',
-            marginBottom: '10px', 
-            display: 'inline-block' 
-          }}>
-            No hay ofertas disponibles.
-          </p>
+    <Grid container spacing={gridSpacing} className="custom-grid-container" style={gridStyle}>
+      {Array.isArray(products) && products.length === 0 ? (
+        <Typography variant="body1" color="black" marginLeft= "150px" marginTop="150px" fontSize="25px" border="1px solid red" padding= "10px" borderRadius="5px" backgroundColor="salmon">
+          No hay ofertas disponibles.
+        </Typography>
       ) : (
         products.map((product) => (
-          <div key={product.id} className={style.cardcontainer}>
-            <Card
+          <Grid item xs={xsSize} key={product.id}>
+            <CustomCard // Cambiado de Card a CustomCard
               id={product.id}
               name={product.name}
               location={product.location}
               season={product.season}
               pricePerNight={product.pricePerNight}
-              image={product.images && product.images.length >  0 ? product.images[0] : null}
+              images={product.images}
+              cardWidth="400px" 
+              cardHeight="450px" 
             />
-          </div>
+          </Grid>
         ))
       )}
-    </div>
+    </Grid>
   );
 };
 
