@@ -21,8 +21,7 @@ const ReservationForm = (props) => {
     const [MPpref, setMPpref] = useState(null)
     const [errDate, setErrDate] = useState(null)
     const info = useSelector(state => state.stateB.reservData.reservation)
-    console.log("USER ID =>", auth.token.id)
-
+   
     const createPreference = async (data) => {
         try { 
             const body = {

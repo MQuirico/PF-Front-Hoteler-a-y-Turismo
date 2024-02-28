@@ -8,6 +8,7 @@ import {AuthContext} from '../../../componentes/AuthProvider/authProvider'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReviews } from '../../../redux/Actions/actions';
 import {Link} from 'react-router-dom'
+
 export default function MakeReview(){
     const {register, reset, handleSubmit, setValue} = useForm()
     const [value, estValue] = React.useState(0);
@@ -61,7 +62,7 @@ console.log(window.location.href)
     if (auth){
         return (
         <div style={{
-            marginTop: '935px',
+            marginTop: '800px',
             marginLeft: '130px',
             position: "absolute",
             marginBottom: "200px"}}>

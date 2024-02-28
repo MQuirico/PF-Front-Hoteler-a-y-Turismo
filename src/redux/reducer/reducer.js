@@ -41,7 +41,10 @@ import {
   GET_ALL_USERS_FAILURE,
   CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
   CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
-  CHECK_GOOGLEUSER_EXISTANCE_FAILURE
+  CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
+  FETCH_TOP_LOCATIONS_REQUEST,
+  FETCH_TOP_LOCATIONS_SUCCESS,
+  FETCH_TOP_LOCATIONS_FAILURE
 
 
 } from "../action-types/action-types";
@@ -60,6 +63,7 @@ const initialState = {
   updateUserError: null,
   passwordAndEmailUpdating: false,
   passwordAndEmailUpdateError: null,
+  topLocations: [],
   reviews: {
     data: null,
     loading: false,
@@ -76,6 +80,7 @@ const initialState = {
     error: null
   },
   reservation: null,
+  
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -125,11 +130,11 @@ const userDataReducer = (state = initialState, action) => {
         };
         case FETCH_PRODUCTS_SUCCESS:
           return {
-              ...state,
-              products: action.payload.products || [],
-              totalPages: action.payload.totalPages,
-              loading: false,
-              error: null
+             ...state,
+             products: action.payload.products || [], // Asegúrate de que esto esté actualizando el array de productos
+             totalPages: action.payload.totalPages,
+             loading: false,
+             error: null
           };
       case FETCH_PRODUCTS_FAILURE:
         return {
@@ -346,6 +351,28 @@ const userDataReducer = (state = initialState, action) => {
                           return { ...state, users: action.payload, loading: false, error: null };
                           case GET_ALL_USERS_FAILURE:
                           return { ...state, loading: false, error: action.payload };
+
+                       
+                              case FETCH_TOP_LOCATIONS_REQUEST:
+                                return {
+                                  ...state,
+                                  loading: true,
+                                  error: null
+                                };
+                                case FETCH_TOP_LOCATIONS_SUCCESS:
+                                  console.log('Datos recibidos:', action.payload); // Agrega esta línea para depurar
+                                  return {
+                                    ...state,
+                                    loading: false,
+                                    topLocations: action.payload,
+                                    error: null
+                                  };
+                              case FETCH_TOP_LOCATIONS_FAILURE:
+                                return {
+                                  ...state,
+                                  loading: false,
+                                  error: action.payload
+                                };
 
     default:
       return state;
