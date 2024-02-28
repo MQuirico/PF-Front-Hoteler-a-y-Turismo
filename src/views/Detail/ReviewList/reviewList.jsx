@@ -26,7 +26,7 @@ console.log(reviews)
         marginLeft: '100px',
         marginTop: "600px",
         position: "absolute"
-    }}>Algunas reseñas de experiencias:</h5>
+    }}>Reseñas:</h5>
       <List sx={{ 
         color: "black",
         width: '700px',

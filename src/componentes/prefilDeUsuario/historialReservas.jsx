@@ -21,7 +21,7 @@ const Reservas = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-    axios.get(`http://localhost:3003/recervas/getByUserID/${auth?.token?.id}`)
+    axios.get(`https://back-hostel.onrender.com/recervas/getByUserID/${auth?.token?.id}`)
       .then((response) => {
         if (response.data) {
           setReservations(response.data);

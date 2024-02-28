@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import {fetchProducts} from '../../redux/Actions/actions';
+import {getAllProducts} from '../../redux/Actions/actions';
 import Del from '../../assets/borrar.png'
 import axios from 'axios'
 import { AuthContext } from '../AuthProvider/authProvider';
@@ -17,21 +17,22 @@ export default function ReviewsHistory (){
   const {auth} = React.useContext(AuthContext)
   const dispatch = ReactRedux.useDispatch()
   const favorites = ReactRedux.useSelector(state => state.stateA.favorites.data)
-  const products = ReactRedux.useSelector(state => state.stateA.products)
+  const products = ReactRedux.useSelector(state => state?.stateA?.allProducts)
   const [fav, setFav] = React.useState([])
   const [currentPage, setCurrentPage] = React.useState(1);
   
 console.log(favorites)
  
   React.useEffect(() => {
-    dispatch(fetchProducts(null, currentPage,18 ));
-  }, [dispatch, currentPage]);
+    dispatch(getAllProducts());
+  }, [dispatch]);
 
   React.useEffect(() => {
     let favs = products.filter(product => favorites?.productId.includes(product.id));
     setFav(favs);
   }, [products, favorites]);
-  
+
+  console.log("ESTO QUIERO VER ===>", products)
  const deletion = (id) => {
   /* let strGoogleId = auth.token.googleId
   if(auth.token.googleId){
@@ -109,8 +110,8 @@ console.log(favorites?.productId.length ,fav.length)
           key={index}
           component="img"
           height="140"
-          image={element?.images[0]}
-          alt="green iguana"
+          image={element?.images}
+         
         />
         <CardContent>
         <Link to={`/detail/${element?.id}`}>

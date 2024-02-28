@@ -80,7 +80,7 @@ export default function MakeReview(){
             profileImage: auth.token.imageUrl || usAvatar
         }
         console.log(dataToSend)
-        axios.post(`http://localhost:3003/reviews/products/detail/${id}`, dataToSend)
+        axios.post(`https://back-hostel.onrender.com/reviews/products/detail/${id}`, dataToSend)
         .then(response => {
             console.log('Reseña enviada exitosamente:', response.data);
         Object.keys(data).forEach((fieldName) => {
@@ -102,8 +102,8 @@ console.log(window.location.href)
     if (auth && dateRevValid===true && hasPostedValid===false){
         return (
         <div style={{
-            marginTop: '935px',
-            marginLeft: '130px',
+            marginTop: '55vh',
+            marginLeft: '113vh',
             position: "absolute",
             marginBottom: "200px"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,8 +138,8 @@ console.log(window.location.href)
     if(!auth) {
         return (
             <h4 style={{
-             marginTop: '70vh',
-             marginLeft: '7vh', 
+             marginTop: '55vh',
+             marginLeft: '113vh', 
              position: 'absolute', 
              textAlign: 'center'}}>
             <Link to="/login">Inicia sesión</Link> para dejarnos tus comentarios<br></br>
@@ -149,10 +149,10 @@ console.log(window.location.href)
     if(auth && hasPostedValid===true){
         return (
             <h4 style={{
-             marginTop: '70vh',
-             marginLeft: '7vh', 
-             position: 'fixed', 
-             textAlign: 'center'}}>
+                marginTop: '55vh',
+                marginLeft: '113vh', 
+                position: 'absolute', 
+                textAlign: 'center'}}>
             ¡Gracias por tu reseña! ¡Deseamos que hayas 
             tenido una excelente estadía en este hospedaje!</h4>
         )
@@ -160,9 +160,9 @@ console.log(window.location.href)
     if(auth && reservations?.length > 0 && dateRevValid===false){
         return(
         <h4 style={{
-            marginTop: '70vh',
-            marginLeft: '7vh', 
-            position: 'fixed', 
+            marginTop: '55vh',
+            marginLeft: '113vh', 
+            position: 'absolute', 
             textAlign: 'center'}}>
            ¡No olvides dejar una reseña aquí al final de tu estadía!<br></br>
            Comparte tu experiencia aquí con los demás usuarios</h4>
