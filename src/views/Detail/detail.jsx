@@ -19,7 +19,7 @@ import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites ,startReservation } from '../../redux/Actions/actions';
 import {getAllUsers} from '../../redux/Actions/actions';
-import ReservationForm from "../../componentes/Recerba/recerba"
+import ReservationForm from "../../componentes/Reserva/reserva"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import IconButton from "@mui/material/IconButton";
@@ -62,7 +62,7 @@ function Detail() {
       React.useEffect(() => {
         const id = setInterval(() => {
           if (!isHovered) { 
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products?.images?.length);
           }
         }, 3000);
     
@@ -97,7 +97,7 @@ const handlePayClick = async (event, id) => {
   }
 
     // Enviar la solicitud POST con los datos del producto y del usuario
-    const response = await axios.post('http://localhost:3002/payment/create-order', {
+    const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
       productId: products.id,
       userId: 1,
       quantity: 1,
@@ -155,7 +155,7 @@ function Label({ componentName, valueType, isProOnly }) {
 
 /// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
   React.useEffect(() => {
-    axios.get(`http://localhost:3002/products/detail/${id}`)
+    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -195,13 +195,13 @@ console.log(products)
     
     
     const toSend ={
-      userId: auth.token.id,  //recordar manejar usuarios de Google
+      userId: auth?.token?.id,  //recordar manejar usuarios de Google
       productId: id
     }
     console.log(toSend)
     switch (favIcon){
       case starOut:
-    axios.post("http://localhost:3002/favorites/add", toSend)
+    axios.post("https://back-hostel.onrender.com/favorites/add", toSend)
     .then((response) => {
       if(response){
         setFav(starFil) 
@@ -213,7 +213,7 @@ console.log(products)
     })
     break;
     case starFil:
-      axios.delete("http://localhost:3002/favorites/delete", { data: toSend })
+      axios.delete("https://back-hostel.onrender.com/favorites/delete", { data: toSend })
       .then((response) =>{
         if (response.data.message){
           setFav(starOut)
@@ -307,7 +307,7 @@ console.log(products)
 
           {/* Resto del contenido */}
           <div className="caracteristicas">
-            <h2>{products.name}</h2>
+            <h2>{products.name.toUpperCase()}</h2>
             <h4>AR$ {products.pricePerNight}/noche</h4>
             <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
             <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
@@ -322,7 +322,7 @@ console.log(products)
           />}
 
           <div className='ressserv'>
-            <ReservationForm />
+            <ReservationForm info={products} />
           </div>
           <AlignItemsList className="list" />
         </div>

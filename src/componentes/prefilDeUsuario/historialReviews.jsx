@@ -113,15 +113,15 @@ console.log(favorites?.productId.length ,fav.length)
           alt="green iguana"
         />
         <CardContent>
-        <Link to={`/detail/${element.id}`}>
+        <Link to={`/detail/${element?.id}`}>
           <Typography  gutterBottom variant="h5" component="div">
-            {element.name}
+            {element?.name}
           </Typography>
         </Link>
           <Typography  variant="body2" color="text.secondary">
             {element.location}
             <br></br>
-            Temporadas: {element.season.join(", ")}
+            Temporadas: {element?.season.join(", ")}
             <br></br>
             AR${element.pricePerNight}/noche
           </Typography>
