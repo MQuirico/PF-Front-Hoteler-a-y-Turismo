@@ -46,6 +46,9 @@ import {
     CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
     GET_ALL_USERS_REQUEST,
     GET_ALL_USERS_FAILURE,
+    FETCH_TOP_LOCATIONS_REQUEST,
+    FETCH_TOP_LOCATIONS_SUCCESS,
+    FETCH_TOP_LOCATIONS_FAILURE
 } from "../action-types/action-types";
 
 import {
@@ -173,24 +176,27 @@ export const newHotel = (hotel) => {
   });
 GET_ALL_USERS_REQUEST
 
-  export const fetchProducts = (filters, page, pageSize) => {
-    return async (dispatch) => {
-      dispatch({ type: FETCH_PRODUCTS_REQUEST });
-      try {
-        const response = await axios.get('http://localhost:3002/products/filter', {
-          params: { ...filters, page: page ||  1, pageSize: pageSize ||  6 },
-          headers: {
-            'Cache-Control': 'no-cache'
-          }
-        });
-        const { products, totalCount, totalPages } = response.data;
-        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalCount, totalPages } });
-      } catch (error) {
-        dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+export const fetchProducts = (filters, page, pageSize, location) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    try {
+      const params = { ...filters, page: page || 1, pageSize: pageSize || 6 };
+      if (location) {
+        params.location = location;
       }
-    };
+      const response = await axios.get('http://localhost:3002/products/filter', {
+        params,
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+      const { products, totalCount, totalPages } = response.data;
+      dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: { products, totalCount, totalPages } });
+    } catch (error) {
+      dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+    }
   };
-
+};
   
 
   export const updateUserProfileRequest = () => ({
@@ -555,3 +561,36 @@ const checkGoogleIdFailure = (errorMessage) => {
     payload: errorMessage
   };
 };
+
+export const fetchTopLocations = () => {
+  return async (dispatch) => {
+    dispatch(fetchTopLocationsRequest());
+    try {
+      const response = await axios.get('http://localhost:3002/recervas/rankLocation');
+      // Asegúrate de que estás accediendo a los datos correctamente
+      const locations = response.data.map(location => ({
+        productId: location.productId,
+        reservationCount: location.reservationCount,
+        productName: location.productName,
+        productLocation: location.productLocation
+      }));
+      dispatch(fetchTopLocationsSuccess(locations));
+    } catch (error) {
+      dispatch(fetchTopLocationsFailure(error.message));
+    }
+  };
+};
+
+export const fetchTopLocationsRequest = () => ({
+  type: FETCH_TOP_LOCATIONS_REQUEST
+});
+
+export const fetchTopLocationsSuccess = (locations) => ({
+  type: FETCH_TOP_LOCATIONS_SUCCESS,
+  payload: locations
+});
+
+export const fetchTopLocationsFailure = (error) => ({
+  type: FETCH_TOP_LOCATIONS_FAILURE,
+  payload: error
+});

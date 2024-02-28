@@ -19,10 +19,11 @@ import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites ,startReservation } from '../../redux/Actions/actions';
 import {getAllUsers} from '../../redux/Actions/actions';
-import ReservationForm from "../../componentes/Recerba/recerba"
+import ReservationForm from "../../componentes/Reserva/reserva"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography"
 
 function Detail() {
   const dispatch = useDispatch();
@@ -264,61 +265,77 @@ console.log(products)
   };
 
   const handleImageClick = () => {
-    // Lógica para abrir la imagen en tamaño más grande
+    if (products.images && products.images[currentImageIndex]) {
+      const imageUrl = products.images[currentImageIndex];
+      window.open(imageUrl, '_blank', 'width=800,height=600');
+    }
   };
 
   return (
     <div className='fonderfd'>
       <div className="contasdds">
         <div className="detailContainersdsd">
-          <div className="localidad">
-            <h3>{products.location}</h3>
-          </div>
 
-          {/* Imagen */}
+
           <div
-          className="image-container"
-            onMouseEnter={() => setIsHovered(true)} // Establece isHovered en true cuando el mouse entra
-            onMouseLeave={() => setIsHovered(false)} // Establece isHovered en false cuando el mouse sale
-            onClick={handleImageClick} // Agrega el manejador de eventos para abrir la imagen en tamaño más grande
+            className="image-container"
+            onMouseEnter={() => setIsHovered(true)} 
+            onMouseLeave={() => setIsHovered(false)} 
+            onClick={handleImageClick} 
+            style={{ cursor: isHovered ? 'pointer' : 'default' }} // Cambia el cursor a 'pointer' cuando se pasa el mouse sobre la imagen
           >
-          {Array.isArray(products.images) && products.images.length > 0 ? (
-  <img
-    style={{ height: "470px", width: "700px" }}
-    src={products.images[currentImageIndex]}
-    alt={products.name}
-    onError={(e) => {
-      e.target.onerror = null;
-      e.target.src = 'imagen-de-respaldo.jpg'; // URL de una imagen de respaldo
-    }}
-  />
-) : (
-  <p>No se encontraron imágenes</p>
-)}
-            <div className="arrow-container">
+            {Array.isArray(products.images) && products.images.length > 0 ? (
+              <img
+                style={{ height: "470px", width: "700px" }}
+                src={products.images[currentImageIndex]}
+                alt={products.name}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'imagen-de-respaldo.jpg'; 
+                }}
+              />
+            ) : (
+              <p>No se encontraron imágenes</p>
+            )}
+          </div>
+          <div className="dotscontaineresds">
+            {products.images.map((img, index) => (
+              <div key={index} className={`dot ${index === currentImageIndex ? "active" : ""}`} />
+            ))}
+          </div>
+       
+            <div className="arrowcontainer">
               <IconButton onClick={handlePreviousImage}>
-                <ArrowBackIcon />
+                <ArrowBackIcon style={{ color: "red"}}/>
               </IconButton>
               <IconButton onClick={handleNextImage}>
-                <ArrowForwardIcon />
+                <ArrowForwardIcon style={{color: "red"}} />
               </IconButton>
             </div>
-          </div>
 
-          {/* Resto del contenido */}
+        
           <div className="caracteristicas">
-            <h2>{products.name}</h2>
-            <h4>AR$ {products.pricePerNight}/noche</h4>
-            <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
-            <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
-            <h4>{renderPool(products.pool)}</h4>
+            <div className='localidad'>
+          <Typography gutterBottom variant="h3" width="500px" textAlign="center" marginLeft="700px" marginTop="-610px" component="div" borderBottom="1px solid black" color= "black" padding= "10px">
+            {products.name}
+          </Typography>
+          </div>
+          <Typography  variant="p" textAlign="center" marginLeft="150px" color="black" component="p"  fontSize="20px" marginTop="20px">
+            {products.location}
+          </Typography>
+          <Typography variant="body2" color="black" textAlign="center" marginLeft="150px" component="h3" marginTop="10px">
+            Temporada: {products.season.join(", ")}
+          </Typography>
+          <Typography variant="body2" color="green" textAlign="center" component="p" marginLeft="150px" fontWeight="bold" fontSize="25px" marginTop="10px">
+            Precio por noche: {products.pricePerNight} $ ars
+          </Typography>
           </div>
 
           {auth && <img
             src={favIcon}
             onClick={setDelFavorite}
-            className="favorite-icon"
-            style={{}}
+            className="favoriteicon"
+            style={{backgroundColor:"transparent",boxShadow: "0"}}
           />}
 
           <div className='ressserv'>
@@ -328,7 +345,7 @@ console.log(products)
         </div>
         <MakeReview />
       </div>
-    </div>
+      </div>
   );
 }
 
