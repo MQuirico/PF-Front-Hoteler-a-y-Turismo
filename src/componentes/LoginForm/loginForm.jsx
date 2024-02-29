@@ -31,7 +31,7 @@ export default function Login() {
         console.log("se esta haciendo el login", authData)
         setAuth(authData);
         localStorage.setItem('auth', JSON.stringify(authData)); 
-        history.push("/home");
+        history.push("/");
       } else {
         setErrorState('Error: The response is not valid');
       }
@@ -62,7 +62,7 @@ export default function Login() {
           }
           onSubmit(toLogIn)
             console.log("GoogleUser ya registrado", googlecheck.data)
-            history.push("/home");
+            history.push("/");
         } else {
             const toSend = {
                 name: response.profileObj.givenName,
