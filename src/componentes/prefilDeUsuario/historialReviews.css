@@ -17,7 +17,7 @@
   .timer span {
     font-weight: bold;
   }
-  
+  /* paSubir */
   /* Estilos para el ícono de alerta */
   .fa-exclamation-triangle {
     animation: pulse 1s infinite alternate;

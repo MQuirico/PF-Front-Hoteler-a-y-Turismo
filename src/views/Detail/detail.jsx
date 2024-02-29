@@ -18,8 +18,13 @@ import starFil from "../../assets/star-outline-filled.png";
 import starOut from "../../assets/star-curved-outline.png";
 import { AuthContext } from '../../componentes/AuthProvider/authProvider';
 import { getFavorites ,startReservation } from '../../redux/Actions/actions';
-import {getAllUsers} from '../../redux/Actions/actions'
-function Detail() {
+import {getAllUsers} from '../../redux/Actions/actions';
+import ReservationForm from "../../componentes/Reserva/reserva"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import IconButton from "@mui/material/IconButton";
+
+function Detail() {/* jdkfd */
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();
@@ -31,7 +36,9 @@ function Detail() {
   const productsState = useSelector((state) => state.stateA.products);
   const stateFav = favorites?.productId?.includes(id)
   const history = RRD.useHistory()
-
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const [intervalId, setIntervalId] = React.useState(null);
+  const [isHovered, setIsHovered] = React.useState(false);
   
   React.useEffect(() => {
     dispatch(fetchReviews(id));
@@ -43,53 +50,40 @@ function Detail() {
       setFav(starOut)
       break;
       case undefined:
-      setFav(starOut)
-      break;
-      default:
-      return
-  }
-  }, [dispatch, stateFav,starOut,starFil, id]);
+        setFav(starOut)
+        break;
+        default:
+          return
+        }
+      }, [dispatch, stateFav,starOut,starFil, id]);
+      
+      
+      
+      React.useEffect(() => {
+        const id = setInterval(() => {
+          if (!isHovered) { 
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products?.images?.length);
+          }
+        }, 3000);
+    
+        setIntervalId(id);
+    
+        return () => {
+          clearInterval(id);
+        };
+      }, [products.images, isHovered]);
+      
+      
+      React.useEffect(() => {
+        // Llama a la acción getAllUsers cuando el componente se monte
+        dispatch(getAllUsers());
+      }, [dispatch]);
+      
+      React.useEffect(() => {
+        if (!id || !products || Object.keys(products).length === 0) {
+          dispatch(fetchProducts(id));
+        }
 
-
-
-const ProSpan = styled('span')({
-  display: 'inline-block',
-  height: '100px !important',
-  width: '250px',
-  verticalAlign: 'middle',
-  marginLeft: '200px',
-  backgroundSize: 'contain',
-  backgroundRepeat: 'no-repeat',
-  backgroundImage: 'url(https://mui.com/static/x/pro.svg)',
-});
-
-const StyledLabel = styled(Label)({
-  marginRight: "-100px",
-  position: "absolute",
-  width: "40vh"
-})
-
-const StyledDateCalendar = styled(DateCalendar)({
-  
-  marginLeft: "450px !important",
-  marginTop: "350px !important",
-  position: "absolute",
-
-  '.Mui-selected': {
-    backgroundColor: 'orange',
-  },
-});
-
-
-React.useEffect(() => {
-  // Llama a la acción getAllUsers cuando el componente se monte
-  dispatch(getAllUsers());
-}, [dispatch]);
-
-React.useEffect(() => {
-  if (!id || !products || Object.keys(products).length === 0) {
-    dispatch(fetchProducts(id));
-  }
 }, [dispatch, id, products]);
 
 const handlePayClick = async (event, id) => {
@@ -103,7 +97,7 @@ const handlePayClick = async (event, id) => {
   }
 
     // Enviar la solicitud POST con los datos del producto y del usuario
-    const response = await axios.post('http://localhost:3002/payment/create-order', {
+    const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
       productId: products.id,
       userId: 1,
       quantity: 1,
@@ -161,7 +155,7 @@ function Label({ componentName, valueType, isProOnly }) {
 
 /// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
   React.useEffect(() => {
-    axios.get(`http://localhost:3002/products/detail/${id}`)
+    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -201,13 +195,13 @@ console.log(products)
     
     
     const toSend ={
-      userId: auth.token.id,  //recordar manejar usuarios de Google
+      userId: auth?.token?.id,  //recordar manejar usuarios de Google
       productId: id
     }
     console.log(toSend)
     switch (favIcon){
       case starOut:
-    axios.post("http://localhost:3002/favorites/add", toSend)
+    axios.post("https://back-hostel.onrender.com/favorites/add", toSend)
     .then((response) => {
       if(response){
         setFav(starFil) 
@@ -219,7 +213,7 @@ console.log(products)
     })
     break;
     case starFil:
-      axios.delete("http://localhost:3002/favorites/delete", { data: toSend })
+      axios.delete("https://back-hostel.onrender.com/favorites/delete", { data: toSend })
       .then((response) =>{
         if (response.data.message){
           setFav(starOut)
@@ -258,40 +252,68 @@ console.log(products)
   }
 
 
+
+  // Manejar clic en la flecha izquierda
+  const handlePreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+  };
+
+  // Manejar clic en la flecha derecha
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+  };
+
+  const handleImageClick = () => {
+    // Lógica para abrir la imagen en tamaño más grande
+  };
+
   return (
     <div className='fonderfd'>
-    <div className="contasdds">
-      <div className="detailContainersdsd">
-       
-          
-        <div className="localidad">
-
-        <h3>{products.location}</h3>
-        
-        </div>
-          
-         
-          <img
-           style={{height: "450px", width: "700px"}}
-            src={products.images[0]}
-            alt={products.name}
-          />
-        
-
-          <div className="caracteristicas">
-
-          <h2>{products.name}</h2>
-
-          <h4>AR$ {products.pricePerNight}/noche</h4>
-          <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
-          <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
-          <h4>{renderPool(products.pool)}</h4>
-          
+      <div className="contasdds">
+        <div className="detailContainersdsd">
+          <div className="localidad">
+            <h3>{products.location}</h3>
           </div>
 
-          
-          
-          
+          {/* Imagen */}
+          <div
+          className="image-container"
+            onMouseEnter={() => setIsHovered(true)} // Establece isHovered en true cuando el mouse entra
+            onMouseLeave={() => setIsHovered(false)} // Establece isHovered en false cuando el mouse sale
+            onClick={handleImageClick} // Agrega el manejador de eventos para abrir la imagen en tamaño más grande
+          >
+          {Array.isArray(products.images) && products.images.length > 0 ? (
+  <img
+    style={{ height: "470px", width: "700px" }}
+    src={products.images[currentImageIndex]}
+    alt={products.name}
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = 'imagen-de-respaldo.jpg'; // URL de una imagen de respaldo
+    }}
+  />
+) : (
+  <p>No se encontraron imágenes</p>
+)}
+            <div className="arrow-container">
+              <IconButton onClick={handlePreviousImage}>
+                <ArrowBackIcon />
+              </IconButton>
+              <IconButton onClick={handleNextImage}>
+                <ArrowForwardIcon />
+              </IconButton>
+            </div>
+          </div>
+
+          {/* Resto del contenido */}
+          <div className="caracteristicas">
+            <h2>{products.name.toUpperCase()}</h2>
+            <h4>AR$ {products.pricePerNight}/noche</h4>
+            <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
+            <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
+            <h4>{renderPool(products.pool)}</h4>
+          </div>
+
           {auth && <img
             src={favIcon}
             onClick={setDelFavorite}
@@ -299,35 +321,14 @@ console.log(products)
             style={{}}
           />}
 
-          
-
-
-<LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer
-              components={[
-                'DatePicker',
-                'TimePicker',
-                'DateTimePicker',
-                'DateRangePicker',
-              ]}
-            >
-              <DemoItem label={<StyledLabel componentName="DatePicker" valueType="date" />}>
-                <StyledDateCalendar />
-              </DemoItem>
-            </DemoContainer>
-          </LocalizationProvider>
-
-          <button
-            onClick={onClickReserva}
-          >
-            Hacer reserva
-          </button>
-
+          <div className='ressserv'>
+            <ReservationForm info={products} />
+          </div>
           <AlignItemsList className="list" />
         </div>
         <MakeReview />
       </div>
-      </div>
+    </div>
   );
 }
 

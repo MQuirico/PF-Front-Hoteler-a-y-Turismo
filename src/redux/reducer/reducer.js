@@ -41,9 +41,10 @@ import {
   GET_ALL_USERS_FAILURE,
   CHECK_GOOGLEUSER_EXISTANCE_REQUEST,
   CHECK_GOOGLEUSER_EXISTANCE_SUCCESS,
-  CHECK_GOOGLEUSER_EXISTANCE_FAILURE
-
-
+  CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
+  RETRIEVE_RESERVATIONS_REQUEST,
+  RETRIEVE_RESERVATIONS_SUCCESS,
+  RETRIEVE_RESERVATIONS_FAILURE
 } from "../action-types/action-types";
 
 const initialState = {
@@ -54,6 +55,7 @@ const initialState = {
   noEvents: "",
   searchName: [],
   products: [],
+  allProducts: null,
   searchResults: [],
   filteredProducts: [],
   totalPages:  0,
@@ -76,6 +78,12 @@ const initialState = {
     error: null
   },
   reservation: null,
+  resPerProduct:{
+    data: null,
+    loading: false,
+    error: null
+  }
+
 };
 
 const userDataReducer = (state = initialState, action) => {
@@ -114,16 +122,16 @@ const userDataReducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS_REQUEST:
       return { ...state, loading: true, error: null };
     case GET_ALL_PRODUCTS_SUCCESS:
-      return { ...state, products: action.payload, loading: false, error: null };
+      return { ...state, allProducts: action.payload, loading: false, error: null };
     case GET_ALL_PRODUCTS_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
-      case FETCH_PRODUCTS_REQUEST:
+    case FETCH_PRODUCTS_REQUEST:
         return {
           ...state,
-          loading: true
+          loading: true/* jdngjkdfngkjfdn */
         };
-        case FETCH_PRODUCTS_SUCCESS:
+    case FETCH_PRODUCTS_SUCCESS:
           return {
               ...state,
               products: action.payload.products || [],
@@ -131,39 +139,39 @@ const userDataReducer = (state = initialState, action) => {
               loading: false,
               error: null
           };
-      case FETCH_PRODUCTS_FAILURE:
+    case FETCH_PRODUCTS_FAILURE:
         return {
           ...state,
           loading: false,
           error: action.payload
         };
   
-      case SEARCH_PRODUCTS_REQUEST:
+    case SEARCH_PRODUCTS_REQUEST:
         return {
           ...state,
           loading: true,
           error: null,
         };
-      case SEARCH_PRODUCTS_SUCCESS:
+    case SEARCH_PRODUCTS_SUCCESS:
         return {
           ...state,
           searchResults: action.payload,  
           loading: false,
           error: null,
         };
-      case SEARCH_PRODUCTS_FAILURE:
+    case SEARCH_PRODUCTS_FAILURE:
         return {
           ...state,
           loading: false,
           error: action.payload,
         };
-        case UPDATE_USER_PROFILE_REQUEST:
+    case UPDATE_USER_PROFILE_REQUEST:
           return {
             ...state,
             loading: true,
             error: null,
           };
-        case UPDATE_USER_PROFILE_SUCCESS:
+    case UPDATE_USER_PROFILE_SUCCESS:
           return {
             ...state,
             loading: false,
@@ -341,12 +349,42 @@ const userDataReducer = (state = initialState, action) => {
                         
 
                         case GET_ALL_USERS_REQUEST:
-                          return { ...state, loading: true, error: null };
+                          return { ...state,
+                             loading: true,
+                              error: null 
+                            };
                           case GET_ALL_USERS_SUCCESS:
                           return { ...state, users: action.payload, loading: false, error: null };
                           case GET_ALL_USERS_FAILURE:
                           return { ...state, loading: false, error: action.payload };
 
+                        case RETRIEVE_RESERVATIONS_REQUEST:
+                        return {
+                          ...state,
+                          resPerProduct:{
+                            data:null,
+                            loading: true,
+                            error: null
+                          }
+                        }
+                        case RETRIEVE_RESERVATIONS_SUCCESS:
+                        return {
+                          ...state,
+                          resPerProduct:{
+                            data:action.payload,
+                            loading: true,
+                            error: null
+                          }
+                         }
+                         case RETRIEVE_RESERVATIONS_FAILURE:
+                          return {
+                            ...state,
+                            resPerProduct:{
+                              data:null,
+                              loading: true,
+                              error: action.payload
+                            }
+                           }
     default:
       return state;
   }

@@ -6,14 +6,14 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 500px;
+  height: 1100px;
   width: 209.7vh;
   max-width: 270vh;
   margin-top: 80px;
   margin-left: 0vh;
   
 }
-
+/* kfjnjkdnjgkfd */
 .detailContainersdsd {
 
   height: 90vh;
@@ -49,14 +49,7 @@
   position: relative;
 }
 
-.detailContainersdsd button {
-  margin-top: 420px;
-  margin-left: 150px;
-  position: absolute;
-  cursor: pointer;
-  height: 60px;
-  width: 150px;
-}
+
 
 .detailContainersdsd img.favorite-icon {
   max-height: 6vh;
@@ -75,7 +68,7 @@
 
 .localidad {
   position: absolute;
-  margin-left: -150px;
+  margin-left: -600px;
   margin-top: 20px;
 }
 
@@ -85,9 +78,15 @@
   border-radius: 5px;
   padding: 5px;
   width: 700px;
-  margin-left: 50px;
+  margin-left: -750px;
   position: absolute;
-  margin-top: 98px;
+  margin-top: 620px;
   height: 250px;
 }
 
+
+.ressserv {
+  position: absolute;
+  margin-top: -150px;
+  margin-left: 115px;
+}

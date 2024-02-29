@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 const handleKeyPress1 = (event) => {
   if (!/[0-9]/.test(event.key) || event.target.value.length >= 16) {
     event.preventDefault();
-  }
+  }//paSubir
 };
 
 const handleKeyPress2 = (event) => {

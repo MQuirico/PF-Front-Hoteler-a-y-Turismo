@@ -6,18 +6,57 @@ import axios from 'axios';
 import usAvatar from '../../../assets/user.png'
 import {AuthContext} from '../../../componentes/AuthProvider/authProvider'
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReviews } from '../../../redux/Actions/actions';
+import { fetchReviews, retrieveReservations } from '../../../redux/Actions/actions';
 import {Link} from 'react-router-dom'
+import moment from 'moment'
+
 export default function MakeReview(){
     const {register, reset, handleSubmit, setValue} = useForm()
     const [value, estValue] = React.useState(0);
     const [open, setOpen] = React.useState(false)
     const [message, setMessage] = React.useState("")
+    const [dateRevValid, setDateRevValid] = React.useState(false)
+    const [hasPostedValid, setHasPostedValid] = React.useState(false)
+    const reservations = useSelector(state => state?.stateA?.resPerProduct?.data)
+    const reviews = useSelector(state => state?.stateA?.reviews?.data)
     const {auth} = React.useContext(AuthContext);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()/* knkjdfnkjfd */
     const url = window.location.href;
     const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
     
+    React.useEffect(()=>{
+        if (auth){
+        dispatch(retrieveReservations(id, auth.token.id, "success"))}
+    }, [id, auth?.token?.id]) 
+
+    console.log("reservas==>",reservations)
+    console.log("reviews==>",reviews)
+
+    React.useEffect(() => {
+
+    const todayDate = moment().utcOffset('-03:30').format('YYYY-MM-DD')
+
+    const endDate = []
+
+    if (reservations){
+    reservations.map (reserv => endDate.push(reserv.endDate))
+    console.log("validacion endDate==>", endDate)
+    }
+
+    console.log("fecha de hoy===>", todayDate)
+    if (endDate.length > 0){
+    const checkEndDate = moment(endDate[0], "YYYY-MM-DD")
+    setDateRevValid(checkEndDate.isBefore(todayDate))
+    console.log("es anterior? ==>", checkEndDate.isBefore(todayDate))
+    console.log(dateRevValid)
+    }
+
+    const reviewsCurrentUser = reviews.filter(review => review.userID === auth.token.id)
+    if (reviewsCurrentUser.length > 0){
+        setHasPostedValid(true)
+    }
+    }, [reservations, reviews]);
+
 
     const handleClick = () => {
         setOpen(true);
@@ -30,16 +69,18 @@ export default function MakeReview(){
     
         setOpen(false);
       };
-
-    const onSubmit = (data) => {
+/*       https://back-hostel.onrender.com
+ */   
+ const onSubmit = (data) => {
         console.log(data)
         const dataToSend = {
             ...data,
+            userID: auth.token.id,
             name: auth.token.name,
             profileImage: auth.token.imageUrl || usAvatar
         }
         console.log(dataToSend)
-        axios.post(`http://localhost:3002/reviews/products/detail/${id}`, dataToSend)
+        axios.post(`https://back-hostel.onrender.com/reviews/products/detail/${id}`, dataToSend)
         .then(response => {
             console.log('Reseña enviada exitosamente:', response.data);
         Object.keys(data).forEach((fieldName) => {
@@ -58,20 +99,21 @@ export default function MakeReview(){
 console.log(window.location.href)
     
 
-    if (auth){
+    if (auth && dateRevValid===true && hasPostedValid===false){
         return (
         <div style={{
-            marginTop: '570px',
-            marginLeft: '120px',
-            position: "absolute"}}>
+            marginTop: '55vh',
+            marginLeft: '113vh',
+            position: "absolute",
+            marginBottom: "200px"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
             <h5 style={{ 
             textAlign: "center",
             marginLeft: "1vh"
-            }} >   ¿Has vacacionado en este sitio 🏨? </h5> <br /><br /><br />
-            <Typography style={{marginLeft: '80px', marginTop: '-6vh', position: 'absolute', marginBottom:"5px"}} component="legend">Califica este hospedaje</Typography> 
+            }} >   ¿Has vacacionado en este sitio 🏨? </h5> 
+            <Typography style={{marginLeft: '350px', marginTop: '-30px', position: 'absolute', marginBottom:"5px"}} component="legend">Califica este hospedaje</Typography> 
             <Rating
-            style={{marginLeft: '90px', marginTop: '-3.4vh',position: 'absolute'}}
+            style={{marginLeft: '540px', marginTop: '-30px',position: 'absolute'}}
             name="simple-controlled"
             value={value}
             onChange={(event, newValue) => {
@@ -93,16 +135,38 @@ console.log(window.location.href)
             </form>
         </div>
     )}
-    else {
+    if(!auth) {
         return (
             <h4 style={{
-             marginTop: '70vh',
-             marginLeft: '7vh', 
+             marginTop: '55vh',
+             marginLeft: '113vh', 
              position: 'absolute', 
              textAlign: 'center'}}>
             <Link to="/login">Inicia sesión</Link> para dejarnos tus comentarios<br></br>
             y reseñas acerca de tus experiencias en nuestros hospedajes</h4>
         )
+    }
+    if(auth && hasPostedValid===true){
+        return (
+            <h4 style={{
+                marginTop: '55vh',
+                marginLeft: '113vh', 
+                position: 'absolute', 
+                textAlign: 'center'}}>
+            ¡Gracias por tu reseña! ¡Deseamos que hayas 
+            tenido una excelente estadía en este hospedaje!</h4>
+        )
+    }
+    if(auth && reservations?.length > 0 && dateRevValid===false){
+        return(
+        <h4 style={{
+            marginTop: '55vh',
+            marginLeft: '113vh', 
+            position: 'absolute', 
+            textAlign: 'center'}}>
+           ¡No olvides dejar una reseña aquí al final de tu estadía!<br></br>
+           Comparte tu experiencia aquí con los demás usuarios</h4>
+           )
     }
 }
 

@@ -21,7 +21,7 @@ export default function NavBar(props) {
       var auth2 = window.gapi.auth2.getAuthInstance();
       auth2.disconnect().then(function () {
         console.log("User disconnected.");
-      });
+      });//paSubir
     }
 
     setAuth(null);

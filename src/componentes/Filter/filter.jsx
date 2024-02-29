@@ -11,6 +11,7 @@ import { searchProducts } from "../../redux/Actions/actions";
 import Cards from "../../componentes/Cards/cards";
 import { useEffect } from "react";
 
+
 function Filter({ applyFilters }) {
   const [selectedTemporada, setSelectedTemporada] = useState('');
   const [selectedLocalidad, setSelectedLocalidad] = useState('');
@@ -25,7 +26,7 @@ function Filter({ applyFilters }) {
   const products = useSelector((state) => state.stateA.products);
   const cardsPerPage = 8; 
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();//paSubir
 
 
   const handleSearch = (searchTerm) => {
@@ -137,6 +138,7 @@ function Filter({ applyFilters }) {
           }}
         >
           <MenuItem value="">Localidad</MenuItem>
+
           <MenuItem value="El Bolsón, Provincia de Río Negro">El Bolsón, Provincia de Río Negro</MenuItem>
           <MenuItem value="Villa Pehuenia, Provincia de Neuquén">Villa Pehuenia, Provincia de Neuquén</MenuItem>
           <MenuItem value='Purmamarca, Provincia de Jujuy'>Purmamarca, Provincia de Jujuy</MenuItem>
@@ -187,6 +189,7 @@ function Filter({ applyFilters }) {
           <MenuItem value="Merlo, Provincia de San Luis">Merlo, Provincia de San Luis</MenuItem>
           <MenuItem value="Potrerillos, Provincia de Mendoza">Potrerillos, Provincia de Mendoza</MenuItem>
         </TextField>
+       
 
         <TextField
           select

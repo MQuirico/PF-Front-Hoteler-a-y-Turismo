@@ -7,7 +7,7 @@ import { TextField, Button, Typography, Box, Alert } from "@mui/material";
 import styles from "./changeMail.module.css";
 import ChangePasswordForm from "./changePassw";
 
-const UserMail = () => {
+const UserMail = ({props}) => {
   const { auth, setAuth } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
@@ -30,6 +30,8 @@ const UserMail = () => {
   const { loading = false, error: updateUserError = null } = useSelector(
     (state) => state.stateA.userDataSession || {}
   );
+
+  const {refreshInfo} = props
 
   useEffect(() => {
     if (auth && auth.token) {
@@ -62,7 +64,8 @@ const UserMail = () => {
     history.push("/home");
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = async (event) => {
+    event.preventDefault();
     if (
       editMode.password &&
       formData.password !== formData.passwordConfirmation
@@ -75,7 +78,7 @@ const UserMail = () => {
       setError("Por favor, ingresa un correo electrónico válido");
       return;
     }
-
+//paSubir
     setError(null);
 
     const userId = formData.id;
@@ -83,12 +86,7 @@ const UserMail = () => {
 
     dispatch(updateUser(userId, { newEmail: formData.email, currentPassword }))
       .then(() => {
-        const confirmationMessage =
-          "Se cambió correctamente su correo. Por favor, vuelve a loguearte!";
-
-        if (window.confirm(confirmationMessage)) {
-          logOut();
-        }
+        refreshInfo(auth.token.id)
       })
       .catch((error) => {
         console.error("Error al cambiar el correo:", error);

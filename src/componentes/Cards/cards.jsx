@@ -29,7 +29,7 @@ const Cards = ({ products }) => {
               cardWidth="400px" 
               cardHeight="450px" 
             />
-          </Grid>
+          </Grid>//paSubir
         ))
       )}
     </Grid>
