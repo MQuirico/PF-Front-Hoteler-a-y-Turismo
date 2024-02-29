@@ -27,7 +27,7 @@ export default function NavBar(props) {
     setAuth(null);
     localStorage.removeItem("auth");
     dispatch(deleteFavState())
-    history.push("/home");
+    history.push("/");
   };
 
   const imgDefault =
