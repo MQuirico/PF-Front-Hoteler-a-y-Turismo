@@ -48,7 +48,10 @@ import {
     GET_ALL_USERS_FAILURE,
     RETRIEVE_RESERVATIONS_REQUEST,
     RETRIEVE_RESERVATIONS_SUCCESS,
-    RETRIEVE_RESERVATIONS_FAILURE
+    RETRIEVE_RESERVATIONS_FAILURE,
+    FETCH_TOP_LOCATIONS_REQUEST,
+  FETCH_TOP_LOCATIONS_SUCCESS,
+  FETCH_TOP_LOCATIONS_FAILURE
 } from "../action-types/action-types";
 
 import {
@@ -585,3 +588,36 @@ export const retrieveReservations = (productId, userId, reserved) => {
           });
   };
 };
+
+export const fetchTopLocations = () => {
+  return async (dispatch) => {
+    dispatch(fetchTopLocationsRequest());
+    try {
+      const response = await axios.get('https://back-hostel.onrender.com/recervas/rankLocation');
+      // Asegúrate de que estás accediendo a los datos correctamente
+      const locations = response.data.map(location => ({
+        productId: location.productId,
+        reservationCount: location.reservationCount,
+        productName: location.productName,
+        productLocation: location.productLocation
+      }));
+      dispatch(fetchTopLocationsSuccess(locations));
+    } catch (error) {
+      dispatch(fetchTopLocationsFailure(error.message));
+    }
+  };
+};
+
+export const fetchTopLocationsRequest = () => ({
+  type: FETCH_TOP_LOCATIONS_REQUEST
+});
+
+export const fetchTopLocationsSuccess = (locations) => ({
+  type: FETCH_TOP_LOCATIONS_SUCCESS,
+  payload: locations
+});
+
+export const fetchTopLocationsFailure = (error) => ({
+  type: FETCH_TOP_LOCATIONS_FAILURE,
+  payload: error
+});

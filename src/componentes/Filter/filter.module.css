@@ -6,6 +6,7 @@
   background-color: #09090986;
   border-radius: 5px;
   max-width: 1700px;
+  z-index: 1;
 }
 
 
@@ -33,3 +34,51 @@
 .search{
   margin-top: -15px;
 }
+
+.notification {
+  position: absolute;
+  top: 79px; 
+  left: 520px;
+  transform: translateX(-50%); 
+  background-color: #bdbdbdf4; 
+  border: 2px solid #333;
+  border-radius: 10px; 
+  padding: 10px; 
+  margin: 10px; 
+  color: #333; 
+  font-size: 14px; 
+  width: 200px; 
+  text-align: center; 
+  z-index: 2;
+ }
+ 
+ .notification::before {
+  content: '';
+  position: absolute;
+  top:-10px; 
+  left: 50%; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #030303; 
+  transform: translateX(-50%); 
+ }
+ 
+ .colorlocalidad{
+  color: red;
+ }
+
+
+ .closeButton {
+  position: absolute;
+  margin-left: 40px;
+  color: white;
+  background-color: salmon;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-top: -200px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave para el cambio de color y transformación /
+ }
+ 
+ .closeButton:hover {
+  background-color: #cf5529; / Color de fondo al pasar el mouse /
+  transform: scale(1.1); / Efecto de zoom al pasar el mouse */
+ }
