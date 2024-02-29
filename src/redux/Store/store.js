@@ -15,7 +15,7 @@ const rootPersistConfig = {
     stateA: rootReducer,
     stateB: ReservationReducer
 });
-
+/* jdnfkjdk */
   const persistedMainReducer = persistReducer(rootPersistConfig, mainReducer);
 
   

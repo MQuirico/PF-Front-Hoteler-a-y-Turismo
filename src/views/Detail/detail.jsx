@@ -23,9 +23,8 @@ import ReservationForm from "../../componentes/Reserva/reserva"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography"
 
-function Detail() {
+function Detail() {/* jdkfd */
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();
@@ -63,7 +62,7 @@ function Detail() {
       React.useEffect(() => {
         const id = setInterval(() => {
           if (!isHovered) { 
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products?.images?.length);
           }
         }, 3000);
     
@@ -98,7 +97,7 @@ const handlePayClick = async (event, id) => {
   }
 
     // Enviar la solicitud POST con los datos del producto y del usuario
-    const response = await axios.post('http://localhost:3002/payment/create-order', {
+    const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
       productId: products.id,
       userId: 1,
       quantity: 1,
@@ -156,7 +155,7 @@ function Label({ componentName, valueType, isProOnly }) {
 
 /// LA CONST PRODUCTSSTATE TRAE TODA LA INFO COMPLETA DEL PRODUCTO DESDE PRODUCTS, REDUCER ////
   React.useEffect(() => {
-    axios.get(`http://localhost:3002/products/detail/${id}`)
+    axios.get(`https://back-hostel.onrender.com/products/detail/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setProducts(data);
@@ -196,13 +195,13 @@ console.log(products)
     
     
     const toSend ={
-      userId: auth.token.id,  //recordar manejar usuarios de Google
+      userId: auth?.token?.id,  //recordar manejar usuarios de Google
       productId: id
     }
     console.log(toSend)
     switch (favIcon){
       case starOut:
-    axios.post("http://localhost:3002/favorites/add", toSend)
+    axios.post("https://back-hostel.onrender.com/favorites/add", toSend)
     .then((response) => {
       if(response){
         setFav(starFil) 
@@ -214,7 +213,7 @@ console.log(products)
     })
     break;
     case starFil:
-      axios.delete("http://localhost:3002/favorites/delete", { data: toSend })
+      axios.delete("https://back-hostel.onrender.com/favorites/delete", { data: toSend })
       .then((response) =>{
         if (response.data.message){
           setFav(starOut)
@@ -265,87 +264,71 @@ console.log(products)
   };
 
   const handleImageClick = () => {
-    if (products.images && products.images[currentImageIndex]) {
-      const imageUrl = products.images[currentImageIndex];
-      window.open(imageUrl, '_blank', 'width=800,height=600');
-    }
+    // Lógica para abrir la imagen en tamaño más grande
   };
 
   return (
     <div className='fonderfd'>
       <div className="contasdds">
         <div className="detailContainersdsd">
+          <div className="localidad">
+            <h3>{products.location}</h3>
+          </div>
 
-
+          {/* Imagen */}
           <div
-            className="image-container"
-            onMouseEnter={() => setIsHovered(true)} 
-            onMouseLeave={() => setIsHovered(false)} 
-            onClick={handleImageClick} 
-            style={{ cursor: isHovered ? 'pointer' : 'default' }} // Cambia el cursor a 'pointer' cuando se pasa el mouse sobre la imagen
+          className="image-container"
+            onMouseEnter={() => setIsHovered(true)} // Establece isHovered en true cuando el mouse entra
+            onMouseLeave={() => setIsHovered(false)} // Establece isHovered en false cuando el mouse sale
+            onClick={handleImageClick} // Agrega el manejador de eventos para abrir la imagen en tamaño más grande
           >
-            {Array.isArray(products.images) && products.images.length > 0 ? (
-              <img
-                style={{ height: "470px", width: "700px" }}
-                src={products.images[currentImageIndex]}
-                alt={products.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'imagen-de-respaldo.jpg'; 
-                }}
-              />
-            ) : (
-              <p>No se encontraron imágenes</p>
-            )}
-          </div>
-          <div className="dotscontaineresds">
-            {products.images.map((img, index) => (
-              <div key={index} className={`dot ${index === currentImageIndex ? "active" : ""}`} />
-            ))}
-          </div>
-       
-            <div className="arrowcontainer">
+          {Array.isArray(products.images) && products.images.length > 0 ? (
+  <img
+    style={{ height: "470px", width: "700px" }}
+    src={products.images[currentImageIndex]}
+    alt={products.name}
+    onError={(e) => {
+      e.target.onerror = null;
+      e.target.src = 'imagen-de-respaldo.jpg'; // URL de una imagen de respaldo
+    }}
+  />
+) : (
+  <p>No se encontraron imágenes</p>
+)}
+            <div className="arrow-container">
               <IconButton onClick={handlePreviousImage}>
-                <ArrowBackIcon style={{ color: "red"}}/>
+                <ArrowBackIcon />
               </IconButton>
               <IconButton onClick={handleNextImage}>
-                <ArrowForwardIcon style={{color: "red"}} />
+                <ArrowForwardIcon />
               </IconButton>
             </div>
-
-        
-          <div className="caracteristicas">
-            <div className='localidad'>
-          <Typography gutterBottom variant="h3" width="500px" textAlign="center" marginLeft="700px" marginTop="-610px" component="div" borderBottom="1px solid black" color= "black" padding= "10px">
-            {products.name}
-          </Typography>
           </div>
-          <Typography  variant="p" textAlign="center" marginLeft="150px" color="black" component="p"  fontSize="20px" marginTop="20px">
-            {products.location}
-          </Typography>
-          <Typography variant="body2" color="black" textAlign="center" marginLeft="150px" component="h3" marginTop="10px">
-            Temporada: {products.season.join(", ")}
-          </Typography>
-          <Typography variant="body2" color="green" textAlign="center" component="p" marginLeft="150px" fontWeight="bold" fontSize="25px" marginTop="10px">
-            Precio por noche: {products.pricePerNight} $ ars
-          </Typography>
+
+          {/* Resto del contenido */}
+          <div className="caracteristicas">
+            <h2>{products.name.toUpperCase()}</h2>
+            <h4>AR$ {products.pricePerNight}/noche</h4>
+            <h4>Cantidad de Habitaciones: {products.totalRooms}</h4>
+            <h4>Idóneo para alquilar en: {products.season.join(", ")}</h4>
+            <h4>{renderPool(products.pool)}</h4>
           </div>
 
           {auth && <img
             src={favIcon}
             onClick={setDelFavorite}
-            className="favoriteicon"
-            style={{backgroundColor:"transparent",boxShadow: "0"}}
+            className="favorite-icon"
+            style={{}}
           />}
 
           <div className='ressserv'>
-            <ReservationForm />
+            <ReservationForm info={products} />
           </div>
           <AlignItemsList className="list" />
         </div>
         <MakeReview />
       </div>
-      </div>
+    </div>
   );
 }
 
