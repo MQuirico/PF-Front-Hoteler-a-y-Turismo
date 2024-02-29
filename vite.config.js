@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-datepicker']
+      external: ['node_modules/react-datepicker/dist/react-datepicker.js', 'node_modules/react-datepicker/dist/']
     }
   }
 })
