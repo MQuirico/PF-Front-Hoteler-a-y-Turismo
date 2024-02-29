@@ -136,7 +136,7 @@ const About = () => {
                 </Typography>
               </Card>
             </Grid>
-          </Grid>
+          </Grid>//paSubir
         </section>
       </Container>
       </div>

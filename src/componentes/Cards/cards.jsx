@@ -4,7 +4,6 @@ import { Grid, Typography } from "@mui/material";
 import "./Cards.css"; // Importa el archivo CSS donde definiste la clase
 
 const Cards = ({ products }) => {
-  console.log('Productos a mostrar:', products);
   const gridSpacing = window.innerWidth < 4 ? 10 : 15;
   const xsSize = products.length < 4 ? 12 / products.length : 3;
   const gridStyle = {
@@ -30,7 +29,7 @@ const Cards = ({ products }) => {
               cardWidth="400px" 
               cardHeight="450px" 
             />
-          </Grid>
+          </Grid>//paSubir
         ))
       )}
     </Grid>

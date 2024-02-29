@@ -65,7 +65,7 @@ const ChangePasswordForm = () => {
     if (formData.newPassword !== formData.confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
-    }
+    }//paSubir
   
     setError(null);
   
@@ -75,12 +75,7 @@ const ChangePasswordForm = () => {
   
       dispatch(updatePassword(userId, currentPassword, newPassword))
         .then(() => {
-          // Cambio de contraseña exitoso
-          const confirmationMessage = "Se cambió correctamente tu contraseña. Por favor, vuelve a loguearte!";
-  
-          if (window.confirm(confirmationMessage)) {
-            logOut();
-          }
+          return
         })
         .catch((error) => {
           // Manejar errores

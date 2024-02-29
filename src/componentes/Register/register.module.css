@@ -1,4 +1,4 @@
-.dsaddsadsa {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,10 +15,10 @@
     width: 500px;
     margin-top: 100px;
     border-radius: 7px;
-    background-color: #ffffff;
+    background-color: #ffffffc0;
     margin-left: 0px;
   }
-  
+  /* pasu */
   .form {
     display: flex;
     flex-direction: column;
@@ -40,10 +40,9 @@
     margin-bottom: 30px; 
     border: none;
     border-radius: 25px; 
-    background-color: #ffffff; 
+    background-color: #eae4e4; 
     color: #333;
     outline: none;
-    margin-top: 20px;
   }
   
   .form input[type="password"] {
@@ -67,8 +66,8 @@
     color: #333;
     cursor: pointer;
     position: absolute; 
-    right: -40px; 
-    top: 55px; 
+    right: -50px; 
+    top: 30%; 
     transform: translateY(-50%); 
   }
   
@@ -103,7 +102,6 @@
     font-size: 12px;
     margin-top: -10px;
     margin-bottom: 20px;
-    margin-left: -50px;
   }
   
   .snackbar {

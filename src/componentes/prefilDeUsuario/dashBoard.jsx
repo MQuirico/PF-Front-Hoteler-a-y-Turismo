@@ -13,8 +13,9 @@ import { AuthContext } from "../AuthProvider/authProvider";
 import HomeIcon from '@mui/icons-material/Home';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SettingsIcon from '@mui/icons-material/Settings';
+import axios from 'axios'
 
-const theme = createTheme();
+const theme = createTheme();//paSubir
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -66,6 +67,25 @@ const DashboardUsuario = () => {
   const [showreviews, setReviews] = useState(false);
   const { auth, setAuth } = useContext(AuthContext);
   const history = useHistory();
+
+  const refreshInfo = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:3003/users/user/${userId}`);
+      if (response.data) {
+        
+        const authData = {
+          token: response.data,
+        };
+        console.log("se refresco el token ==>", authData)
+        setAuth(authData);
+        localStorage.setItem('auth', JSON.stringify(authData)); 
+      } else {
+        setErrorState('Error: The response is not valid');
+      }
+    } catch (error) {
+      setErrorState('Error al iniciar sesión: ' + error.message);
+    }
+  }
 
   const handleShowProfileForm = () => {
     setShowProfileForm(true);
@@ -170,8 +190,8 @@ const DashboardUsuario = () => {
           </List>
         </Drawer>
         <main className={`${styles.content}`}>
-          {showProfileForm && <UserProfileForm />}
-          {showChangeMail && <UserMail />}
+          {showProfileForm && <UserProfileForm props={{refreshInfo}} />}
+          {showChangeMail && <UserMail props={{refreshInfo}}/>}
           {showpagos && <PaymentMethodsForm />}
           {showreservas && <Reservas />}
           {showreviews && <ReviewsHistory />}
