@@ -26,7 +26,7 @@ export default function MakeReview(){
     
     React.useEffect(()=>{
         if (auth){
-        dispatch(retrieveReservations(id, auth.token.id, "success"))}
+        dispatch(retrieveReservations(id, auth?.token?.id, "success"))}
     }, [id, auth?.token?.id]) 
 
     console.log("reservas==>",reservations)
@@ -51,7 +51,7 @@ export default function MakeReview(){
     console.log(dateRevValid)
     }
 
-    const reviewsCurrentUser = reviews?.filter(review => review?.userID === auth?.token?.id)
+    const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
     if (reviewsCurrentUser.length > 0){
         setHasPostedValid(true)
     }
@@ -75,7 +75,7 @@ export default function MakeReview(){
         console.log(data)
         const dataToSend = {
             ...data,
-            userID: auth?.token?.id,
+            userId: auth?.token?.id,
             name: auth?.token?.name,
             profileImage: auth?.token?.imageUrl || usAvatar
         }
@@ -88,7 +88,12 @@ export default function MakeReview(){
           });
           reset()
           estValue(0)
-          if(response.data){dispatch(fetchReviews(id))}
+          if(response.data){dispatch(fetchReviews(id))
+            const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
+            if (reviewsCurrentUser.length > 0){
+                setHasPostedValid(true)
+            }
+        }
     })
     .catch(error => {
         console.error('Error al enviar la reseña:', error);
@@ -102,8 +107,8 @@ console.log(window.location.href)
     if (auth && dateRevValid===true && hasPostedValid===false){
         return (
         <div style={{
-            marginTop: '55vh',
-            marginLeft: '113vh',
+            marginTop: '75vh',
+            marginLeft: '25vh',
             position: "absolute",
             marginBottom: "200px"}}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -149,8 +154,9 @@ console.log(window.location.href)
     if(auth && hasPostedValid===true){
         return (
             <h4 style={{
-                marginTop: '55vh',
-                marginLeft: '113vh', 
+                marginTop: '75vh',
+                marginLeft: '25vh', 
+                width: '70vh',
                 position: 'absolute', 
                 textAlign: 'center'}}>
             ¡Gracias por tu reseña! ¡Deseamos que hayas 
