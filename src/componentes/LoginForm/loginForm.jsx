@@ -51,11 +51,10 @@ export default function Login() {
 
 
   const onSuccess = async (response) => {
-    /* console.log('Login Success: currentUser:', response.profileObj);
-    setAuth({ token: response.profileObj }); */
+   
 
     try {
-        dispatch(checkGoogleId(response.profileObj.googleId)); //usar await
+        dispatch(checkGoogleId(response.profileObj.googleId));
         if (googlecheck.data) {
           const toLogIn = {
             email: googlecheck.data.email,
@@ -73,7 +72,7 @@ export default function Login() {
                 googleId: response.profileObj.googleId
             };
            await dispatch(registerUser(toSend));
-           const LogIn = {//paSubir
+           const LogIn = {
             email: response.profileObj.email,
             password: "Google10."
            }
@@ -161,8 +160,8 @@ export default function Login() {
           />
         </div>
         <p className="text-center mt-3" style={{color: 'black', marginLeft: '5px'}} >¿No tienes una cuenta? <Link to="/register">Regístrate aquí</Link></p>
-        {errorState && <p className={styles.error}>{errorState}</p>} {/* Usar la variable de estado renombrada */}
+        {errorState && <p className={styles.error}>{errorState}</p>} 
       </div>
     </div>
   );
-}
+} 

@@ -33,7 +33,7 @@ const ReservationForm = (props) => {
     if (auth){setIsEnabled(true)}
         const products = props?.info;
         if (products) {
-            axios.get(`http://localhost:3003/recervas/reservByProduct/${products?.id}`)
+            axios.get(`https://back-hostel.onrender.com/recervas/reservByProduct/${products?.id}`)
                 .then((response) => {
                     setDisabledRanges(response.data);
                 })
@@ -65,7 +65,7 @@ const ReservationForm = (props) => {
                 endDate: data.endDate,
                 totalGuests: Number(data.guests)
             }
-            console.log("lo que se envia al back ===>", body)
+            console.log("LO QUE SE ENVIA AL BACK===>", body)
         const response = await axios.post("https://back-hostel.onrender.com/payment/create-order", body);
 
         const url = response.data.link;

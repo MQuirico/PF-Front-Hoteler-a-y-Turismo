@@ -44,7 +44,10 @@ import {
   CHECK_GOOGLEUSER_EXISTANCE_FAILURE,
   RETRIEVE_RESERVATIONS_REQUEST,
   RETRIEVE_RESERVATIONS_SUCCESS,
-  RETRIEVE_RESERVATIONS_FAILURE
+  RETRIEVE_RESERVATIONS_FAILURE,
+  FETCH_TOP_LOCATIONS_REQUEST,
+  FETCH_TOP_LOCATIONS_SUCCESS,
+  FETCH_TOP_LOCATIONS_FAILURE
 } from "../action-types/action-types";
 
 const initialState = {
@@ -57,6 +60,7 @@ const initialState = {
   products: [],
   allProducts: null,
   searchResults: [],
+  topLocations: null,
   filteredProducts: [],
   totalPages:  0,
   updateUserError: null,
@@ -385,6 +389,26 @@ const userDataReducer = (state = initialState, action) => {
                               error: action.payload
                             }
                            }
+                           case FETCH_TOP_LOCATIONS_REQUEST:
+                            return {
+                              ...state,
+                              loading: true,
+                              error: null
+                            };
+                            case FETCH_TOP_LOCATIONS_SUCCESS:
+                              console.log('Datos recibidos:', action.payload); // Agrega esta línea para depurar
+                              return {
+                                ...state,
+                                loading: false,
+                                topLocations: action.payload,
+                                error: null
+                              };
+                          case FETCH_TOP_LOCATIONS_FAILURE:
+                            return {
+                              ...state,
+                              loading: false,
+                              error: action.payload
+                            };
     default:
       return state;
   }

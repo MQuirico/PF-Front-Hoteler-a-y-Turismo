@@ -58,14 +58,14 @@ export default function NavBar(props) {
 
   return (
     <Navbar bg="light" expand="lg" fixed="top">
-    <Link to="/home">
+    <Link to="/">
     <img src={logo} style={{ marginLeft: "20px", height: '60px', width: '160px' }}/>
     </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginLeft: "-100px" }} />
       <Navbar.Collapse id="basic-navbar-nav" style={{ justifyContent: "flex-end" }}>
         <Nav style={{ marginRight: "100px" }}>
           {auth && <p style={{color: 'black', fontWeight: 'bold', marginTop: '8px' }} >¡Bienvenido, {auth?.token?.name} {auth?.token?.surName}!</p>}
-          <Nav.Link as={Link} to="/search" style={{ marginLeft: "-20px" }}>Explora destinos</Nav.Link>
+          <Nav.Link as={Link} to="/home" style={{ marginLeft: "-20px" }}>Explora destinos</Nav.Link>
           <Nav.Link as={Link} to="/about" style={{ marginLeft: "20px" }}>¿Quiénes somos?</Nav.Link>
           {/* <Nav.Link as={Link} to="/Shopping"><FaShopify style={{ fontSize: "24px", marginLeft: "20px", marginRight: "15px" }} /></Nav.Link> */}
          
