@@ -1,0 +1,131 @@
+import React, { useState, useEffect, useContext } from 'react';
+import './historialReservas.css';
+import axios from 'axios';
+import { getAllProducts } from '../../redux/Actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from '../AuthProvider/authProvider';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+const Reservas = () => {
+const {auth} = useContext(AuthContext)
+const [reservations, setReservations] = useState(null)
+const [reservID, setReservID] = useState(null)
+const [produRes, setProduRes] = useState(null)
+const products = useSelector( state => state?.stateA?.products)
+const dispatch = useDispatch()
+
+
+useEffect(() => {
+  dispatch(getAllProducts());
+  axios.get(`http://localhost:3003/recervas/getByUserID/${auth?.token?.id}`)
+    .then(response => {
+      if (response.data) {
+        setReservations(response.data);
+      }
+    });
+}, [auth, dispatch]);
+  
+
+ 
+  const reserID = reservations?.map(function(res) {
+      return res.productId;
+  });
+   
+  
+    let prodRes = products.filter(p => reserID?.includes(p.id));
+    
+  
+
+  
+  
+  let objetosFiltrados =[]
+
+  reserID?.forEach(id => {
+    let prod = prodRes?.find(pr => pr.id === id)
+    let rese = reservations?.find(re => re.productId === id)
+
+    if (prod && rese){
+      let objResult = {
+        name: prod.name,
+        location: prod.location,
+        startDate: rese.startDate,
+        endDate: rese.endDate,
+        totalGuests: rese.totalGuests
+      }
+      objetosFiltrados.push(objResult)
+    }
+  })
+  if (objetosFiltrados.length > 0){
+  const rows = Object.keys(objetosFiltrados[0]) 
+}
+  console.log("reservas ==>",reservations)
+  
+  console.log("productos reservados ====>", produRes)
+  
+  console.log("Id´s prod reservados ==>", reservID)
+
+  console.log("resultante ===>", objetosFiltrados)
+
+  console.log("campos pa tabla ===>", rows)
+
+ 
+if(reservations){
+  return(
+    <div id="container" style={{
+      overflowX: "hidden",/* Oculta la barra de desplazamiento horizontal */
+      overflowY: "hidden",
+      height: "89vh",
+      width: "174vh",
+      display: "flex",
+      marginTop: "6.1vh",
+      // 4 filas con altura mínima de 200px
+      gap: "1vh", // Espacio entre las cards
+      backgroundImage: "url(https://www.minimalstudio.es/wp-content/uploads/2022/02/caracteristicas-de-la-arquitectura-minimalista-minimal-studio.jpg)", 
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center" 
+      }}> 
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead >
+          <TableRow >
+            {rows.map((row, index) =><TableCell sx={{ width: 10}} key={index}>
+  {row[index]}
+</TableCell>) }  
+           
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+            </TableRow>
+          ))} 
+        </TableBody>
+      </Table>
+    </TableContainer>
+      
+    </div>)
+      
+    
+  
+}
+  
+};
+
+export default Reservas;
