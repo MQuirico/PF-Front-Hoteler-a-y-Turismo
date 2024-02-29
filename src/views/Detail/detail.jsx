@@ -400,7 +400,7 @@ function Detail() {
         return () => {
           clearInterval(id);
         };
-      }, [products.images, isHovered]);
+      }, [products?.images, isHovered]);
       
       
       React.useEffect(() => {
@@ -427,7 +427,7 @@ const handlePayClick = async (event, id) => {
 
     // Enviar la solicitud POST con los datos del producto y del usuario
     const response = await axios.post('https://back-hostel.onrender.com/payment/create-order', {
-      productId: products.id,
+      productId: products?.id,
       userId: 1,
       quantity: 1,
       card: "visa"
@@ -584,17 +584,17 @@ console.log(products)
 
   // Manejar clic en la flecha izquierda
   const handlePreviousImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products?.images?.length) % products?.images?.length);
   };
 
   // Manejar clic en la flecha derecha
   const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products?.images?.length);
   };
 
   const handleImageClick = () => {
-    if (products.images && products.images[currentImageIndex]) {
-      const imageUrl = products.images[currentImageIndex];
+    if (products?.images && products?.images[currentImageIndex]) {
+      const imageUrl = products?.images[currentImageIndex];
       window.open(imageUrl, '_blank', 'width=800,height=600');
     }
   };
@@ -615,8 +615,8 @@ console.log(products)
             {Array.isArray(products.images) && products.images.length > 0 ? (
               <img
                 style={{ height: "470px", width: "700px" }}
-                src={products.images[currentImageIndex]}
-                alt={products.name}
+                src={products?.images[currentImageIndex]}
+                alt={products?.name}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = 'imagen-de-respaldo.jpg'; 
@@ -627,7 +627,7 @@ console.log(products)
             )}
           </div>
           <div className="dotscontaineresds">
-            {products.images.map((img, index) => (
+            {products?.images?.map((img, index) => (
               <div key={index} className={`dot ${index === currentImageIndex ? "active" : ""}`} />
             ))}
           </div>
@@ -645,17 +645,17 @@ console.log(products)
           <div className="caracteristicas">
             <div className='localidad'>
           <Typography gutterBottom variant="h3" width="500px" textAlign="center" marginLeft="700px" marginTop="-610px" component="div" borderBottom="1px solid black" color= "black" padding= "10px">
-            {products.name}
+            {products?.name}
           </Typography>
           </div>
           <Typography  variant="p" textAlign="center" marginLeft="150px" color="black" component="p"  fontSize="20px" marginTop="20px">
-            {products.location}
+            {products?.location}
           </Typography>
           <Typography variant="body2" color="black" textAlign="center" marginLeft="150px" component="h3" marginTop="10px">
-            Temporada: {products.season.join(", ")}
+            Temporada: {products?.season?.join(", ")}
           </Typography>
           <Typography variant="body2" color="green" textAlign="center" component="p" marginLeft="150px" fontWeight="bold" fontSize="25px" marginTop="10px">
-            Precio por noche: {products.pricePerNight} $ ars
+            Precio por noche: {products?.pricePerNight} $ ars
           </Typography>
           </div>
 
@@ -678,5 +678,4 @@ console.log(products)
 }
 
 export default Detail; 
-
 
