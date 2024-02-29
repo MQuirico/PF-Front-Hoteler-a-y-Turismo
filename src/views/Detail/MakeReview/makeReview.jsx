@@ -51,7 +51,7 @@ export default function MakeReview(){
     console.log(dateRevValid)
     }
 
-    const reviewsCurrentUser = reviews.filter(review => review.userID === auth.token.id)
+    const reviewsCurrentUser = reviews?.filter(review => review?.userID === auth?.token?.id)
     if (reviewsCurrentUser.length > 0){
         setHasPostedValid(true)
     }
@@ -75,9 +75,9 @@ export default function MakeReview(){
         console.log(data)
         const dataToSend = {
             ...data,
-            userID: auth.token.id,
-            name: auth.token.name,
-            profileImage: auth.token.imageUrl || usAvatar
+            userID: auth?.token?.id,
+            name: auth?.token?.name,
+            profileImage: auth?.token?.imageUrl || usAvatar
         }
         console.log(dataToSend)
         axios.post(`https://back-hostel.onrender.com/reviews/products/detail/${id}`, dataToSend)
