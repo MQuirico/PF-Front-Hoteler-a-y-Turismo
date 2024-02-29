@@ -55,6 +55,7 @@ const initialState = {
   noEvents: "",
   searchName: [],
   products: [],
+  allProducts: null,
   searchResults: [],
   filteredProducts: [],
   totalPages:  0,
@@ -121,7 +122,7 @@ const userDataReducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS_REQUEST:
       return { ...state, loading: true, error: null };
     case GET_ALL_PRODUCTS_SUCCESS:
-      return { ...state, products: action.payload, loading: false, error: null };
+      return { ...state, allProducts: action.payload, loading: false, error: null };
     case GET_ALL_PRODUCTS_FAILURE:
       return { ...state, loading: false, error: action.payload };
 

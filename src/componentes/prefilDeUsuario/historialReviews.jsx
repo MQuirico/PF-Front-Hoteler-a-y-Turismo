@@ -22,14 +22,17 @@ export default function ReviewsHistory (){
   const [currentPage, setCurrentPage] = React.useState(1);
   
 console.log(favorites)
- 
+
+
   React.useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
   React.useEffect(() => {
-    let favs = products.filter(product => favorites?.productId.includes(product.id));
+    let favs = products.filter(product => favorites?.productId?.includes(product?.id));
+    console.log(favs)
     setFav(favs);
+    
   }, [products, favorites]);
 
   console.log("ESTO QUIERO VER ===>", products)
@@ -110,7 +113,7 @@ console.log(favorites?.productId.length ,fav.length)
           key={index}
           component="img"
           height="140"
-          image={element?.images}
+          image={element?.images ? element?.images[0] : ""}
          
         />
         <CardContent>
