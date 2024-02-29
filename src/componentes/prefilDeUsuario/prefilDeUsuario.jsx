@@ -127,7 +127,7 @@ const UserProfileForm = ({ updateUserData , props }) => {
       .catch((error) => {
         // Manejo de errores si la actualización del perfil falla
         console.error('Error al actualizar el perfil:', error);
-      });
+      });//paSubir
   };
 
   const handleChange = (e) => {

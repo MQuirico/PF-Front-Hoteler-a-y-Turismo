@@ -19,7 +19,7 @@ export default function AlignItemsList() {
 
 console.log(reviews)
 
-  if(reviews)
+  if(reviews)/* jdnjkfdgdf */
   return (
     <>
     <h5 style={{

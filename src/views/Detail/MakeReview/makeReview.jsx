@@ -20,7 +20,7 @@ export default function MakeReview(){
     const reservations = useSelector(state => state?.stateA?.resPerProduct?.data)
     const reviews = useSelector(state => state?.stateA?.reviews?.data)
     const {auth} = React.useContext(AuthContext);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()/* knkjdfnkjfd */
     const url = window.location.href;
     const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
     

@@ -26,7 +26,7 @@ const Reservas = () => {
         if (response.data) {
           setReservations(response.data);
         }
-      });
+      });//paSubir
   }, [auth.token.id, dispatch]);
 
   const reserID = reservations?.map((res) => res.productId);

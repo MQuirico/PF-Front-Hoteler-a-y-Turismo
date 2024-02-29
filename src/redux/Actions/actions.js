@@ -120,7 +120,7 @@ export const newHotel = (hotel) => {
           dispatch({
             type: NEW_HOTEL_SUCCESS,
             payload: response.data 
-          });
+          });/* dnfnjd */
         })
         .catch(error => {
           dispatch({

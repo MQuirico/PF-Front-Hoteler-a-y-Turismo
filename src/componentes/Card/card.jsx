@@ -74,7 +74,7 @@ const CustomCard = ({ id, name, location, season, pricePerNight, images, highlig
           <div key={index} className={`dot ${index === currentImageIndex ? "active" : ""}`} />
         ))}
       </div>
-    </div>
+    </div>//paSubir
   );
 };
 

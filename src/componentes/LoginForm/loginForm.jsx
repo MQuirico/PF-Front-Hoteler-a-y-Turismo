@@ -73,7 +73,7 @@ export default function Login() {
                 googleId: response.profileObj.googleId
             };
            await dispatch(registerUser(toSend));
-           const LogIn = {
+           const LogIn = {//paSubir
             email: response.profileObj.email,
             password: "Google10."
            }

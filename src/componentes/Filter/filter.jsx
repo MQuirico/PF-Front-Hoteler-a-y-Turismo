@@ -26,7 +26,7 @@ function Filter({ applyFilters }) {
   const products = useSelector((state) => state.stateA.products);
   const cardsPerPage = 8; 
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();//paSubir
 
 
   const handleSearch = (searchTerm) => {

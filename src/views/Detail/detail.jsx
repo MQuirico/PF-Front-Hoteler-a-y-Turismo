@@ -24,7 +24,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import IconButton from "@mui/material/IconButton";
 
-function Detail() {
+function Detail() {/* jdkfd */
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState({});
   const [favIcon, setFav] = React.useState();

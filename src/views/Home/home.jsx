@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: '100%',
-  },
+  },/* klfnkdnkgndk */
   media: {
     height: 140, // ajusta la altura de la imagen según tus necesidades
   },

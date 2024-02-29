@@ -65,7 +65,7 @@ const ChangePasswordForm = () => {
     if (formData.newPassword !== formData.confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
-    }
+    }//paSubir
   
     setError(null);
   

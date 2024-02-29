@@ -115,7 +115,7 @@ console.log(favorites?.productId.length ,fav.length)
           height="140"
           image={element?.images ? element?.images[0] : ""}
          
-        />
+        />//paSubir
         <CardContent>
         <Link to={`/detail/${element?.id}`}>
           <Typography  gutterBottom variant="h5" component="div">

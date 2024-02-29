@@ -129,7 +129,7 @@ const userDataReducer = (state = initialState, action) => {
     case FETCH_PRODUCTS_REQUEST:
         return {
           ...state,
-          loading: true
+          loading: true/* jdngjkdfngkjfdn */
         };
     case FETCH_PRODUCTS_SUCCESS:
           return {

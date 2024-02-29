@@ -18,7 +18,7 @@ const Register = () => {
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
-      return;
+      return;/* pasu */
     }
     setSnackbarOpen(false);
   };

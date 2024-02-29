@@ -17,7 +17,7 @@
   
   .form::-webkit-scrollbar {
     width: 5px; 
-  }
+  }/* paSubir */
   
   .form::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3); 
