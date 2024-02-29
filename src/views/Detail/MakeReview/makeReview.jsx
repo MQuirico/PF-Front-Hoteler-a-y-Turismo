@@ -39,12 +39,12 @@ export default function MakeReview(){
     const endDate = []
 
     if (reservations){
-    reservations.map (reserv => endDate.push(reserv.endDate))
+    reservations?.map (reserv => endDate.push(reserv.endDate))
     console.log("validacion endDate==>", endDate)
     }
 
     console.log("fecha de hoy===>", todayDate)
-    if (endDate.length > 0){
+    if (endDate?.length > 0){
     const checkEndDate = moment(endDate[0], "YYYY-MM-DD")
     setDateRevValid(checkEndDate.isBefore(todayDate))
     console.log("es anterior? ==>", checkEndDate.isBefore(todayDate))
@@ -52,7 +52,7 @@ export default function MakeReview(){
     }
 
     const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
-    if (reviewsCurrentUser.length > 0){
+    if (reviewsCurrentUser?.length > 0){
         setHasPostedValid(true)
     }
     }, [reservations, reviews]);
@@ -90,7 +90,7 @@ export default function MakeReview(){
           estValue(0)
           if(response.data){dispatch(fetchReviews(id))
             const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
-            if (reviewsCurrentUser.length > 0){
+            if (reviewsCurrentUser?.length > 0){
                 setHasPostedValid(true)
             }
         }
