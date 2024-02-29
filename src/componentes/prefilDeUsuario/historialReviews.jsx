@@ -99,7 +99,7 @@ console.log(favorites?.productId.length ,fav.length)
   marginLeft: "3vh",
   fontWeight: "bold"
    }}>
-   No has marcado ningún <br></br> hospedaje como favorito aún.<br></br> <Link to="/search">Descubre un hospedaje de tu interés</Link>
+   No has marcado ningún <br></br> hospedaje como favorito aún.<br></br> <Link to="/home">Descubre un hospedaje de tu interés</Link>
    </p>
   </div> 
    } 
@@ -109,20 +109,13 @@ console.log(favorites?.productId.length ,fav.length)
    
     <Card key={index} sx={{ maxWidth: 1000}}>
       <CardActionArea key={index}>
-        <CardMedia
-          key={index}
-          component="img"
-          height="140"
-          image={element?.images ? element?.images[0] : ""}
-         
-        />
         <CardContent>
         <Link to={`/detail/${element?.id}`}>
           <Typography  gutterBottom variant="h5" component="div">
-            {element?.name}
+            {element?.name.toUpperCase()}
           </Typography>
         </Link>
-          <Typography  variant="body2" color="text.secondary">
+          <Typography  variant="body4" style={{ fontSize: '20px' }} color="text.secondary">
             {element.location}
             <br></br>
             Temporadas: {element?.season.join(", ")}
@@ -134,6 +127,7 @@ console.log(favorites?.productId.length ,fav.length)
           style={{
             maxHeight: "5vh",
             maxWidth: "3vh",
+            marginTop: "7vh",
             marginLeft: "25vh",
             cursor: "pointer"
           }}
