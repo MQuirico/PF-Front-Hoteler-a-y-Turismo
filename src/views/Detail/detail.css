@@ -3,7 +3,6 @@
 
 
 .contasdds {
-  background-image: url("https://en.idei.club/uploads/posts/2023-06/thumbs/1687339939_en-idei-club-p-white-abstract-design-dizain-pinterest-61.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,7 +13,7 @@
   margin-left: 0vh;
   
 }
-
+/* kfjnjkdnjgkfd */
 .detailContainersdsd {
 
   height: 90vh;
@@ -37,7 +36,7 @@
 .detailContainersdsd img {
   margin-left: -750px;
   position: absolute;
-  margin-top: 130px;
+  margin-top: 100px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   margin-bottom: 2000px;
 }
@@ -52,14 +51,13 @@
 
 
 
-.detailContainersdsd img.favoriteicon {
+.detailContainersdsd img.favorite-icon {
   max-height: 6vh;
   max-width: 6vh;
   margin-top: 50px;
   margin-left: 98vh;
   position: absolute;
   cursor: pointer;
-  
 }
 
 .list {
@@ -76,29 +74,19 @@
 
 .caracteristicas {
 
- 
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 700px;
   margin-left: -750px;
   position: absolute;
-  margin-top: 600px;
+  margin-top: 620px;
   height: 250px;
 }
 
 
 .ressserv {
   position: absolute;
-  margin-top: -80px;
-  margin-left: 215px;
-}
-
-.arrowcontainer {
-  position: absolute;
-  margin-top: 150px;
-  margin-left: -430px;
- 
-}
-
-.dotscontaineresds{
-  position: absolute;
-  margin-top: 560px;
-  margin-left: -710px;
+  margin-top: -150px;
+  margin-left: 115px;
 }

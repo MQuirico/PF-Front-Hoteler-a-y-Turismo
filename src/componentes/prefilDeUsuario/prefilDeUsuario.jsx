@@ -10,7 +10,7 @@ import styles from './perfilDeUsuario.module.css';
 import { TextField, Button, Typography, Box, Alert } from "@mui/material";
 
 
-const UserProfileForm = ({ updateUserData }) => {
+const UserProfileForm = ({ updateUserData , props }) => {
   const { auth, setAuth } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     id: '',
@@ -21,6 +21,10 @@ const UserProfileForm = ({ updateUserData }) => {
     profilePicture: null,
     paymentMethods:"",
   });
+
+ const {refreshInfo} = props
+ 
+
 
   const [editMode, setEditMode] = useState({
     name: false,
@@ -105,23 +109,25 @@ const UserProfileForm = ({ updateUserData }) => {
     history.push('/home');
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = (event) => {
+    event.preventDefault()
     const userId = formData.id;
-    dispatch(updateUserProfileData(userId, formData));
-
-    const confirmationMessage = "Cambios realizados con éxito. ¿Deseas salir de tu sesión?";
-    const shouldLogOut = window.confirm(confirmationMessage);
-
-    if (shouldLogOut) {
-      logOut();
-    }
-
-    setEditMode({
-      name: false,
-      phone: false,
-      address: false,
-      country: false,
-    });
+  
+    dispatch(updateUserProfileData(userId, formData))
+      .then(() => {
+        refreshInfo(auth.token.id);
+  
+        setEditMode({
+          name: false,
+          phone: false,
+          address: false,
+          country: false,
+        });
+      })
+      .catch((error) => {
+        // Manejo de errores si la actualización del perfil falla
+        console.error('Error al actualizar el perfil:', error);
+      });//paSubir
   };
 
   const handleChange = (e) => {

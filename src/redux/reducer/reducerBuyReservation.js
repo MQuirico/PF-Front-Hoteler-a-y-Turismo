@@ -9,7 +9,7 @@ const initialState = {
     reservData:{
         reservation:{},
         loading: null,
-        error: null
+        error: null/* djnfkjdnkd */
     }
 }
 

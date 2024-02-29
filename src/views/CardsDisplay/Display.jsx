@@ -28,7 +28,7 @@ function Home() {
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm.trim());
     setCurrentPage(1);
-    if (searchTerm.trim() !== "") {
+    if (searchTerm.trim() !== "") {/* dknfjkdn */
       dispatch(searchProducts(searchTerm.trim()))
         .then((response) => {
           if (response.status === 400) {

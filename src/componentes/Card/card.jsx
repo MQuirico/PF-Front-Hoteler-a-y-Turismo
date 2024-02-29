@@ -30,13 +30,13 @@ const CustomCard = ({ id, name, location, season, pricePerNight, images, highlig
       <div elevation={3} style={{ width: cardWidth, height: cardHeight }}>
         <Box position="relative">
           <CardActionArea component={Link} to={`/detail/${id}`} className={highlight ? "highlight" : ""}>
-            <CardMedia
+           {images?.length > 0 && <CardMedia
               component="img"
               width="200px"
               height="350px"
               image={images[currentImageIndex]}
               alt={name}
-            />
+            />}
           </CardActionArea>
           {hovered && (
             <Box position="absolute" top="50%" left={0} transform="translateY(-50%)">
@@ -70,11 +70,11 @@ const CustomCard = ({ id, name, location, season, pricePerNight, images, highlig
         </CardContent>
       </div>
       <div className="dots-container">
-        {images.map((img, index) => (
+        {images?.map((img, index) => (
           <div key={index} className={`dot ${index === currentImageIndex ? "active" : ""}`} />
         ))}
       </div>
-    </div>
+    </div>//paSubir
   );
 };
 

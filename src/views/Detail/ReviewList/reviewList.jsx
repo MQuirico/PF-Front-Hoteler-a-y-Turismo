@@ -12,31 +12,29 @@ export default function AlignItemsList() {
   const url = window.location.href;
   const id = parseInt(url.substring(url.lastIndexOf('/') + 1));
   const reviews = useSelector((state)=> state.stateA.reviews.data)
+  const [currentDate, setCurrentDate] = React.useState(new Date)
   const dispatch = useDispatch()
   console.log(id)
-  
+  console.log(typeof currentDate, currentDate)
 
 console.log(reviews)
 
-  if(reviews)
+  if(reviews)/* jdnjkfdgdf */
   return (
     <>
-      <h5 style={{
-        marginLeft: '220px',
-        marginTop: "620px",
-        position: "absolute",
-        fontSize: "22px",
-        borderBottom: "1px solid black",
-        padding: "5px"
-      }}>Algunas reseñas de experiencias:</h5>
+    <h5 style={{
+        marginLeft: '100px',
+        marginTop: "600px",
+        position: "absolute"
+    }}>Reseñas:</h5>
       <List sx={{ 
         color: "black",
-        width: '650px',
-        height: "330px",
-        marginLeft: '150px', 
+        width: '700px',
+        height: "430px",
+        marginLeft: '50px', 
         bgcolor: 'background.paper', 
         overflowY: "auto",
-        marginTop: "670px",
+        marginTop: "640px",
         borderRadius: "3%",
         position: "absolute",
         backgroundColor: "transparent",
@@ -52,52 +50,39 @@ console.log(reviews)
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
       }}>
-        {Object.keys(reviews).map((key) => {
-          const review = reviews[key];
-          return (
-            <React.Fragment key={key}>
-              <ListItem sx={{ height: '10vh', color: "black" }} alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar src={review.profileImage} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
-                    <Typography
-                      sx={{ color: '#007bff' }} // Cambia el color del nombre de la reseña
-                      variant="subtitle1"
-                      component="span"
-                    >
-                      {review.name}
-                    </Typography>
-                  }
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: 'inline', color: 'green' }} // Cambia el color del texto de la calificación
-                        component="span"
-                        variant="body2"
-                      >
-                        {review.rating}/5
-                      </Typography>
-                      <Typography
-                        sx={{ display: 'inline', color: 'black' }} // Cambia el color del texto de la reseña publicada
-                        component="span"
-                        variant="body2"
-                      >
-                        {` — ${review.content}`}
-                      </Typography>
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-            </React.Fragment>
-          );
-        })}
-  
-      </List>
+    {Object.keys(reviews).map((key) => {
+    const review = reviews[key];
+    return (
+      <React.Fragment key={key}>
+        <ListItem sx={{ height: '10vh' }} alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar  src={review.profileImage}/>
+          </ListItemAvatar>
+          <ListItemText
+            primary={review.name}
+            secondary={
+              <React.Fragment>
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="black"
+                >
+                  {review.rating}/5
+                </Typography>
+                {` — ${review.content}`}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        <Divider variant="inset" component="li" />
+      </React.Fragment>
+    );
+  })}
+      
+    </List>
     </>
-  );
+  ); 
   if (reviews == {}) {
     return (
       <List sx={{ width: '65%', marginLeft: '35vh', height: '40%' ,bgcolor: 'background.paper' }}>
