@@ -151,8 +151,58 @@ function Filter({ applyFilters }) {
           }}
         >
           <MenuItem value="">Localidad</MenuItem>
-          {/* Añade las opciones de localidad aquí */}
+           
+          <MenuItem value="El Bolsón, Provincia de Río Negro">El Bolsón, Provincia de Río Negro</MenuItem>
+          <MenuItem value="Villa Pehuenia, Provincia de Neuquén">Villa Pehuenia, Provincia de Neuquén</MenuItem>
+          <MenuItem value='Purmamarca, Provincia de Jujuy'>Purmamarca, Provincia de Jujuy</MenuItem>
+          <MenuItem value='Villa Traful, Provincia de Neuquén'>Villa Traful, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Las Grutas, Provincia de Río Negro">Las Grutas, Provincia de Río Negro</MenuItem>
+          <MenuItem value="San Javier, Provincia de Tucumán">San Javier, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Los Reartes, Provincia de Córdoba">Los Reartes, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Caviahue, Provincia de Neuquén">Caviahue, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Tafí del Valle, Provincia de Tucumán">Tafí del Valle, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Villa Meliquina, Provincia de Neuquén">Villa Meliquina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="San Marcos Sierras, Provincia de Córdoba">San Marcos Sierras, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Cuesta Blanca, Provincia de Córdoba">Cuesta Blanca, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Soberbio, Provincia de Misiones">El Soberbio, Provincia de Misiones</MenuItem>
+          <MenuItem value="Villa General Roca, Provincia de Córdoba">Villa General Roca, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Colonia Suiza, Provincia de Río Negro">Colonia Suiza, Provincia de Río Negro</MenuItem>
+          <MenuItem value="San Antonio de los Cobres, Provincia de Salta">San Antonio de los Cobres, Provincia de Salta</MenuItem>
+          <MenuItem value="Tilcara, Provincia de Jujuy">Tilcara, Provincia de Jujuy</MenuItem>
+          <MenuItem value="El Condor, Provincia de Río Negro">El Condor, Provincia de Río Negro</MenuItem>
+          <MenuItem value="Villa Yacanto, Provincia de Córdoba">Villa Yacanto, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Cholila, Provincia de Chubut">Cholila, Provincia de Chubut</MenuItem>
+          <MenuItem value="Villa La Angostura, Provincia de Neuquén">Villa La Angostura, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Santa Ana, Provincia de Misiones">Santa Ana, Provincia de Misiones</MenuItem>
+          <MenuItem value="Las Rabonas, Provincia de Córdoba">Las Rabonas, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Yavi, Provincia de Jujuy">Yavi, Provincia de Jujuy</MenuItem>
+          <MenuItem value="Villa Ciudad Parque Los Reartes, Provincia de Córdoba">Villa Ciudad Parque Los Reartes, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Cura Brochero, Provincia de Córdoba">Villa Cura Brochero, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Berna, Provincia de Córdoba">Villa Berna, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Los Molles, Provincia de San Luis">Los Molles, Provincia de San Luis</MenuItem>
+          <MenuItem value="Los Alerces, Provincia de Chubut">Los Alerces, Provincia de Chubut</MenuItem>
+          <MenuItem value="Nono, Provincia de Córdoba">Nono, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Lago Puelo, Provincia de Chubut">Lago Puelo, Provincia de Chubut</MenuItem>
+          <MenuItem value="La Cumbrecita, Provincia de Córdoba">La Cumbrecita, Provincia de Córdoba</MenuItem>
+          <MenuItem value="San Pedro de Colalao, Provincia de Tucumán">San Pedro de Colalao, Provincia de Tucumán</MenuItem>
+          <MenuItem value="Villa Lago Meliquina, Provincia de Neuquén">Villa Lago Meliquina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Los Hornillos, Provincia de Córdoba">Los Hornillos, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa Quila Quina, Provincia de Neuquén">Villa Quila Quina, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Capilla del Monte, Provincia de Córdoba">Capilla del Monte, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Chocón, Provincia de Neuquén">El Chocón, Provincia de Neuquén</MenuItem>
+          <MenuItem value="Maimará, Provincia de Jujuy">Maimará, Provincia de Jujuy</MenuItem>
+          <MenuItem value="Miramar, Provincia de Córdoba">Miramar, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Mollar, Provincia de Tucumán">El Mollar, Provincia de Tucumán</MenuItem>
+          <MenuItem value="El Hoyo, Provincia de Chubut">El Hoyo, Provincia de Chubut</MenuItem>
+          <MenuItem value="Yacanto de Calamuchita, Provincia de Córdoba">Yacanto de Calamuchita, Provincia de Córdoba</MenuItem>
+          <MenuItem value="San Roque, Provincia de Córdoba">San Roque, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Villa de Las Rosas, Provincia de Córdoba">Villa de Las Rosas, Provincia de Córdoba</MenuItem>
+          <MenuItem value="El Maitén, Provincia de Chubut">El Maitén, Provincia de Chubut</MenuItem>
+          <MenuItem value="San José de la Dormida, Provincia de Córdoba">San José de la Dormida, Provincia de Córdoba</MenuItem>
+          <MenuItem value="Merlo, Provincia de San Luis">Merlo, Provincia de San Luis</MenuItem>
+          <MenuItem value="Potrerillos, Provincia de Mendoza">Potrerillos, Provincia de Mendoza</MenuItem>
         </TextField>
+       
 
         <TextField
           select
