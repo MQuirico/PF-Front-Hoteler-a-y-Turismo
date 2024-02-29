@@ -1,7 +1,7 @@
 import React from "react";
 import CustomCard from "../Card/card"; // Cambiado de Card a CustomCard
 import { Grid, Typography } from "@mui/material";
-import "./Cards.css"; // Importa el archivo CSS donde definiste la clase
+import "./cards.css"; // Importa el archivo CSS donde definiste la clase
 
 const Cards = ({ products }) => {
   const gridSpacing = window.innerWidth < 4 ? 10 : 15;
