@@ -524,7 +524,7 @@ console.log(products)
     
     
     const toSend ={
-      userId: auth.token.id,  //recordar manejar usuarios de Google
+      userId: auth?.token?.id,  //recordar manejar usuarios de Google
       productId: id
     }
     console.log(toSend)
