@@ -70,7 +70,7 @@ const DashboardUsuario = () => {
 
   const refreshInfo = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:3003/users/user/${userId}`);
+      const response = await axios.get(`https://back-hostel.onrender.com/users/user/${userId}`);
       if (response.data) {
         
         const authData = {

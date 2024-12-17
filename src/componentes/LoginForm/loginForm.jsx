@@ -31,7 +31,7 @@ export default function Login() {
         console.log("se esta haciendo el login", authData)
         setAuth(authData);
         localStorage.setItem('auth', JSON.stringify(authData)); 
-        history.push("/home");
+        history.push("/");
       } else {
         setErrorState('Error: The response is not valid');
       }

@@ -28,7 +28,7 @@ const Reservas = () => {
         }
       });//paSubir
   }, [auth.token.id, dispatch]);
-
+  console.log("ESTO HIJO DE PUTA ===>", reservations)
   const reserID = reservations?.map((res) => res.productId);
 
   let prodRes = products.filter((p) => reserID?.includes(p.id));
@@ -53,7 +53,7 @@ const Reservas = () => {
 
  const rows = ["Hospedaje", "Distrito", "Fecha Ingreso", "Fecha Salida", "Huéspedes"];
 
-  if (reservations) {
+  
     return (
       <div id="container" style={{
         overflowX: "hidden",
@@ -80,7 +80,7 @@ const Reservas = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {objetosFiltrados.map((reserva, index) => (
+              {reservations && objetosFiltrados.map((reserva, index) => (
                 <TableRow key={index}>
                   <TableCell>{reserva.name}</TableCell>
                   <TableCell>{reserva.location}</TableCell>
@@ -94,9 +94,7 @@ const Reservas = () => {
         </TableContainer>
       </div>
     );
-  } else {
-    return <div>No hay reservas disponibles.</div>;
-  }
+  
 };
 
 export default Reservas;

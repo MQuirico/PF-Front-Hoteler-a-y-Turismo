@@ -9,6 +9,7 @@ import axios from 'axios'
 import {useForm} from 'react-hook-form'
 import moment from 'moment'
 import MP from "../../assets/MP.jpg"
+import x from "../../assets/cruz-roja-thumbnail.png"
 
 
 const ReservationForm = (props) => {
@@ -117,6 +118,13 @@ const ReservationForm = (props) => {
      /* kdfk */
     console.log(MPpref)
 
+    const xClick = () =>{
+        setMPpref(null)
+        setStartDate(new Date())
+        setEndDate(null)
+        reset()
+    }
+
     return (
         <div className="reservation-container">
             <h2 className='titulo'>Reserva tu estadía en "{products?.name.toUpperCase()}"</h2>
@@ -158,17 +166,8 @@ const ReservationForm = (props) => {
   selectsStart // Actualiza la prop para indicar que este es el selector de fecha de inicio
   startDatePlaceholderText="Fecha de inicio"
   endDatePlaceholderText="Fecha de fin"
-  minDate={new Date()}
-  excludeDates={disabledRanges?.flatMap(range => {
-    const dates = [];
-    const currentDate = moment(range.startDate);
-    const end = moment(range.endDate);
-    while (currentDate <= end) {
-      dates.push(currentDate.toDate());
-      currentDate.add(1, 'days');
-    }
-    return dates;
-  })}
+  
+  
   disabled={!isEnabled}
   dateFormat="yyyy-MM-dd" // Actualiza el formato de fecha
 />
@@ -184,17 +183,7 @@ const ReservationForm = (props) => {
   selectsEnd // Actualiza la prop para indicar que este es el selector de fecha de fin
   startDatePlaceholderText="Fecha de inicio"
   endDatePlaceholderText="Fecha de fin"
-  minDate={startDate} // Asegura que la fecha de fin no pueda ser anterior a la fecha de inicio
-  excludeDates={disabledRanges?.flatMap(range => {
-    const dates = [];
-    const currentDate = moment(range.startDate);
-    const end = moment(range.endDate);
-    while (currentDate <= end) {
-      dates.push(currentDate.toDate());
-      currentDate.add(1, 'days');
-    }
-    return dates;
-  })}
+  
   disabled={!isEnabled}
   dateFormat="yyyy-MM-dd" // Actualiza el formato de fecha
 />
@@ -212,6 +201,7 @@ const ReservationForm = (props) => {
                         }
                         } />
            </a>
+           
            }          
         </div>
     );
