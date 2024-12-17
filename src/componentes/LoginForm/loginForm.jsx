@@ -62,7 +62,7 @@ export default function Login() {
           }
           onSubmit(toLogIn)
             console.log("GoogleUser ya registrado", googlecheck.data)
-            history.push("/home");
+            history.push("/");
         } else {
             const toSend = {
                 name: response.profileObj.givenName,

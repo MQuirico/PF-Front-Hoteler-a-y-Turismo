@@ -26,7 +26,7 @@ export default function MakeReview(){
     
     React.useEffect(()=>{
         if (auth){
-        dispatch(retrieveReservations(id, auth.token.id, "success"))}
+        dispatch(retrieveReservations(id, auth?.token?.id, "success"))}
     }, [id, auth?.token?.id]) 
 
     console.log("reservas==>",reservations)
@@ -39,12 +39,12 @@ export default function MakeReview(){
     const endDate = []
 
     if (reservations){
-    reservations.map (reserv => endDate.push(reserv.endDate))
+    reservations?.map (reserv => endDate.push(reserv.endDate))
     console.log("validacion endDate==>", endDate)
     }
 
     console.log("fecha de hoy===>", todayDate)
-    if (endDate.length > 0){
+    if (endDate?.length > 0){
     const checkEndDate = moment(endDate[0], "YYYY-MM-DD")
     setDateRevValid(checkEndDate.isBefore(todayDate))
     console.log("es anterior? ==>", checkEndDate.isBefore(todayDate))
@@ -52,7 +52,7 @@ export default function MakeReview(){
     }
 
     const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
-    if (reviewsCurrentUser.length > 0){
+    if (reviewsCurrentUser?.length > 0){
         setHasPostedValid(true)
     }
     }, [reservations, reviews]);
@@ -75,9 +75,9 @@ export default function MakeReview(){
         console.log(data)
         const dataToSend = {
             ...data,
-            userId: auth.token.id,
-            name: auth.token.name,
-            profileImage: auth.token.imageUrl || usAvatar
+            userId: auth?.token?.id,
+            name: auth?.token?.name,
+            profileImage: auth?.token?.imageUrl || usAvatar
         }
         console.log(dataToSend)
         axios.post(`https://back-hostel.onrender.com/reviews/products/detail/${id}`, dataToSend)
@@ -89,8 +89,8 @@ export default function MakeReview(){
           reset()
           estValue(0)
           if(response.data){dispatch(fetchReviews(id))
-            const reviewsCurrentUser = reviews.filter(review => review.userId === auth.token.id)
-            if (reviewsCurrentUser.length > 0){
+            const reviewsCurrentUser = reviews?.filter(review => review?.userId === auth?.token?.id)
+            if (reviewsCurrentUser?.length > 0){
                 setHasPostedValid(true)
             }
         }
