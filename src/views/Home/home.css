@@ -1,63 +1,40 @@
-.homeView {
-  background-color: #1a1a1a; /* Cambio de color de fondo */
-  padding-top: 50px;
-  min-height: 100vh; /* Asegura que el contenido ocupe al menos toda la altura de la pantalla */
+#home{
+  background-image: url("https://en.idei.club/uploads/posts/2023-06/thumbs/1687339939_en-idei-club-p-white-abstract-design-dizain-pinterest-61.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 126vh;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
+#home #titleHeader{
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 60%;
+  position: relative;
+  top: 8%
 }
 
-.mainContent {
-  width: 80%;
-  margin: 20px -50px auto auto; /* Aumento del margen a la derecha */
-  display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en múltiples líneas */
-  justify-content: space-between; /* Distribuye las tarjetas equitativamente */
-  margin-top: 90px;
-  position: absolute;
-}
-/* dlknkfdn */
-footer {
-  margin-top: auto; /* Fuerza al pie de página a la parte inferior */
-  padding: 20px 0;
-  color: #888;
+#home #titleHeader #title{
+  font-size: 210%;
 }
 
-
-.cardsRows {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 35px; /* Añade margen negativo para compensar el margen en las tarjetas */
-  
+#home #titleHeader #subTitle{
+  font-size: 160%;
 }
 
-
-
-
-@media (max-width: 992px) {
-  .cardcontainer {
-    flex: 0 0 calc(50% - 20px); /* Cuando el ancho de la pantalla sea menor a 992px, cambia el ancho de cada tarjeta al 50% del contenedor padre */
-  }
+#home #gridDestinations{
+  position: relative;
+  top: 10%;
+  width: 100%;
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.search {
-  margin-left: 1200px;
-  margin-top: -120px;
-  position: absolute;
-}
-
-.paginado {
-  align-items: center;
-  margin-left: auto;
-  margin-bottom: 40px;
-}
-
-
-.fileter {
-  margin-left: 50px;
-  margin-top: -100px;
-  position: absolute;
-  
+#home #gridDestinations #topLocation{
+  width: 90%;
+  height: 95%;
+  cursor: pointer
 }

@@ -2,7 +2,6 @@
 import "./App.css";
 import NavBar from "./componentes/NavBar/navBar";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Landing from "./views/Landing/landing";
 import Home from "./views/Home/home";
 import Detail from "./views/Detail/detail";
 import SearchPage from "./views/CardsDisplay/Display";
